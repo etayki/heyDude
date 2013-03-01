@@ -30,18 +30,9 @@ compile:
 
 download: clean
 
-ifeq ($(shell uname),Darwin)
-	curl http://midifile.sapp.org/download/midifile.tar.bz2 \
-		-o midifile-$(DATE).tar.bz2
-else
-	wget http://midifile.sapp.org/download/midifile.tar.bz2 \
-		-O midifile-$(DATE).tar.bz2
-endif
-	tar xvjf midifile-$(DATE).tar.bz2
 
 cleanall: clean
 	-rm -rf midifile
 clean:
-	-rm midifile-$(DATE).tar.bz2
 
 

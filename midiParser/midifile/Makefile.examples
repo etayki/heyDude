@@ -149,12 +149,6 @@ ifeq ($(wildcard $(TARGDIR)),)
 	-mkdir -p $(TARGDIR)
 endif
 
-$(TARGDIR)/henonfile:
-	-echo Skipping henonfile.cpp since it needs external functions.
-$(TARGDIR)/mid2hum:
-	-echo Skipping mid2hum.cpp since it needs external functions.
-$(TARGDIR)/peep2midi:
-	-echo Skipping peep2midi.cpp since it needs external functions.
 
 
 ###########################################################################
