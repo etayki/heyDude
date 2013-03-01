@@ -18,7 +18,23 @@
 </script>
 </head>
 <body>
-<script type="text/javascript">
+<script>
+
+//          [top rec offset, top rec width, bottom rec offset, bottom rec width]   
+var keys = [
+            [4,7,0,15],       // 0 - WHITE
+            [15,12,0,0],        // 1 - BLACK
+            [21,11,17,15],      // 2 - WHITE
+            [60,46,30,15],      // 3 - WHITE
+            [43,11,0,0],        // 4 - BLACK
+            [75,63,40,15],      // 5 - WHITE
+            [62,10,0,0],        // 6 - BLACK
+            [105,80,50,15],     // 7 - WHITE
+            [85,11,85,15],     // 8 - WHITE
+            [135,12,0,0],       // 9 - BLACK
+            [105,8,102,15],    // 10 - WHITE
+            [165,12,0,0]        // 11 - BLACK
+           ];
 
 window.onload = function () {
 	MIDI.loadPlugin({
@@ -32,11 +48,14 @@ window.onload = function () {
 			MIDI.setVolume(0, 127);
 			MIDI.noteOn(0, note, velocity, delay);                        
                         //var txt='<div id="note" style="position: absolute; top: 211px; left: 51px; background-color:red;width:9px;height:41px;border:1px solid #000"></div>';
-                        for (var i=0;i<52;i++)
+                        for (var i=0;i<11;i=i+2)
                         {             
-                            var whiteKeyOffset = 7 + 17 * i;
-                            var txt='<div id="note" style="position: absolute; top: 253px; left: '+whiteKeyOffset+'px; background-color:red;width:15px;height:31px;border:0px solid #000"></div>';
-                            $("img").after(txt);
+                            topRecOffset = 7 + keys[i][0] + 119 * 0;
+                            botRecOffset = 7 + keys[i][2] + 119 * 0;
+                            var topRec='<div id="note" style="position: absolute; top: 211px; left: '+topRecOffset+'px; background-color:red;width:'+keys[i][1]+'px;height:42px;border:0px solid #000"></div>';
+                            var botRec='<div id="note" style="position: absolute; top: 253px; left: '+botRecOffset+'px; background-color:red;width:'+keys[i][3]+'px;height:31px;border:0px solid #000"></div>';
+                            $("img").after(topRec);
+                            $("img").after(botRec);
                         }
                         var duration = 0.75
 			//MIDI.noteOff(0, note,     delay + duration);
