@@ -31,12 +31,12 @@ window.onload = function () {
 			// play the note
 			MIDI.setVolume(0, 127);
 			MIDI.noteOn(0, note, velocity, delay);                        
-                        var txt='<img id="note" src="images/BlackKey_LeftHand.png" style="position: absolute; top: 211px; left: 51px;" width="11" height="43"/>';
+                        var txt='<div id="note" style="position: absolute; top: 211px; left: 51px; background-color:red;width:9px;height:41px;border:1px solid #000"></div>';
                         $("img").after(txt);
                         var duration = 0.75
 			//MIDI.noteOff(0, note,     delay + duration);
                         setTimeout(function() {
-                            $("#note").remove();
+                            $("#noe").remove();
                             MIDI.noteOff(0, note, 0);
                         }, duration*1000);
 		}
