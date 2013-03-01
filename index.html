@@ -31,8 +31,13 @@ window.onload = function () {
 			// play the note
 			MIDI.setVolume(0, 127);
 			MIDI.noteOn(0, note, velocity, delay);                        
-                        var txt='<div id="note" style="position: absolute; top: 211px; left: 51px; background-color:red;width:9px;height:41px;border:1px solid #000"></div>';
-                        $("img").after(txt);
+                        //var txt='<div id="note" style="position: absolute; top: 211px; left: 51px; background-color:red;width:9px;height:41px;border:1px solid #000"></div>';
+                        for (var i=0;i<52;i++)
+                        {             
+                            var whiteKeyOffset = 7 + 17 * i;
+                            var txt='<div id="note" style="position: absolute; top: 253px; left: '+whiteKeyOffset+'px; background-color:red;width:15px;height:31px;border:0px solid #000"></div>';
+                            $("img").after(txt);
+                        }
                         var duration = 0.75
 			//MIDI.noteOff(0, note,     delay + duration);
                         setTimeout(function() {
@@ -45,7 +50,7 @@ window.onload = function () {
 
 </script>
 <div style="position: relative; left: 0; top: 0;">
-  <img src="images/PianoKeyboard.jpg" style="position: relative; top: 0; left: 0;" width="900" height="450"/>
+  <img src="images/PianoKeyboard.jpg" style="position: relative; top: 0; left: 0;" width="895" height="450"/>
 <!--  <img src="images/BlackKey_LeftHand.png" style="position: absolute; top: 211px; left: 51px;" width="11" height="43"/>
   <img src="images/WhiteKeyLeft_LeftHand.png" style="position: absolute; top: 210px; left: 7px;" width="17" height="74"/>
   <img src="images/WhiteKeyMiddle_LeftHand.png" style="position: absolute; top: 210px; left: 110px;" width="17" height="74"/>
