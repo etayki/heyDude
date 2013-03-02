@@ -20,7 +20,8 @@
 <body>
 <script>
 
-//          [top rec offset, top rec width, bottom rec offset, bottom rec width]   
+//          [top rec offset, top rec width, bottom rec offset, bottom rec width]
+//          There are 85 keys. The lowest note is 21 and the highest is 108.
 var keys = [
             [4,7,0,15],         // 0  - WHITE
             [11,11,0,0],        // 1  - BLACK
@@ -42,22 +43,22 @@ window.onload = function () {
 		instrument: "acoustic_grand_piano",
 		callback: function() {
 			var delay = 0; // play one note every quarter second
-			var note = 50; // the MIDI note
+			var note = 66; // the MIDI note
 			var velocity = 127; // how hard the note hits
 			// play the note
 			MIDI.setVolume(0, 127);
 			MIDI.noteOn(0, note, velocity, delay);                        
-                        //var txt='<div id="note" style="position: absolute; top: 211px; left: 51px; background-color:red;width:9px;height:41px;border:1px solid #000"></div>';
-                        for (var i=0;i<12;i++)
-                        {
-                            octave = 5;
-                            topRecOffset = 7 + keys[i][0] + 119 * octave;
-                            botRecOffset = 7 + keys[i][2] + 119 * octave;
-                            var topRec='<div id="note" style="position: absolute; top: 211px; left: '+topRecOffset+'px; background-color:red;width:'+keys[i][1]+'px;height:42px;border:0px solid #000"></div>';
-                            var botRec='<div id="note" style="position: absolute; top: 253px; left: '+botRecOffset+'px; background-color:red;width:'+keys[i][3]+'px;height:31px;border:0px solid #000"></div>';
-                            $("img").after(topRec);
-                            $("img").after(botRec);
-                        }
+                        var key = note - 21;
+                        var idxKey = key%12;
+                        var octave = Math.floor(key/12);
+                        debug("Note="+note+"<br>Key="+key+"<br>idxKey="+idxKey+"<br>octave="+octave);
+                        topRecOffset = 7 + keys[idxKey][0] + 119 * octave;
+                        botRecOffset = 7 + keys[idxKey][2] + 119 * octave;
+                        var topRec='<div id="note" style="position: absolute; top: 211px; left: '+topRecOffset+'px; background-color:red;width:'+keys[idxKey][1]+'px;height:42px;border:0px solid #000"></div>';
+                        var botRec='<div id="note" style="position: absolute; top: 253px; left: '+botRecOffset+'px; background-color:red;width:'+keys[idxKey][3]+'px;height:31px;border:0px solid #000"></div>';
+                        $("img").after(topRec);
+                        $("img").after(botRec);
+
                         var duration = 0.75
 			//MIDI.noteOff(0, note,     delay + duration);
                         setTimeout(function() {
@@ -68,6 +69,10 @@ window.onload = function () {
 	});
 };
 
+function debug(param)
+{
+    $("div").after(param);
+}
 </script>
 <div style="position: relative; left: 0; top: 0;">
   <img src="images/PianoKeyboard.jpg" style="position: relative; top: 0; left: 0;" width="895" height="450"/>
