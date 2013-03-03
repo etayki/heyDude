@@ -15,6 +15,9 @@
  <script src="./inc/base64binary.js" type="text/javascript"></script>
  <!-- jQuery -->
  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+ <!-- Music.js-->
+  <script src="./js/music.js" type="text/javascript"></script>
+
 </script>
 </head>
 <body>
@@ -43,7 +46,7 @@ window.onload = function () {
 		instrument: "acoustic_grand_piano",
 		callback: function() {
 			var delay = 0; // play one note every quarter second
-			var note = 66; // the MIDI note
+			var note = 65; // the MIDI note
 			var velocity = 127; // how hard the note hits
 			// play the note
 			MIDI.setVolume(0, 127);
@@ -54,15 +57,15 @@ window.onload = function () {
                         debug("Note="+note+"<br>Key="+key+"<br>idxKey="+idxKey+"<br>octave="+octave);
                         topRecOffset = 7 + keys[idxKey][0] + 119 * octave;
                         botRecOffset = 7 + keys[idxKey][2] + 119 * octave;
-                        var topRec='<div id="note" style="position: absolute; top: 211px; left: '+topRecOffset+'px; background-color:red;width:'+keys[idxKey][1]+'px;height:42px;border:0px solid #000"></div>';
-                        var botRec='<div id="note" style="position: absolute; top: 253px; left: '+botRecOffset+'px; background-color:red;width:'+keys[idxKey][3]+'px;height:31px;border:0px solid #000"></div>';
+                        var topRec='<div id="topRec" style="position: absolute; top: 211px; left: '+topRecOffset+'px; background-color:red;width:'+keys[idxKey][1]+'px;height:42px;border:0px solid #000"></div>';
+                        var botRec='<div id="botRec" style="position: absolute; top: 253px; left: '+botRecOffset+'px; background-color:red;width:'+keys[idxKey][3]+'px;height:31px;border:0px solid #000"></div>';
                         $("img").after(topRec);
                         $("img").after(botRec);
 
                         var duration = 0.75
-			//MIDI.noteOff(0, note,     delay + duration);
                         setTimeout(function() {
-                            $("#noe").remove();
+                            $("#topRec").remove();
+                            $("#botRec").remove();
                             MIDI.noteOff(0, note, 0);
                         }, duration*1000);
 		}
@@ -76,16 +79,7 @@ function debug(param)
 </script>
 <div style="position: relative; left: 0; top: 0;">
   <img src="images/PianoKeyboard.jpg" style="position: relative; top: 0; left: 0;" width="895" height="450"/>
-<!--  <img src="images/BlackKey_LeftHand.png" style="position: absolute; top: 211px; left: 51px;" width="11" height="43"/>
-  <img src="images/WhiteKeyLeft_LeftHand.png" style="position: absolute; top: 210px; left: 7px;" width="17" height="74"/>
-  <img src="images/WhiteKeyMiddle_LeftHand.png" style="position: absolute; top: 210px; left: 110px;" width="17" height="74"/>
-  <img src="images/WhiteKeyRight_LeftHand.png" style="position: absolute; top: 210px; left: 75px;" width="17" height="74"/>
-  
-  <img src="images/BlackKey_RightHand.png" style="position: absolute; top: 211px; left: 427px;" width="11" height="43"/>
-  <img src="images/WhiteKeyLeft_RightHand.png" style="position: absolute; top: 210px; left: 400px;" width="17" height="74"/>
-  <img src="images/WhiteKeyMiddle_RightHand.png" style="position: absolute; top: 210px; left: 468px;" width="17" height="74"/>
-  <img src="images/WhiteKeyRight_RightHand.png" style="position: absolute; top: 210px; left: 502px;" width="17" height="74"/>
--->
+
 </div>
     
 </body>
