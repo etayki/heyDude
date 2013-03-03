@@ -1,207 +1,58 @@
+//          [top rec offset, top rec width, bottom rec offset, bottom rec width]
+//          There are 85 keys. The lowest note is 21 and the highest is 108.
+var keys = [
+            [4,7,0,15],         // 0  - WHITE
+            [11,11,0,0],        // 1  - BLACK
+            [21,11,17,15],      // 2  - WHITE
+            [34,10,34,15],      // 3  - WHITE
+            [43,11,0,0],        // 4  - BLACK
+            [54,9,51,15],      	// 5  - WHITE
+            [62,11,0,0],        // 6  - BLACK
+            [72,11,68,15],     	// 7  - WHITE
+            [85,11,85,15],      // 8  - WHITE
+            [95,10,0,0],       	// 9  - BLACK
+            [105,8,102,15],     // 10 - WHITE
+            [113,10,0,0]        // 11 - BLACK
+           ];
 
-/*
- * Make a MM plug-in
- * 
- */
+window.onload = function () {
+	MIDI.loadPlugin({
+		soundfontUrl: "./soundfont/",
+		instrument: "acoustic_grand_piano",
+		callback: function() {
+			var delay = 0; // play one note every quarter second
+			var note = 65; // the MIDI note
+			var velocity = 127; // how hard the note hits
+			// play the note
+			MIDI.setVolume(0, 127);
+			MIDI.noteOn(0, note, velocity, delay);                        
+                        var key = note - 21;
+                        var idxKey = key%12;
+                        var octave = Math.floor(key/12);
+                        debug("Note="+note+"<br>Key="+key+"<br>idxKey="+idxKey+"<br>octave="+octave);
+                        topRecOffset = 7 + keys[idxKey][0] + 119 * octave;
+                        botRecOffset = 7 + keys[idxKey][2] + 119 * octave;
+                        var topRec='<div id="topRec" style="position: absolute; top: 211px; left: '+topRecOffset+'px; background-color:red;width:'+keys[idxKey][1]+'px;height:42px;border:0px solid #000"></div>';
+                        var botRec='<div id="botRec" style="position: absolute; top: 253px; left: '+botRecOffset+'px; background-color:red;width:'+keys[idxKey][3]+'px;height:31px;border:0px solid #000"></div>';
+                        $("img").after(topRec);
+                        $("img").after(botRec);
 
-var MM = {
-	custList:	[],
-	currIndex: 	-1,
-	checkInt:	false,
-	current:	false,
-	currentMObj:	false,
-	
-	config: {
-		duration: 8.3
-	},
-	
-	settings: {
-		numberOfMeasures: 20,
-		playDom:	'myMusic',
-		hiddenDom:	'hiddenDom',
-		playButtonDomId:	'playCust',
-		stopButtonDomId:	'pauseCust',
-		checkboxControl: 'm_checkbox_control',
-		checkboxListId:	'm_checkbox',
-		checkListPrefix:	'm_',
-		playClassId:	'PlayClass',
-		videoPrefix	: '',
-		domPrefix:	'MM_',
-	},
-	
-	init: function() {
-		if ( $('#'+MM.settings.hiddenDom).html() == undefined) {
-			$('body').append("<div id='"+MM.settings.hiddenDom+"' class='Hidden'></div>");
+                        var duration = 0.75
+                        setTimeout(function() {
+                            $("#topRec").remove();
+                            $("#botRec").remove();
+                            MIDI.noteOff(0, note, 0);
+                        }, duration*1000);
 		}
-		MM.setInitImage();
-		MM.setCheckboxControl();
-	},
-	
-	setInitImage: function(){
-		$('#'+MM.settings.playDom).append('<div id="initImage"></div>');
-	},
-	
-	setLoadingImage: function(){
-		$('#'+MM.settings.playDom).append('<div id="loadingImage"></div>');
-	},
-	
-	setCheckboxControl: function() {
-		if (MM.settings.checkboxControl != '') {
-			var checkBoxControl = $('#'+MM.settings.checkboxControl);
-			var html 	= "<ul id='"+MM.settings.checkboxListId+ "'>";
-			for (var i=1; i<=MM.settings.numberOfMeasures; i++) {
-				html += '<li><input type="checkbox" id="m_' + i+ '" class="MM_PlayClass">M'+i+'</li>';
-			}
-			html += '</ul>';
-			checkBoxControl.html(html);
-		}
-	},
-	
-	playFromSlider: function(start, end){
-		MM.currIndex = -1;
-		if (MM.checkInt != false) {
-			clearInterval(MM.checkInt);
-		}
-		MM.setCustList(start, end);
-		MM.playCustList();
-		MM.checkInt = setInterval( MM.checkEnded, 60);
-	},
-	
-	playCust:	function () {
-		MM.currIndex = -1;
-		if (MM.checkInt != false) {
-			clearInterval(MM.checkInt);
-		}
-		MM.setCustList();
-		MM.playCustList();
-		MM.checkInt = setInterval( MM.checkEnded, 60);
-	},
-	
-	checkEnded:	function () {
-		if (MM.current != false) {
-			
-			if (MM.currentMObj.ended) {
-				MM.playNext();
-			}
-		}				
-	},
-	
-	setCustList: function(start, end) {
-		// clean up dom
-		if (MM.current != false) {
-			//var cDom = document.getElementById(MM.current.domId);
-			//cDom.pause();
-			MM.currentMObj.pause();
-			// remove from parent
-			$('#'+MM.current.domId).remove();
-		}
-		$('#'+MM.settings.playDom).empty();
-		
-		MM.current = false;
-		// clean up hidden
-		$('#'+MM.settings.hiddenDom).empty();
-		MM.custList = [];
-		
-		// clean up title
-		$('#title').html('Loading...');
-		
-		if (start == undefined && end == undefined) {
-			var hiddenDom = document.getElementById(MM.settings.hiddenDom);
-			for (var i=1; i<=MM.settings.numberOfMeasures; i++) {
-				if ( document.getElementById(MM.settings.checkListPrefix+i).checked) {
-					MM.setCustObj(hiddenDom, i);
-				}
-			} 
-		} else if (start != undefined && end != undefined) {
-			var startIndex = parseInt(start, 10);
-			var endIndex = parseInt(end, 10);
-			var hiddenDom = document.getElementById(MM.settings.hiddenDom);
-			
-			for (var i=startIndex; i<= endIndex; i++) {
-				MM.setCustObj(hiddenDom, i);
-			}
-			
-		}
-	},	
-	
-	setCustObj: function(hiddenDom, i) {
-		var temp = {pid:i, domId: MM.settings.domPrefix+i, length:8.3, start:(i-1)*8.3, end:(i-1)*8.3+8.3};
-		MM.custList.push(temp);
-		// now create the object ,in hiddenDOm, and then stop playing it.
-		var hiddenDom = document.getElementById(MM.settings.hiddenDom);
-		var musicObj = document.createElement('video');
-		musicObj.id = temp.domId;
-		musicObj.src = '/video/'+ MM.settings.videoPrefix + temp.pid + ".mp4";
-		musicObj.height = '500';
-		musicObj.preload = "auto";
-		//musicObj.controls = 'controls';
-		musicObj.pause();
-		hiddenDom.appendChild(musicObj);
-	},
-	
-	playCustList: function() {
-		if (MM.custList.length > 0) {
-			MM.setLoadingImage();
-			
-			setTimeout(MM.playNext, 500);
-		} else {
-			MM.setInitImage();
-			$('#title').html("Please select from below");
-		}
-	},
-	
-	playNext: function() {
-		if (MM.currIndex == -1) {	
-			MM.currIndex = 0;
-		} else {
-			MM.currIndex++;
-			
-		if (MM.currIndex >= MM.custList.length){
-				MM.currIndex = 0;
-			}
-		}
-		
-		
-		// see if current
-		if (MM.current != false) {
-			var hiddenDom = document.getElementById(MM.settings.hiddenDom);
-			var currentDom = document.getElementById(MM.current.domId);
-			hiddenDom.appendChild(currentDom);
-		}
-		$('#'+MM.settings.playDom).empty();
-		
-		// now set the new current
-		MM.current = MM.custList[MM.currIndex];
-		var playDom = document.getElementById(MM.settings.playDom);
-		var currentDom = document.getElementById(MM.current.domId);
-		playDom.appendChild(currentDom);
-		currentDom.play();
-		MM.currentMObj = currentDom;
+	});
+};
 
-		$('#title').html("Playing measure "+MM.current.pid);
-		
-	},
-	
-	pause: function() {
-		if (MM.current != false) {
-			MM.currentMObj.pause();
-		}
-	},
-	resume: function() {
-		if (MM.current != false) {
-			MM.currentMObj.play();
-		}
-	}
-	
+function debug(param)
+{
+    $("div").after(param);
 }
 
 $(document).ready(function() {
-	
-	//myMusic.oncanplay = musicInit();
-	MM.init();
-	$('.MM_PlayClass').click(MM.playCust);
-	$('#'+MM.settings.playButtonDomId).click(MM.resume);
-	$('#'+MM.settings.stopButtonDomId).click(MM.pause);
-	
+		
 	
 });
