@@ -15,7 +15,7 @@ var keys = [
             [113,10,0,0]        // 11 - BLACK
            ];
 
-tempo = 2000;
+tempo = 1750;
 
 $(document).ready(function() {
 	/* Load the MIDI Player*/
@@ -38,8 +38,8 @@ function debug(param)
     $("div").after(param);
 }
 
-//function playNote(note, velocity, delay, duration)
-function playNote(delay, duration, note, velocity)
+function playNote(note, velocity, delay, duration)
+//function playNote(delay, duration, note, velocity)
 {
 	var key = note - 21;
 	var idxKey = key % 12;
