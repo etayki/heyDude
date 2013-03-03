@@ -24,9 +24,19 @@ $(document).ready(function() {
 		instrument: "acoustic_grand_piano",
 		callback: function() {
 			// MIDI Player has loaded, so now allow user interaction
+			measure = 8;
 			for (var i=0;tune.length;i++)
 			{
-				playNote(tune[i][0],tune[i][1],tune[i][2],tune[i][3]);
+				if (tune[i][2] < 4* (measure - 1))
+				{
+					continue;
+				}
+				else if (tune[i][2] >= 4 * measure)
+				{
+					break;
+				}
+		
+				playNote(tune[i][0],tune[i][1],tune[i][2] - (measure - 1) * 4,tune[i][3]);
 			}
 		}
 	});	
