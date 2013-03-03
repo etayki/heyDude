@@ -15,11 +15,41 @@ var keys = [
             [113,10,0,0]        // 11 - BLACK
            ];
 
-window.onload = function () {
-	MIDI.loadPlugin({
-		soundfontUrl: "./soundfont/",
-		instrument: "acoustic_grand_piano",
-		callback: function() {
+//window.onload = function () {
+//
+//			var delay = 0; // play one note every quarter second
+//			var note = 65; // the MIDI note
+//			var velocity = 127; // how hard the note hits
+//			// play the note
+//			MIDI.setVolume(0, 127);
+//			MIDI.noteOn(0, note, velocity, delay);                        
+//                        var key = note - 21;
+//                        var idxKey = key%12;
+//                        var octave = Math.floor(key/12);
+//                        debug("Note="+note+"<br>Key="+key+"<br>idxKey="+idxKey+"<br>octave="+octave);
+//                        topRecOffset = 7 + keys[idxKey][0] + 119 * octave;
+//                        botRecOffset = 7 + keys[idxKey][2] + 119 * octave;
+//                        var topRec='<div id="topRec" style="position: absolute; top: 211px; left: '+topRecOffset+'px; background-color:red;width:'+keys[idxKey][1]+'px;height:42px;border:0px solid #000"></div>';
+//                        var botRec='<div id="botRec" style="position: absolute; top: 253px; left: '+botRecOffset+'px; background-color:red;width:'+keys[idxKey][3]+'px;height:31px;border:0px solid #000"></div>';
+//                        $("img").after(topRec);
+//                        $("img").after(botRec);
+//
+//                        var duration = 0.75
+//                        setTimeout(function() {
+//                            $("#topRec").remove();
+//                            $("#botRec").remove();
+//                            MIDI.noteOff(0, note, 0);
+//                        }, duration*1000);
+//
+//};
+
+function debug(param)
+{
+    $("div").after(param);
+}
+
+function play(param)
+{
 			var delay = 0; // play one note every quarter second
 			var note = 65; // the MIDI note
 			var velocity = 127; // how hard the note hits
@@ -43,16 +73,16 @@ window.onload = function () {
                             $("#botRec").remove();
                             MIDI.noteOff(0, note, 0);
                         }, duration*1000);
-		}
-	});
-};
-
-function debug(param)
-{
-    $("div").after(param);
 }
 
 $(document).ready(function() {
-		
+	/* Load the MIDI Player*/
+	MIDI.loadPlugin({
+		soundfontUrl: "./soundfont/",
+		instrument: "acoustic_grand_piano",
+		callback: function() {
+			// MIDI Player has loaded, so now allow user interaction
+		}
+	});	
 	
 });
