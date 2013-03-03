@@ -15,6 +15,8 @@ var keys = [
             [113,10,0,0]        // 11 - BLACK
            ];
 
+tempo = 2000;
+
 $(document).ready(function() {
 	/* Load the MIDI Player*/
 	MIDI.loadPlugin({
@@ -22,8 +24,10 @@ $(document).ready(function() {
 		instrument: "acoustic_grand_piano",
 		callback: function() {
 			// MIDI Player has loaded, so now allow user interaction
-			playNote(65, 127, 1, 1)
-			playNote(70, 127, 0.5, 0.5)			
+			for (var i=0;tune.length;i++)
+			{
+				playNote(tune[i][0],tune[i][1],tune[i][2],tune[i][3]);
+			}
 		}
 	});	
 	
@@ -34,7 +38,8 @@ function debug(param)
     $("div").after(param);
 }
 
-function playNote(note, velocity, delay, duration)
+//function playNote(note, velocity, delay, duration)
+function playNote(delay, duration, note, velocity)
 {
 	var key = note - 21;
 	var idxKey = key % 12;
@@ -51,12 +56,12 @@ function playNote(note, velocity, delay, duration)
 		MIDI.noteOn(0, note, velocity, 0);                        
 		$("img").after(topRec);
 		$("img").after(botRec);
-	}, (delay)*1000);
+	}, (delay)*tempo);
 	
 	// Turn note off
 	setTimeout(function() {
 		$("#"+note+"topRec").remove();
 		$("#"+note+"botRec").remove();
 		MIDI.noteOff(0, note, 0);
-	}, (delay+duration)*1000);
+	}, (delay+duration)*tempo);
 }
