@@ -24,7 +24,7 @@ $(document).ready(function() {
 		instrument: "acoustic_grand_piano",
 		callback: function() {
 			// MIDI Player has loaded, so now allow user interaction
-			measure = 11;
+			measure = 4;
 			for (var i=0;tune.length;i++)
 			{
 				if (tune[i][2] < 4* (measure - 1))
@@ -55,11 +55,20 @@ function playNote(note, velocity, delay, duration)
 	var key = note - 21;
 	var idxKey = key % 12;
 	var octave = Math.floor(key/12);
+	
+	color = "green";
+	if (note < 55 && duration > 0.4)
+	{
+		color = "red";
+	}
+	
 	//debug("Note="+note+"<br>Key="+key+"<br>idxKey="+idxKey+"<br>octave="+octave);
 	topRecOffset = 7 + keys[idxKey][0] + 119 * octave;
 	botRecOffset = 7 + keys[idxKey][2] + 119 * octave;
-	var topRec='<div id="'+note+'topRec" style="position: absolute; top: 211px; left: '+topRecOffset+'px; background-color:red;width:'+keys[idxKey][1]+'px;height:42px;border:0px solid #000"></div>';
-	var botRec='<div id="'+note+'botRec" style="position: absolute; top: 253px; left: '+botRecOffset+'px; background-color:red;width:'+keys[idxKey][3]+'px;height:31px;border:0px solid #000"></div>';
+	var topRec='<div id="'+note+'topRec" style="position: absolute; top: 211px; left: '+topRecOffset+'px; background-color:'+color+';width:'+keys[idxKey][1]+'px;height:42px;border:0px solid #000"></div>';
+	var botRec='<div id="'+note+'botRec" style="position: absolute; top: 253px; left: '+botRecOffset+'px; background-color:'+color+';width:'+keys[idxKey][3]+'px;height:31px;border:0px solid #000"></div>';
+	
+
 	
 	// Turn note on (sound + visual)
 	setTimeout(function() {
