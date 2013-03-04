@@ -24,7 +24,7 @@ $(document).ready(function() {
 		instrument: "acoustic_grand_piano",
 		callback: function() {
 			// MIDI Player has loaded, so now allow user interaction
-			measure = 12;
+			measure = 2;
 			for (var i=0;tune.length;i++)
 			{
 				if (tune[i][2] < 4* (measure - 1))
