@@ -24,7 +24,7 @@ $(document).ready(function() {
 		instrument: "acoustic_grand_piano",
 		callback: function() {
 			// MIDI Player has loaded, so now allow user interaction
-			measure = 4;
+			measure = 12;
 			for (var i=0;tune.length;i++)
 			{
 				if (tune[i][2] < 4* (measure - 1))
@@ -56,7 +56,7 @@ function playNote(note, velocity, delay, duration)
 	var idxKey = key % 12;
 	var octave = Math.floor(key/12);
 	
-	color = "green";
+	var color = "green";
 	if (note < 55 && duration > 0.4)
 	{
 		color = "red";
@@ -72,7 +72,7 @@ function playNote(note, velocity, delay, duration)
 	
 	// Turn note on (sound + visual)
 	setTimeout(function() {
-		debug("ON " + delay + " " + note + " " + duration);
+		//debug("ON " + delay + " " + note + " " + duration);
 		MIDI.setVolume(0, 127);
 		MIDI.noteOn(0, note, velocity, 0);                        
 		$("img").after(topRec);
@@ -81,7 +81,7 @@ function playNote(note, velocity, delay, duration)
 	
 	// Turn note off (sound)
 	setTimeout(function() {
-		debug("OFF " + delay + " " + note);
+		//debug("OFF " + delay + " " + note);
 		MIDI.noteOff(0, note, 0);
 	}, (delay+duration)*tempo);
 	
