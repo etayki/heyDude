@@ -15,7 +15,7 @@ var keys = [
             [113,10,0,0]        // 11 - BLACK
            ];
 
-tempo = 1750;
+tempo = 2150;
 
 $(document).ready(function() {
 	/* Load the MIDI Player*/
@@ -24,14 +24,14 @@ $(document).ready(function() {
 		instrument: "acoustic_grand_piano",
 		callback: function() {
 			// MIDI Player has loaded, so now allow user interaction
-			measure = 8;
+			measure = 11;
 			for (var i=0;tune.length;i++)
 			{
 				if (tune[i][2] < 4* (measure - 1))
 				{
 					continue;
 				}
-				else if (tune[i][2] >= 4 * measure)
+				else if (tune[i][2] >= 4 * measure - 0)
 				{
 					break;
 				}
@@ -45,7 +45,8 @@ $(document).ready(function() {
 
 function debug(param)
 {
-    $("div").after(param);
+	param = param + "<br>";
+	$("debug").before(param);
 }
 
 function playNote(note, velocity, delay, duration)
@@ -60,18 +61,24 @@ function playNote(note, velocity, delay, duration)
 	var topRec='<div id="'+note+'topRec" style="position: absolute; top: 211px; left: '+topRecOffset+'px; background-color:red;width:'+keys[idxKey][1]+'px;height:42px;border:0px solid #000"></div>';
 	var botRec='<div id="'+note+'botRec" style="position: absolute; top: 253px; left: '+botRecOffset+'px; background-color:red;width:'+keys[idxKey][3]+'px;height:31px;border:0px solid #000"></div>';
 	
-	// Turn note on
+	// Turn note on (sound + visual)
 	setTimeout(function() {
+		debug("ON " + delay + " " + note + " " + duration);
 		MIDI.setVolume(0, 127);
 		MIDI.noteOn(0, note, velocity, 0);                        
 		$("img").after(topRec);
 		$("img").after(botRec);
 	}, (delay)*tempo);
 	
-	// Turn note off
+	// Turn note off (sound)
+	setTimeout(function() {
+		debug("OFF " + delay + " " + note);
+		MIDI.noteOff(0, note, 0);
+	}, (delay+duration)*tempo);
+	
+	// Hide note (visualy)
 	setTimeout(function() {
 		$("#"+note+"topRec").remove();
 		$("#"+note+"botRec").remove();
-		MIDI.noteOff(0, note, 0);
-	}, (delay+duration)*tempo);
+	}, (delay+duration)*tempo - tempo/20); // Subtract a little so that if the note is pressed again it is visible
 }
