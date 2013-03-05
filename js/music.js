@@ -25,17 +25,15 @@ $(document).ready(function() {
 		instrument: "acoustic_grand_piano",
 		callback: function() {
 			// MIDI Player has loaded, so now allow user interaction
-			var play = '<button type="button" onclick="play()" style="color: green; width:60px;height:28px;position:absolute;top:135px;left:175px">Play</button>';
-			var pause = '<button type="button" onclick="pause()" style="color: green; width:60px;height:28px;position:absolute;top:135px;left:245px">Pause</button>';
+			var play = '<button type="button" onclick="didPressPlayButton()" style="color: green; width:60px;height:28px;position:absolute;top:135px;left:175px">Play</button>';
+			var pause = '<button type="button" onclick="didPressPauseButton()" style="color: green; width:60px;height:28px;position:absolute;top:135px;left:245px">Pause</button>';
 			$("#button").after(play);
 			$("#button").after(pause);
 		}
-		    
 	});	
-	
 });
 
-function play()
+function didPressPlayButton()
 {
 	for (var i=0;tune.length;i++)
 	{
@@ -53,10 +51,20 @@ function play()
 	
 }
 
-function pause()
+function didPressPauseButton()
 {
-	
-	
+	for (var note = 21; note < 108; note++)
+	{
+		MIDI.noteOff(0, note, 0);
+		$("#"+note+"topRec").remove();
+		$("#"+note+"botRec").remove();
+	}
+
+	// clear all timers in the array
+	for (var i = 0; i < timers.length; i++)
+	{
+	    clearTimeout(timers[i]);
+	}
 }
 
 function debug(param)
@@ -64,6 +72,8 @@ function debug(param)
 	param = param + "<br>";
 	$("debug").before(param);
 }
+
+var timers = new Array();
 
 function playNote(note, velocity, delay, duration)
 //function playNote(delay, duration, note, velocity)
@@ -85,25 +95,25 @@ function playNote(note, velocity, delay, duration)
 	var botRec='<div id="'+note+'botRec" style="position: absolute; top: 253px; left: '+botRecOffset+'px; background-color:'+color+';width:'+keys[idxKey][3]+'px;height:31px;border:0px solid #000"></div>';
 
 	// Turn note on (sound + visual)
-	setTimeout(function() {
+	timers.push(setTimeout(function() {
 		//debug("ON " + delay + " " + note + " " + duration);
 		MIDI.setVolume(0, 127);
 		MIDI.noteOn(0, note, velocity, 0);                        
 		$("#keyboard").after(topRec);
 		$("#keyboard").after(botRec);
-	}, (delay)*tempo);
+	}, (delay)*tempo));
 
 	// Turn note off (sound)
-	setTimeout(function() {
+	timers.push(setTimeout(function() {
 		//debug("OFF " + delay + " " + note);
 		MIDI.noteOff(0, note, 0);
-	}, (delay+duration)*tempo);
+	}, (delay+duration)*tempo));
 
 	// Hide note (visualy)
-	setTimeout(function() {
+	timers.push(setTimeout(function() {
 		$("#"+note+"topRec").remove();
 		$("#"+note+"botRec").remove();
-	}, (delay+duration)*tempo - tempo/20); // Subtract a little so that if the note is pressed again it is visible
+	}, (delay+duration)*tempo - tempo/20)); // Subtract a little so that if the note is pressed again it is visible
 }
 
 /* --- ================ SLIDER ================== */
