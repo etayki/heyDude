@@ -16,8 +16,10 @@ var keys = [
            ];
 
 var tempo = 2150;
-var measure = 2;
-var oldMeasure = 0;
+var measure = 1;
+var oldMeasure = 1;
+var timers = new Array();
+
 $(document).ready(function() {
 	/* Load the MIDI Player*/
 	MIDI.loadPlugin({
@@ -73,8 +75,6 @@ function debug(param)
 	$("debug").before(param);
 }
 
-var timers = new Array();
-
 function playNote(note, velocity, delay, duration)
 //function playNote(delay, duration, note, velocity)
 {
@@ -120,36 +120,43 @@ function playNote(note, velocity, delay, duration)
 
 var slider1, slider2;
 function jr() {
-    slider1 = new dhtmlxSlider("sliderBox1", 260, "dhx_skyblue");
-    slider1.setImagePath("./slider/imgs/");
-    slider1.setStep(50);
-    slider1.attachEvent("onChange", function(nv) {
-	document.getElementById("qual").value = nv;
-    });
+//    slider1 = new dhtmlxSlider("sliderBox1", 260, "dhx_skyblue");
+//    slider1.setImagePath("./slider/imgs/");
+//    slider1.setStep(50);
+//    slider1.attachEvent("onChange", function(nv) {
+//	document.getElementById("qual").value = nv;
+//    });
     //slider1.init();
-    slider2 = new dhtmlxSlider("sliderBox2", 260, "dhx_skyblue");
+    //slider2 = new dhtmlxSlider("sliderBox2", 260, "dhx_skyblue");
+    slider2 = new dhtmlxSlider("sliderBox2", tune[tune.length-1][2]*2, "dhx_skyblue", false, 1, Math.floor(tune[tune.length-1][2]/4)+1, 1, 1);
     slider2.setImagePath("./slider/imgs/");
     slider2.attachEvent("onChange", function(nv) {
 	document.getElementById("rate").value = nv;
+	measure = nv;
     });
-    slider2.setMax(50);
+    slider2.setMin(1);
+    slider2.setValue(1);
+    document.getElementById("rate").value = 1;
+    slider2.setMax(Math.floor(tune[tune.length-1][2]/4)+1);
     slider2.init();
 };
 
 function updateSlider(cd, val) {
     if (isNaN(Number(val)))
-	val = 0;
+        val = 0;
     if (cd == '1') {
-	if (val > 50 && val < 100)
-	    val = 50;
-	else if (val < 50 && val > 0)
-	    val = 0;
-	slider1.setValue(val);
+        if (val > 50 && val < 100)
+            val = 50;
+        else if (val < 50 && val > 0)
+            val = 0;
+        slider1.setValue(val);
     } else {
-	if (val > 50)
-	    val = 50;
-	slider2.setValue(val);
-	document.getElementById("rate").value = val;
+        if (val > 50)
+            val = 50;
+        slider2.setValue(val);
+        document.getElementById("rate").value = val;
+	measure = val;
+	debug(measure);
     }
 };
 
@@ -162,15 +169,16 @@ function debug(param)
 function onMouseDownSlider()
 {
 	oldMeasure = measure;
-	debug("Down");
+	//debug("Down");
 }
 
 function onMouseUpSlider()
 {
-	if (oldMeasure != measure)
-	{
-		measure = measure;
-	}
-	debug("Up");
+	//measure = document.getElementById("rate").value;
+	//if (oldMeasure != measure)
+	//{
+	//	measure = measure;
+	//}
+	//debug("Up");
 }
 
