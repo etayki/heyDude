@@ -178,3 +178,26 @@ function onMouseUpSlider()
        }
        //debug("Up");	
 }
+
+function didPressMinusIncrement()
+{
+	updateSlider(2,measure-1);
+	didPressPauseButton();
+	didPressPlayButton();
+}
+
+function didPressPlusIncrement()
+{
+	updateSlider(2,measure+1);
+	didPressPauseButton();
+	didPressPlayButton();
+}
+
+$(document).keydown(function(e){
+    if (e.keyCode == 37) { 
+       didPressMinusIncrement();
+    }
+    else if (e.keyCode == 39) {
+	didPressPlusIncrement();
+    }
+});

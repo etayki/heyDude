@@ -31,6 +31,8 @@
         <div width="600px" height="283px" id="gridbox" style="width:600px;height:280px;position:absolute;top:35px;left:100px">
             <input type="text" id="rate" style="width:37px;position:absolute;top:72px;left:74px;font-size:12px;" value="0" onchange="updateSlider('2',this.value)">
             <div id="sliderBox2" onmousedown="onMouseDownSlider()" onmouseup="onMouseUpSlider()" style="position:absolute;top:76px;left:125px;"></div>
+            <div id="plusIncrement" onclick="didPressMinusIncrement()" style="cursor:pointer;position:absolute;text-align:center;width:10px; top:76px; left:700px; background-color:white">-</div>
+            <div id="minusIncrement" onclick="didPressPlusIncrement()" style="cursor:pointer;text-align:center;width:10px;position:absolute;top:76px; left:720px; background-color:white;">+</div>
         </div>
         <div id="button"></id>
         
