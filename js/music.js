@@ -15,7 +15,7 @@ var keys = [
             [113,10,0,0]        // 11 - BLACK
            ];
 
-var tempo = 2150;
+var tempo = 1500;
 var measure = 1;
 var oldMeasure = 1;
 var timers = new Array();
@@ -199,5 +199,9 @@ $(document).keydown(function(e){
     }
     else if (e.keyCode == 39) {
 	didPressPlusIncrement();
+    }
+    else if (e.keyCode == 32){
+	didPressPauseButton();
+	didPressPlayButton();	
     }
 });
