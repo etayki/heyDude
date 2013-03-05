@@ -37,7 +37,7 @@ $(document).ready(function() {
 
 function didPressPlayButton()
 {
-	for (var i=0;tune.length;i++)
+	for (var i=0; i < tune.length;i++)
 	{
 		if (tune[i][2] < 4* (measure - 1))
 		{
@@ -132,7 +132,9 @@ function jr() {
     slider2.setImagePath("./slider/imgs/");
     slider2.attachEvent("onChange", function(nv) {
 	document.getElementById("rate").value = nv;
-	measure = nv;
+			didPressPauseButton();
+		measure = document.getElementById("rate").value;
+		didPressPlayButton();
     });
     slider2.setMin(1);
     slider2.setValue(1);
@@ -156,29 +158,23 @@ function updateSlider(cd, val) {
         slider2.setValue(val);
         document.getElementById("rate").value = val;
 	measure = val;
-	debug(measure);
     }
 };
 
-function debug(param)
-{
-      param = param + "<br>";
-      $("debug").before(param);
-}
-
 function onMouseDownSlider()
 {
-	oldMeasure = measure;
-	//debug("Down");
+       oldMeasure = document.getElementById("rate").value;
+       //debug("Down");
 }
 
 function onMouseUpSlider()
 {
-	//measure = document.getElementById("rate").value;
-	//if (oldMeasure != measure)
-	//{
-	//	measure = measure;
-	//}
-	//debug("Up");
-}
+       if (oldMeasure != document.getElementById("rate").value)
+       {
+		//didPressPauseButton();
+		//measure = document.getElementById("rate").value;
+		//didPressPlayButton();
 
+       }
+       //debug("Up");	
+}
