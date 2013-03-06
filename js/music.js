@@ -6,6 +6,7 @@ var tempo = 1500;
 var measure = 1;
 var oldMeasure = 1;
 var timers = new Array();
+var noteOn = new Array();
 
 $(document).ready(function() {
 	/* Load the MIDI Player*/
@@ -82,7 +83,7 @@ function playNote(note, velocity, delay, duration)
 		MIDI.setVolume(0, 127);
 		MIDI.noteOn(0, note, velocity, 0);                        
 		$("#key-"+key).css("background-color",color);
-
+		noteOn.push(note);
 	}, (delay)*tempo));
 
 	// Turn note off (sound)
@@ -106,6 +107,8 @@ function resetNote(key)
 		color = "black";
 	}
 	$("#key-"+key).css("background-color",color);
+	
+	noteOn.pop(key+21);
 }
 
 /* --- ================ SLIDER ================== */
@@ -189,16 +192,22 @@ function didPressPlusIncrement()
 }
 
 $(document).keydown(function(e){
-    if (e.keyCode == 37) { 
-       didPressMinusIncrement();
-    }
-    else if (e.keyCode == 39) {
-	didPressPlusIncrement();
-    }
-    else if (e.keyCode == 32){
-	didPressPauseButton();
-	didPressPlayButton();	
-    }
+	if (e.keyCode == 37) { 
+	   didPressMinusIncrement();
+	}
+	else if (e.keyCode == 39) {
+	    didPressPlusIncrement();
+	}
+	else if (e.keyCode == 32) {
+		if (noteOn.length)
+		{
+			didPressPauseButton();
+		}
+		else
+		{
+			didPressPlayButton();		
+		}
+	}
 });
 
 function drawPiano()
@@ -206,7 +215,7 @@ function drawPiano()
 	whiteKeySpacing = 2;
 	
 	// 15x73 width white
-	whiteKeyWidth = 20; // between 15 and 25
+	whiteKeyWidth = 22; // between 15 and 25
 	whiteKeyHeight = Math.floor(whiteKeyWidth * 73/15);
 	whiteKeyOffset = 7;
 
