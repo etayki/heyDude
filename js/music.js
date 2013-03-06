@@ -27,6 +27,7 @@ $(document).ready(function() {
 		instrument: "acoustic_grand_piano",
 		callback: function() {
 			// MIDI Player has loaded, so now allow user interaction
+			drawPiano();
 			var play = '<button type="button" onclick="didPressPlayButton()" style="color: green; width:60px;height:28px;position:absolute;top:135px;left:175px">Play</button>';
 			var pause = '<button type="button" onclick="didPressPauseButton()" style="color: green; width:60px;height:28px;position:absolute;top:135px;left:245px">Pause</button>';
 			$("#button").after(play);
@@ -91,8 +92,8 @@ function playNote(note, velocity, delay, duration)
 	//debug("Note="+note+"<br>Key="+key+"<br>idxKey="+idxKey+"<br>octave="+octave);
 	topRecOffset = 7 + keys[idxKey][0] + 119 * octave;
 	botRecOffset = 7 + keys[idxKey][2] + 119 * octave;
-	var topRec='<div id="'+note+'topRec" style="position: absolute; top: 211px; left: '+topRecOffset+'px; background-color:'+color+';width:'+keys[idxKey][1]+'px;height:42px;border:0px solid #000"></div>';
-	var botRec='<div id="'+note+'botRec" style="position: absolute; top: 253px; left: '+botRecOffset+'px; background-color:'+color+';width:'+keys[idxKey][3]+'px;height:31px;border:0px solid #000"></div>';
+	var topRec='<div id="'+note+'topRec" style="position:absolute;z-index:3;top:211px;left:'+topRecOffset+'px; background-color:'+color+';width:'+keys[idxKey][1]+'px;height:42px;border:0px solid #000"></div>';
+	var botRec='<div id="'+note+'botRec" style="position:absolute;z-index:3;top:253px;left:'+botRecOffset+'px; background-color:'+color+';width:'+keys[idxKey][3]+'px;height:31px;border:0px solid #000"></div>';
 
 	// Turn note on (sound + visual)
 	timers.push(setTimeout(function() {
@@ -181,9 +182,12 @@ function onMouseUpSlider()
 
 function didPressMinusIncrement()
 {
-	updateSlider(2,measure-1);
-	didPressPauseButton();
-	didPressPlayButton();
+	if (measure > 1)
+	{
+		updateSlider(2,measure-1);
+		didPressPauseButton();
+		didPressPlayButton();
+	}
 }
 
 function didPressPlusIncrement()
@@ -205,3 +209,38 @@ $(document).keydown(function(e){
 	didPressPlayButton();	
     }
 });
+
+function drawPiano()
+{
+	var topRecOffset;
+	var pianoBackground='<div style="position:absolute;z-index:0;top:0px;left:0px; background-color:black;width:895px;height:290px;border:0px solid #000"></div>';
+	$("#keyboard").after(pianoBackground);
+
+	var redLine='<div style="position:absolute;z-index:1;top:210px;left:0px; background-color:#680000 ;width:893px;height:2px;border:0px solid #000"></div>';
+	$("#keyboard").after(redLine);
+	
+	for (var key = 0; key < 87; key++)
+	{
+		var octave = Math.floor(key/12);
+		var keyColor = "white";
+		var keyIdx = key % 12;
+		if (keys[keyIdx][3] == 0)
+		{
+			keyColor = "black";
+		}
+		topRecOffset = 7 + keys[keyIdx][0] + 119 * octave;
+		botRecOffset = 7 + keys[keyIdx][2] + 119 * octave;
+		if (key == 0)
+		{
+			topRecOffset = 7;
+			keyIdx = 3;
+		}
+		var topRec='<div id="'+key+'keyTopRec" style="position:absolute;z-index:1;top:211px;left:'+topRecOffset+'px; background-color:'+keyColor+';width:'+keys[keyIdx][1]+'px;height:42px;border:0px solid #000"></div>';
+		var botRec='<div id="'+key+'keyBotRec" style="position:absolute;z-index:1;top:253px;left:'+botRecOffset+'px; background-color:'+keyColor+';width:'+keys[keyIdx][3]+'px;height:31px;border:0px solid #000"></div>';
+		$("#keyboard").after(topRec);
+		$("#keyboard").after(botRec);
+	}
+		topRecOffset = 13 + topRecOffset
+		var topRec='<div id="87keyTopRec" style="position:absolute;z-index:1;top:211px;left:'+topRecOffset+'px; background-color:white;width:'+keys[0][3]+'px;height:73px;border:0px solid #000"></div>';
+		$("#keyboard").after(topRec);
+}
