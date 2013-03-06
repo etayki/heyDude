@@ -17,7 +17,7 @@ $(document).ready(function() {
 			// MIDI Player has loaded, so now allow user interaction
 			drawPiano();
 			var play = '<button type="button" onclick="didPressPlayButton()" style="color: green; width:60px;height:28px;position:absolute;top:135px;left:175px">Play</button>';
-			var pause = '<button type="button" onclick="didPressPauseButton()" style="color: green; width:60px;height:28px;position:absolute;top:135px;left:245px">Pause</button>';
+			var pause = '<button type="button" onclick="didPressStopButton()" style="color: green; width:60px;height:28px;position:absolute;top:135px;left:245px">Stop</button>';
 			$("#button").after(play);
 			$("#button").after(pause);
 		}
@@ -42,7 +42,7 @@ function didPressPlayButton()
 	
 }
 
-function didPressPauseButton()
+function didPressStopButton()
 {
 	for (var note = 21; note < 108; note++)
 	{
@@ -127,7 +127,7 @@ function jr() {
     slider2.setImagePath("./slider/imgs/");
     slider2.attachEvent("onChange", function(nv) {
 	document.getElementById("rate").value = nv;
-			didPressPauseButton();
+			didPressStopButton();
 		measure = document.getElementById("rate").value;
 		didPressPlayButton();
     });
@@ -166,7 +166,7 @@ function onMouseUpSlider()
 {
        if (oldMeasure != document.getElementById("rate").value)
        {
-		//didPressPauseButton();
+		//didPressStopButton();
 		//measure = document.getElementById("rate").value;
 		//didPressPlayButton();
 
@@ -179,7 +179,7 @@ function didPressMinusIncrement()
 	if (measure > 1)
 	{
 		updateSlider(2,measure-1);
-		didPressPauseButton();
+		didPressStopButton();
 		didPressPlayButton();
 	}
 }
@@ -187,7 +187,7 @@ function didPressMinusIncrement()
 function didPressPlusIncrement()
 {
 	updateSlider(2,measure+1);
-	didPressPauseButton();
+	didPressStopButton();
 	didPressPlayButton();
 }
 
@@ -201,7 +201,7 @@ $(document).keydown(function(e){
 	else if (e.keyCode == 32) {
 		if (noteOn.length)
 		{
-			didPressPauseButton();
+			didPressStopButton();
 		}
 		else
 		{
