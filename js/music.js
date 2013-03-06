@@ -214,15 +214,14 @@ $(document).keydown(function(e){
 
 function drawPiano()
 {
-
-//11x42 width black
-//15x73 width white
 	whiteKeySpacing = 2;
-
+	
+	// 15x73 width white
 	whiteKeyWidth = 20; // between 15 and 25
 	whiteKeyHeight = Math.floor(whiteKeyWidth * 73/15);
 	whiteKeyOffset = 7;
 
+	// 11x42 width black
 	blackKeyWidth = Math.floor(whiteKeyWidth * 0.32) * 2 + whiteKeySpacing;
 	blackKeyHeight = Math.floor(whiteKeyHeight * 0.58);
 	blackKeyOffset = whiteKeyOffset + Math.floor(whiteKeyWidth * 0.75);
@@ -246,11 +245,12 @@ function drawPiano()
 			//debug(blackKey);
 		}
 	}
-	
+
+	redLineWidth = 	3 + whiteKeyOffset;
 	whiteKeyOffset += 6 + whiteKeyWidth;
 	bgHeight = 217 + whiteKeyHeight;
 	var pianoBackground='<div style="position:absolute;z-index:0;top:0px;left:0px; background-color:black;width:'+whiteKeyOffset+'px;height:'+bgHeight+'px;border:0px solid #000"></div>';	
 	$("#keyboard").after(pianoBackground);
-	var redLine='<div style="position:absolute;z-index:1;top:210px;left:0px; background-color:#680000 ;width:893px;height:2px;border:0px solid #000"></div>';
+	var redLine='<div style="position:absolute;z-index:1;top:210px;left:7px; background-color:#680000 ;width:'+redLineWidth+'px;height:2px;border:0px solid #000"></div>';
 	$("#keyboard").after(redLine);
 }
