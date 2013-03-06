@@ -72,6 +72,8 @@ function didPressPauseButton()
 
 function debug(param)
 {
+	try { param = param.replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+	catch(err){}
 	param = param + "<br>";
 	$("debug").before(param);
 }
@@ -212,35 +214,43 @@ $(document).keydown(function(e){
 
 function drawPiano()
 {
-	var topRecOffset;
-	var pianoBackground='<div style="position:absolute;z-index:0;top:0px;left:0px; background-color:black;width:895px;height:290px;border:0px solid #000"></div>';
-	$("#keyboard").after(pianoBackground);
 
-	var redLine='<div style="position:absolute;z-index:1;top:210px;left:0px; background-color:#680000 ;width:893px;height:2px;border:0px solid #000"></div>';
-	$("#keyboard").after(redLine);
+//11x42 width black
+//15x73 width white
+	whiteKeySpacing = 2;
+
+	whiteKeyWidth = 20; // between 15 and 25
+	whiteKeyHeight = Math.floor(whiteKeyWidth * 73/15);
+	whiteKeyOffset = 7;
+
+	blackKeyWidth = Math.floor(whiteKeyWidth * 0.32) * 2 + whiteKeySpacing;
+	blackKeyHeight = Math.floor(whiteKeyHeight * 0.58);
+	blackKeyOffset = whiteKeyOffset + Math.floor(whiteKeyWidth * 0.75);
 	
-	for (var key = 0; key < 87; key++)
+	for (var key = 0; key < 88; key++)
 	{
 		var octave = Math.floor(key/12);
-		var keyColor = "white";
 		var keyIdx = key % 12;
-		if (keys[keyIdx][3] == 0)
+		if (!(keyIdx==1 || keyIdx==4 || keyIdx==6 || keyIdx == 9 || keyIdx==11))
 		{
-			keyColor = "black";
+			if (key !=0) whiteKeyOffset += whiteKeyWidth + whiteKeySpacing;
+			var whiteKey='<div id="whiteKey-'+key+'" style="position:absolute;z-index:1;top:211px;left:'+whiteKeyOffset+'px; background-color:blue;width:'+whiteKeyWidth+'px;height:'+whiteKeyHeight+'px"></div>';
+			$("#keyboard").after(whiteKey);
+			//debug(whiteKey);
 		}
-		topRecOffset = 7 + keys[keyIdx][0] + 119 * octave;
-		botRecOffset = 7 + keys[keyIdx][2] + 119 * octave;
-		if (key == 0)
+		else
 		{
-			topRecOffset = 7;
-			keyIdx = 3;
+			blackKeyOffset = whiteKeyOffset + Math.floor(whiteKeyWidth * 0.75);
+			var blackKey='<div id="blackKey-'+key+'" style="position:absolute;z-index:2;top:211px;left:'+blackKeyOffset+'px; background-color:red;width:'+blackKeyWidth+'px;height:'+blackKeyHeight+'px;border:0px solid #000"></div>';
+			$("#keyboard").after(blackKey);
+			//debug(blackKey);
 		}
-		var topRec='<div id="'+key+'keyTopRec" style="position:absolute;z-index:1;top:211px;left:'+topRecOffset+'px; background-color:'+keyColor+';width:'+keys[keyIdx][1]+'px;height:42px;border:0px solid #000"></div>';
-		var botRec='<div id="'+key+'keyBotRec" style="position:absolute;z-index:1;top:253px;left:'+botRecOffset+'px; background-color:'+keyColor+';width:'+keys[keyIdx][3]+'px;height:31px;border:0px solid #000"></div>';
-		$("#keyboard").after(topRec);
-		$("#keyboard").after(botRec);
 	}
-		topRecOffset = 13 + topRecOffset
-		var topRec='<div id="87keyTopRec" style="position:absolute;z-index:1;top:211px;left:'+topRecOffset+'px; background-color:white;width:'+keys[0][3]+'px;height:73px;border:0px solid #000"></div>';
-		$("#keyboard").after(topRec);
+	
+	whiteKeyOffset += 6 + whiteKeyWidth;
+	bgHeight = 217 + whiteKeyHeight;
+	var pianoBackground='<div style="position:absolute;z-index:0;top:0px;left:0px; background-color:black;width:'+whiteKeyOffset+'px;height:'+bgHeight+'px;border:0px solid #000"></div>';	
+	$("#keyboard").after(pianoBackground);
+	var redLine='<div style="position:absolute;z-index:1;top:210px;left:0px; background-color:#680000 ;width:893px;height:2px;border:0px solid #000"></div>';
+	$("#keyboard").after(redLine);
 }
