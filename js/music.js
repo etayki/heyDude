@@ -1,19 +1,6 @@
 //          [top rec offset, top rec width, bottom rec offset, bottom rec width]
 //          There are 85 keys. The lowest note is 21 and the highest is 108.
-var keys = [
-            [4,7,0,15],         // 0  - WHITE
-            [11,11,0,0],        // 1  - BLACK
-            [21,11,17,15],      // 2  - WHITE
-            [34,10,34,15],      // 3  - WHITE
-            [43,11,0,0],        // 4  - BLACK
-            [54,9,51,15],      	// 5  - WHITE
-            [62,11,0,0],        // 6  - BLACK
-            [72,11,68,15],     	// 7  - WHITE
-            [85,11,85,15],      // 8  - WHITE
-            [95,10,0,0],       	// 9  - BLACK
-            [105,8,102,15],     // 10 - WHITE
-            [113,10,0,0]        // 11 - BLACK
-           ];
+
 
 var tempo = 1500;
 var measure = 1;
@@ -59,8 +46,7 @@ function didPressPauseButton()
 	for (var note = 21; note < 108; note++)
 	{
 		MIDI.noteOff(0, note, 0);
-		$("#"+note+"topRec").remove();
-		$("#"+note+"botRec").remove();
+		resetNote(note-21);
 	}
 
 	// clear all timers in the array
@@ -82,28 +68,21 @@ function playNote(note, velocity, delay, duration)
 //function playNote(delay, duration, note, velocity)
 {
 	var key = note - 21;
-	var idxKey = key % 12;
-	var octave = Math.floor(key/12);
-
+	var keyIdx = key % 12;
 	var color = "green";
+	
 	if (note < 55 && duration > 0.4)
 	{
 		color = "red";
 	}
-
-	//debug("Note="+note+"<br>Key="+key+"<br>idxKey="+idxKey+"<br>octave="+octave);
-	topRecOffset = 7 + keys[idxKey][0] + 119 * octave;
-	botRecOffset = 7 + keys[idxKey][2] + 119 * octave;
-	var topRec='<div id="'+note+'topRec" style="position:absolute;z-index:3;top:211px;left:'+topRecOffset+'px; background-color:'+color+';width:'+keys[idxKey][1]+'px;height:42px;border:0px solid #000"></div>';
-	var botRec='<div id="'+note+'botRec" style="position:absolute;z-index:3;top:253px;left:'+botRecOffset+'px; background-color:'+color+';width:'+keys[idxKey][3]+'px;height:31px;border:0px solid #000"></div>';
 
 	// Turn note on (sound + visual)
 	timers.push(setTimeout(function() {
 		//debug("ON " + delay + " " + note + " " + duration);
 		MIDI.setVolume(0, 127);
 		MIDI.noteOn(0, note, velocity, 0);                        
-		$("#keyboard").after(topRec);
-		$("#keyboard").after(botRec);
+		$("#key-"+key).css("background-color",color);
+
 	}, (delay)*tempo));
 
 	// Turn note off (sound)
@@ -114,9 +93,19 @@ function playNote(note, velocity, delay, duration)
 
 	// Hide note (visualy)
 	timers.push(setTimeout(function() {
-		$("#"+note+"topRec").remove();
-		$("#"+note+"botRec").remove();
+		resetNote(key);
 	}, (delay+duration)*tempo - tempo/20)); // Subtract a little so that if the note is pressed again it is visible
+}
+
+function resetNote(key)
+{
+	color = "white";
+	var keyIdx = key % 12;
+	if (keyIdx==1 || keyIdx==4 || keyIdx==6 || keyIdx == 9 || keyIdx==11)
+	{
+		color = "black";
+	}
+	$("#key-"+key).css("background-color",color);
 }
 
 /* --- ================ SLIDER ================== */
@@ -233,14 +222,14 @@ function drawPiano()
 		if (!(keyIdx==1 || keyIdx==4 || keyIdx==6 || keyIdx == 9 || keyIdx==11))
 		{
 			if (key !=0) whiteKeyOffset += whiteKeyWidth + whiteKeySpacing;
-			var whiteKey='<div id="whiteKey-'+key+'" style="position:absolute;z-index:1;top:211px;left:'+whiteKeyOffset+'px; background-color:blue;width:'+whiteKeyWidth+'px;height:'+whiteKeyHeight+'px"></div>';
+			var whiteKey='<div id="key-'+key+'" style="position:absolute;z-index:1;top:211px;left:'+whiteKeyOffset+'px; background-color:white;width:'+whiteKeyWidth+'px;height:'+whiteKeyHeight+'px"></div>';
 			$("#keyboard").after(whiteKey);
 			//debug(whiteKey);
 		}
 		else
 		{
 			blackKeyOffset = whiteKeyOffset + Math.floor(whiteKeyWidth * 0.75);
-			var blackKey='<div id="blackKey-'+key+'" style="position:absolute;z-index:2;top:211px;left:'+blackKeyOffset+'px; background-color:red;width:'+blackKeyWidth+'px;height:'+blackKeyHeight+'px;border:0px solid #000"></div>';
+			var blackKey='<div id="key-'+key+'" style="position:absolute;z-index:2;top:211px;left:'+blackKeyOffset+'px; background-color:black;width:'+blackKeyWidth+'px;height:'+blackKeyHeight+'px;border:0px solid #000"></div>';
 			$("#keyboard").after(blackKey);
 			//debug(blackKey);
 		}
