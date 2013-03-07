@@ -40,7 +40,7 @@ function didPressPlayButton()
 			break;
 		}
 	
-		playNote(tune[i][0],tune[i][1],tune[i][2] - (measure - 1) * 4,tune[i][3]);
+		playNote(tune[i][0],tune[i][1],tune[i][2] - (measure - 1) * 4,tune[i][3], tune[i][4]);
 	}
 	timers.push(setTimeout(function() {
 		didPressPlayButton()	
@@ -71,16 +71,17 @@ function debug(param)
 	$("debug").before(param);
 }
 
-function playNote(note, velocity, delay, duration)
+function playNote(note, velocity, delay, duration, finger)
 //function playNote(delay, duration, note, velocity)
 {
 	var key = note - 21;
 	var keyIdx = key % 12;
 	var color = "green";
 	
-	if (note < 55 && duration > 0.4)
+	if (finger < 0)
 	{
 		color = "red";
+		finger *= -1;
 	}
 
 	// Turn note on (sound + visual)
@@ -89,6 +90,7 @@ function playNote(note, velocity, delay, duration)
 		MIDI.setVolume(0, 127);
 		MIDI.noteOn(0, note, velocity, 0);                        
 		$("#key-"+key).css("background-color",color);
+		$("#keyLabel-"+key).text(finger);
 		noteOn.push(note);
 	}, (delay)*tempo));
 
@@ -113,7 +115,7 @@ function resetNote(key)
 		color = "black";
 	}
 	$("#key-"+key).css("background-color",color);
-	
+	$("#keyLabel-"+key).text("");
 	noteOn.pop(key+21);
 }
 
@@ -220,15 +222,25 @@ function drawPiano()
 {
 	whiteKeySpacing = 2;
 	
-	// 15x73 width white
-	whiteKeyWidth = 22; // between 15 and 25
+	// White Key - 15x73
+	whiteKeyWidth = 25; // 15-25
 	whiteKeyHeight = Math.floor(whiteKeyWidth * 73/15);
 	whiteKeyOffset = 7;
+	
+	// White Key Label
+	whiteKeyLabelTop = Math.floor(whiteKeyHeight*0.70);
+	whiteKeyLabelLeft = Math.floor(whiteKeyWidth*0.30);
+	whiteKeyLabelSize = 60 * whiteKeyWidth/15;
 
-	// 11x42 width black
+	// Black Key - 11x42
 	blackKeyWidth = Math.floor(whiteKeyWidth * 0.32) * 2 + whiteKeySpacing;
 	blackKeyHeight = Math.floor(whiteKeyHeight * 0.58);
 	blackKeyOffset = whiteKeyOffset + Math.floor(whiteKeyWidth * 0.75);
+	
+	// Black Key Label
+	blackKeyLabelTop = Math.floor(blackKeyHeight*0.50);
+	blackKeyLabelLeft = Math.floor(blackKeyWidth*0.25);
+	blackKeyLabelSize = 60 * whiteKeyWidth/15;
 	
 	for (var key = 0; key < 88; key++)
 	{
@@ -238,14 +250,18 @@ function drawPiano()
 		{
 			if (key !=0) whiteKeyOffset += whiteKeyWidth + whiteKeySpacing;
 			var whiteKey='<div id="key-'+key+'" style="position:absolute;z-index:1;top:211px;left:'+whiteKeyOffset+'px; background-color:white;width:'+whiteKeyWidth+'px;height:'+whiteKeyHeight+'px"></div>';
+			var whiteKeyLabel = '<div id="keyLabel-'+key+'" style="position:absolute;top:'+whiteKeyLabelTop+'px;left:'+whiteKeyLabelLeft+'px;z-index:2;font-size:'+whiteKeyLabelSize+'%";font-weight:bold></div>';
 			$("#keyboard").after(whiteKey);
+			$("#key-"+key).append(whiteKeyLabel);
 			//debug(whiteKey);
 		}
 		else
 		{
 			blackKeyOffset = whiteKeyOffset + Math.floor(whiteKeyWidth * 0.75);
 			var blackKey='<div id="key-'+key+'" style="position:absolute;z-index:2;top:211px;left:'+blackKeyOffset+'px; background-color:black;width:'+blackKeyWidth+'px;height:'+blackKeyHeight+'px;border:0px solid #000"></div>';
+			var blackKeyLabel = '<div id="keyLabel-'+key+'" style="color:purple;position:absolute;top:'+blackKeyLabelTop+'px;left:'+blackKeyLabelLeft+'px;z-index:2;font-size:'+blackKeyLabelSize+'%";font-weight:bold></div>';
 			$("#keyboard").after(blackKey);
+			$("#key-"+key).append(blackKeyLabel);
 			//debug(blackKey);
 		}
 	}
