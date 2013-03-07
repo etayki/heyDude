@@ -16,16 +16,19 @@ $(document).ready(function() {
 		callback: function() {
 			// MIDI Player has loaded, so now allow user interaction
 			drawPiano();
-			var play = '<button type="button" onclick="didPressPlayButton()" style="color: green; width:60px;height:28px;position:absolute;top:135px;left:175px">Play</button>';
-			var pause = '<button type="button" onclick="didPressStopButton()" style="color: green; width:60px;height:28px;position:absolute;top:135px;left:245px">Stop</button>';
-			$("#button").after(play);
-			$("#button").after(pause);
+			drawPianoControls();
 		}
 	});	
 });
 
 function didPressPlayButton()
 {
+	if (noteOn.length)
+	{
+		// We are already playing, so return
+		return;
+	}
+	
 	for (var i=0; i < tune.length;i++)
 	{
 		if (tune[i][2] < 4* (measure - 1))
@@ -38,7 +41,10 @@ function didPressPlayButton()
 		}
 	
 		playNote(tune[i][0],tune[i][1],tune[i][2] - (measure - 1) * 4,tune[i][3]);
-	}	
+	}
+	timers.push(setTimeout(function() {
+		didPressPlayButton()	
+	}, 4*tempo));	
 	
 }
 
@@ -251,4 +257,10 @@ function drawPiano()
 	$("#keyboard").after(pianoBackground);
 	var redLine='<div style="position:absolute;z-index:1;top:210px;left:7px; background-color:#680000 ;width:'+redLineWidth+'px;height:2px;border:0px solid #000"></div>';
 	$("#keyboard").after(redLine);
+}
+
+function drawPianoControls()
+{
+
+
 }

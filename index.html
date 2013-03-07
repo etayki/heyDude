@@ -27,13 +27,16 @@
     <h2>Moonlight Sonata</h2>
     <div style="position: relative; left: 0; top: 0;">
         <div id="keyboard" style="position: relative; top: 0; left: 0;" width="895" height="450"/></div>
-        <div width="600px" height="283px" style="color:white; width:600px;height:280px;position:absolute;z-index:3;top:110px;left:100px">Measure</div>
-        <div width="600px" height="283px" id="gridbox" style="width:600px;height:280px;position:absolute;top:35px;left:100px">
-            <input type="text" id="rate" style="width:37px;position:absolute;z-index:3;top:72px;left:74px;font-size:12px;" value="0" onchange="updateSlider('2',this.value)">
-            <div id="sliderBox2" onmousedown="onMouseDownSlider()" onmouseup="onMouseUpSlider()" style="position:absolute;z-index:3;top:76px;left:125px;"></div>
-            <div id="plusIncrement" onclick="didPressMinusIncrement()" style="cursor:pointer;position:absolute;z-index:3;text-align:center;width:10px; top:76px; left:700px; background-color:white">-</div>
-            <div id="minusIncrement" onclick="didPressPlusIncrement()" style="cursor:pointer;text-align:center;width:10px;position:absolute;z-index:3;top:76px; left:720px; background-color:white;">+</div>
+        <div width="600px" height="260px" id="gridbox" style="position:absolute;top:65px;left:130px;width:750px;height:50px; background-color:green">
+            <div width="600px" height="283px" style="position:absolute;top:10px;left:10px;color:white; width:600px;height:280px;z-index:3">Measure</div>
+            <input type="text" id="rate" style="position:absolute;top:8px;left:80px;width:37px;z-index:3;font-size:12px;" value="1" onchange="updateSlider('2',this.value)">
+            <div id="sliderBox2" onmousedown="onMouseDownSlider()" onmouseup="onMouseUpSlider()" style="position:absolute;top:13px;left:130px;z-index:3"></div>
+            <div id="plusIncrement" onclick="didPressMinusIncrement()" style="position:absolute;top:10px;left:700px;cursor:pointer;z-index:3;text-align:center;width:10px;background-color:white">-</div>
+            <div id="minusIncrement" onclick="didPressPlusIncrement()" style="position:absolute;top:10px;left:720px;cursor:pointer;text-align:center;width:10px;z-index:3;background-color:white;">+</div>
         </div>
+         <div width="600px" height="283px" id="gridbox" style="position:absolute;top:135px;left:130px;width:200px;height:50px; background-color:green">       
+            <button type="button" onclick="didPressPlayButton()" style="position:absolute;top:10px;left:10px;z-index:3;pxcolor:green;width:60px;height:28px;">Play</button>
+            <button type="button" onclick="didPressStopButton()" style="position:absolute;top:10px;left:80px;z-index:3;color:green;width:60px;height:28px">Stop</button>
         <div id="button"></id>
         <!--<img id="keyboard" src="images/PianoKeyboard.jpg" style="position:relative;z-index:0; top: 0; left: 0;" width="895" height="450"/>-->
 
