@@ -1,10 +1,8 @@
 //          [top rec offset, top rec width, bottom rec offset, bottom rec width]
 //          There are 85 keys. The lowest note is 21 and the highest is 108.
 
-
-var tempo = 1500;
+var tempo = 2300;
 var measure = 1;
-var oldMeasure = 1;
 var timers = new Array();
 var noteOn = new Array();
 
@@ -20,6 +18,8 @@ $(document).ready(function() {
 		}
 	});	
 });
+
+/* --- ================ CONTROLS ================== */
 
 function didPressPlayButton()
 {
@@ -63,16 +63,9 @@ function didPressStopButton()
 	}
 }
 
-function debug(param)
-{
-	try { param = param.replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
-	catch(err){}
-	param = param + "<br>";
-	$("debug").before(param);
-}
+/* --- ================ PLAY ================== */
 
 function playNote(note, velocity, delay, duration, finger)
-//function playNote(delay, duration, note, velocity)
 {
 	var key = note - 21;
 	var keyIdx = key % 12;
@@ -121,92 +114,110 @@ function resetNote(key)
 
 /* --- ================ SLIDER ================== */
 
-var slider1, slider2;
-function jr() {
-//    slider1 = new dhtmlxSlider("sliderBox1", 260, "dhx_skyblue");
-//    slider1.setImagePath("./slider/imgs/");
-//    slider1.setStep(50);
-//    slider1.attachEvent("onChange", function(nv) {
-//	document.getElementById("qual").value = nv;
-//    });
-    //slider1.init();
-    //slider2 = new dhtmlxSlider("sliderBox2", 260, "dhx_skyblue");
-    slider2 = new dhtmlxSlider("sliderBox2", tune[tune.length-1][2]*2, "dhx_skyblue", false, 1, Math.floor(tune[tune.length-1][2]/4)+1, 1, 1);
-    slider2.setImagePath("./slider/imgs/");
-    slider2.attachEvent("onChange", function(nv) {
-	document.getElementById("rate").value = nv;
-			didPressStopButton();
-		measure = document.getElementById("rate").value;
+var measureSlider, tempoSlider;
+
+function sliderInit()
+{
+	measureSlider = new dhtmlxSlider("measureSlider", tune[tune.length-1][2]*2, "dhx_skyblue", false, 1, Math.floor(tune[tune.length-1][2]/4)+1, 1, 1);
+	measureSlider.setImagePath("./slider/imgs/");
+	measureSlider.attachEvent("onChange", function(newMeasure) {
+		document.getElementById("measure").value = newMeasure;
+		measure = newMeasure;
+		didPressStopButton();
 		didPressPlayButton();
-    });
-    slider2.setMin(1);
-    slider2.setValue(1);
-    document.getElementById("rate").value = 1;
-    slider2.setMax(Math.floor(tune[tune.length-1][2]/4)+1);
-    slider2.init();
+	});
+	
+	document.getElementById("measure").value = 1;
+	measureSlider.init();
+
+	tempoSlider = new dhtmlxSlider("tempoSlider", 100, "dhx_skyblue", false, 1500, 2500, 2500 - (tempo - 1500), 200);
+	tempoSlider.setImagePath("./slider/imgs/");
+	tempoSlider.attachEvent("onChange", function(newtempo) {
+		document.getElementById("tempo").value = newtempo;
+		tempo = newtempo;
+	});
+	
+	document.getElementById("tempo").value = 2500 - (tempo - 1500);
+	tempoSlider.init();
 };
 
-function updateSlider(cd, val) {
-    if (isNaN(Number(val)))
-        val = 0;
-    if (cd == '1') {
-        if (val > 50 && val < 100)
-            val = 50;
-        else if (val < 50 && val > 0)
-            val = 0;
-        slider1.setValue(val);
-    } else {
-        if (val > 50)
-            val = 50;
-        slider2.setValue(val);
-        document.getElementById("rate").value = val;
-	measure = val;
-    }
-};
+function updateSlider(slider, val) {
+	if (isNaN(Number(val)) && !(val == "+" || val == "-"))
+		val = 0;
 
-function onMouseDownSlider()
-{
-       oldMeasure = document.getElementById("rate").value;
-       //debug("Down");
-}
-
-function onMouseUpSlider()
-{
-       if (oldMeasure != document.getElementById("rate").value)
-       {
-		//didPressStopButton();
-		//measure = document.getElementById("rate").value;
-		//didPressPlayButton();
-
-       }
-       //debug("Up");	
-}
-
-function didPressMinusIncrement()
-{
-	if (measure > 1)
+	if (slider == "measure")
 	{
-		updateSlider(2,measure-1);
+		if (val == "-")
+			val = measure - 1;
+
+		if (val == "+")
+			val = measure + 1;
+			
+		// Limit to min measure
+		if (val < 1)
+			val = 1;
+			
+		// Limit to max measure
+		if (val > Math.floor(tune[tune.length-1][2]/4)+1)
+			val = Math.floor(tune[tune.length-1][2]/4)+1;
+			
+		// Set new measure	
+		measureSlider.setValue(val);
+		document.getElementById("measure").value = val;
+		measure = val;
 		didPressStopButton();
 		didPressPlayButton();
 	}
-}
+	else if (slider == "tempo")
+	{
+		if (val == "-")
+			val = tempo + 200;
 
-function didPressPlusIncrement()
-{
-	updateSlider(2,measure+1);
-	didPressStopButton();
-	didPressPlayButton();
-}
+		if (val == "+")
+			val = tempo - 200;
+			
+				// Limit to min measure
+		if (val < 1)
+			val = 1;
+
+		// Limit to max tempo
+		if (val < 1500)
+			val = 1500;
+			
+		// Limit to min tempo
+		if (val > 2500)
+			val = 2500;
+			
+		// Set new tempo	
+		tempoSlider.setValue(2500 - (val - 1500));
+		document.getElementById("tempo").value = 2500 - (val - 1500);
+		tempo = val;
+		didPressStopButton();
+		didPressPlayButton();			
+	}
+};
+
+/* --- ================ KEY PRESS ================== */
 
 $(document).keydown(function(e){
-	if (e.keyCode == 37) { 
-	   didPressMinusIncrement();
+	if (e.keyCode == 37) // Left arrow
+	{ 
+		updateSlider("measure","-");
 	}
-	else if (e.keyCode == 39) {
-	    didPressPlusIncrement();
+	else if (e.keyCode == 39) // Right arrow
+	{ 
+		updateSlider("measure","+");
 	}
-	else if (e.keyCode == 32) {
+	if (e.keyCode == 38) // Up arrow
+	{ 
+		updateSlider("tempo","+");
+	}
+	else if (e.keyCode == 40) // Down arrow
+	{ 
+		updateSlider("tempo","-");
+	}
+	else if (e.keyCode == 32) // Space
+	{
 		if (noteOn.length)
 		{
 			didPressStopButton();
@@ -217,6 +228,8 @@ $(document).keydown(function(e){
 		}
 	}
 });
+
+/* --- ================ PIANO DRAW ================== */
 
 function drawPiano()
 {
@@ -279,4 +292,14 @@ function drawPianoControls()
 {
 
 
+}
+
+/* --- ================ DEBUG ================== */
+
+function debug(param)
+{
+	try { param = param.replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+	catch(err){}
+	param = param + "<br>";
+	$("debug").before(param);
 }
