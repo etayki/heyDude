@@ -2,7 +2,7 @@
 //          There are 85 keys. The lowest note is 21 and the highest is 108.
 
 var tempo = 2300;
-var measure = 1;
+var measure = 3;
 var timers = new Array();
 var noteOn = new Array();
 
@@ -118,7 +118,7 @@ var measureSlider, tempoSlider;
 
 function sliderInit()
 {
-	measureSlider = new dhtmlxSlider("measureSlider", tune[tune.length-1][2]*2, "dhx_skyblue", false, 1, Math.floor(tune[tune.length-1][2]/4)+1, 1, 1);
+	measureSlider = new dhtmlxSlider("measureSlider", tune[tune.length-1][2]*2, "dhx_skyblue", false, 1, Math.floor(tune[tune.length-1][2]/4)+1, measure, 1);
 	measureSlider.setImagePath("./slider/imgs/");
 	measureSlider.attachEvent("onChange", function(newMeasure) {
 		document.getElementById("measure").value = newMeasure;
@@ -127,7 +127,7 @@ function sliderInit()
 		didPressPlayButton();
 	});
 	
-	document.getElementById("measure").value = 1;
+	document.getElementById("measure").value = measure;
 	measureSlider.init();
 
 	tempoSlider = new dhtmlxSlider("tempoSlider", 100, "dhx_skyblue", false, 1500, 2500, 2500 - (tempo - 1500), 200);
@@ -236,14 +236,14 @@ function drawPiano()
 	whiteKeySpacing = 2;
 	
 	// White Key - 15x73
-	whiteKeyWidth = 18; // 15-25
+	whiteKeyWidth = 22; // 15-25
 	whiteKeyHeight = Math.floor(whiteKeyWidth * 73/15);
 	whiteKeyOffset = 7;
 	
 	// White Key Label
 	whiteKeyLabelTop = Math.floor(whiteKeyHeight*0.70);
 	whiteKeyLabelLeft = Math.floor(whiteKeyWidth*0.30);
-	whiteKeyLabelSize = 60 * whiteKeyWidth/15;
+	whiteKeyLabelSize = 120 * whiteKeyWidth/15;
 
 	// Black Key - 11x42
 	blackKeyWidth = Math.floor(whiteKeyWidth * 0.32) * 2 + whiteKeySpacing;
@@ -253,7 +253,7 @@ function drawPiano()
 	// Black Key Label
 	blackKeyLabelTop = Math.floor(blackKeyHeight*0.50);
 	blackKeyLabelLeft = Math.floor(blackKeyWidth*0.25);
-	blackKeyLabelSize = 60 * whiteKeyWidth/15;
+	blackKeyLabelSize = 90 * whiteKeyWidth/15;
 	
 	for (var key = 0; key < 88; key++)
 	{
@@ -263,7 +263,7 @@ function drawPiano()
 		{
 			if (key !=0) whiteKeyOffset += whiteKeyWidth + whiteKeySpacing;
 			var whiteKey='<div id="key-'+key+'" style="position:absolute;z-index:1;top:211px;left:'+whiteKeyOffset+'px; background-color:white;width:'+whiteKeyWidth+'px;height:'+whiteKeyHeight+'px"></div>';
-			var whiteKeyLabel = '<div id="keyLabel-'+key+'" style="position:absolute;top:'+whiteKeyLabelTop+'px;left:'+whiteKeyLabelLeft+'px;z-index:2;font-size:'+whiteKeyLabelSize+'%";font-weight:bold></div>';
+			var whiteKeyLabel = '<b><div id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+whiteKeyLabelTop+'px;left:'+whiteKeyLabelLeft+'px;z-index:2;font-size:'+whiteKeyLabelSize+'%";font-weight:bold></div></b>';
 			$("#keyboard").after(whiteKey);
 			$("#key-"+key).append(whiteKeyLabel);
 			//debug(whiteKey);
@@ -272,7 +272,7 @@ function drawPiano()
 		{
 			blackKeyOffset = whiteKeyOffset + Math.floor(whiteKeyWidth * 0.75);
 			var blackKey='<div id="key-'+key+'" style="position:absolute;z-index:2;top:211px;left:'+blackKeyOffset+'px; background-color:black;width:'+blackKeyWidth+'px;height:'+blackKeyHeight+'px;border:0px solid #000"></div>';
-			var blackKeyLabel = '<div id="keyLabel-'+key+'" style="color:purple;position:absolute;top:'+blackKeyLabelTop+'px;left:'+blackKeyLabelLeft+'px;z-index:2;font-size:'+blackKeyLabelSize+'%";font-weight:bold></div>';
+			var blackKeyLabel = '<b><div id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+blackKeyLabelTop+'px;left:'+blackKeyLabelLeft+'px;z-index:2;font-size:'+blackKeyLabelSize+'%";font-weight:bold></div></b>';
 			$("#keyboard").after(blackKey);
 			$("#key-"+key).append(blackKeyLabel);
 			//debug(blackKey);
@@ -289,7 +289,7 @@ function drawPiano()
 	
 	debugAreaLeft = whiteKeyOffset + 10;
 	debugAreaWidth = 1415 - debugAreaLeft;
-	var debugArea = '<div id="debug" style="position:absolute;top:10px;left:'+debugAreaLeft+'px;width:'+debugAreaWidth+'px;height:50px;background-color:green">';
+	var debugArea = '<div id="debug" style="position:absolute;top:10px;left:'+debugAreaLeft+'px;width:'+debugAreaWidth+'px;height:50px;background-color:white">';
 	$("body").after(debugArea);
 
 }
@@ -301,11 +301,12 @@ function drawPianoControls()
 }
 
 /* --- ================ DEBUG ================== */
-
+debugTop = 0;
 function debug(param)
 {
 	try { param = param.replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 	catch(err){}
-	param = param + "<br>";
-	$("debug").before(param);
+	param = '<div id="debug" style="position:absolute;z-index:6;top:'+debugTop+'px;left:10px;color:red">' + param + "<br></div>";
+	$("#debug").append(param);
+	debugTop += 20;
 }
