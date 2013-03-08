@@ -25,10 +25,9 @@
 </head>
 <body>
     <!--<h2>Moonlight Sonata</h2>-->
-    <div style="position: relative; left: 0; top: 0;">
-        <div id="keyboard" style="position: relative; top: 0; left: 0;" width="895" height="450"/></div>
+    <div id="keyboard" style="position: relative; top: 0; left: 0;" width="895" height="450"/></div>
         <div style="position:absolute;top:65px;left:130px;width:750px;height:50px; background-color:blue">
-            <div width="600px" height="283px" style="position:absolute;top:15px;left:10px;color:white; width:600px;height:280px;z-index:3">Measure</div>
+            <div style="position:absolute;top:15px;left:10px;color:white; width:70px;height:30px;z-index:3">Measure</div>
             <input type="text" id="measure" style="position:absolute;top:13px;left:80px;width:37px;z-index:3;font-size:12px;" value="1" onchange="updateSlider('measure',this.value)">
             <div id="measureSlider" style="position:absolute;top:18px;left:130px;z-index:3"></div>
             <div id="measureMinus" onclick="updateSlider('measure','-')" style="position:absolute;top:15px;left:700px;cursor:pointer;z-index:3;text-align:center;width:10px;background-color:white">-</div>
@@ -39,15 +38,13 @@
             <button type="button" onclick="didPressStopButton()" style="position:absolute;top:10px;left:80px;z-index:3;width:60px;height:28px">Stop</button>
         </div>
         <div style="position:absolute;top:135px;left:350px;width:310px;height:50px;background-color:blue">       
-            <div width="600px" height="283px" style="position:absolute;top:15px;left:10px;color:white; width:600px;height:280px;z-index:3">Tempo</div>
+            <div style="position:absolute;top:15px;left:10px;color:white; width:70px;height:30px;z-index:3">Tempo</div>
             <input type="text" id="tempo" style="position:absolute;top:13px;left:80px;width:37px;z-index:3;font-size:12px;" value="1" onchange="updateSlider('tempo',this.value)">
             <div id="tempoSlider" style="position:absolute;top:18px;left:130px;z-index:3"></div>
             <div id="tempoMinus" onclick="updateSlider('tempo','-')" style="position:absolute;top:15px;left:260px;width:10px;cursor:pointer;z-index:3;text-align:center;background-color:white">-</div>
             <div id="tempoPlus" onclick="updateSlider('tempo','+')" style="position:absolute;top:15px;left:280px;width:10px;cursor:pointer;z-index:3;text-align:center;background-color:white;">+</div>
         </div>               
     </div>
-
-    <script>dhtmlxEvent(window, "load", sliderInit);</script>      
-        
+    <script>dhtmlxEvent(window, "load", sliderInit);</script>            
 </body>
 </html>
