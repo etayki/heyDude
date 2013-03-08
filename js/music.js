@@ -152,18 +152,28 @@ function updateSlider(slider, val) {
 	if (slider == "measure")
 	{
 		if (val == "-")
+		{
 			val = measure - 1;
+			if (val == 0)
+				return;
+		}
+		
+		maxMeasure = Math.floor(tune[tune.length-1][2]/4)+1
 
 		if (val == "+")
+		{
+			if (measure == maxMeasure)
+				return;
 			val = measure + 1;
-			
+		}
+		
 		// Limit to min measure
 		if (val < 1)
 			val = 1;
 			
 		// Limit to max measure
-		if (val > Math.floor(tune[tune.length-1][2]/4)+1)
-			val = Math.floor(tune[tune.length-1][2]/4)+1;
+		if (val > maxMeasure )
+			val = maxMeasure;
 			
 		// Set new measure	
 		measureSlider.setValue(val);
