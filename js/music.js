@@ -306,6 +306,8 @@ function drawPiano()
 	var debugArea = '<div id="debug" style="position:absolute;top:10px;left:'+debugAreaLeft+'px;width:'+debugAreaWidth+'px;height:50px;background-color:white">';
 	$("body").after(debugArea);
 
+	$("#keyboard").css("display","");
+
 }
 
 function drawPianoControls()
