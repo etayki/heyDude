@@ -25,10 +25,11 @@
 </head>
 <body>
     <!--<h2>Moonlight Sonata</h2>-->
+    <div id="loading"  style="position:absolute;top:100px;left:500px;z-index:3;font-size:12px"><img src="./images/loading.gif"></img></div>
     <div id="keyboard" style="position:relative;top:0;left:0;width:895;height:450;z-index:3;display:none">
         <div style="position:absolute;top:65px;left:130px;width:750px;height:50px; background-color:blue">
             <div style="position:absolute;top:15px;left:10px;color:white; width:70px;height:30px;z-index:3">Measure</div>
-            <input type="text" id="measure" style="position:absolute;top:13px;left:80px;width:37px;z-index:3;font-size:12px;" value="1" onchange="updateSlider('measure',this.value)">
+            <input type="text" id="measure" style="position:absolute;top:13px;left:80px;width:37px;z-index:3;font-size:12px" value="1" onchange="updateSlider('measure',this.value)">
             <div id="measureSlider" style="position:absolute;top:18px;left:130px;z-index:3"></div>
             <div id="measureMinus" onclick="updateSlider('measure','-')" style="position:absolute;top:15px;left:700px;cursor:pointer;z-index:3;text-align:center;width:10px;background-color:white">-</div>
             <div id="measurePlus" onclick="updateSlider('measure','+')" style="position:absolute;top:15px;left:720px;cursor:pointer;text-align:center;width:10px;z-index:3;background-color:white;">+</div>
