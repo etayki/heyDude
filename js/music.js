@@ -236,7 +236,7 @@ function drawPiano()
 	whiteKeySpacing = 2;
 	
 	// White Key - 15x73
-	whiteKeyWidth = 25; // 15-25
+	whiteKeyWidth = 18; // 15-25
 	whiteKeyHeight = Math.floor(whiteKeyWidth * 73/15);
 	whiteKeyOffset = 7;
 	
@@ -286,6 +286,12 @@ function drawPiano()
 	$("#keyboard").after(pianoBackground);
 	var redLine='<div style="position:absolute;z-index:1;top:210px;left:7px; background-color:#680000 ;width:'+redLineWidth+'px;height:2px;border:0px solid #000"></div>';
 	$("#keyboard").after(redLine);
+	
+	debugAreaLeft = whiteKeyOffset + 10;
+	debugAreaWidth = 1415 - debugAreaLeft;
+	var debugArea = '<div id="debug" style="position:absolute;top:10px;left:'+debugAreaLeft+'px;width:'+debugAreaWidth+'px;height:50px;background-color:green">';
+	$("body").after(debugArea);
+
 }
 
 function drawPianoControls()
