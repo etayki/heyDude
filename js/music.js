@@ -14,7 +14,6 @@ $(document).ready(function() {
 		callback: function() {
 			// MIDI Player has loaded, so now allow user interaction
 			drawPiano();
-			drawPianoControls();
 		}
 	});	
 });
@@ -307,12 +306,6 @@ function drawPiano()
 	$("body").after(debugArea);
 
 	$("#keyboard").css("display","");
-
-}
-
-function drawPianoControls()
-{
-
 
 }
 
