@@ -71,17 +71,21 @@ function playNote(note, velocity, delay, duration, finger)
 	var keyIdx = key % 12;
 	var color = "green";
 	
-	if (finger < 0)
-	{
-		color = "red";
-		finger *= -1;
-	}
+
 
 	// Turn note on (sound + visual)
 	timers.push(setTimeout(function() {
 		//debug("ON " + delay + " " + note + " " + duration);
+		var hand = $('input:radio[name=hand]:checked').val();
+		if ((finger < 0 && hand == "right") || (finger > 0 && hand == "left"))
+			return;
 		MIDI.setVolume(0, 127);
 		MIDI.noteOn(0, note, velocity, 0);                        
+		if (finger < 0)
+		{
+		color = "red";
+		finger *= -1;
+		}
 		$("#key-"+key).css("background-color",color);
 		$("#keyLabel-"+key).text(finger);
 		noteOn.push(note);
@@ -266,7 +270,7 @@ function drawPiano()
 			var whiteKeyLabel = '<b><div id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+whiteKeyLabelTop+'px;left:'+whiteKeyLabelLeft+'px;z-index:2;font-size:'+whiteKeyLabelSize+'%";font-weight:bold></div></b>';
 			$("#keyboard").after(whiteKey);
 			$("#key-"+key).append(whiteKeyLabel);
-			//debug(whiteKey);
+			//debug(whiteKey); 
 		}
 		else
 		{

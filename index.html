@@ -43,7 +43,14 @@
             <div id="tempoSlider" style="position:absolute;top:18px;left:130px;z-index:3"></div>
             <div id="tempoMinus" onclick="updateSlider('tempo','-')" style="position:absolute;top:15px;left:260px;width:10px;cursor:pointer;z-index:3;text-align:center;background-color:white">-</div>
             <div id="tempoPlus" onclick="updateSlider('tempo','+')" style="position:absolute;top:15px;left:280px;width:10px;cursor:pointer;z-index:3;text-align:center;background-color:white;">+</div>
-        </div>               
+        </div>
+        <div style="position:absolute;top:135px;left:750px;width:310px;height:50px;background-color:blue">
+            <img src="./images/leftHand.jpg" style="position:absolute;top:5px;left:50px;height:40px;width:40px">
+            <input type="radio" name="hand" value="left" style="position:absolute;top:15px;left:100px">
+            <input type="radio" name="hand" value="both" checked="checked" style="position:absolute;top:15px;left:150px">
+            <input type="radio" name="hand" value="right" style="position:absolute;top:15px;left:200px">
+            <img src="./images/rightHand.jpg" style="position:absolute;top:5px;left:230px;height:40px;width:40px">
+        </div> 
     </div>
     <script>dhtmlxEvent(window, "load", sliderInit);</script>            
 </body>
