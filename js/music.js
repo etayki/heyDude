@@ -2,7 +2,7 @@
 //          There are 85 keys. The lowest note is 21 and the highest is 108.
 
 var tempo = 2300;
-var measure = 3;
+var measure = 1;
 var timers = new Array();
 var noteOn = new Array();
 
@@ -307,7 +307,8 @@ function drawPiano()
 
 	$("#loading").css("display","none");
 	$("#keyboard").css("display","");
-
+	dhtmlxEvent(window, "load", sliderInit);
+	sliderInit();
 }
 
 /* --- ================ DEBUG ================== */
