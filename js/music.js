@@ -134,14 +134,14 @@ function sliderInit()
 	document.getElementById("measure").value = measure;
 	measureSlider.init();
 
-	tempoSlider = new dhtmlxSlider("tempoSlider", 100 * whiteKeyWidth/21, "dhx_skyblue", false, 1500, 2500, 2500 - (tempo - 1500), 200);
+	tempoSlider = new dhtmlxSlider("tempoSlider", 100 * whiteKeyWidth/21, "dhx_skyblue", false, 1100, 2500, 2500 - (tempo - 1100), 200);
 	tempoSlider.setImagePath("./slider/imgs/");
 	tempoSlider.attachEvent("onChange", function(newtempo) {
 		document.getElementById("tempo").value = newtempo;
 		tempo = newtempo;
 	});
 	
-	document.getElementById("tempo").value = 2500 - (tempo - 1500);
+	document.getElementById("tempo").value = 2500 - (tempo - 1100);	
 	tempoSlider.init();
 };
 
@@ -195,16 +195,16 @@ function updateSlider(slider, val) {
 			val = 1;
 
 		// Limit to max tempo
-		if (val < 1500)
-			val = 1500;
+		if (val < 1100)
+			val = 1100;
 			
 		// Limit to min tempo
 		if (val > 2500)
 			val = 2500;
 			
 		// Set new tempo	
-		tempoSlider.setValue(2500 - (val - 1500));
-		document.getElementById("tempo").value = 2500 - (val - 1500);
+		tempoSlider.setValue(2500 - (val - 1100));
+		document.getElementById("tempo").value = 2500 - (val - 1100);
 		tempo = val;
 		didPressStopButton();
 		didPressPlayButton();			
