@@ -15,6 +15,8 @@ curl -T js/MIDI/AudioDetect.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/le
 curl -T inc/Base64.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/
 curl -T inc/base64binary.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/inc/
 curl -T slider/dhtmlxcommon.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/slider/
+curl -T slider/dhtmlxslider.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/slider/
+curl -T slider/dhtmlxslider.css -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/slider/
 curl -T js/Window/DOMLoader.script.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/Window/
 curl -T js/Window/DOMLoader.XMLHttp.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/Window/
 #curl -T scripts/jquery.min.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/scripts/
