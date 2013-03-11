@@ -249,7 +249,7 @@ function drawPiano()
 {
 	whiteKeySpacing = 2;
 	// White Key - 15x73
-	whiteKeyWidth = 10; // 15-25 screen.width
+	whiteKeyWidth = screen.width/65; // 15-25 screen.width
 	whiteKeyHeight = Math.floor(whiteKeyWidth * 73/15);
 	whiteKeyOffset = 7;
 	
