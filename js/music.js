@@ -169,7 +169,7 @@ function updateSlider(slider, val) {
 	{
 		if (val == "-")
 		{
-			val = measure - 1;
+			val = Number(measure) - 1;
 			if (val == 0)
 				return;
 		}
@@ -180,7 +180,7 @@ function updateSlider(slider, val) {
 		{
 			if (measure == maxMeasure)
 				return;
-			val = measure + 1;
+			val = Number(measure) + 1;
 		}
 		
 		// Limit to min measure
@@ -188,7 +188,7 @@ function updateSlider(slider, val) {
 			val = 1;
 			
 		// Limit to max measure
-		if (val > maxMeasure )
+		if (val > maxMeasure)
 			val = maxMeasure;
 			
 		// Set new measure	
@@ -201,10 +201,10 @@ function updateSlider(slider, val) {
 	else if (slider == "tempo")
 	{
 		if (val == "-")
-			val = tempo + 200;
+			val = Number(tempo) + 200;
 
 		if (val == "+")
-			val = tempo - 200;
+			val = Number(tempo) - 200;
 			
 				// Limit to min measure
 		if (val < 1)
