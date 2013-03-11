@@ -1,3 +1,5 @@
+cat js/tune.js js/music.js > production/app.js 
+
 # CORE FILES
 curl -T index.html -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/
 curl -T js/music.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/

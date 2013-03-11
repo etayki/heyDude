@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <!-- midi.js package -->
+    <script src="./js/MIDI/AudioDetect.js" type="text/javascript"></script>
+    <script src="./js/MIDI/LoadPlugin.js" type="text/javascript"></script>
+    <script src="./js/MIDI/Plugin.js" type="text/javascript"></script>
+    <script src="./js/MIDI/Player.js" type="text/javascript"></script>
+    <script src="./js/Window/DOMLoader.XMLHttp.js" type="text/javascript"></script>
+    <script src="./js/Window/DOMLoader.script.js" type="text/javascript"></script>
+    <!-- extras -->
+    <script src="./inc/WebMIDIAPI.js" type="text/javascript"></script>
+    <script src="./inc/Base64.js" type="text/javascript"></script>
+    <script src="./inc/base64binary.js" type="text/javascript"></script>
+    <!-- jQuery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <!-- Music -->
+    <!--<script src="./js/music.js" type="text/javascript"></script>-->
+    <script src="./app.js" type="text/javascript"></script>
+    <!-- Slider -->
+    <link rel="STYLESHEET" type="text/css" href="./slider/dhtmlxslider.css">
+    <script src="./slider/dhtmlxcommon.js" type="text/javascript"></script>
+    <script src="./slider/dhtmlxslider.js" type="text/javascript"></script>
+</head>
+<body>
+    <!--<h2>Moonlight Sonata</h2>-->
+    <div id="loading"  style="position:absolute;top:100px;left:500px;z-index:3;font-size:12px"><img src="./images/loading.gif"></img></div>
+    <div id="keyboard" style="position:relative;top:0;left:0;width:895;height:450;z-index:3;display:none">
+        <div style="position:absolute;top:65px;left:130px;width:750px;height:50px; background-color:blue">
+            <div style="position:absolute;top:15px;left:10px;color:white; width:70px;height:30px;z-index:3">Measure</div>
+            <input type="text" id="measure" style="position:absolute;top:13px;left:80px;width:37px;z-index:3;font-size:12px" value="1" onchange="updateSlider('measure',this.value)">
+            <div id="measureSlider" style="position:absolute;top:18px;left:130px;z-index:3"></div>
+            <div id="measureMinus" onclick="updateSlider('measure','-')" style="position:absolute;top:15px;left:700px;cursor:pointer;z-index:3;text-align:center;width:10px;background-color:white">-</div>
+            <div id="measurePlus" onclick="updateSlider('measure','+')" style="position:absolute;top:15px;left:720px;cursor:pointer;text-align:center;width:10px;z-index:3;background-color:white;">+</div>
+        </div>
+        <div style="position:absolute;top:135px;left:130px;width:160px;height:50px;background-color:blue">       
+            <button type="button" onclick="didPressPlayButton()" style="position:absolute;top:10px;left:10px;z-index:3;width:60px;height:28px;">Play</button>
+            <button type="button" onclick="didPressStopButton()" style="position:absolute;top:10px;left:80px;z-index:3;width:60px;height:28px">Stop</button>
+        </div>
+        <div style="position:absolute;top:135px;left:350px;width:310px;height:50px;background-color:blue">       
+            <div style="position:absolute;top:15px;left:10px;color:white; width:70px;height:30px;z-index:3">Tempo</div>
+            <input type="text" id="tempo" style="position:absolute;top:13px;left:80px;width:37px;z-index:3;font-size:12px;" value="1" onchange="updateSlider('tempo',this.value)">
+            <div id="tempoSlider" style="position:absolute;top:18px;left:130px;z-index:3"></div>
+            <div id="tempoMinus" onclick="updateSlider('tempo','-')" style="position:absolute;top:15px;left:260px;width:10px;cursor:pointer;z-index:3;text-align:center;background-color:white">-</div>
+            <div id="tempoPlus" onclick="updateSlider('tempo','+')" style="position:absolute;top:15px;left:280px;width:10px;cursor:pointer;z-index:3;text-align:center;background-color:white;">+</div>
+        </div>
+        <div style="position:absolute;top:135px;left:750px;width:310px;height:50px;background-color:blue">
+            <img src="./images/leftHand.jpg" style="position:absolute;top:5px;left:50px;height:40px;width:40px">
+            <input type="radio" name="hand" value="left" style="position:absolute;top:15px;left:100px">
+            <input type="radio" name="hand" value="both" checked="checked" style="position:absolute;top:15px;left:150px">
+            <input type="radio" name="hand" value="right" style="position:absolute;top:15px;left:200px">
+            <img src="./images/rightHand.jpg" style="position:absolute;top:5px;left:230px;height:40px;width:40px">
+        </div> 
+    </div>
+</body>
+</html>
