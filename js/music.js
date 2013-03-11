@@ -14,6 +14,7 @@ $(document).ready(function() {
 		callback: function() {
 			// MIDI Player has loaded, so now allow user interaction
 			drawPiano();
+			drawControls();
 		}
 	});	
 });
@@ -121,7 +122,7 @@ var measureSlider, tempoSlider;
 
 function sliderInit()
 {
-	measureSlider = new dhtmlxSlider("measureSlider", tune[tune.length-1][2]*2, "dhx_skyblue", false, 1, Math.floor(tune[tune.length-1][2]/4)+1, measure, 1);
+	measureSlider = new dhtmlxSlider("measureSlider", tune[tune.length-1][2]*2 * whiteKeyWidth/21, "dhx_skyblue", false, 1, Math.floor(tune[tune.length-1][2]/4)+1, measure, 1);
 	measureSlider.setImagePath("./slider/imgs/");
 	measureSlider.attachEvent("onChange", function(newMeasure) {
 		document.getElementById("measure").value = newMeasure;
@@ -133,7 +134,7 @@ function sliderInit()
 	document.getElementById("measure").value = measure;
 	measureSlider.init();
 
-	tempoSlider = new dhtmlxSlider("tempoSlider", 100, "dhx_skyblue", false, 1500, 2500, 2500 - (tempo - 1500), 200);
+	tempoSlider = new dhtmlxSlider("tempoSlider", 100 * whiteKeyWidth/21, "dhx_skyblue", false, 1500, 2500, 2500 - (tempo - 1500), 200);
 	tempoSlider.setImagePath("./slider/imgs/");
 	tempoSlider.attachEvent("onChange", function(newtempo) {
 		document.getElementById("tempo").value = newtempo;
@@ -248,7 +249,7 @@ function drawPiano()
 {
 	whiteKeySpacing = 2;
 	// White Key - 15x73
-	whiteKeyWidth = screen.width/65; // 15-25 screen.width
+	whiteKeyWidth = 10; // 15-25 screen.width
 	whiteKeyHeight = Math.floor(whiteKeyWidth * 73/15);
 	whiteKeyOffset = 7;
 	
@@ -303,11 +304,34 @@ function drawPiano()
 	debugAreaWidth = 1415 - debugAreaLeft;
 	var debugArea = '<div id="debug" style="position:absolute;top:10px;left:'+debugAreaLeft+'px;width:'+debugAreaWidth+'px;height:50px;background-color:white">';
 	$("body").after(debugArea);
+}
 
-	$("#loading").css("display","none");
-	$("#keyboard").css("display","");
+function drawControls()
+{
+	//var arr[] = $("#keyboard").find("*").andSelf();//.css('width', '64px').css('height', '64px');
+	$("#keyboard").find("*").andSelf().each(
+	    function(){
+		//access to form element via $(this)
+		//debug($(this).attr('id'));
+		var width = $(this).css('width');
+		var left = $(this).css('left');
+		var fontSize = $(this).css('font-size');
+		width = width.replace(/px/g, '');
+		left = left.replace(/px/g, '');
+		fontSize = fontSize.replace(/px/g, '');
+		$(this).css("width",width*whiteKeyWidth/20+"px");
+		$(this).css("left",left*whiteKeyWidth/20+"px");
+		$(this).css("font-size",fontSize*(whiteKeyWidth/50+3/5)+"px");
+
+	    }
+	);
+
 	dhtmlxEvent(window, "load", sliderInit);
 	sliderInit();
+	
+	$("#loading").css("display","none");
+	$("#keyboard").css("display","");
+
 }
 
 /* --- ================ DEBUG ================== */
