@@ -138,8 +138,10 @@ function sliderInit()
 	tempoSlider.setImagePath("./slider/imgs/");
 	tempoSlider.attachEvent("onChange", function(newtempo) {
 		document.getElementById("tempo").value = newtempo;
-		tempo = newtempo;
-	});
+		tempo = 2500 - (newtempo - 1100);
+		didPressStopButton();
+		didPressPlayButton();
+		});
 	
 	document.getElementById("tempo").value = 2500 - (tempo - 1100);	
 	tempoSlider.init();
