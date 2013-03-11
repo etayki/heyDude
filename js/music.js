@@ -247,9 +247,8 @@ $(document).keydown(function(e){
 function drawPiano()
 {
 	whiteKeySpacing = 2;
-	
 	// White Key - 15x73
-	whiteKeyWidth = 22; // 15-25
+	whiteKeyWidth = screen.width/65; // 15-25 screen.width
 	whiteKeyHeight = Math.floor(whiteKeyWidth * 73/15);
 	whiteKeyOffset = 7;
 	
