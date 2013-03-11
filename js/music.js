@@ -250,6 +250,16 @@ function drawPiano()
 	whiteKeySpacing = 2;
 	// White Key - 15x73
 	whiteKeyWidth = screen.width/65; // 15-25 screen.width
+	
+	var userAgent = navigator.userAgent;
+	if(userAgent.indexOf("iPhone") !== -1)
+	{
+		whiteKeyWidth = 8;
+	}
+	else if(userAgent.indexOf("iPad") !== -1)
+	{
+		whiteKeyWidth = 10;
+	}
 	whiteKeyHeight = Math.floor(whiteKeyWidth * 73/15);
 	whiteKeyOffset = 7;
 	

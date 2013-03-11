@@ -4,23 +4,23 @@ curl -T js/music.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasureb
 curl -T js/tune.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/
 
 # IMAGES
-curl -T images/leftHand.jpg -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/images/
-curl -T images/rightHand.jpg -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/images/
-curl -T slider/imgs/skins/dhx_skyblue/selector.gif -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/slider/imgs/skins/dhx_skyblue/
-curl -T images/loading.gif -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/images/
+#curl -T images/leftHand.jpg -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/images/
+#curl -T images/rightHand.jpg -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/images/
+#curl -T slider/imgs/skins/dhx_skyblue/selector.gif -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/slider/imgs/skins/dhx_skyblue/
+#curl -T images/loading.gif -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/images/
 
 # SCRIPTS
-curl -T soundfont/acoustic_grand_piano-ogg.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/soundfont/
-curl -T js/MIDI/AudioDetect.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/MIDI/
-curl -T inc/Base64.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/
-curl -T inc/base64binary.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/inc/
-curl -T slider/dhtmlxcommon.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/slider/
-curl -T slider/dhtmlxslider.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/slider/
-curl -T slider/dhtmlxslider.css -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/slider/
-curl -T js/Window/DOMLoader.script.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/Window/
-curl -T js/Window/DOMLoader.XMLHttp.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/Window/
+#curl -T soundfont/acoustic_grand_piano-ogg.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/soundfont/
+#curl -T js/MIDI/AudioDetect.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/MIDI/
+#curl -T inc/Base64.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/
+#curl -T inc/base64binary.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/inc/
+#curl -T slider/dhtmlxcommon.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/slider/
+#curl -T slider/dhtmlxslider.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/slider/
+#curl -T slider/dhtmlxslider.css -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/slider/
+#curl -T js/Window/DOMLoader.script.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/Window/
+#curl -T js/Window/DOMLoader.XMLHttp.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/Window/
 #curl -T scripts/jquery.min.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/scripts/
-curl -T js/MIDI/LoadPlugin.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/MIDI/
-curl -T js/MIDI/Player.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/MIDI/
-curl -T js/MIDI/Plugin.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/MIDI/
-curl -T inc/WebMIDIAPI.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/inc/
+#curl -T js/MIDI/LoadPlugin.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/MIDI/
+#curl -T js/MIDI/Player.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/MIDI/
+#curl -T js/MIDI/Plugin.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/MIDI/
+#curl -T inc/WebMIDIAPI.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/inc/
