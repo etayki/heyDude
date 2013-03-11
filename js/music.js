@@ -122,9 +122,16 @@ var measureSlider, tempoSlider;
 
 function sliderInit()
 {
-	measureSlider = new dhtmlxSlider("measureSlider", tune[tune.length-1][2]*2 * whiteKeyWidth/21, "dhx_skyblue", false, 1, Math.floor(tune[tune.length-1][2]/4)+1, measure, 1);
+	// Add 1 to max as ugly fix to keep slider going off deep end
+	measureSlider = new dhtmlxSlider("measureSlider", tune[tune.length-1][2]*2 * whiteKeyWidth/21, "dhx_skyblue", false, 1, Math.floor(tune[tune.length-1][2]/4)+1 + 1, measure, 1);
 	measureSlider.setImagePath("./slider/imgs/");
 	measureSlider.attachEvent("onChange", function(newMeasure) {
+		// Ugly fix to keep slider going off deep end
+		if (newMeasure > Math.floor(tune[tune.length-1][2]/4) +1) 
+		{
+			measureSlider.setValue(Math.floor(tune[tune.length-1][2]/4)+1);
+			return;
+		}
 		document.getElementById("measure").value = newMeasure;
 		measure = newMeasure;
 		didPressStopButton();
@@ -134,9 +141,16 @@ function sliderInit()
 	document.getElementById("measure").value = measure;
 	measureSlider.init();
 
-	tempoSlider = new dhtmlxSlider("tempoSlider", 100 * whiteKeyWidth/21, "dhx_skyblue", false, 1100, 2500, 2500 - (tempo - 1100), 200);
+	// Add 200 to max as ugly fix to keep slider going off deep end
+	tempoSlider = new dhtmlxSlider("tempoSlider", 100 * whiteKeyWidth/21, "dhx_skyblue", false, 1100, 2500+200, 2500 - (tempo - 1100), 200);
 	tempoSlider.setImagePath("./slider/imgs/");
 	tempoSlider.attachEvent("onChange", function(newtempo) {
+		// Ugly fix to keep slider going off deep end
+		if (newtempo > 2500) 
+		{
+			tempoSlider.setValue(2500);
+			return;
+		}
 		document.getElementById("tempo").value = newtempo;
 		tempo = 2500 - (newtempo - 1100);
 		didPressStopButton();
