@@ -54,7 +54,7 @@ function didPressPlayButton(option)
 		if ( (delay - 0.01) < noteStart && noteStart <= delay )
 		{
 			// Turn note on (sound + visual)
-			debug("ON " + noteStart + " " + note + " " + noteEnd);
+			//debug("ON " + note + " " + noteStart + " " + noteEnd);
 			var hand = $('input:radio[name=hand]:checked').val();
 			var finger = tune[measure][noteIdx][FINGER];
 			if (( finger < 0 && hand == "right") || (finger > 0 && hand == "left"))
@@ -70,7 +70,7 @@ function didPressPlayButton(option)
 			noteOn.push(note);
 
 		}
-		else if ((delay - 0.01) < (noteEnd - tempo/50000) && (noteEnd - tempo/50000) <= delay)
+		else if ((delay - 0.01) < (noteEnd - 0.01) && (noteEnd - 0.01) <= delay)
 		{
 			// Hide note (visualy)
 			resetNote(note);
@@ -385,7 +385,7 @@ function debug(param)
 {
 	try { param = param.replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 	catch(err){}
-	param = '<div id="debug" style="position:absolute;z-index:6;top:'+debugTop+'px;left:10px;color:red">' + param + "<br></div>";
+	param = '<div id="debug" style="position:absolute;z-index:6;top:'+debugTop+'px;left:10px;color:red;font-size:15px">' + param + "<br></div>";
 	$("#debug").append(param);
-	debugTop += 20;
+	debugTop += 40;
 }
