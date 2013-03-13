@@ -46,7 +46,7 @@ function didPressPlayButton(option)
 	//	MIDI.noteOn(0, noteOn[noteOnIdx], 10, 0);
 	//}
 	
-	if (delay !=0 && option == STARTPLAY)
+	if (option == STARTPLAY)
 	{
 		oldTempo = tempo;
 		tempo = 200; // Fast forward to the next note upon resume;
