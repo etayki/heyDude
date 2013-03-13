@@ -39,7 +39,19 @@ function didPressPlayButton(option)
 		return;
 		
 	didPressPlayBtn = 1;
-
+	
+	// Continue playing note upon resume ()
+	//for (var noteOnIdx = 0; noteOnIdx < noteOn.length && option == STARTPLAY; noteOnIdx++)
+	//{
+	//	MIDI.noteOn(0, noteOn[noteOnIdx], 10, 0);
+	//}
+	
+	if (delay !=0 && option == STARTPLAY)
+	{
+		oldTempo = tempo;
+		tempo = 200; // Fast forward to the next note upon resume;
+	}
+	
 	for (var noteIdx = 0; noteIdx < tune[measure].length; noteIdx++)
 	{
 		var note = tune[measure][noteIdx][NOTE];
@@ -55,6 +67,10 @@ function didPressPlayButton(option)
 		{
 			// Turn note on (sound + visual)
 			//debug("ON " + note + " " + noteStart + " " + noteEnd);
+			
+			if (tempo == 200) // End fastfoward
+				tempo = oldTempo;
+			
 			var hand = $('input:radio[name=hand]:checked').val();
 			var finger = tune[measure][noteIdx][FINGER];
 			if (( finger < 0 && hand == "right") || (finger > 0 && hand == "left"))
@@ -268,7 +284,7 @@ $(document).keydown(function(e){
 		}
 		else
 		{
-			didPressPlayButton();		
+			didPressPlayButton(STARTPLAY);		
 		}
 	}
 	else if (e.keyCode == 13) //Enter
