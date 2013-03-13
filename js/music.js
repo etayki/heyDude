@@ -1,7 +1,8 @@
 //          [top rec offset, top rec width, bottom rec offset, bottom rec width]
 //          There are 85 keys. The lowest note is 21 and the highest is 108.
 
-var tempo = 2300;
+var startTempo = 2500;
+var tempo = 3900 - (startTempo - 1300);
 var measure = 1;
 var timers = new Array();
 var noteOn = new Array();
@@ -140,22 +141,22 @@ function sliderInit()
 	measureSlider.init();
 
 	// Add 200 to max as ugly fix to keep slider going off deep end
-	tempoSlider = new dhtmlxSlider("tempoSlider", 100 * whiteKeyWidth/21, "dhx_skyblue", false, 800, 2500+200, 2500 - (tempo - 800), 200);
+	tempoSlider = new dhtmlxSlider("tempoSlider", 100 * whiteKeyWidth/21, "dhx_skyblue", false, 1300, 3900+200, 3900 - (tempo - 1300), 200);
 	tempoSlider.setImagePath("./slider/imgs/");
 	tempoSlider.attachEvent("onChange", function(newtempo) {
 		// Ugly fix to keep slider going off deep end
-		if (newtempo > 2500) 
+		if (newtempo > 3900) 
 		{
-			tempoSlider.setValue(2500);
+			tempoSlider.setValue(3900);
 			return;
 		}
 		document.getElementById("tempo").value = newtempo;
-		tempo = 2500 - (newtempo - 800);
+		tempo = 3900 - (newtempo - 1300);
 		didPressStopButton();
 		didPressPlayButton();
 		});
 	
-	document.getElementById("tempo").value = 2500 - (tempo - 800);	
+	document.getElementById("tempo").value = 3900 - (tempo - 1300);	
 	tempoSlider.init();
 };
 
@@ -209,16 +210,16 @@ function updateSlider(slider, val) {
 			val = 1;
 
 		// Limit to max tempo
-		if (val < 800)
-			val = 800;
+		if (val < 1300)
+			val = 1300;
 			
 		// Limit to min tempo
-		if (val > 2500)
-			val = 2500;
+		if (val > 3900)
+			val = 3900;
 			
 		// Set new tempo	
-		tempoSlider.setValue(2500 - (val - 800));
-		document.getElementById("tempo").value = 2500 - (val - 800);
+		tempoSlider.setValue(3900 - (val - 1300));
+		document.getElementById("tempo").value = 3900 - (val - 1300);
 		tempo = val;
 		didPressStopButton();
 		didPressPlayButton();			
@@ -321,7 +322,7 @@ function drawPiano()
 	bgHeight = 217 + whiteKeyHeight;
 	var pianoBackground='<div style="position:absolute;z-index:0;top:0px;left:0px; background-color:black;width:'+whiteKeyOffset+'px;height:'+bgHeight+'px;border:0px solid #000"></div>';	
 	$("#keyboard").after(pianoBackground);
-	var redLine='<div style="position:absolute;z-index:1;top:210px;left:7px; background-color:#680000 ;width:'+redLineWidth+'px;height:2px;border:0px solid #000"></div>';
+	var redLine='<div style="position:absolute;z-index:1;top:210px;left:7px; background-color:#6130000 ;width:'+redLineWidth+'px;height:2px;border:0px solid #000"></div>';
 	$("#keyboard").after(redLine);
 	
 	debugAreaLeft = whiteKeyOffset + 10;
