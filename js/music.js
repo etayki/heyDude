@@ -6,12 +6,16 @@ var tempo = 3900 - (startTempo - 1300);
 var measure = 1;
 var timers = new Array();
 var noteOn = new Array();
+var didPressPlayBtn = 0;
 
 var DELAY = 0;
 var DURATION = 1;
 var NOTE = 2;
 var VELOCITY = 3;
 var FINGER = 4;
+
+var STARTPLAY = 0;
+var REPEAT = 1;
 
 $(document).ready(function() {
 	/* Load the MIDI Player*/
@@ -29,14 +33,13 @@ $(document).ready(function() {
 
 /* --- ================ CONTROLS ================== */
 
-function didPressPlayButton()
+function didPressPlayButton(option)
 {
-	//if (noteOn.length)
-	//{
-	//	// We are already playing, so return
-	//	return;
-	//}
-	
+	if (didPressPlayBtn == 1 && option == STARTPLAY)
+		return;
+		
+	didPressPlayBtn = 1;
+
 	for (var noteIdx = 0; noteIdx < tune[measure].length; noteIdx++)
 	{
 		var note = tune[measure][noteIdx][NOTE];
@@ -86,19 +89,22 @@ function didPressPlayButton()
 		{
 			delay = (measure - 1) * 4;
 		}
-		didPressPlayButton();	
+		didPressPlayButton(REPEAT);	
 	}, 4*tempo/600));	
 	
 }
 
-function didPressStopButton()
+function didPressPauseButton(visualOff)
 {
 	// Reset delay to start of measure
-	delay = (measure - 1) * 4;
+	//delay = (measure - 1) * 4;
+	didPressPlayBtn = 0;
+
 	for (var note = 21; note < 108; note++)
 	{
 		MIDI.noteOff(0, note, 0);
-		resetNote(note);
+		if (visualOff)
+			resetNote(note);
 	}
 
 	// clear all timers in the array
@@ -142,8 +148,8 @@ function sliderInit()
 		}
 		document.getElementById("measure").value = newMeasure;
 		measure = newMeasure;
-		didPressStopButton();
-		didPressPlayButton();
+		didPressPauseButton();
+		didPressPlayButton(STARTPLAY);
 	});
 
 	delay = (measure - 1) * 4;
@@ -162,8 +168,8 @@ function sliderInit()
 		}
 		document.getElementById("tempo").value = newtempo;
 		tempo = 3900 - (newtempo - 1300);
-		didPressStopButton();
-		didPressPlayButton();
+		//didPressPauseButton();
+		//didPressPlayButton(STARTPLAY);
 		});
 	
 	document.getElementById("tempo").value = 3900 - (tempo - 1300);	
@@ -204,8 +210,9 @@ function updateSlider(slider, val) {
 		measureSlider.setValue(val);
 		document.getElementById("measure").value = val;
 		measure = val;
-		didPressStopButton();
-		didPressPlayButton();
+		delay = (measure - 1) * 4;
+		didPressPauseButton(1);
+		didPressPlayButton(STARTPLAY);
 	}
 	else if (slider == "tempo")
 	{
@@ -231,8 +238,6 @@ function updateSlider(slider, val) {
 		tempoSlider.setValue(3900 - (val - 1300));
 		document.getElementById("tempo").value = 3900 - (val - 1300);
 		tempo = val;
-		//didPressStopButton();
-		//didPressPlayButton();			
 	}
 };
 
@@ -257,9 +262,9 @@ $(document).keydown(function(e){
 	}
 	else if (e.keyCode == 32) // Space
 	{
-		if (noteOn.length)
+		if (didPressPlayBtn)
 		{
-			didPressStopButton();
+			didPressPauseButton();
 		}
 		else
 		{
