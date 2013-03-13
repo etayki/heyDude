@@ -54,7 +54,7 @@ function didPressPlayButton(option)
 		if ( (delay - 0.01) < noteStart && noteStart <= delay )
 		{
 			// Turn note on (sound + visual)
-			//debug("ON " + delay + " " + note + " " + duration);
+			debug("ON " + noteStart + " " + note + " " + noteEnd);
 			var hand = $('input:radio[name=hand]:checked').val();
 			var finger = tune[measure][noteIdx][FINGER];
 			if (( finger < 0 && hand == "right") || (finger > 0 && hand == "left"))
@@ -189,7 +189,7 @@ function updateSlider(slider, val) {
 				return;
 		}
 		
-		maxMeasure = Math.floor(tune[tune.length-1][2]/4)+1
+		maxMeasure = Math.floor(tune.length - 1);
 
 		if (val == "+")
 		{
@@ -270,6 +270,12 @@ $(document).keydown(function(e){
 		{
 			didPressPlayButton();		
 		}
+	}
+	else if (e.keyCode == 13) //Enter
+	{
+		if (document.getElementById("measure").value == "")
+			document.getElementById("measure").value = measure;
+		$('#measure').blur();
 	}
 });
 
@@ -362,7 +368,6 @@ function drawControls()
 		$(this).css("width",width*whiteKeyWidth/20+"px");
 		$(this).css("left",left*whiteKeyWidth/20+"px");
 		$(this).css("font-size",fontSize*(whiteKeyWidth/50+3/5)+"px");
-
 	    }
 	);
 
