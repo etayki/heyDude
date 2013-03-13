@@ -7,6 +7,12 @@ var measure = 1;
 var timers = new Array();
 var noteOn = new Array();
 
+var DELAY = 0;
+var DURATION = 1;
+var NOTE = 2;
+var VELOCITY = 3;
+var FINGER = 4;
+
 $(document).ready(function() {
 	/* Load the MIDI Player*/
 	MIDI.loadPlugin({
@@ -16,6 +22,7 @@ $(document).ready(function() {
 			// MIDI Player has loaded, so now allow user interaction
 			drawPiano();
 			drawControls();
+			MIDI.setVolume(0, 127);
 		}
 	});	
 });
@@ -24,37 +31,74 @@ $(document).ready(function() {
 
 function didPressPlayButton()
 {
-	if (noteOn.length)
+	//if (noteOn.length)
+	//{
+	//	// We are already playing, so return
+	//	return;
+	//}
+	
+	for (var noteIdx = 0; noteIdx < tune[measure].length; noteIdx++)
 	{
-		// We are already playing, so return
-		return;
+		var note = tune[measure][noteIdx][NOTE];
+		var key = note - 21;
+		var color = "#00FF00";
+		var noteStart = tune[measure][noteIdx][DELAY];
+		var noteDuration = tune[measure][noteIdx][DURATION];
+		var noteEnd = noteStart + noteDuration;
+		if (noteEnd > measure * 4)
+			noteEnd = measure * 4 - 0.01;
+		
+		if ( (delay - 0.01) < noteStart && noteStart <= delay )
+		{
+			// Turn note on (sound + visual)
+			//debug("ON " + delay + " " + note + " " + duration);
+			var hand = $('input:radio[name=hand]:checked').val();
+			var finger = tune[measure][noteIdx][FINGER];
+			if (( finger < 0 && hand == "right") || (finger > 0 && hand == "left"))
+				return;
+			MIDI.noteOn(0, note, tune[measure][noteIdx][VELOCITY], 0);
+			if (finger < 0)
+			{
+				color = "red";
+				finger *= -1;
+			}
+			$("#key-"+key).css("background-color",color);
+			$("#keyLabel-"+key).text(finger);
+			noteOn.push(note);
+
+		}
+		else if ((delay - 0.01) < (noteEnd - tempo/80000) && (noteEnd - tempo/80000) <= delay)
+		{
+			// Hide note (visualy)
+			resetNote(note);
+		}
+		else if ((delay - 0.01) < noteEnd && noteEnd <= delay)
+		{
+			// Turn note off (sound)
+			MIDI.noteOff(0, note, 0);
+
+		}		
 	}
 	
-	for (var i=0; i < tune.length;i++)
-	{
-		if (tune[i][2] < 4* (measure - 1))
-		{
-			continue;
-		}
-		else if (tune[i][2] >= 4 * measure - 0)
-		{
-			break;
-		}
-	
-		playNote(tune[i][0],tune[i][1],tune[i][2] - (measure - 1) * 4,tune[i][3], tune[i][4]);
-	}
 	timers.push(setTimeout(function() {
-		didPressPlayButton()	
-	}, 4*tempo));	
+		delay += 0.01;
+		if (delay > measure * 4)
+		{
+			delay = (measure - 1) * 4;
+		}
+		didPressPlayButton();	
+	}, 4*tempo/600));	
 	
 }
 
 function didPressStopButton()
 {
+	// Reset delay to start of measure
+	delay = (measure - 1) * 4;
 	for (var note = 21; note < 108; note++)
 	{
 		MIDI.noteOff(0, note, 0);
-		resetNote(note-21);
+		resetNote(note);
 	}
 
 	// clear all timers in the array
@@ -66,44 +110,9 @@ function didPressStopButton()
 
 /* --- ================ PLAY ================== */
 
-function playNote(note, velocity, delay, duration, finger)
+function resetNote(note)
 {
-	var key = note - 21;
-	var keyIdx = key % 12;
-	var color = "#00FF00";
-
-	// Turn note on (sound + visual)
-	timers.push(setTimeout(function() {
-		//debug("ON " + delay + " " + note + " " + duration);
-		var hand = $('input:radio[name=hand]:checked').val();
-		if ((finger < 0 && hand == "right") || (finger > 0 && hand == "left"))
-			return;
-		MIDI.setVolume(0, 127);
-		MIDI.noteOn(0, note, velocity, 0);                        
-		if (finger < 0)
-		{
-		color = "red";
-		finger *= -1;
-		}
-		$("#key-"+key).css("background-color",color);
-		$("#keyLabel-"+key).text(finger);
-		noteOn.push(note);
-	}, (delay)*tempo));
-
-	// Turn note off (sound)
-	timers.push(setTimeout(function() {
-		//debug("OFF " + delay + " " + note);
-		MIDI.noteOff(0, note, 0);
-	}, (delay+duration)*tempo));
-
-	// Hide note (visualy)
-	timers.push(setTimeout(function() {
-		resetNote(key);
-	}, (delay+duration)*tempo - tempo/20)); // Subtract a little so that if the note is pressed again it is visible
-}
-
-function resetNote(key)
-{
+	key = note - 21;
 	color = "white";
 	var keyIdx = key % 12;
 	if (keyIdx==1 || keyIdx==4 || keyIdx==6 || keyIdx == 9 || keyIdx==11)
@@ -112,7 +121,7 @@ function resetNote(key)
 	}
 	$("#key-"+key).css("background-color",color);
 	$("#keyLabel-"+key).text("");
-	noteOn.pop(key+21);
+	noteOn.pop(note);
 }
 
 /* --- ================ SLIDER ================== */
@@ -122,7 +131,7 @@ var measureSlider, tempoSlider;
 function sliderInit()
 {
 	// Add 1 to max as ugly fix to keep slider going off deep end
-	measureSlider = new dhtmlxSlider("measureSlider", tune[tune.length-1][2]*2 * whiteKeyWidth/21, "dhx_skyblue", false, 1, Math.floor(tune[tune.length-1][2]/4)+1 + 1, measure, 1);
+	measureSlider = new dhtmlxSlider("measureSlider", tune.length * 8 * whiteKeyWidth/21, "dhx_skyblue", false, 1, tune.length, measure, 1);
 	measureSlider.setImagePath("./slider/imgs/");
 	measureSlider.attachEvent("onChange", function(newMeasure) {
 		// Ugly fix to keep slider going off deep end
@@ -136,7 +145,8 @@ function sliderInit()
 		didPressStopButton();
 		didPressPlayButton();
 	});
-	
+
+	delay = (measure - 1) * 4;
 	document.getElementById("measure").value = measure;
 	measureSlider.init();
 
@@ -221,8 +231,8 @@ function updateSlider(slider, val) {
 		tempoSlider.setValue(3900 - (val - 1300));
 		document.getElementById("tempo").value = 3900 - (val - 1300);
 		tempo = val;
-		didPressStopButton();
-		didPressPlayButton();			
+		//didPressStopButton();
+		//didPressPlayButton();			
 	}
 };
 
