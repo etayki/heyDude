@@ -67,7 +67,7 @@ function didPressPlayButton()
 			noteOn.push(note);
 
 		}
-		else if ((delay - 0.01) < (noteEnd - tempo/80000) && (noteEnd - tempo/80000) <= delay)
+		else if ((delay - 0.01) < (noteEnd - tempo/50000) && (noteEnd - tempo/50000) <= delay)
 		{
 			// Hide note (visualy)
 			resetNote(note);
