@@ -69,9 +69,7 @@ function playNote(note, velocity, delay, duration, finger)
 {
 	var key = note - 21;
 	var keyIdx = key % 12;
-	var color = "green";
-	
-
+	var color = "#00FF00";
 
 	// Turn note on (sound + visual)
 	timers.push(setTimeout(function() {
@@ -142,7 +140,7 @@ function sliderInit()
 	measureSlider.init();
 
 	// Add 200 to max as ugly fix to keep slider going off deep end
-	tempoSlider = new dhtmlxSlider("tempoSlider", 100 * whiteKeyWidth/21, "dhx_skyblue", false, 1100, 2500+200, 2500 - (tempo - 1100), 200);
+	tempoSlider = new dhtmlxSlider("tempoSlider", 100 * whiteKeyWidth/21, "dhx_skyblue", false, 800, 2500+200, 2500 - (tempo - 800), 200);
 	tempoSlider.setImagePath("./slider/imgs/");
 	tempoSlider.attachEvent("onChange", function(newtempo) {
 		// Ugly fix to keep slider going off deep end
@@ -152,12 +150,12 @@ function sliderInit()
 			return;
 		}
 		document.getElementById("tempo").value = newtempo;
-		tempo = 2500 - (newtempo - 1100);
+		tempo = 2500 - (newtempo - 800);
 		didPressStopButton();
 		didPressPlayButton();
 		});
 	
-	document.getElementById("tempo").value = 2500 - (tempo - 1100);	
+	document.getElementById("tempo").value = 2500 - (tempo - 800);	
 	tempoSlider.init();
 };
 
@@ -211,16 +209,16 @@ function updateSlider(slider, val) {
 			val = 1;
 
 		// Limit to max tempo
-		if (val < 1100)
-			val = 1100;
+		if (val < 800)
+			val = 800;
 			
 		// Limit to min tempo
 		if (val > 2500)
 			val = 2500;
 			
 		// Set new tempo	
-		tempoSlider.setValue(2500 - (val - 1100));
-		document.getElementById("tempo").value = 2500 - (val - 1100);
+		tempoSlider.setValue(2500 - (val - 800));
+		document.getElementById("tempo").value = 2500 - (val - 800);
 		tempo = val;
 		didPressStopButton();
 		didPressPlayButton();			
