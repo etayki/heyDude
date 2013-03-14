@@ -177,10 +177,7 @@ function sliderInit()
 			measureSlider.setValue(Math.floor(tune[tune.length-1][2]/4)+1);
 			return;
 		}
-		document.getElementById("measure").value = newMeasure;
-		measure = newMeasure;
-		didPressPauseButton();
-		didPressPlayButton(STARTPLAY);
+		updateSlider("measure", newMeasure);
 	});
 
 	delay = (measure - 1) * 4;
