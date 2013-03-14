@@ -145,6 +145,7 @@ function didSelectHand(hand)
 		if ((keyColor == "rgb(255, 0, 0)" && hand == "right") || (keyColor == "rgb(0, 255, 0)" && hand == "left"))
 		{
 			resetNote(note);
+			MIDI.noteOff(0, note, 0);
 			i--;
 		}
 	}
@@ -305,14 +306,26 @@ $(document).keydown(function(e){
 			didPressPlayButton(STARTPLAY);		
 		}
 	}
-	else if (e.keyCode == 13) //Enter
+	else if (e.keyCode == 13) // Enter
 	{
 		if (document.getElementById("measure").value == "")
 			document.getElementById("measure").value = measure;
 		$('#measure').blur();
 	}
-	//else if (e.keyCode == 13) //Enter
-	//{
+	else if (e.keyCode == 76) // l
+	{
+		$('input[name=hand][value=left]').prop("checked",true);
+		didSelectHand('left');
+	}
+	else if (e.keyCode == 82) // r
+	{
+		$('input[name=hand][value=right]').prop("checked",true);
+		didSelectHand('right');
+	}
+	else if (e.keyCode == 66) // b
+	{
+		$('input[name=hand][value=both]').prop("checked",true);	
+	}
 });
 
 /* --- ================ PIANO DRAW ================== */
