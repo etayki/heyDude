@@ -311,6 +311,8 @@ $(document).keydown(function(e){
 			document.getElementById("measure").value = measure;
 		$('#measure').blur();
 	}
+	//else if (e.keyCode == 13) //Enter
+	//{
 });
 
 /* --- ================ PIANO DRAW ================== */
