@@ -74,7 +74,7 @@ function didPressPlayButton(option)
 			var hand = $('input:radio[name=hand]:checked').val();
 			var finger = tune[measure][noteIdx][FINGER];
 			if (( finger < 0 && hand == "right") || (finger > 0 && hand == "left"))
-				return;
+				continue;
 			MIDI.noteOn(0, note, tune[measure][noteIdx][VELOCITY], 0);
 			if (finger < 0)
 			{
@@ -130,6 +130,24 @@ function didPressPauseButton(visualOff)
 	}
 }
 
+function didSelectHand(hand)
+{
+	for(var i = 0; i < noteOn.length; i++)
+	{
+		note = noteOn[i];
+		key = note - 21;
+		keyColor =  $("#key-"+key).css("background-color");
+		debug(key+" "+keyColor)
+		if ((keyColor == "rgb(255, 0, 0)" && hand == "right") || (keyColor == "rgb(0, 255, 0)" && hand == "left"))
+		{
+			resetNote(note);
+			i--;
+		}
+	}
+
+}
+
+
 /* --- ================ PLAY ================== */
 
 function resetNote(note)
@@ -143,7 +161,7 @@ function resetNote(note)
 	}
 	$("#key-"+key).css("background-color",color);
 	$("#keyLabel-"+key).text("");
-	noteOn.pop(note);
+	noteOn.splice(noteOn.indexOf(note), 1);
 }
 
 /* --- ================ SLIDER ================== */
