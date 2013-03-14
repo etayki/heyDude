@@ -75,6 +75,7 @@ function didPressPlayButton(option)
 			var finger = tune[measure][noteIdx][FINGER];
 			if (( finger < 0 && hand == "right") || (finger > 0 && hand == "left"))
 				continue;
+
 			MIDI.noteOn(0, note, tune[measure][noteIdx][VELOCITY], 0);
 			if (finger < 0)
 			{
@@ -112,8 +113,6 @@ function didPressPlayButton(option)
 
 function didPressPauseButton(visualOff)
 {
-	// Reset delay to start of measure
-	//delay = (measure - 1) * 4;
 	didPressPlayBtn = 0;
 
 	for (var note = 21; note < 108; note++)
@@ -137,14 +136,12 @@ function didSelectHand(hand)
 		note = noteOn[i];
 		key = note - 21;
 		keyColor =  $("#key-"+key).css("background-color");
-		debug(key+" "+keyColor)
 		if ((keyColor == "rgb(255, 0, 0)" && hand == "right") || (keyColor == "rgb(0, 255, 0)" && hand == "left"))
 		{
 			resetNote(note);
 			i--;
 		}
 	}
-
 }
 
 
