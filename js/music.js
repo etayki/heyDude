@@ -16,6 +16,12 @@ var FINGER = 4;
 
 var STARTPLAY = 0;
 var REPEAT = 1;
+var info = {
+	'measureControl' : "Press LEFT and RIGHT keys to traverse measures.",
+	'playControl'    : "Press SPACE key to toggle between Play and Pause.",
+	'tempoControl'   : "Press UP and DOWN keys to change tempo.",
+	'handControl'    : "Press L key for left hand only, R key for right hand only, and B to display both hands."
+};
 
 $(document).ready(function() {
 	/* Load the MIDI Player*/
@@ -401,11 +407,27 @@ function drawControls()
 
 	dhtmlxEvent(window, "load", sliderInit);
 	sliderInit();
-	
+
 	$("#loading").css("display","none");
 	$("#keyboard").css("display","");
 
+	infoTop = 350;
+	infoLeft = 150;
+	infoWidth = 800;
+	var infoArea = '<b><div id="info" style="position:absolute;top:'+infoTop+'px;left:'+infoLeft+'px;width:'+infoWidth+'px;height:50px;background-color:white;color:red;font-size:22px"></b>';
+	$("body").after(infoArea);
+
+	$(".control").hover(function(){
+		message = info[$(this).attr('id')];
+		$("#info").append(message);
+	  },
+	  function(){
+	    $("#info").text("");              
+	});
+
 }
+
+ 
 
 /* --- ================ DEBUG ================== */
 debugTop = 0;
