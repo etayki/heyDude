@@ -46,12 +46,6 @@ function didPressPlayButton(option)
 		
 	didPressPlayBtn = 1;
 	
-	// Continue playing note upon resume ()
-	//for (var noteOnIdx = 0; noteOnIdx < noteOn.length && option == STARTPLAY; noteOnIdx++)
-	//{
-	//	MIDI.noteOn(0, noteOn[noteOnIdx], 10, 0);
-	//}
-	
 	if (option == STARTPLAY)
 	{
 		oldTempo = tempo;
@@ -137,16 +131,14 @@ function didPressPauseButton(visualOff)
 
 function didSelectHand(hand)
 {
-	for(var i = 0; i < noteOn.length; i++)
+	for(var key = 0; key < 88; key++)
 	{
-		note = noteOn[i];
-		key = note - 21;
+		note = key + 21
 		keyColor =  $("#key-"+key).css("background-color");
 		if ((keyColor == "rgb(255, 0, 0)" && hand == "right") || (keyColor == "rgb(0, 255, 0)" && hand == "left"))
 		{
 			resetNote(note);
 			MIDI.noteOff(0, note, 0);
-			i--;
 		}
 	}
 }
