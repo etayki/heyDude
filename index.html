@@ -26,22 +26,27 @@
 <body>
     <!--<h2>Moonlight Sonata</h2>-->
     <div id="loading"  style="position:absolute;top:100px;left:500px;z-index:3;font-size:12px"><img src="./images/loading.gif"></img></div>
-    <div id="keyboard" style="position:relative;top:0;left:0;width:895;height:450;z-index:3;display:none">
+    <div id="keyboard" style="position:absolute;top:40px;left:50px;width:895px;height:150px;z-index:3;display:none;background-color:clear">
         <!-- Measure Control -->
-        <div class="control" id="measureControl" style="position:absolute;top:65px;left:130px;width:750px;height:50px; background-color:blue">
+        <div class="control" id="measureControl" style="position:absolute;top:0px;left:0px;width:750px;height:50px; background-color:blue">
             <div style="position:absolute;top:15px;left:10px;color:white; width:70px;height:30px;z-index:3;">Measure</div>
             <input type="text" id="measure" style="position:absolute;top:13px;left:80px;width:37px;z-index:3;font-size:12px" value="1" onchange="updateSlider('measure',this.value)" onfocus="this.value = ''">
             <div id="measureSlider" style="position:absolute;top:18px;left:130px;z-index:3"></div>
             <div id="measureMinus" onclick="updateSlider('measure','-')" style="position:absolute;top:15px;left:700px;cursor:pointer;z-index:3;text-align:center;width:10px;background-color:white">-</div>
             <div id="measurePlus" onclick="updateSlider('measure','+')" style="position:absolute;top:15px;left:720px;cursor:pointer;text-align:center;width:10px;z-index:3;background-color:white;">+</div>
         </div>
+        <!-- Repeat Control -->
+        <div class="control" id="repeatControl" style="position:absolute;top:0px;left:780px;width:200px;height:50px; background-color:blue">
+            <div style="position:absolute;top:15px;left:10px;color:white; width:70px;height:30px;z-index:3;">Repeat</div>
+            <input id="repeatCheck" type="checkbox" name="repeat" value="on" checked="checked" style="position:absolute;left:75px;top:18px">
+        </div>
         <!-- Play Control -->
-        <div class="control" id="playControl" style="position:absolute;top:135px;left:130px;width:160px;height:50px;background-color:blue">       
+        <div class="control" id="playControl" style="position:absolute;top:80px;left:0px;width:160px;height:50px;background-color:blue">       
             <button id="playButton" type="button" onclick="didPressPlayButton(0)" style="position:absolute;top:10px;left:10px;z-index:3;width:60px;height:28px">Play</button>
             <button id="stopButton" type="button" onclick="didPressPauseButton(3)" style="position:absolute;top:10px;left:80px;z-index:3;width:60px;height:28px">Stop</button>
         </div>
         <!-- Tempo Control -->
-        <div class="control" id="tempoControl" style="position:absolute;top:135px;left:320px;width:250px;height:50px;background-color:blue">       
+        <div class="control" id="tempoControl" style="position:absolute;top:80px;left:190px;width:250px;height:50px;background-color:blue">       
             <div style="position:absolute;top:15px;left:10px;color:white; width:70px;height:30px;z-index:3">Tempo</div>
             <input type="text" id="tempo" style="position:absolute;top:13px;left:80px;width:37px;z-index:3;font-size:12px; display:none" value="1" onchange="updateSlider('tempo',this.value)">
             <div id="tempoSlider" style="position:absolute;top:18px;left:70px;z-index:3"></div>
@@ -49,7 +54,7 @@
             <div id="tempoPlus" onclick="updateSlider('tempo','+')" style="position:absolute;top:15px;left:220px;width:10px;cursor:pointer;z-index:3;text-align:center;background-color:white;">+</div>
         </div>
         <!-- Hand Control -->
-        <div class="control" id="handControl" style="position:absolute;top:135px;left:600px;width:280px;height:50px;background-color:blue">
+        <div class="control" id="handControl" style="position:absolute;top:80px;left:470px;width:280px;height:50px;background-color:blue">
             <img src="./images/leftHand.jpg"                                                 style="position:absolute;left:30px;top:5px;height:40px;width:40px">
             <input type="radio" name="hand" value="left"   onclick="didSelectHand('left')" style="position:absolute;left:80px;top:15px">
             <input type="radio" name="hand" value="both"   onclick="didSelectHand('both')" style="position:absolute;left:130px;top:15px" checked="checked" >

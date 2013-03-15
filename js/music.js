@@ -44,7 +44,7 @@ function didPressPlayButton(option)
 	
 	if ($("#playButton").text() == "Play")
 	{
-			$("#playButton").text("Pause");
+		$("#playButton").text("Pause");
 	}	
 	else if (didPressPlayBtn == 1 && option == STARTPLAY)
 	{
@@ -107,6 +107,14 @@ function didPressPlayButton(option)
 
 		}		
 	}
+	var repeat = $("#repeatCheck").is(':checked');
+	//var repeat = $('input:checkbox[name=repeat]:checked').val();
+	if (!repeat && delay > measure * 4 - 0.01)
+	{
+		// Arrived at end of measure. Don't repeat
+		didPressPauseButton(3);
+		return;
+	}
 	
 	timers.push(setTimeout(function() {
 		delay += 0.01;
@@ -114,7 +122,7 @@ function didPressPlayButton(option)
 		{
 			delay = (measure - 1) * 4;
 		}
-		didPressPlayButton(REPEAT);	
+		didPressPlayButton(REPEAT);
 	}, 4*tempo/600));	
 	
 }
