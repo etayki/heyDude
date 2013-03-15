@@ -18,7 +18,7 @@ var STARTPLAY = 0;
 var REPEAT = 1;
 var info = {
 	'measureControl' : "Press LEFT and RIGHT keys to traverse measures.",
-	'playControl'    : "Press SPACE key to toggle between Play and Pause.",
+	'playControl'    : "Press SPACE key to toggle between Play and Pause. Press S key to stop.",
 	'tempoControl'   : "Press UP and DOWN keys to change tempo.",
 	'handControl'    : "Press L key for left hand only, R key for right hand only, and B to display both hands."
 };
@@ -41,9 +41,17 @@ $(document).ready(function() {
 
 function didPressPlayButton(option)
 {
-	if (didPressPlayBtn == 1 && option == STARTPLAY)
+	
+	if ($("#playButton").text() == "Play")
+	{
+			$("#playButton").text("Pause");
+	}	
+	else if (didPressPlayBtn == 1 && option == STARTPLAY)
+	{
+		didPressPauseButton(0);
 		return;
-		
+	}
+	
 	didPressPlayBtn = 1;
 	
 	if (option == STARTPLAY)
@@ -111,15 +119,19 @@ function didPressPlayButton(option)
 	
 }
 
-function didPressPauseButton(visualOff)
+function didPressPauseButton(option)
 {
 	didPressPlayBtn = 0;
+	$("#playButton").text("Play");
+	
+	if (option == 3)
+		delay = (measure - 1) * 4;
 
 	for (var note = 21; note < 108; note++)
 	{
 		MIDI.noteOff(0, note, 0);
 
-		if (visualOff)
+		if (option)
 			resetNote(note);
 	}
 
@@ -318,6 +330,10 @@ $(document).keydown(function(e){
 	else if (e.keyCode == 66) // b
 	{
 		$('input[name=hand][value=both]').prop("checked",true);	
+	}
+	else if (e.keyCode == 83) // s
+	{
+		didPressPauseButton(3);	
 	}
 });
 
