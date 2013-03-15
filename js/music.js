@@ -63,7 +63,7 @@ function didPressPlayButton(option)
 		if (noteEnd > measure * 4)
 			noteEnd = measure * 4 - 0.01;
 		
-		if ( (delay - 0.01) < noteStart && noteStart <= delay )
+		if ( (delay - 0.01) <= noteStart && noteStart < delay )
 		{
 			// Turn note on (sound + visual)
 			//debug("ON " + note + " " + noteStart + " " + noteEnd);
@@ -118,6 +118,7 @@ function didPressPauseButton(visualOff)
 	for (var note = 21; note < 108; note++)
 	{
 		MIDI.noteOff(0, note, 0);
+
 		if (visualOff)
 			resetNote(note);
 	}
