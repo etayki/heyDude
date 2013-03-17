@@ -20,7 +20,8 @@ var info = {
 	'measureControl' : "Press LEFT and RIGHT keys to traverse measures.",
 	'playControl'    : "Press SPACE key to toggle between Play and Pause. Press S key to stop.",
 	'tempoControl'   : "Press UP and DOWN keys to change tempo.",
-	'handControl'    : "Press L key for left hand only, R key for right hand only, and B to display both hands."
+	'handControl'    : "Press L key for left hand only, R key for right hand only, and B to display both hands.",
+	'repeatControl'  : "Press T to toggle between repeat and NO repeat."
 };
 
 $(document).ready(function() {
@@ -343,6 +344,27 @@ $(document).keydown(function(e){
 	else if (e.keyCode == 83) // s
 	{
 		didPressPauseButton(3);	
+	}
+	else if (e.keyCode == 84) // t
+	{
+		//$('input[name=hand][value=both]').prop("checked",true);
+		if($("#repeatCheck").is(':checked'))
+		{
+			$('#repeatCheck').prop('checked', false);	
+		}
+		else
+		{
+			$('#repeatCheck').prop('checked', true);	
+		}
+		//var repeat = $('input:checkbox[name=repeat]:checked').val();
+	}
+	else if (e.keyCode == 49) // 1
+	{
+		
+	}
+	else if (e.keyCode == 50) // 2
+	{
+		
 	}
 });
 
