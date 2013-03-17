@@ -4,6 +4,7 @@
 var startTempo = 2500;
 var tempo = 3900 - (startTempo - 1300);
 var measure = 1;
+var measureLength = 1;
 var timers = new Array();
 var noteOn = new Array();
 var didPressPlayBtn = 0;
@@ -109,7 +110,6 @@ function didPressPlayButton(option)
 		}		
 	}
 	var repeat = $("#repeatCheck").is(':checked');
-	//var repeat = $('input:checkbox[name=repeat]:checked').val();
 	if (!repeat && delay > measure * 4 - 0.01)
 	{
 		// Arrived at end of measure. Don't repeat
@@ -480,22 +480,13 @@ function drawControls()
 	    $("#info").text("");              
 	});
 	
-	//$("#repeatCheck").click(function(){
-	//	message = info[$(this).attr('id')];
-	//	$("#info").append(message);
-	//  },
-	//  function(){
-	//    $("#info").text("");              
-	//});
-	
-	//$(function () {
-	//    var cc = 0;
-	//    $("#repeatMeasure").onclick(function () {        
-	//	cc++;         
-	//    }).change (function () {
-	//	cc = -1;
-	//    });     
-	//});
+	$("#repeatMeasure").change(function(){
+		$('#repeatMeasure').blur();
+		var text = $("#repeatMeasure option:selected").text();
+		text = text.replace(/ Measure/g, '');
+		text = text.replace(/s/g, '');
+		measureLength = Number(text);
+	  });
 
 }
 
