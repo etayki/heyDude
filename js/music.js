@@ -3,8 +3,8 @@
 
 var startTempo = 2500;
 var tempo = 3900 - (startTempo - 1300);
-var measure = 1;
-var measureLength = 1;
+var startMeasure = 1;
+var measureLength = 2;
 var timers = new Array();
 var noteOn = new Array();
 var didPressPlayBtn = 0;
@@ -62,6 +62,8 @@ function didPressPlayButton(option)
 		tempo = 200; // Fast forward to the next note upon resume;
 	}
 	
+	measure = startMeasure;
+	/* for (measure = )*/
 	for (var noteIdx = 0; noteIdx < tune[measure].length; noteIdx++)
 	{
 		var note = tune[measure][noteIdx][NOTE];
@@ -120,9 +122,17 @@ function didPressPlayButton(option)
 	timers.push(setTimeout(function() {
 		delay += 0.01;
 		if (delay > measure * 4)
+		//if (delay > (startMeasure + measureLength - 1) * 4)
 		{
 			delay = (measure - 1) * 4;
+			//delay = (startMeasure - measureLength) * 4;
+			//measure = startMeasure - measureLength;
 		}
+		//if (delay > (startMeasure + measureLength - 1) * 4)
+		//{
+		//	delay = (startMeasure - measureLength) * 4;
+		//	measure = startMeasure - measureLength;
+		//}
 		didPressPlayButton(REPEAT);
 	}, 4*tempo/600));	
 	
@@ -134,7 +144,8 @@ function didPressPauseButton(option)
 	$("#playButton").text("Play");
 	
 	if (option == 3)
-		delay = (measure - 1) * 4;
+		delay = (startMeasure - 1) * 4;
+		//delay = (startMeasure - 1) * 4;
 
 	for (var note = 21; note < 108; note++)
 	{
@@ -189,7 +200,7 @@ var measureSlider, tempoSlider;
 function sliderInit()
 {
 	// Add 1 to max as ugly fix to keep slider going off deep end
-	measureSlider = new dhtmlxSlider("measureSlider", tune.length * 8 * whiteKeyWidth/21, "dhx_skyblue", false, 1, tune.length, measure, 1);
+	measureSlider = new dhtmlxSlider("measureSlider", tune.length * 8 * whiteKeyWidth/21, "dhx_skyblue", false, 1, tune.length, startMeasure, 1);
 	measureSlider.setImagePath("./slider/imgs/");
 	measureSlider.attachEvent("onChange", function(newMeasure) {
 		// Ugly fix to keep slider going off deep end
@@ -201,8 +212,8 @@ function sliderInit()
 		updateSlider("measure", newMeasure);
 	});
 
-	delay = (measure - 1) * 4;
-	document.getElementById("measure").value = measure;
+	delay = (startMeasure - 1) * 4;
+	document.getElementById("measure").value = startMeasure;
 	measureSlider.init();
 
 	// Add 200 to max as ugly fix to keep slider going off deep end
@@ -233,7 +244,7 @@ function updateSlider(slider, val) {
 	{
 		if (val == "-")
 		{
-			val = Number(measure) - 1;
+			val = Number(startMeasure) - 1;
 			if (val == 0)
 				return;
 		}
@@ -242,9 +253,9 @@ function updateSlider(slider, val) {
 
 		if (val == "+")
 		{
-			if (measure == maxMeasure)
+			if (startMeasure == maxMeasure)
 				return;
-			val = Number(measure) + 1;
+			val = Number(startMeasure) + 1;
 		}
 		
 		// Limit to min measure
@@ -258,8 +269,8 @@ function updateSlider(slider, val) {
 		// Set new measure	
 		measureSlider.setValue(val);
 		document.getElementById("measure").value = val;
-		measure = val;
-		delay = (measure - 1) * 4;
+		startMeasure = val;
+		delay = (startMeasure - 1) * 4;
 		didPressPauseButton(1);
 		didPressPlayButton(STARTPLAY);
 	}
@@ -324,7 +335,7 @@ $(document).keydown(function(e){
 	else if (e.keyCode == 13) // Enter
 	{
 		if (document.getElementById("measure").value == "")
-			document.getElementById("measure").value = measure;
+			document.getElementById("measure").value = startMeasure;
 		$('#measure').blur();
 	}
 	else if (e.keyCode == 76) // l
