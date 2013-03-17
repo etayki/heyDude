@@ -18,11 +18,11 @@ var FINGER = 4;
 var STARTPLAY = 0;
 var REPEAT = 1;
 var info = {
-	'measureControl' : "Press LEFT and RIGHT keys to traverse measures.",
-	'playControl'    : "Press SPACE key to toggle between Play and Pause. Press S key to stop.",
+	'measureControl' : "Press LEFT and RIGHT keys to change measures.",
+	'playControl'    : "Press SPACE key to toggle between Play and Pause.<br>Press S key to stop.",
 	'tempoControl'   : "Press UP and DOWN keys to change tempo.",
-	'handControl'    : "Press L key for left hand only, R key for right hand only, and B to display both hands.",
-	'repeatControl'  : "Press T to toggle between repeat and NO repeat."
+	'handControl'    : "Press L for left hand only.<br>Press R for right hand only.<br>Press B to display both hands.",
+	'repeatControl'  : "Press T to toggle between repeat and NO repeat.<br>Press 1 to repeat one measure.<br>Press 2 to repeat two measures."
 };
 
 $(document).ready(function() {
@@ -350,21 +350,23 @@ $(document).keydown(function(e){
 		//$('input[name=hand][value=both]').prop("checked",true);
 		if($("#repeatCheck").is(':checked'))
 		{
-			$('#repeatCheck').prop('checked', false);	
+			$('#repeatCheck').prop('checked', false);
+			$("#repeatMeasure").hide();
 		}
 		else
 		{
-			$('#repeatCheck').prop('checked', true);	
+			$('#repeatCheck').prop('checked', true);
+			$("#repeatMeasure").show();
 		}
 		//var repeat = $('input:checkbox[name=repeat]:checked').val();
 	}
 	else if (e.keyCode == 49) // 1
 	{
-		
+		$("#repeatMeasure").get(0).selectedIndex = 0;
 	}
 	else if (e.keyCode == 50) // 2
 	{
-		
+		$("#repeatMeasure").get(0).selectedIndex = 1;
 	}
 });
 
@@ -488,6 +490,13 @@ function drawControls()
 		measureLength = Number(text);
 	  });
 
+	$("#repeatCheck").click(function(){
+		if($("#repeatCheck").is(':checked'))
+			$("#repeatMeasure").show();
+		else
+			$("#repeatMeasure").hide();
+
+	  });
 }
 
  
