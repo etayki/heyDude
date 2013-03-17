@@ -310,6 +310,7 @@ $(document).keydown(function(e){
 	}
 	else if (e.keyCode == 32) // Space
 	{
+		$('#repeatMeasure').blur();
 		if (didPressPlayBtn)
 		{
 			didPressPauseButton();
@@ -456,6 +457,23 @@ function drawControls()
 	  function(){
 	    $("#info").text("");              
 	});
+	
+	//$("#repeatCheck").click(function(){
+	//	message = info[$(this).attr('id')];
+	//	$("#info").append(message);
+	//  },
+	//  function(){
+	//    $("#info").text("");              
+	//});
+	
+	//$(function () {
+	//    var cc = 0;
+	//    $("#repeatMeasure").onclick(function () {        
+	//	cc++;         
+	//    }).change (function () {
+	//	cc = -1;
+	//    });     
+	//});
 
 }
 
