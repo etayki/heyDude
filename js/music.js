@@ -62,57 +62,59 @@ function didPressPlayButton(option)
 		tempo = 200; // Fast forward to the next note upon resume;
 	}
 	
-	measure = startMeasure;
-	/* for (measure = )*/
-	for (var noteIdx = 0; noteIdx < tune[measure].length; noteIdx++)
+	for (measure = startMeasure; measure < startMeasure + measureLength; measure++)
 	{
-		var note = tune[measure][noteIdx][NOTE];
-		var key = note - 21;
-		var color = "#00FF00";
-		var noteStart = tune[measure][noteIdx][DELAY];
-		var noteDuration = tune[measure][noteIdx][DURATION];
-		var noteEnd = noteStart + noteDuration;
-		if (noteEnd > measure * 4)
-			noteEnd = measure * 4 - 0.01;
-		
-		if ( (delay - 0.01) <= noteStart && noteStart < delay )
+		for (var noteIdx = 0; noteIdx < tune[measure].length; noteIdx++)
 		{
-			// Turn note on (sound + visual)
-			//debug("ON " + note + " " + noteStart + " " + noteEnd);
+			var note = tune[measure][noteIdx][NOTE];
+			var key = note - 21;
+			var color = "#00FF00";
+			var noteStart = tune[measure][noteIdx][DELAY];
+			var noteDuration = tune[measure][noteIdx][DURATION];
+			var noteEnd = noteStart + noteDuration;
+			if (noteEnd > measure * 4)
+				noteEnd = measure * 4 - 0.01;
 			
-			if (tempo == 200) // End fastfoward
-				tempo = oldTempo;
-			
-			var hand = $('input:radio[name=hand]:checked').val();
-			var finger = tune[measure][noteIdx][FINGER];
-			if (( finger < 0 && hand == "right") || (finger > 0 && hand == "left"))
-				continue;
-
-			MIDI.noteOn(0, note, tune[measure][noteIdx][VELOCITY], 0);
-			if (finger < 0)
+			if ( (delay - 0.01) <= noteStart && noteStart < delay )
 			{
-				color = "red";
-				finger *= -1;
+				// Turn note on (sound + visual)
+				//debug("ON " + note + " " + noteStart + " " + noteEnd);
+				
+				if (tempo == 200) // End fastfoward
+					tempo = oldTempo;
+				
+				var hand = $('input:radio[name=hand]:checked').val();
+				var finger = tune[measure][noteIdx][FINGER];
+				if (( finger < 0 && hand == "right") || (finger > 0 && hand == "left"))
+					continue;
+	
+				MIDI.noteOn(0, note, tune[measure][noteIdx][VELOCITY], 0);
+				if (finger < 0)
+				{
+					color = "red";
+					finger *= -1;
+				}
+				$("#key-"+key).css("background-color",color);
+				$("#keyLabel-"+key).text(finger);
+				noteOn.push(note);
+	
 			}
-			$("#key-"+key).css("background-color",color);
-			$("#keyLabel-"+key).text(finger);
-			noteOn.push(note);
-
+			else if ((delay - 0.01) < (noteEnd - 0.01) && (noteEnd - 0.01) <= delay)
+			{
+				// Hide note (visualy)
+				resetNote(note);
+			}
+			else if ((delay - 0.01) < noteEnd && noteEnd <= delay)
+			{
+				// Turn note off (sound)
+				MIDI.noteOff(0, note, 0);
+	
+			}		
 		}
-		else if ((delay - 0.01) < (noteEnd - 0.01) && (noteEnd - 0.01) <= delay)
-		{
-			// Hide note (visualy)
-			resetNote(note);
-		}
-		else if ((delay - 0.01) < noteEnd && noteEnd <= delay)
-		{
-			// Turn note off (sound)
-			MIDI.noteOff(0, note, 0);
-
-		}		
 	}
+	
 	var repeat = $("#repeatCheck").is(':checked');
-	if (!repeat && delay > measure * 4 - 0.01)
+	if (!repeat && delay > (startMeasure + measureLength - 1) * 4 - 0.01)
 	{
 		// Arrived at end of measure. Don't repeat
 		didPressPauseButton(3);
@@ -121,18 +123,12 @@ function didPressPlayButton(option)
 	
 	timers.push(setTimeout(function() {
 		delay += 0.01;
-		if (delay > measure * 4)
-		//if (delay > (startMeasure + measureLength - 1) * 4)
+		//if (delay > measure * 4)
+		if (delay > (startMeasure + measureLength - 1) * 4)
 		{
+			measure = startMeasure;
 			delay = (measure - 1) * 4;
-			//delay = (startMeasure - measureLength) * 4;
-			//measure = startMeasure - measureLength;
 		}
-		//if (delay > (startMeasure + measureLength - 1) * 4)
-		//{
-		//	delay = (startMeasure - measureLength) * 4;
-		//	measure = startMeasure - measureLength;
-		//}
 		didPressPlayButton(REPEAT);
 	}, 4*tempo/600));	
 	
