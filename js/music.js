@@ -359,13 +359,13 @@ $(document).keydown(function(e){
 		{
 			$('#repeatCheck').prop('checked', false);
 			$("#repeatMeasure").hide();
-			newMeasureLength = 1;
-			$("#repeatMeasure").get(0).selectedIndex = 0;
 		}
 		else
 		{
 			$('#repeatCheck').prop('checked', true);
 			$("#repeatMeasure").show();
+			newMeasureLength = 1;
+			$("#repeatMeasure").get(0).selectedIndex = 0;
 		}
 	}
 	else if (e.keyCode == 49) // 1
