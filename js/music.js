@@ -359,6 +359,7 @@ $(document).keydown(function(e){
 		{
 			$('#repeatCheck').prop('checked', false);
 			$("#repeatMeasure").hide();
+			newMeasureLength = 1;
 		}
 		else
 		{
@@ -375,8 +376,11 @@ $(document).keydown(function(e){
 	}
 	else if (e.keyCode == 50) // 2
 	{
-		$("#repeatMeasure").get(0).selectedIndex = 1;
-		newMeasureLength = 2;
+		if($("#repeatCheck").is(':checked'))
+		{
+			$("#repeatMeasure").get(0).selectedIndex = 1;
+			newMeasureLength = 2;
+		}
 	}
 });
 
@@ -446,11 +450,14 @@ function drawPiano()
 	$("#keyboard").after(pianoBackground);
 	var redLine='<div style="position:absolute;z-index:1;top:210px;left:7px; background-color:#6130000 ;width:'+redLineWidth+'px;height:2px;border:0px solid #000"></div>';
 	$("#keyboard").after(redLine);
-	
-	debugAreaLeft = whiteKeyOffset + 10;
-	debugAreaWidth = 1415 - debugAreaLeft;
-	var debugArea = '<div id="debug" style="position:absolute;top:10px;left:'+debugAreaLeft+'px;width:'+debugAreaWidth+'px;height:50px;background-color:white">';
-	$("body").after(debugArea);
+
+	$("#repeatCheck").click(function(){
+		if($("#repeatCheck").is(':checked'))
+			$("#repeatMeasure").show();
+		else
+			$("#repeatMeasure").hide();
+
+	  });
 }
 
 function drawControls()
@@ -507,6 +514,11 @@ function drawControls()
 			$("#repeatMeasure").hide();
 
 	  });
+
+	debugAreaLeft = whiteKeyOffset + 10;
+	debugAreaWidth = 1415 - debugAreaLeft;
+	var debugArea = '<div id="debug" style="position:absolute;top:10px;left:'+debugAreaLeft+'px;width:'+debugAreaWidth+'px;height:50px;background-color:white">';
+	$("body").after(debugArea);
 }
 
  
