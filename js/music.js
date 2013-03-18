@@ -21,7 +21,7 @@ var REPEAT = 1;
 var STOP = 3;
 
 var info = {
-	'measureControl' : "Press LEFT and RIGHT keys to change Start measure.<br>Press UP and DOWN keys to End measure.",
+	'measureControl' : "Press LEFT and RIGHT keys to change the Start Measure.<br>Press UP and DOWN keys to change the End Measure.",
 	'playControl'    : "Press SPACE key to toggle between Play and Pause.<br>Press S key to stop.",
 	'tempoControl'   : "",
 	'handControl'    : "Press L for left hand only.<br>Press R for right hand only.<br>Press B to display both hands.",
@@ -129,11 +129,13 @@ function didPressPlayButton(option)
 	}
 	
 	timers.push(setTimeout(function() {
-		delay += 0.01;	
+		delay += 0.01;
+		//$("#currentPosition").text(delay.toFixed(2));
 		if (delay < startDelay || delay > endDelay)
 		{
 			didPressPauseButton(STOP);
 		}
+		$("#currentPosition").text((Math.floor((delay/4 + 1)*100)/100).toFixed(2));
 		didPressPlayButton(REPEAT);
 	}, 4*tempo/600));	
 	

@@ -29,18 +29,20 @@
     <div id="keyboard" style="position:absolute;top:40px;left:50px;width:895px;height:150px;z-index:3;display:none;background-color:clear">
         <!-- Measure Control -->
         <div class="control" id="measureControl" style="position:absolute;top:0px;left:0px;width:750px;height:50px; background-color:blue">
-            <div style="position:absolute;top:5px;left:10px;color:white; width:70px;height:30px;z-index:3;">Start Measure</div>
+            <div style="position:absolute;top:5px;left:10px;color:white; width:70px;height:30px;z-index:3;text-align:center">Start Measure</div>
             <input type="text" id="startMeasure" style="position:absolute;top:13px;left:80px;width:37px;z-index:3;font-size:12px" value="1" onchange="updateStartMeasure(this.value)" onfocus="this.value = ''">
             <div id="startMeasureMinus" onclick="updateStartMeasure('-')" style="position:absolute;top:15px;left:135px;cursor:pointer;z-index:3;text-align:center;width:10px;background-color:white">-</div>
             <div id="startMeasurePlus" onclick="updateStartMeasure('+')" style="position:absolute;top:15px;left:155px;cursor:pointer;text-align:center;width:10px;z-index:3;background-color:white;">+</div>
-            
-            <div style="position:absolute;top:5px;left:210px;color:white; width:70px;height:30px;z-index:3;">End Measure</div>
+
+            <div style="position:absolute;top:5px;left:210px;color:white; width:70px;height:30px;z-index:3;text-align:center">End Measure</div>
             <input type="text" id="endMeasure" style="position:absolute;top:13px;left:280px;width:37px;z-index:3;font-size:12px" value="2" onchange="updateEndMeasure(this.value)" onfocus="this.value = ''">
             <div id="endMeasureMinus" onclick="updateEndMeasure('-')" style="position:absolute;top:15px;left:335px;cursor:pointer;z-index:3;text-align:center;width:10px;background-color:white">-</div>
             <div id="ednMeasurePlus" onclick="updateEndMeasure('+')" style="position:absolute;top:15px;left:355px;cursor:pointer;text-align:center;width:10px;z-index:3;background-color:white;">+</div>
- 
-            <div style="position:absolute;top:15px;left:400px;color:white;width:70px;height:30px;z-index:3">Repeat</div>
-            <input id="repeatCheck" type="checkbox" name="repeat" value="on" checked="checked" style="position:absolute;left:475px;top:18px">
+
+            <div style="position:absolute;top:15px;left:400px;color:white; width:70px;height:30px;z-index:3;">Measure:</div>
+            <div id="currentPosition" style="position:absolute;top:15px;left:475px;color:white; width:70px;height:30px;z-index:3;">1.00</div>
+            <div style="position:absolute;top:15px;left:550px;color:white;width:70px;height:30px;z-index:3">Repeat</div>
+            <input id="repeatCheck" type="checkbox" name="repeat" value="on" checked="checked" style="position:absolute;left:620px;top:18px">
         </div>
         <!-- Play Control -->
         <div class="control" id="playControl" style="position:absolute;top:80px;left:0px;width:160px;height:50px;background-color:blue">       
