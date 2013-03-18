@@ -449,8 +449,8 @@ function drawPiano()
 		if (!(keyIdx==1 || keyIdx==4 || keyIdx==6 || keyIdx == 9 || keyIdx==11))
 		{
 			if (key !=0) whiteKeyOffset += whiteKeyWidth + whiteKeySpacing;
-			var whiteKey='<div id="key-'+key+'" style="position:absolute;z-index:1;top:211px;left:'+whiteKeyOffset+'px; background-color:white;width:'+whiteKeyWidth+'px;height:'+whiteKeyHeight+'px"></div>';
-			var whiteKeyLabel = '<b><div id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+whiteKeyLabelTop+'px;left:'+whiteKeyLabelLeft+'px;z-index:2;font-size:'+whiteKeyLabelSize+'%";font-weight:bold></div></b>';
+			var whiteKey='<div class="key" id="key-'+key+'" style="position:absolute;z-index:1;top:211px;left:'+whiteKeyOffset+'px; background-color:white;width:'+whiteKeyWidth+'px;height:'+whiteKeyHeight+'px"></div>';
+			var whiteKeyLabel = '<b><div class="keyLabel" id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+whiteKeyLabelTop+'px;left:'+whiteKeyLabelLeft+'px;z-index:2;font-size:'+whiteKeyLabelSize+'%";font-weight:bold></div></b>';
 			$("#keyboard").after(whiteKey);
 			$("#key-"+key).append(whiteKeyLabel);
 			//debug(whiteKey); 
@@ -458,8 +458,8 @@ function drawPiano()
 		else
 		{
 			blackKeyOffset = whiteKeyOffset + Math.floor(whiteKeyWidth * 0.75);
-			var blackKey='<div id="key-'+key+'" style="position:absolute;z-index:2;top:211px;left:'+blackKeyOffset+'px; background-color:black;width:'+blackKeyWidth+'px;height:'+blackKeyHeight+'px;border:0px solid #000"></div>';
-			var blackKeyLabel = '<b><div id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+blackKeyLabelTop+'px;left:'+blackKeyLabelLeft+'px;z-index:2;font-size:'+blackKeyLabelSize+'%";font-weight:bold></div></b>';
+			var blackKey='<div class="key" id="key-'+key+'" style="position:absolute;z-index:2;top:211px;left:'+blackKeyOffset+'px; background-color:black;width:'+blackKeyWidth+'px;height:'+blackKeyHeight+'px;border:0px solid #000"></div>';
+			var blackKeyLabel = '<b><div class="keyLabel" id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+blackKeyLabelTop+'px;left:'+blackKeyLabelLeft+'px;z-index:2;font-size:'+blackKeyLabelSize+'%";font-weight:bold></div></b>';
 			$("#keyboard").after(blackKey);
 			$("#key-"+key).append(blackKeyLabel);
 			//debug(blackKey);
@@ -528,6 +528,20 @@ function drawControls()
 		else
 			$("#repeatMeasure").hide();
 
+	  });
+	
+	$(".key").click(function(){
+		keyPress = $(this).attr('id');
+		keyPress = keyPress.replace(/key-/g,'');
+		notePress = Number(keyPress) + 21;
+		MIDI.noteOn(0,notePress,90,0);
+		MIDI.noteOff(0,notePress,0.4);
+		$("#key-"+keyPress).css("background-color","yellow");
+
+		timers.push(setTimeout(function() {
+			resetNote(notePress);
+		}, 400));
+			
 	  });
 
 	  $('#startMeasure').live('blur', function() {
