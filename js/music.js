@@ -4,7 +4,7 @@
 var startTempo = 2500;
 var tempo = 3900 - (startTempo - 1300);
 var startMeasure = 1;
-var measureLength = 2;
+var measureLength = newMeasureLength = 1;
 var timers = new Array();
 var noteOn = new Array();
 var didPressPlayBtn = 0;
@@ -123,7 +123,10 @@ function didPressPlayButton(option)
 	
 	timers.push(setTimeout(function() {
 		delay += 0.01;
-		//if (delay > measure * 4)
+		if (delay%4 < 0.01)
+		{
+			measureLength = newMeasureLength;
+		}
 		if (delay > (startMeasure + measureLength - 1) * 4)
 		{
 			measure = startMeasure;
@@ -224,8 +227,6 @@ function sliderInit()
 		}
 		document.getElementById("tempo").value = newtempo;
 		tempo = 3900 - (newtempo - 1300);
-		//didPressPauseButton();
-		//didPressPlayButton(STARTPLAY);
 		});
 	
 	document.getElementById("tempo").value = 3900 - (tempo - 1300);	
@@ -354,26 +355,28 @@ $(document).keydown(function(e){
 	}
 	else if (e.keyCode == 84) // t
 	{
-		//$('input[name=hand][value=both]').prop("checked",true);
 		if($("#repeatCheck").is(':checked'))
 		{
 			$('#repeatCheck').prop('checked', false);
 			$("#repeatMeasure").hide();
+			newMeasureLength = 1;
+			$("#repeatMeasure").get(0).selectedIndex = 0;
 		}
 		else
 		{
 			$('#repeatCheck').prop('checked', true);
 			$("#repeatMeasure").show();
 		}
-		//var repeat = $('input:checkbox[name=repeat]:checked').val();
 	}
 	else if (e.keyCode == 49) // 1
 	{
 		$("#repeatMeasure").get(0).selectedIndex = 0;
+		newMeasureLength = 1;
 	}
 	else if (e.keyCode == 50) // 2
 	{
 		$("#repeatMeasure").get(0).selectedIndex = 1;
+		newMeasureLength = 2;
 	}
 });
 
@@ -494,7 +497,7 @@ function drawControls()
 		var text = $("#repeatMeasure option:selected").text();
 		text = text.replace(/ Measure/g, '');
 		text = text.replace(/s/g, '');
-		measureLength = Number(text);
+		newMeasureLength = Number(text);
 	  });
 
 	$("#repeatCheck").click(function(){
