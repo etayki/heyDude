@@ -5,7 +5,6 @@ var startTempo = 2500;
 var tempo = 3900 - (startTempo - 1300);
 var startMeasure = 1;
 var endMeasure = 2;
-var measureLength = newMeasureLength = 1;
 var timers = new Array();
 var noteOn = new Array();
 var didPressPlayBtn = 0;
@@ -19,6 +18,8 @@ var FINGER = 4;
 
 var STARTPLAY = 0;
 var REPEAT = 1;
+var STOP = 3;
+
 var info = {
 	'measureControl' : "Press LEFT and RIGHT keys to change Start measure.<br>Press UP and DOWN keys to End measure.",
 	'playControl'    : "Press SPACE key to toggle between Play and Pause.<br>Press S key to stop.",
@@ -64,7 +65,7 @@ function didPressPlayButton(option)
 		tempo = 200; // Fast forward to the next note upon resume;
 	}
 	
-	for (measure = startMeasure; measure < startMeasure + measureLength; measure++)
+	for (measure = Math.floor(startMeasure); measure < Math.floor(endMeasure); measure++)
 	{
 		for (var noteIdx = 0; noteIdx < tune[measure].length; noteIdx++)
 		{
@@ -74,8 +75,9 @@ function didPressPlayButton(option)
 			var noteStart = tune[measure][noteIdx][DELAY];
 			var noteDuration = tune[measure][noteIdx][DURATION];
 			var noteEnd = noteStart + noteDuration;
-			if (noteEnd > measure * 4)
-				noteEnd = measure * 4 - 0.01;
+			
+			if (noteEnd > (endMeasure - 1) * 4)
+				noteEnd = (endMeasure - 1) * 4 - 0.01;
 			
 			if ( (delay - 0.01) <= noteStart && noteStart < delay )
 			{
@@ -116,7 +118,10 @@ function didPressPlayButton(option)
 	}
 	
 	var repeat = $("#repeatCheck").is(':checked');
-	if (!repeat && delay > (startMeasure + measureLength - 1) * 4 - 0.01)
+	endDelay = (endMeasure - 1) * 4;
+	startDelay = (startMeasure - 1) * 4;
+
+	if (!repeat && delay >= endDelay - 0.01)
 	{
 		// Arrived at end of measure. Don't repeat
 		didPressPauseButton(3);
@@ -124,15 +129,10 @@ function didPressPlayButton(option)
 	}
 	
 	timers.push(setTimeout(function() {
-		delay += 0.01;
-		if (delay%4 < 0.01)
+		delay += 0.01;	
+		if (delay < startDelay || delay > endDelay)
 		{
-			measureLength = newMeasureLength;
-		}
-		if (delay > (startMeasure + measureLength - 1) * 4)
-		{
-			measure = startMeasure;
-			delay = (measure - 1) * 4;
+			didPressPauseButton(STOP);
 		}
 		didPressPlayButton(REPEAT);
 	}, 4*tempo/600));	
@@ -144,9 +144,8 @@ function didPressPauseButton(option)
 	didPressPlayBtn = 0;
 	$("#playButton").text("Play");
 	
-	if (option == 3)
-		delay = (startMeasure - 1) * 4;
-		//delay = (startMeasure - 1) * 4;
+	if (option == STOP)
+		delay = startDelay;
 
 	for (var note = 21; note < 108; note++)
 	{
@@ -253,12 +252,8 @@ function updateStartMeasure(val)
 	startMeasure = val;
 	
 	// Update End Measure
-	if (startMeasure > endMeasure)
+	if (startMeasure >= endMeasure)
 		updateEndMeasure(Number(startMeasure)+1);
-	
-	delay = (startMeasure - 1) * 4;
-	didPressPauseButton(1);
-	didPressPlayButton(STARTPLAY);	
 }
 
 function updateEndMeasure(val)
@@ -297,7 +292,7 @@ function updateEndMeasure(val)
 	endMeasure = val;
 
 	// Update Start Measure
-	if (endMeasure < startMeasure)
+	if (endMeasure <= startMeasure)
 		updateStartMeasure(Number(endMeasure)-1);
 }
 
@@ -389,7 +384,7 @@ $(document).keydown(function(e){
 	}
 	else if (e.keyCode == 83) // s
 	{
-		didPressPauseButton(3);	
+		didPressPauseButton(STOP);	
 	}
 	else if (e.keyCode == 84) // t
 	{
