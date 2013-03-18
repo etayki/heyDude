@@ -255,9 +255,43 @@ function updateStartMeasure(val)
 	didPressPlayButton(STARTPLAY);	
 }
 
-function updateEndMeasure()
+function updateEndMeasure(val)
 {
+	if (isNaN(Number(val)) && !(val == "+" || val == "-"))
+		val = 0;
+		
+	if (val == "-")
+	{
+		val = Number(startMeasure) - 1;
+		if (val == 0)
+		{
+			return;
+		}
+	}
 	
+	maxMeasure = Math.floor(tune.length - 1);
+
+	if (val == "+")
+	{
+		if (startMeasure == maxMeasure)
+			return;
+		val = Number(startMeasure) + 1;
+	}
+	
+	// Limit to min measure
+	if (val < 1)
+		val = 1;
+		
+	// Limit to max measure
+	if (val > maxMeasure)
+		val = maxMeasure;
+		
+	// Set new measure	
+	$("#startMeasure").val(val);
+	startMeasure = val;
+	delay = (startMeasure - 1) * 4;
+	didPressPauseButton(1);
+	didPressPlayButton(STARTPLAY);	
 }
 
 function updateSlider(slider, val) {
