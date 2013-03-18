@@ -21,11 +21,11 @@ var REPEAT = 1;
 var STOP = 3;
 
 var info = {
-	'measureControl' : "Press LEFT and RIGHT keys to change the Start Measure.<br>Press UP and DOWN keys to change the End Measure.",
-	'playControl'    : "Press SPACE key to toggle between Play and Pause.<br>Press S key to stop.",
-	'tempoControl'   : "",
+	'measureControl' : "Press LEFT and RIGHT keys to change the Start Measure.<br>Press UP and DOWN keys to change the End Measure.<br>Press T to toggle between repeat and NO repeat.",
+	'playControl'    : "Press SPACE key to toggle between Play and Pause.<br>Press S to stop.",
+	'tempoControl'   : "Press < to decrease tempo.<br>Press > to increase tempo.",
 	'handControl'    : "Press L for left hand only.<br>Press R for right hand only.<br>Press B to display both hands.",
-	'repeatControl'  : "Press T to toggle between repeat and NO repeat.<br>Press 1 to repeat one measure.<br>Press 2 to repeat two measures."
+	'repeatControl'  : "<br>Press 1 to repeat one measure.<br>Press 2 to repeat two measures."
 };
 
 $(document).ready(function() {
