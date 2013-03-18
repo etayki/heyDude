@@ -8,6 +8,7 @@ var measureLength = newMeasureLength = 1;
 var timers = new Array();
 var noteOn = new Array();
 var didPressPlayBtn = 0;
+var delay = 0;
 
 var DELAY = 0;
 var DURATION = 1;
@@ -197,25 +198,7 @@ function resetNote(note)
 var measureSlider, tempoSlider;
 
 function sliderInit()
-{
-	// Add 1 to max as ugly fix to keep slider going off deep end
-	measureSlider = new dhtmlxSlider("measureSlider", tune.length * 8 * whiteKeyWidth/21, "dhx_skyblue", false, 1, tune.length, startMeasure, 1);
-	measureSlider.setImagePath("./slider/imgs/");
-	measureSlider.attachEvent("onChange", function(newMeasure) {
-		// Ugly fix to keep slider going off deep end
-		if (newMeasure > Math.floor(tune[tune.length-1][2]/4) +1) 
-		{
-			measureSlider.setValue(Math.floor(tune[tune.length-1][2]/4)+1);
-			return;
-		}
-		updateSlider("measure", newMeasure);
-	});
-
-	delay = (startMeasure - 1) * 4;
-	document.getElementById("measure").value = startMeasure;
-	measureSlider.init();
-
-	// Add 200 to max as ugly fix to keep slider going off deep end
+{	// Add 200 to max as ugly fix to keep slider going off deep end
 	tempoSlider = new dhtmlxSlider("tempoSlider", 100 * whiteKeyWidth/21, "dhx_skyblue", false, 1300, 3900+200, 3900 - (tempo - 1300), 200);
 	tempoSlider.setImagePath("./slider/imgs/");
 	tempoSlider.attachEvent("onChange", function(newtempo) {
@@ -233,69 +216,76 @@ function sliderInit()
 	tempoSlider.init();
 };
 
+function updateStartMeasure(val)
+{
+	if (isNaN(Number(val)) && !(val == "+" || val == "-"))
+		val = 0;
+		
+	if (val == "-")
+	{
+		val = Number(startMeasure) - 1;
+		if (val == 0)
+		{
+			return;
+		}
+	}
+	
+	maxMeasure = Math.floor(tune.length - 1);
+
+	if (val == "+")
+	{
+		if (startMeasure == maxMeasure)
+			return;
+		val = Number(startMeasure) + 1;
+	}
+	
+	// Limit to min measure
+	if (val < 1)
+		val = 1;
+		
+	// Limit to max measure
+	if (val > maxMeasure)
+		val = maxMeasure;
+		
+	// Set new measure	
+	$("#startMeasure").val(val);
+	startMeasure = val;
+	delay = (startMeasure - 1) * 4;
+	didPressPauseButton(1);
+	didPressPlayButton(STARTPLAY);	
+}
+
+function updateEndMeasure()
+{
+	
+}
+
 function updateSlider(slider, val) {
 	if (isNaN(Number(val)) && !(val == "+" || val == "-"))
 		val = 0;
 
-	if (slider == "measure")
-	{
-		if (val == "-")
-		{
-			val = Number(startMeasure) - 1;
-			if (val == 0)
-				return;
-		}
+	if (val == "-")
+		val = Number(tempo) + 200;
+
+	if (val == "+")
+		val = Number(tempo) - 200;
 		
-		maxMeasure = Math.floor(tune.length - 1);
+			// Limit to min measure
+	if (val < 1)
+		val = 1;
 
-		if (val == "+")
-		{
-			if (startMeasure == maxMeasure)
-				return;
-			val = Number(startMeasure) + 1;
-		}
+	// Limit to max tempo
+	if (val < 1300)
+		val = 1300;
 		
-		// Limit to min measure
-		if (val < 1)
-			val = 1;
-			
-		// Limit to max measure
-		if (val > maxMeasure)
-			val = maxMeasure;
-			
-		// Set new measure	
-		measureSlider.setValue(val);
-		document.getElementById("measure").value = val;
-		startMeasure = val;
-		delay = (startMeasure - 1) * 4;
-		didPressPauseButton(1);
-		didPressPlayButton(STARTPLAY);
-	}
-	else if (slider == "tempo")
-	{
-		if (val == "-")
-			val = Number(tempo) + 200;
-
-		if (val == "+")
-			val = Number(tempo) - 200;
-			
-				// Limit to min measure
-		if (val < 1)
-			val = 1;
-
-		// Limit to max tempo
-		if (val < 1300)
-			val = 1300;
-			
-		// Limit to min tempo
-		if (val > 3900)
-			val = 3900;
-			
-		// Set new tempo	
-		tempoSlider.setValue(3900 - (val - 1300));
-		document.getElementById("tempo").value = 3900 - (val - 1300);
-		tempo = val;
-	}
+	// Limit to min tempo
+	if (val > 3900)
+		val = 3900;
+		
+	// Set new tempo	
+	tempoSlider.setValue(3900 - (val - 1300));
+	document.getElementById("tempo").value = 3900 - (val - 1300);
+	tempo = val;
 };
 
 /* --- ================ KEY PRESS ================== */
@@ -303,11 +293,11 @@ function updateSlider(slider, val) {
 $(document).keydown(function(e){
 	if (e.keyCode == 37) // Left arrow
 	{ 
-		updateSlider("measure","-");
+		updateStartMeasure("-");
 	}
 	else if (e.keyCode == 39) // Right arrow
 	{ 
-		updateSlider("measure","+");
+		updateStartMeasure("+");
 	}
 	if (e.keyCode == 38) // Up arrow
 	{ 
@@ -331,9 +321,9 @@ $(document).keydown(function(e){
 	}
 	else if (e.keyCode == 13) // Enter
 	{
-		if (document.getElementById("measure").value == "")
-			document.getElementById("measure").value = startMeasure;
-		$('#measure').blur();
+		if ($("#startMeasure").text == "")
+			$("#startMeasure").text("startMeasure");
+		$('#startMeasure').blur();
 	}
 	else if (e.keyCode == 76) // l
 	{
