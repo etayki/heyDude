@@ -364,12 +364,7 @@ $(document).keydown(function(e){
 	}
 	else if (e.keyCode == 13) // Enter
 	{
-		if ($("#startMeasure").val() == "")
-			$("#startMeasure").val(startMeasure);
 		$('#startMeasure').blur();
-		
-		if ($("#endMeasure").val() == "")
-			$("#endMeasure").val(endMeasure);
 		$('#endMeasure').blur();
 	}
 	else if (e.keyCode == 76) // l
@@ -487,14 +482,6 @@ function drawPiano()
 	$("#keyboard").after(pianoBackground);
 	var redLine='<div style="position:absolute;z-index:1;top:210px;left:7px; background-color:#6130000 ;width:'+redLineWidth+'px;height:2px;border:0px solid #000"></div>';
 	$("#keyboard").after(redLine);
-
-	$("#repeatCheck").click(function(){
-		if($("#repeatCheck").is(':checked'))
-			$("#repeatMeasure").show();
-		else
-			$("#repeatMeasure").hide();
-
-	  });
 }
 
 function drawControls()
@@ -552,6 +539,17 @@ function drawControls()
 
 	  });
 
+	  $('#startMeasure').live('blur', function() {
+		if ($("#startMeasure").val() == "")
+			$("#startMeasure").val(startMeasure);
+	});
+
+
+	  $('#endMeasure').live('blur', function() {	
+		if ($("#endMeasure").val() == "")
+			$("#endMeasure").val(endMeasure);
+	});
+	  
 	debugAreaLeft = whiteKeyOffset + 10;
 	debugAreaWidth = 1415 - debugAreaLeft;
 	var debugArea = '<div id="debug" style="position:absolute;top:10px;left:'+debugAreaLeft+'px;width:'+debugAreaWidth+'px;height:50px;background-color:white">';
