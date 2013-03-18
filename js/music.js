@@ -343,12 +343,18 @@ $(document).keydown(function(e){
 	if (e.keyCode == 38) // Up arrow
 	{
 		updateEndMeasure("+");
-		//updateSlider("tempo","+");
 	}
 	else if (e.keyCode == 40) // Down arrow
 	{
 		updateEndMeasure("-");
-		//updateSlider("tempo","-");
+	}
+	else if (e.keyCode == 188) // , <
+	{
+		updateSlider("tempo","-");
+	}
+	else if (e.keyCode == 190) // . >
+	{
+		updateSlider("tempo","+");
 	}
 	else if (e.keyCode == 32) // Space
 	{
@@ -401,19 +407,7 @@ $(document).keydown(function(e){
 			$("#repeatMeasure").get(0).selectedIndex = 0;
 		}
 	}
-	else if (e.keyCode == 49) // 1
-	{
-		$("#repeatMeasure").get(0).selectedIndex = 0;
-		newMeasureLength = 1;
-	}
-	else if (e.keyCode == 50) // 2
-	{
-		if($("#repeatCheck").is(':checked'))
-		{
-			$("#repeatMeasure").get(0).selectedIndex = 1;
-			newMeasureLength = 2;
-		}
-	}
+
 });
 
 /* --- ================ PIANO DRAW ================== */
