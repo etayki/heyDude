@@ -4,6 +4,7 @@
 var startTempo = 2500;
 var tempo = 3900 - (startTempo - 1300);
 var startMeasure = 1;
+var endMeasure = 2;
 var measureLength = newMeasureLength = 1;
 var timers = new Array();
 var noteOn = new Array();
@@ -262,7 +263,7 @@ function updateEndMeasure(val)
 		
 	if (val == "-")
 	{
-		val = Number(startMeasure) - 1;
+		val = Number(endMeasure) - 1;
 		if (val == 0)
 		{
 			return;
@@ -273,9 +274,9 @@ function updateEndMeasure(val)
 
 	if (val == "+")
 	{
-		if (startMeasure == maxMeasure)
+		if (endMeasure == maxMeasure)
 			return;
-		val = Number(startMeasure) + 1;
+		val = Number(endMeasure) + 1;
 	}
 	
 	// Limit to min measure
@@ -287,11 +288,8 @@ function updateEndMeasure(val)
 		val = maxMeasure;
 		
 	// Set new measure	
-	$("#startMeasure").val(val);
-	startMeasure = val;
-	delay = (startMeasure - 1) * 4;
-	didPressPauseButton(1);
-	didPressPlayButton(STARTPLAY);	
+	$("#endMeasure").val(val);
+	endMeasure = val;
 }
 
 function updateSlider(slider, val) {
@@ -334,12 +332,14 @@ $(document).keydown(function(e){
 		updateStartMeasure("+");
 	}
 	if (e.keyCode == 38) // Up arrow
-	{ 
-		updateSlider("tempo","+");
+	{
+		updateEndMeasure("+");
+		//updateSlider("tempo","+");
 	}
 	else if (e.keyCode == 40) // Down arrow
-	{ 
-		updateSlider("tempo","-");
+	{
+		updateEndMeasure("-");
+		//updateSlider("tempo","-");
 	}
 	else if (e.keyCode == 32) // Space
 	{
@@ -355,8 +355,9 @@ $(document).keydown(function(e){
 	}
 	else if (e.keyCode == 13) // Enter
 	{
-		if ($("#startMeasure").text == "")
-			$("#startMeasure").text("startMeasure");
+		debug($("#startMeasure").val());
+		if ($("#startMeasure").val() == "")
+			$("#startMeasure").val(startMeasure);
 		$('#startMeasure').blur();
 	}
 	else if (e.keyCode == 76) // l
