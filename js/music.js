@@ -20,9 +20,9 @@ var FINGER = 4;
 var STARTPLAY = 0;
 var REPEAT = 1;
 var info = {
-	'measureControl' : "Press LEFT and RIGHT keys to change measures.",
+	'measureControl' : "Press LEFT and RIGHT keys to change Start measure.<br>Press UP and DOWN keys to End measure.",
 	'playControl'    : "Press SPACE key to toggle between Play and Pause.<br>Press S key to stop.",
-	'tempoControl'   : "Press UP and DOWN keys to change tempo.",
+	'tempoControl'   : "",
 	'handControl'    : "Press L for left hand only.<br>Press R for right hand only.<br>Press B to display both hands.",
 	'repeatControl'  : "Press T to toggle between repeat and NO repeat.<br>Press 1 to repeat one measure.<br>Press 2 to repeat two measures."
 };
@@ -251,6 +251,11 @@ function updateStartMeasure(val)
 	// Set new measure	
 	$("#startMeasure").val(val);
 	startMeasure = val;
+	
+	// Update End Measure
+	if (startMeasure > endMeasure)
+		updateEndMeasure(Number(startMeasure)+1);
+	
 	delay = (startMeasure - 1) * 4;
 	didPressPauseButton(1);
 	didPressPlayButton(STARTPLAY);	
@@ -290,6 +295,10 @@ function updateEndMeasure(val)
 	// Set new measure	
 	$("#endMeasure").val(val);
 	endMeasure = val;
+
+	// Update Start Measure
+	if (endMeasure < startMeasure)
+		updateStartMeasure(Number(endMeasure)-1);
 }
 
 function updateSlider(slider, val) {
@@ -355,10 +364,13 @@ $(document).keydown(function(e){
 	}
 	else if (e.keyCode == 13) // Enter
 	{
-		debug($("#startMeasure").val());
 		if ($("#startMeasure").val() == "")
 			$("#startMeasure").val(startMeasure);
 		$('#startMeasure').blur();
+		
+		if ($("#endMeasure").val() == "")
+			$("#endMeasure").val(endMeasure);
+		$('#endMeasure').blur();
 	}
 	else if (e.keyCode == 76) // l
 	{
