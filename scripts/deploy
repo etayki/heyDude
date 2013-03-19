@@ -6,6 +6,7 @@ curl -T js/music.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasureb
 curl -T js/tune.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/
 
 # IMAGES
+curl -T images/redCarpet.jpg -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/images/
 #curl -T images/leftHand.jpg -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/images/
 #curl -T images/rightHand.jpg -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/images/
 #curl -T slider/imgs/skins/dhx_skyblue/selector.gif -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/slider/imgs/skins/dhx_skyblue/
