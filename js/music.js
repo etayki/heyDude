@@ -411,17 +411,19 @@ function drawPiano()
 	whiteKeySpacing = 2;
 	// White Key - 15x73
 	screenWidth = screen.width;
-	whiteKeyWidth = screenWidth/65; // 15-25 screenWidth
-	
-	var userAgent = navigator.userAgent;
+
+	userAgent = navigator.userAgent;
 	if(userAgent.indexOf("iPhone") !== -1)
 	{
-		whiteKeyWidth = 8;
+		screenWidth = 1000;
 	}
 	else if(userAgent.indexOf("iPad") !== -1)
 	{
-		whiteKeyWidth = 10;
+		screenWidth = 1000;
 	}
+	
+	whiteKeyWidth = screenWidth/65;
+	
 	whiteKeyHeight = Math.floor(whiteKeyWidth * 73/15);
 	whiteKeyOffset = whiteKeyWidth/3;
 	
@@ -531,8 +533,11 @@ function drawControls()
 	$("body").after(infoArea);
 
 	$(".control").hover(function(){
-		message = info[$(this).attr('id')];
-		$("#info").append(message);
+		if(!(userAgent.indexOf("iPhone") !== -1 || userAgent.indexOf("iPad") !== -1))
+		{
+			message = info[$(this).attr('id')];
+			$("#info").append(message);
+		}
 	  },
 	  function(){
 	    $("#info").text("");              
