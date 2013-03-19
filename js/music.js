@@ -410,7 +410,8 @@ function drawPiano()
 {
 	whiteKeySpacing = 2;
 	// White Key - 15x73
-	whiteKeyWidth = screen.width/65; // 15-25 screen.width
+	screenWidth = screen.width;
+	whiteKeyWidth = screenWidth/65; // 15-25 screenWidth
 	
 	var userAgent = navigator.userAgent;
 	if(userAgent.indexOf("iPhone") !== -1)
@@ -464,11 +465,14 @@ function drawPiano()
 	
 	firstKeyLeft = $("#key-0").css("left").replace(/px/g, '');
 	lastKeyLeft  = $("#key-87").css("left").replace(/px/g, '');
+	keyTop       = $("#key-87").css("top").replace(/px/g, '');
 	
 	pianoWidth = Number(lastKeyLeft) + whiteKeyWidth + Number(firstKeyLeft);
-	pianoLeft = (screen.width - pianoWidth)/2;
+	pianoLeft = (screenWidth - pianoWidth)/2;
+	pianoHeight = Number(keyTop) + whiteKeyHeight + 5;
 	$("#pianoWrapper").css("width", pianoWidth);
 	$("#pianoWrapper").css("left", pianoLeft);
+	$("#pianoWrapper").css("height", pianoHeight);
 	
 	redLineWidth = 	3 + whiteKeyOffset;
 	whiteKeyOffset += 6 + whiteKeyWidth;
@@ -478,11 +482,6 @@ function drawPiano()
 
 function drawControls()
 {
-	var controlsWidth = $("#controls").css("width").replace(/px/g, '');
-	// Not sure why the PiadnoLeft wasn't added here, but it works
-	var controlsLeft = (pianoWidth - Number(controlsWidth))/2;
-	$("#controls").css("left", controlsLeft);
-	
 	$("#controls").find("*").andSelf().each(
 	    function(){
 		var width = $(this).css('width');
@@ -497,6 +496,11 @@ function drawControls()
 	    }
 	);
 
+	var controlsWidth = $("#controls").css("width").replace(/px/g, '');
+	// Not sure why the PianoLeft wasn't added here, but it works
+	var controlsLeft = pianoLeft + (pianoWidth - Number(controlsWidth))/2;
+	$("#controls").css("left", controlsLeft);
+	
 	dhtmlxEvent(window, "load", sliderInit);
 	sliderInit();
 
