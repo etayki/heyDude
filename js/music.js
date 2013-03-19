@@ -526,10 +526,10 @@ function drawControls()
 	$("#chair").css("display","");
 
 	
-	infoTop = 350;
-	infoLeft = 150;
-	infoWidth = 800;
-	var infoArea = '<b><div id="info" style="position:absolute;top:'+infoTop+'px;left:'+infoLeft+'px;width:'+infoWidth+'px;height:50px;background-color:clear;color:red;font-size:22px"></b>';
+	infoTop = chairTop + 50;//350;
+	infoLeft = chairLeft + 30;//150;
+	infoWidth = chairWidth - 50;//800;
+	var infoArea = '<b><div id="info" style="position:absolute;top:'+infoTop+'px;left:'+infoLeft+'px;width:'+infoWidth+'px;height:50px;background-color:clear;color:white;font-size:22px"></b>';
 	$("body").after(infoArea);
 
 	$(".control").hover(function(){
