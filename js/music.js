@@ -463,9 +463,9 @@ function drawPiano()
 	}
 
 	
-	firstKeyLeft = $("#key-0").css("left").replace(/px/g, '');
-	lastKeyLeft  = $("#key-87").css("left").replace(/px/g, '');
-	keyTop       = $("#key-87").css("top").replace(/px/g, '');
+	firstKeyLeft = Number($("#key-0").css("left").replace(/px/g, ''));
+	lastKeyLeft  = Number($("#key-87").css("left").replace(/px/g, ''));
+	keyTop       = Number($("#key-87").css("top").replace(/px/g, ''));
 	
 	pianoWidth = Number(lastKeyLeft) + whiteKeyWidth + Number(firstKeyLeft);
 	pianoLeft = (screenWidth - pianoWidth)/2;
@@ -474,10 +474,13 @@ function drawPiano()
 	$("#pianoWrapper").css("left", pianoLeft);
 	$("#pianoWrapper").css("height", pianoHeight);
 	
-	redLineWidth = 	3 + whiteKeyOffset;
-	whiteKeyOffset += 6 + whiteKeyWidth;
-	var redLine='<div style="position:absolute;z-index:1;top:210px;left:7px; background-color:#6130000 ;width:'+redLineWidth+'px;height:2px;border:0px solid #000"></div>';
-	$("#controls").after(redLine);
+	redLineTop = keyTop;
+	redLineLeft = pianoLeft + 6;
+	redLineWidth = pianoWidth - 12;
+
+	$("#redLine").css("width", redLineWidth);
+	$("#redLine").css("left", redLineLeft);
+	$("#redLine").css("top", redLineTop);
 }
 
 function drawControls()
