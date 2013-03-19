@@ -515,7 +515,7 @@ function drawControls()
 	infoTop = 350;
 	infoLeft = 150;
 	infoWidth = 800;
-	var infoArea = '<b><div id="info" style="position:absolute;top:'+infoTop+'px;left:'+infoLeft+'px;width:'+infoWidth+'px;height:50px;background-color:white;color:red;font-size:22px"></b>';
+	var infoArea = '<b><div id="info" style="position:absolute;top:'+infoTop+'px;left:'+infoLeft+'px;width:'+infoWidth+'px;height:50px;background-color:clear;color:red;font-size:22px"></b>';
 	$("body").after(infoArea);
 
 	$(".control").hover(function(){
