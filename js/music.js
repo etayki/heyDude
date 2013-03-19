@@ -451,7 +451,7 @@ function drawPiano()
 			if (key !=0) whiteKeyOffset += whiteKeyWidth + whiteKeySpacing;
 			var whiteKey='<div class="key" id="key-'+key+'" style="position:absolute;z-index:1;top:211px;left:'+whiteKeyOffset+'px; background-color:white;width:'+whiteKeyWidth+'px;height:'+whiteKeyHeight+'px"></div>';
 			var whiteKeyLabel = '<b><div class="keyLabel" id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+whiteKeyLabelTop+'px;left:'+whiteKeyLabelLeft+'px;z-index:2;font-size:'+whiteKeyLabelSize+'%";font-weight:bold></div></b>';
-			$("#keyboard").after(whiteKey);
+			$("#controls").after(whiteKey);
 			$("#key-"+key).append(whiteKeyLabel);
 			//debug(whiteKey); 
 		}
@@ -460,7 +460,7 @@ function drawPiano()
 			blackKeyOffset = whiteKeyOffset + Math.floor(whiteKeyWidth * 0.75);
 			var blackKey='<div class="key" id="key-'+key+'" style="position:absolute;z-index:2;top:211px;left:'+blackKeyOffset+'px; background-color:black;width:'+blackKeyWidth+'px;height:'+blackKeyHeight+'px;border:0px solid #000"></div>';
 			var blackKeyLabel = '<b><div class="keyLabel" id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+blackKeyLabelTop+'px;left:'+blackKeyLabelLeft+'px;z-index:2;font-size:'+blackKeyLabelSize+'%";font-weight:bold></div></b>';
-			$("#keyboard").after(blackKey);
+			$("#controls").after(blackKey);
 			$("#key-"+key).append(blackKeyLabel);
 			//debug(blackKey);
 		}
@@ -470,15 +470,15 @@ function drawPiano()
 	whiteKeyOffset += 6 + whiteKeyWidth;
 	bgHeight = 217 + whiteKeyHeight;
 	var pianoBackground='<div style="position:absolute;z-index:0;top:0px;left:0px; background-color:black;width:'+whiteKeyOffset+'px;height:'+bgHeight+'px;border:0px solid #000"></div>';	
-	$("#keyboard").after(pianoBackground);
+	$("#controls").after(pianoBackground);
 	var redLine='<div style="position:absolute;z-index:1;top:210px;left:7px; background-color:#6130000 ;width:'+redLineWidth+'px;height:2px;border:0px solid #000"></div>';
-	$("#keyboard").after(redLine);
+	$("#controls").after(redLine);
 }
 
 function drawControls()
 {
-	//var arr[] = $("#keyboard").find("*").andSelf();//.css('width', '64px').css('height', '64px');
-	$("#keyboard").find("*").andSelf().each(
+	//var arr[] = $("#controls").find("*").andSelf();//.css('width', '64px').css('height', '64px');
+	$("#controls").find("*").andSelf().each(
 	    function(){
 		//access to form element via $(this)
 		//debug($(this).attr('id'));
@@ -498,7 +498,7 @@ function drawControls()
 	sliderInit();
 
 	$("#loading").css("display","none");
-	$("#keyboard").css("display","");
+	$("#controls").css("display","");
 
 	infoTop = 350;
 	infoLeft = 150;
