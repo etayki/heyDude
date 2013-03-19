@@ -1,6 +1,3 @@
-//          [top rec offset, top rec width, bottom rec offset, bottom rec width]
-//          There are 85 keys. The lowest note is 21 and the highest is 108.
-
 var startTempo = 2500;
 var tempo = 3900 - (startTempo - 1300);
 var startMeasure = 1;
@@ -425,7 +422,7 @@ function drawPiano()
 		whiteKeyWidth = 10;
 	}
 	whiteKeyHeight = Math.floor(whiteKeyWidth * 73/15);
-	whiteKeyOffset = 7;
+	whiteKeyOffset = whiteKeyWidth/3;
 	
 	// White Key Label
 	whiteKeyLabelTop = Math.floor(whiteKeyHeight*0.70);
@@ -451,37 +448,43 @@ function drawPiano()
 			if (key !=0) whiteKeyOffset += whiteKeyWidth + whiteKeySpacing;
 			var whiteKey='<div class="key" id="key-'+key+'" style="position:absolute;z-index:1;top:211px;left:'+whiteKeyOffset+'px; background-color:white;width:'+whiteKeyWidth+'px;height:'+whiteKeyHeight+'px"></div>';
 			var whiteKeyLabel = '<b><div class="keyLabel" id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+whiteKeyLabelTop+'px;left:'+whiteKeyLabelLeft+'px;z-index:2;font-size:'+whiteKeyLabelSize+'%";font-weight:bold></div></b>';
-			$("#controls").after(whiteKey);
+			$("#piano").after(whiteKey);
 			$("#key-"+key).append(whiteKeyLabel);
-			//debug(whiteKey); 
 		}
 		else
 		{
 			blackKeyOffset = whiteKeyOffset + Math.floor(whiteKeyWidth * 0.75);
 			var blackKey='<div class="key" id="key-'+key+'" style="position:absolute;z-index:2;top:211px;left:'+blackKeyOffset+'px; background-color:black;width:'+blackKeyWidth+'px;height:'+blackKeyHeight+'px;border:0px solid #000"></div>';
 			var blackKeyLabel = '<b><div class="keyLabel" id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+blackKeyLabelTop+'px;left:'+blackKeyLabelLeft+'px;z-index:2;font-size:'+blackKeyLabelSize+'%";font-weight:bold></div></b>';
-			$("#controls").after(blackKey);
+			$("#piano").after(blackKey);
 			$("#key-"+key).append(blackKeyLabel);
-			//debug(blackKey);
 		}
 	}
 
+	
+	firstKeyLeft = $("#key-0").css("left").replace(/px/g, '');
+	lastKeyLeft  = $("#key-87").css("left").replace(/px/g, '');
+	
+	pianoWidth = Number(lastKeyLeft) + whiteKeyWidth + Number(firstKeyLeft);
+	pianoLeft = (screen.width - pianoWidth)/2;
+	$("#pianoWrapper").css("width", pianoWidth);
+	$("#pianoWrapper").css("left", pianoLeft);
+	
 	redLineWidth = 	3 + whiteKeyOffset;
 	whiteKeyOffset += 6 + whiteKeyWidth;
-	bgHeight = 217 + whiteKeyHeight;
-	var pianoBackground='<div style="position:absolute;z-index:0;top:0px;left:0px; background-color:black;width:'+whiteKeyOffset+'px;height:'+bgHeight+'px;border:0px solid #000"></div>';	
-	$("#controls").after(pianoBackground);
 	var redLine='<div style="position:absolute;z-index:1;top:210px;left:7px; background-color:#6130000 ;width:'+redLineWidth+'px;height:2px;border:0px solid #000"></div>';
 	$("#controls").after(redLine);
 }
 
 function drawControls()
 {
-	//var arr[] = $("#controls").find("*").andSelf();//.css('width', '64px').css('height', '64px');
+	var controlsWidth = $("#controls").css("width").replace(/px/g, '');
+	// Not sure why the PiadnoLeft wasn't added here, but it works
+	var controlsLeft = (pianoWidth - Number(controlsWidth))/2;
+	$("#controls").css("left", controlsLeft);
+	
 	$("#controls").find("*").andSelf().each(
 	    function(){
-		//access to form element via $(this)
-		//debug($(this).attr('id'));
 		var width = $(this).css('width');
 		var left = $(this).css('left');
 		var fontSize = $(this).css('font-size');
@@ -499,7 +502,9 @@ function drawControls()
 
 	$("#loading").css("display","none");
 	$("#controls").css("display","");
+	$("#pianoWrapper").css("display","");
 
+	
 	infoTop = 350;
 	infoLeft = 150;
 	infoWidth = 800;
@@ -554,11 +559,6 @@ function drawControls()
 		if ($("#endMeasure").val() == "")
 			$("#endMeasure").val(endMeasure);
 	});
-	  
-	debugAreaLeft = whiteKeyOffset + 10;
-	debugAreaWidth = 1415 - debugAreaLeft;
-	var debugArea = '<div id="debug" style="position:absolute;top:10px;left:'+debugAreaLeft+'px;width:'+debugAreaWidth+'px;height:50px;background-color:white">';
-	$("body").after(debugArea);
 }
 
  
