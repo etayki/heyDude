@@ -493,7 +493,14 @@ function drawPiano()
 	$("#chair").css("top", chairTop);
 	$("#chair").css("left", chairLeft);
 	$("#chair").css("width", chairWidth);
-	$("#chair").css("height", chairHeight);		
+	$("#chair").css("height", chairHeight);
+	
+	feedbackHeight = whiteKeyHeight;
+	feedbackWidth = 20;
+	$("#feedback").css("width", feedbackHeight);
+	$("#feedback").css("height", feedbackWidth);
+	$("#feedback").css("left", feedbackWidth/2 - feedbackHeight/2 - 1);
+	$("#feedback").css("top", screen.height*0.4);
 }
 
 function drawControls()
@@ -524,7 +531,7 @@ function drawControls()
 	$("#controls").css("display","");
 	$("#pianoWrapper").css("display","");
 	$("#chair").css("display","");
-
+	$("#feedback").css("display","");
 	
 	infoTop = chairTop + 50;//350;
 	infoLeft = chairLeft + 30;//150;
