@@ -6,7 +6,7 @@
   
   $email_from = $_POST['email'];
   
-  $email_message .= "Email: ".clean_string($email_from)."\n";
+  $email_message = "Email: ".$email_from."\n";
    
      
   // create email headers

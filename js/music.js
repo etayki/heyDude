@@ -612,7 +612,7 @@ function feedbackForm() {
 		var dataString = 'Message='+ message + '&email=' + email;
 		$.ajax({
 		  type: "POST",
-		  url: "./feedback.php",
+		  url: "./php/feedback.php",
 		  data: dataString,
 		  success: function() {
 		    $('#contact_form').html("<div id='message'></div>");

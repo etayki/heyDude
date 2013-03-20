@@ -5,9 +5,13 @@ curl -T index.html -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasureby
 curl -T js/music.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/
 curl -T js/tune.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/
 
+
+# PHP
+curl -T php/feedback.php -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/php/
+
 # IMAGES
-curl -T images/redCarpet.jpg -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/images/
-curl -T images/chair.png -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/images/
+#curl -T images/redCarpet.jpg -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/images/
+#curl -T images/chair.png -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/images/
 #curl -T images/leftHand.jpg -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/images/
 #curl -T images/rightHand.jpg -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/images/
 #curl -T slider/imgs/skins/dhx_skyblue/selector.gif -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/slider/imgs/skins/dhx_skyblue/
