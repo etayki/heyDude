@@ -3,11 +3,9 @@
   $email_to = "etayluz@gmail.com";
   $email_subject = "New Feedback";
    
-  
-  $email_from = $_POST['email'];
-  
-  $email_message = "Email: ".$email_from."\n";
-   
+  $email_from = "etayluz@gmail.com";
+  $email_message = $_POST['message'];
+     
      
   // create email headers
   $headers = 'From: '.$email_from."\r\n".
@@ -15,6 +13,7 @@
   'X-Mailer: PHP/' . phpversion();
   
   // send email
-  @mail($email_to, $email_subject, $email_message, $headers);  
+    @mail($email_to, $email_subject, $email_message, $headers);
+  
 
 ?>

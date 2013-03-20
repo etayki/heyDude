@@ -35,6 +35,7 @@ $(document).ready(function() {
 			drawPiano();
 			drawControls();
 			feedbackForm();
+			display();
 			MIDI.setVolume(0, 127);
 		}
 	});	
@@ -495,13 +496,6 @@ function drawPiano()
 	$("#chair").css("left", chairLeft);
 	$("#chair").css("width", chairWidth);
 	$("#chair").css("height", chairHeight);
-	
-	feedbackHeight = whiteKeyHeight;
-	feedbackWidth = 20;
-	$("#feedback").css("width", feedbackHeight);
-	$("#feedback").css("height", feedbackWidth);
-	$("#feedback").css("left", feedbackWidth/2 - feedbackHeight/2 - 1);
-	$("#feedback").css("top", screen.height*0.4);
 }
 
 function drawControls()
@@ -527,12 +521,6 @@ function drawControls()
 	
 	dhtmlxEvent(window, "load", sliderInit);
 	sliderInit();
-
-	$("#loading").css("display","none");
-	//$("#controls").css("display","");
-	//$("#pianoWrapper").css("display","");
-	//$("#chair").css("display","");
-	//$("#feedback").css("display","");
 	
 	infoTop = chairTop + 50;//350;
 	infoLeft = chairLeft + 30;//150;
@@ -593,35 +581,50 @@ function drawControls()
 	});
 }
 
-function feedbackForm() {	
+function display()
+{
+	$("#loading").css("display","none");
+	$("#controls").css("display","");
+	$("#pianoWrapper").css("display","");
+	$("#chair").css("display","");
+	$("#feedback").css("display","");
+}
+
+function feedbackForm() {
+
+	feedbackHeight = whiteKeyHeight;
+	feedbackWidth = 20;
+	$("#feedback").css("width", feedbackHeight);
+	$("#feedback").css("height", feedbackWidth);
+	$("#feedback").css("left", feedbackWidth/2 - feedbackHeight/2 - 1);
+	$("#feedback").css("top", screen.height*0.4);
+	
+	$("#feedback").click(function() {	
+		$('#feedbackForm').css("display","");
+	});
+
+	$("#cancel").click(function() {	
+		$('#feedbackForm').css("display","none");
+	});
+	
 	$('#submit').click(function() {	
-		var email = $("input#email").val();
-		if (email == "") {
-			$("label#email_error").show();
-			$("input#email").focus();
-			return false;
-		}
-		
-		var message = $("input#message").val();
+		var message = $("textarea#message").val();
 		if (message == "") {
-			$("label#message_error").show();
-			$("input#message").focus();
+			$("textarea#message").focus();
 			return false;
 		}
 		
-		var dataString = 'Message='+ message + '&email=' + email;
+		var dataString = '&message='+ message;
 		$.ajax({
 		  type: "POST",
 		  url: "./php/feedback.php",
 		  data: dataString,
 		  success: function() {
-		    $('#contact_form').html("<div id='message'></div>");
-		    $('#message').html("<h2>Contact Form Submitted!</h2>")
-		    .append("<p>We will be in touch soon.</p>")
-		    .hide()
-		    .fadeIn(1500, function() {
-		      $('#message').append("<img id='checkmark' src='images/check.png' />");
-		    });
+			$('#feedbackForm').css("display","none");
+			$('#feedbackThanks').css("display","");
+			setTimeout(function() {
+				$('#feedbackThanks').css("display","none");
+			}, 2000);
 		  }
 		});
 		return false;
