@@ -139,6 +139,8 @@ function didPressPlayButton(option)
 			didPressPauseButton(STOP);
 		}
 		$("#currentPosition").text((Math.floor((delay/4 + 1)*100)/100).toFixed(2));
+		// Update Measure Display
+		$("#curPosition").css("left", (delay/4) * playIntervalWidth);
 		didPressPlayButton(REPEAT);
 	}, 4*tempo/600));	
 	
@@ -153,6 +155,8 @@ function didPressPauseButton(option)
 	{
 		delay = startDelay;
 		$("#currentPosition").text((Math.floor((delay/4 + 1)*100)/100).toFixed(2));
+		// Update Measure Display
+		$("#curPosition").css("left", (delay/4) * playIntervalWidth);
 	}
 
 	for (var note = 21; note < 108; note++)
@@ -266,7 +270,8 @@ function updateStartMeasure(val)
 
 	// Update Measure Display
 	$("#playInterval").css("left", (startMeasure-1) * (playIntervalWidth));
-	
+	$("#playInterval").css("width", (endMeasure - startMeasure) * (playIntervalWidth));
+
 }
 
 function updateEndMeasure(val)
@@ -307,6 +312,9 @@ function updateEndMeasure(val)
 	// Update Start Measure
 	if (endMeasure <= startMeasure)
 		updateStartMeasure(Number(endMeasure)-1);
+
+	// Update Measure Display
+	$("#playInterval").css("width", (endMeasure - startMeasure) * (playIntervalWidth));
 }
 
 function updateSlider(slider, val) {
@@ -650,7 +658,8 @@ function feedbackForm() {
 	$("#feedback").css("font-size",fontSize+"px");
 	
 	$("#feedback").click(function() {
-		didPressPauseButton(STOP);
+		if (didPressPlayBtn)
+			didPressPauseButton();
 		feedbackFormDisplayed = 1;
 		$('#feedbackForm').css("display","");
 		$('#message').focus();
@@ -720,6 +729,9 @@ function playDisplay()
 	playIntervalWidth = rulerWidth/(tune.length-1);
 	var playInterval='<div id="playInterval" style="position:absolute;top:'+markTop+'px;left:'+playIntervalLeft+'px; background-color:green;width:'+playIntervalWidth+'px;height:'+markHeight+'px;z-index:4"></div>';
 	$("#ruler").append(playInterval);
+
+	var curPosition='<div id="curPosition" style="position:absolute;z-index:5;top:'+markTop+'px;left:0px; background-color:red;width:3px;height:'+markHeight+'px"></div>';
+	$("#ruler").append(curPosition);
 }
 
 /* --- ================ DEBUG ================== */
