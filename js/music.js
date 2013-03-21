@@ -332,6 +332,11 @@ function updateSlider(slider, val) {
 /* --- ================ KEY PRESS ================== */
 
 $(document).keydown(function(e){
+	
+	if (e.keyCode == 27) // Esc
+	{
+		$("#cancel").click();
+	}
 	if (feedbackFormDisplayed)
 	{
 		return;
