@@ -449,7 +449,6 @@ $(document).keydown(function(e){
 	}
 	else if (e.keyCode == 32) // Space
 	{
-		$('#repeatMeasure').blur();
 		if (didPressPlayBtn)
 		{
 			didPressPauseButton();
@@ -484,18 +483,46 @@ $(document).keydown(function(e){
 	}
 	else if (e.keyCode == 84) // t
 	{
-		if($("#repeatCheck").is(':checked'))
-		{
-			$('#repeatCheck').prop('checked', false);
-
-		}
-		else
-		{
-			$('#repeatCheck').prop('checked', true);
-		}
+		repeatToggle();
 	}
 
 });
+
+function repeatToggle()
+{
+	if($("#repeatCheck").is(':checked'))
+	{
+		$('#repeatCheck').prop('checked', false);
+
+	}
+	else
+	{
+		$('#repeatCheck').prop('checked', true);
+	}
+	
+	repeatMask();
+}
+
+function repeatMask()
+{
+	if($("#repeatCheck").is(':checked'))
+	{
+		startMeasure = savedStartMeasure;
+		endMeasure = savedEndMeasure;
+		updateStartMeasure(startMeasure);
+		updateEndMeasure(endMeasure);
+		$('#playInterval').css("display","");
+	}
+	else
+	{
+		$('#playInterval').css("display","none");
+		savedStartMeasure = startMeasure;
+		savedEndMeasure = endMeasure;
+		updateStartMeasure(1);
+		updateEndMeasure(tune.length);
+	}
+	
+}
 
 /* --- ================ PIANO DRAW ================== */
 
@@ -640,11 +667,7 @@ function drawControls()
 	  });
 
 	$("#repeatCheck").click(function(){
-		if($("#repeatCheck").is(':checked'))
-			$("#repeatMeasure").show();
-		else
-			$("#repeatMeasure").hide();
-
+		repeatMask();
 	  });
 	
 	$(".key").click(function(){
