@@ -228,6 +228,58 @@ function sliderInit()
 	tempoSlider.init();
 };
 
+function updatePosition(val)
+{
+	if (isNaN(Number(val)) && !(val == "+" || val == "-"))
+		val = 0;
+		
+	if (val == "-")
+	{
+		val = Number(delay) - 1;
+		if (val == 0)
+		{
+			return;
+		}
+	}
+	
+	maxMeasure = Math.floor(tune.length);
+
+	if (val == "+")
+	{
+		if (delay == maxMeasure)
+			return;
+		val = Number(delay) + 1;
+	}
+	
+	// Limit to min measure
+	if (val < 1)
+		val = 1;
+		
+	// Limit to max measure
+	if (val > maxMeasure)
+		val = maxMeasure;
+		
+	// Set new measure	
+	$("#curPosition").val(val);
+	delay = val;
+
+	position = delay/4 + 1;
+
+	// Update Start Measure
+	if (position < startMeasure)
+		updateStartMeasure(Math.floor(Number(position))-1);
+		
+	// Update End Measure
+	if (position > endMeasure)
+		updateEndMeasure(Math.floor(Number(position))+1);
+
+	// Update Measure Display
+	$("#curPosition").css("left", (delay/4) * playIntervalWidth);
+	didPressPauseButton(STOP);
+	didPressPlayButton(STARTPLAY);
+
+}
+
 function updateStartMeasure(val)
 {
 	if (isNaN(Number(val)) && !(val == "+" || val == "-"))
@@ -271,7 +323,6 @@ function updateStartMeasure(val)
 	// Update Measure Display
 	$("#playInterval").css("left", (startMeasure-1) * (playIntervalWidth));
 	$("#playInterval").css("width", (endMeasure - startMeasure) * (playIntervalWidth));
-
 }
 
 function updateEndMeasure(val)
@@ -317,7 +368,7 @@ function updateEndMeasure(val)
 	$("#playInterval").css("width", (endMeasure - startMeasure) * (playIntervalWidth));
 }
 
-function updateSlider(slider, val) {
+function updateTempo(slider, val) {
 	if (isNaN(Number(val)) && !(val == "+" || val == "-"))
 		val = 0;
 
@@ -359,27 +410,35 @@ $(document).keydown(function(e){
 	}
 	if (e.keyCode == 37) // Left arrow
 	{ 
-		updateStartMeasure("-");
+		updatePosition("-");
 	}
 	else if (e.keyCode == 39) // Right arrow
 	{ 
-		updateStartMeasure("+");
+		updatePosition("+");
 	}
 	if (e.keyCode == 38) // Up arrow
 	{
-		updateEndMeasure("+");
+		updateTempo("tempo","+");
 	}
 	else if (e.keyCode == 40) // Down arrow
 	{
-		updateEndMeasure("-");
+		updateTempo("tempo","-");
 	}
-	else if (e.keyCode == 188) // , <
+	else if (e.keyCode == 191) // ?
 	{
-		updateSlider("tempo","-");
+		updateEndMeasure("+");
 	}
 	else if (e.keyCode == 190) // . >
 	{
-		updateSlider("tempo","+");
+		updateEndMeasure("-");
+	}
+	else if (e.keyCode == 90) // z
+	{
+		updateStartMeasure("-");
+	}
+	else if (e.keyCode == 88) // . x
+	{
+		updateStartMeasure("+");
 	}
 	else if (e.keyCode == 32) // Space
 	{
