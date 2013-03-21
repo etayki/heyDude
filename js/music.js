@@ -647,6 +647,8 @@ function feedbackForm() {
 		didPressPauseButton(STOP);
 		feedbackFormDisplayed = 1;
 		$('#feedbackForm').css("display","");
+		$('#message').focus();
+		
 	});
 
 	$("#cancel").click(function() {	
