@@ -516,6 +516,7 @@ function drawControls()
 		width = width.replace(/px/g, '');
 		left = left.replace(/px/g, '');
 		fontSize = fontSize.replace(/px/g, '');
+		
 		$(this).css("width",width*whiteKeyWidth/20+"px");
 		$(this).css("left",left*whiteKeyWidth/20+"px");
 		$(this).css("font-size",fontSize*(whiteKeyWidth/50+3/5)+"px");
@@ -599,13 +600,41 @@ function display()
 }
 
 function feedbackForm() {
+	$("#feedbackForm").find("*").andSelf().each(
+	    function(){
+		var width = $(this).css('width');
+		var left = $(this).css('left');
+		var fontSize = $(this).css('font-size');
+		width = width.replace(/px/g, '');
+		left = left.replace(/px/g, '');
+		fontSize = fontSize.replace(/px/g, '');
+		
+		$(this).css("width",width*whiteKeyWidth/20+"px");
+		$(this).css("left",left*whiteKeyWidth/20+"px");
+		$(this).css("font-size",fontSize*(whiteKeyWidth/50+3/5)+"px");
+	    }
+	);
+	
+	feedbackFormWidth = pianoWidth * 0.34;
+	feedbackFormHeight = pianoHeight * 0.7;
+	feedbackFormTop = screen.height * 0.25; 
+	feedbackFormLeft = pianoLeft + (pianoWidth - feedbackFormWidth)/2;
+
+	$("#feedbackForm").css("top", feedbackFormTop);
+	$("#feedbackForm").css("left", feedbackFormLeft);
+	$("#feedbackForm").css("width", feedbackFormWidth);
+	$("#feedbackForm").css("height", feedbackFormHeight);
 
 	feedbackHeight = whiteKeyHeight;
 	feedbackWidth = 20;
+	fontSize = $("#feedback").css('font-size').replace(/px/g, '');
+	fontSize = fontSize*(screenWidth/1300)
+	
 	$("#feedback").css("width", feedbackHeight);
 	$("#feedback").css("height", feedbackWidth);
 	$("#feedback").css("left", feedbackWidth/2 - feedbackHeight/2 - 1);
 	$("#feedback").css("top", screen.height*0.4);
+	$("#feedback").css("font-size",fontSize+"px");
 	
 	$("#feedback").click(function() {
 		didPressPauseButton(STOP);
