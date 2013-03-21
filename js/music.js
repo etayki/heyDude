@@ -133,7 +133,6 @@ function didPressPlayButton(option)
 	
 	timers.push(setTimeout(function() {
 		delay += 0.01;
-		//$("#currentPosition").text(delay.toFixed(2));
 		if (delay < startDelay || delay > endDelay)
 		{
 			didPressPauseButton(STOP);
@@ -150,7 +149,10 @@ function didPressPauseButton(option)
 	$("#playButton").text("Play");
 	
 	if (option == STOP)
+	{
 		delay = startDelay;
+		$("#currentPosition").text((Math.floor((delay/4 + 1)*100)/100).toFixed(2));
+	}
 
 	for (var note = 21; note < 108; note++)
 	{
