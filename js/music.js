@@ -689,10 +689,29 @@ function playDisplay()
 {
 	rulerWidth = Number($("#playDisplay").css("width").replace(/px/g, '')) * 0.8;
 	rulerLeft = Number($("#playDisplay").css("left").replace(/px/g, '')) + rulerWidth/10;
-	rulerTop = Number($("#playDisplay").css("height").replace(/px/g, ''))/2;
+	rulerTop = Number($("#playDisplay").css("height").replace(/px/g, ''))/2 - 10;
+	markTop = rulerTop - 5;
+	markHeight = 13;
+	markLeft = rulerLeft;
+	
 	
 	var ruler='<div id="ruler" style="position:absolute;z-index:5;top:'+rulerTop+'px;left:'+rulerLeft+'px; background-color:black;width:'+rulerWidth+'px;height:3px"></div>';
 	$("#playDisplay").append(ruler);
+	
+	for(var i = 1; i < tune.length + 1; i++)
+	{
+		var check='<div id="check-'+i+'" style="position:absolute;z-index:5;top:'+markTop+'px;left:'+markLeft+'px; background-color:black;width:2px;height:'+markHeight+'px"></div>';
+		$("#playDisplay").append(check);
+		markLeft += rulerWidth/(tune.length-1);
+	
+		if (i%5 == 0 || i == 1)
+		{
+			//if (i < 10)
+				
+			var checkNum = '<b><div class="keyLabel" style="color:#330099;position:absolute;top:12px;left:-9px;width:20px;z-index:6;font-size:12px;text-align:center;background-color:clear";font-weight:bold>'+i+'</div></b>';
+			$("#check-"+i).append(checkNum);
+		}
+	}
 
 
 	
