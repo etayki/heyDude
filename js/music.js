@@ -778,13 +778,21 @@ function playDisplay()
 	{
 		var check='<div id="check-'+i+'" style="position:absolute;z-index:5;top:'+markTop+'px;left:'+markLeft+'px; background-color:black;width:2px;height:'+markHeight+'px"></div>';
 		$("#ruler").append(check);
-		markLeft += rulerWidth/(tune.length-1);
 	
 		if (i%5 == 0 || i == 1)
 		{				
 			var checkNum = '<b><div style="position:absolute;top:12px;left:-9px;width:20px;z-index:6;font-size:12px;text-align:center;background-color:clear";font-weight:bold>'+i+'</div></b>';
 			$("#check-"+i).append(checkNum);
 		}
+		
+		measureBoxLeft = markLeft;
+		measureBoxTop = markTop;
+		measureBoxWidth = rulerWidth/(tune.length-1);
+		measureBoxHeight = markHeight;
+		var measureBox='<div class="measureBox" id="measureBox-'+i+'" style="position:absolute;z-index:7;top:'+measureBoxTop+'px;left:'+measureBoxLeft+'px; background-color:clear;width:'+measureBoxWidth+'px;height:'+measureBoxHeight+'px"></div>';
+		$("#ruler").append(measureBox);
+		
+		markLeft += rulerWidth/(tune.length-1);
 	}
 
 	playIntervalLeft = 0;
@@ -794,6 +802,12 @@ function playDisplay()
 
 	var curPosition='<div id="curPosition" style="position:absolute;z-index:5;top:'+markTop+'px;left:0px; background-color:red;width:3px;height:'+markHeight+'px"></div>';
 	$("#ruler").append(curPosition);
+	
+	$(".measureBox").click(function(){
+		selectedMeasureBox = $(this).attr('id');
+		selectedMeasure = Number(selectedMeasureBox.replace(/measureBox-/g,''));
+		updatePosition(selectedMeasure);
+	  });
 }
 
 /* --- ================ DEBUG ================== */
