@@ -262,6 +262,11 @@ function updateStartMeasure(val)
 	// Update End Measure
 	if (startMeasure >= endMeasure)
 		updateEndMeasure(Number(startMeasure)+1);
+
+
+	// Update Measure Display
+	$("#playInterval").css("left", (startMeasure-1) * (playIntervalWidth));
+	
 }
 
 function updateEndMeasure(val)
@@ -690,9 +695,9 @@ function playDisplay()
 	rulerWidth = Number($("#playDisplay").css("width").replace(/px/g, '')) * 0.8;
 	rulerLeft = Number($("#playDisplay").css("left").replace(/px/g, '')) + rulerWidth/10;
 	rulerTop = Number($("#playDisplay").css("height").replace(/px/g, ''))/2 - 10;
-	markTop = rulerTop - 5;
+	markTop = rulerTop - 12;
 	markHeight = 13;
-	markLeft = rulerLeft;
+	markLeft = 0;
 	
 	
 	var ruler='<div id="ruler" style="position:absolute;z-index:5;top:'+rulerTop+'px;left:'+rulerLeft+'px; background-color:black;width:'+rulerWidth+'px;height:3px"></div>';
@@ -701,20 +706,20 @@ function playDisplay()
 	for(var i = 1; i < tune.length + 1; i++)
 	{
 		var check='<div id="check-'+i+'" style="position:absolute;z-index:5;top:'+markTop+'px;left:'+markLeft+'px; background-color:black;width:2px;height:'+markHeight+'px"></div>';
-		$("#playDisplay").append(check);
+		$("#ruler").append(check);
 		markLeft += rulerWidth/(tune.length-1);
 	
 		if (i%5 == 0 || i == 1)
-		{
-			//if (i < 10)
-				
-			var checkNum = '<b><div class="keyLabel" style="color:#330099;position:absolute;top:12px;left:-9px;width:20px;z-index:6;font-size:12px;text-align:center;background-color:clear";font-weight:bold>'+i+'</div></b>';
+		{				
+			var checkNum = '<b><div style="position:absolute;top:12px;left:-9px;width:20px;z-index:6;font-size:12px;text-align:center;background-color:clear";font-weight:bold>'+i+'</div></b>';
 			$("#check-"+i).append(checkNum);
 		}
 	}
 
-
-	
+	playIntervalLeft = 0;
+	playIntervalWidth = rulerWidth/(tune.length-1);
+	var playInterval='<div id="playInterval" style="position:absolute;top:'+markTop+'px;left:'+playIntervalLeft+'px; background-color:green;width:'+playIntervalWidth+'px;height:'+markHeight+'px;z-index:4"></div>';
+	$("#ruler").append(playInterval);
 }
 
 /* --- ================ DEBUG ================== */
