@@ -37,6 +37,7 @@ $(document).ready(function() {
 			drawPiano();
 			drawControls();
 			feedbackForm();
+			playDisplay();
 			display();
 			MIDI.setVolume(0, 127);
 		}
@@ -682,6 +683,19 @@ function feedbackForm() {
 	
 
   
+}
+
+function playDisplay()
+{
+	rulerWidth = Number($("#playDisplay").css("width").replace(/px/g, '')) * 0.8;
+	rulerLeft = Number($("#playDisplay").css("left").replace(/px/g, '')) + rulerWidth/10;
+	rulerTop = Number($("#playDisplay").css("height").replace(/px/g, ''))/2;
+	
+	var ruler='<div id="ruler" style="position:absolute;z-index:5;top:'+rulerTop+'px;left:'+rulerLeft+'px; background-color:black;width:'+rulerWidth+'px;height:3px"></div>';
+	$("#playDisplay").append(ruler);
+
+
+	
 }
 
 /* --- ================ DEBUG ================== */
