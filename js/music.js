@@ -253,7 +253,7 @@ function updatePosition(val)
 
 	if (val == "+")
 	{
-		if (position == maxMeasure)
+		if (position + 1 == maxMeasure)
 			return;
 		val = Number(position) + 1;
 	}
