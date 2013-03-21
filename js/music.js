@@ -8,6 +8,7 @@ var didPressPlayBtn = 0;
 var delay = 0;
 var startDelay = 0;
 var feedbackFormDisplayed = 0;
+var currentPosition = 1;
 
 var DELAY = 0;
 var DURATION = 1;
@@ -17,6 +18,7 @@ var FINGER = 4;
 
 var STARTPLAY = 0;
 var REPEAT = 1;
+var TURNOFFNOTES = 2;
 var STOP = 3;
 
 var info = {
@@ -232,7 +234,6 @@ function sliderInit()
 
 function updatePosition(val)
 {
-	didPressPauseButton(STOP);
 
 	position = Math.floor(currentPosition);
 
@@ -244,7 +245,7 @@ function updatePosition(val)
 		val = Number(position) - 1;
 		if (val == 0)
 		{
-			return;
+			val = 1;
 		}
 	}
 	
@@ -267,6 +268,7 @@ function updatePosition(val)
 		
 	// Set new measure	
 	$("#curPosition").val(val);
+	position = val;
 	delay = (position - 1) * 4;
 
 
@@ -275,11 +277,12 @@ function updatePosition(val)
 		updateStartMeasure(Math.floor(Number(position))-1);
 		
 	// Update End Measure
-	if (position > endMeasure)
+	if (position >= endMeasure)
 		updateEndMeasure(Math.floor(Number(position))+1);
 
 	// Update Measure Display
 	$("#curPosition").css("left", (delay/4) * playIntervalWidth);
+	didPressPauseButton(TURNOFFNOTES);
 	didPressPlayButton(STARTPLAY);
 
 }
@@ -484,15 +487,11 @@ $(document).keydown(function(e){
 		if($("#repeatCheck").is(':checked'))
 		{
 			$('#repeatCheck').prop('checked', false);
-			$("#repeatMeasure").hide();
-			newMeasureLength = 1;
+
 		}
 		else
 		{
 			$('#repeatCheck').prop('checked', true);
-			$("#repeatMeasure").show();
-			newMeasureLength = 1;
-			$("#repeatMeasure").get(0).selectedIndex = 0;
 		}
 	}
 
