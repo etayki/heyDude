@@ -138,7 +138,8 @@ function didPressPlayButton(option)
 		{
 			didPressPauseButton(STOP);
 		}
-		$("#currentPosition").text((Math.floor((delay/4 + 1)*100)/100).toFixed(2));
+		currentPosition = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
+		$("#currentPosition").text(currentPosition);
 		// Update Measure Display
 		$("#curPosition").css("left", (delay/4) * playIntervalWidth);
 		didPressPlayButton(REPEAT);
@@ -154,7 +155,8 @@ function didPressPauseButton(option)
 	if (option == STOP)
 	{
 		delay = startDelay;
-		$("#currentPosition").text((Math.floor((delay/4 + 1)*100)/100).toFixed(2));
+		currentPosition = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
+		$("#currentPosition").text(currentPosition);
 		// Update Measure Display
 		$("#curPosition").css("left", (delay/4) * playIntervalWidth);
 	}
@@ -230,12 +232,16 @@ function sliderInit()
 
 function updatePosition(val)
 {
+	didPressPauseButton(STOP);
+
+	position = Math.floor(currentPosition);
+
 	if (isNaN(Number(val)) && !(val == "+" || val == "-"))
 		val = 0;
 		
 	if (val == "-")
 	{
-		val = Number(delay) - 1;
+		val = Number(position) - 1;
 		if (val == 0)
 		{
 			return;
@@ -246,9 +252,9 @@ function updatePosition(val)
 
 	if (val == "+")
 	{
-		if (delay == maxMeasure)
+		if (position == maxMeasure)
 			return;
-		val = Number(delay) + 1;
+		val = Number(position) + 1;
 	}
 	
 	// Limit to min measure
@@ -261,9 +267,8 @@ function updatePosition(val)
 		
 	// Set new measure	
 	$("#curPosition").val(val);
-	delay = val;
+	delay = (position - 1) * 4;
 
-	position = delay/4 + 1;
 
 	// Update Start Measure
 	if (position < startMeasure)
@@ -275,7 +280,6 @@ function updatePosition(val)
 
 	// Update Measure Display
 	$("#curPosition").css("left", (delay/4) * playIntervalWidth);
-	didPressPauseButton(STOP);
 	didPressPlayButton(STARTPLAY);
 
 }
