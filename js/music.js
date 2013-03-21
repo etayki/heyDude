@@ -6,6 +6,8 @@ var timers = new Array();
 var noteOn = new Array();
 var didPressPlayBtn = 0;
 var delay = 0;
+var startDelay = 0;
+var feedbackFormDisplayed = 0;
 
 var DELAY = 0;
 var DURATION = 1;
@@ -45,6 +47,8 @@ $(document).ready(function() {
 
 function didPressPlayButton(option)
 {
+	if(feedbackFormDisplayed)
+		return;
 	
 	if ($("#playButton").text() == "Play")
 	{
@@ -328,6 +332,10 @@ function updateSlider(slider, val) {
 /* --- ================ KEY PRESS ================== */
 
 $(document).keydown(function(e){
+	if (feedbackFormDisplayed)
+	{
+		return;
+	}
 	if (e.keyCode == 37) // Left arrow
 	{ 
 		updateStartMeasure("-");
@@ -599,12 +607,15 @@ function feedbackForm() {
 	$("#feedback").css("left", feedbackWidth/2 - feedbackHeight/2 - 1);
 	$("#feedback").css("top", screen.height*0.4);
 	
-	$("#feedback").click(function() {	
+	$("#feedback").click(function() {
+		didPressPauseButton(STOP);
+		feedbackFormDisplayed = 1;
 		$('#feedbackForm').css("display","");
 	});
 
 	$("#cancel").click(function() {	
 		$('#feedbackForm').css("display","none");
+		feedbackFormDisplayed = 0;
 	});
 	
 	$('#submit').click(function() {	
@@ -621,6 +632,7 @@ function feedbackForm() {
 		  data: dataString,
 		  success: function() {
 			$('#feedbackForm').css("display","none");
+			feedbackFormDisplayed = 0;
 			$('#feedbackThanks').css("display","");
 			setTimeout(function() {
 				$('#feedbackThanks').css("display","none");
