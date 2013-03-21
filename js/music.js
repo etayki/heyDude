@@ -235,7 +235,7 @@ function updateStartMeasure(val)
 		}
 	}
 	
-	maxMeasure = Math.floor(tune.length - 1);
+	maxMeasure = Math.floor(tune.length);
 
 	if (val == "+")
 	{
@@ -275,7 +275,7 @@ function updateEndMeasure(val)
 		}
 	}
 	
-	maxMeasure = Math.floor(tune.length - 1);
+	maxMeasure = Math.floor(tune.length);
 
 	if (val == "+")
 	{
