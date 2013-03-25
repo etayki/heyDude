@@ -174,23 +174,6 @@ function didPressPauseButton(option)
 	}
 }
 
-function didSelectHand(hand)
-{
-	for(var key = 0; key < 88; key++)
-	{
-		note = key + 21
-		keyColor =  $("#key-"+key).css("background-color");
-		if ((keyColor == "rgb(255, 0, 0)" && hand == "right") || (keyColor == "rgb(0, 255, 0)" && hand == "left"))
-		{
-			resetNote(note);
-			MIDI.noteOff(0, note, 0);
-		}
-	}
-}
-
-
-/* --- ================ PLAY ================== */
-
 function resetNote(note)
 {
 	key = note - 21;
@@ -204,26 +187,6 @@ function resetNote(note)
 	$("#keyLabel-"+key).text("");
 	noteOn.splice(noteOn.indexOf(note), 1);
 }
-
-/* --- ================ SLIDER ================== */
-function sliderInit()
-{	// Add 200 to max as ugly fix to keep slider going off deep end
-	tempoSlider = new dhtmlxSlider("tempoSlider", 100 * whiteKeyWidth/21, "dhx_skyblue", false, 1300, 3900+200, 3900 - (tempo - 1300), 200);
-	tempoSlider.setImagePath("./slider/imgs/");
-	tempoSlider.attachEvent("onChange", function(newtempo) {
-		// Ugly fix to keep slider going off deep end
-		if (newtempo > 3900) 
-		{
-			tempoSlider.setValue(3900);
-			return;
-		}
-		document.getElementById("tempo").value = newtempo;
-		tempo = 3900 - (newtempo - 1300);
-		});
-	
-	document.getElementById("tempo").value = 3900 - (tempo - 1300);	
-	tempoSlider.init();
-};
 
 function updatePosition(val)
 {
@@ -396,91 +359,6 @@ function updateTempo(slider, val) {
 	tempo = val;
 };
 
-/* --- ================ KEY PRESS ================== */
-
-$(document).keydown(function(e){
-	
-	if (e.keyCode == 27) // Esc
-	{
-		$("#cancel").click();
-	}
-	if (feedbackFormDisplayed)
-	{
-		return;
-	}
-	if (e.keyCode == 37) // Left arrow
-	{ 
-		updatePosition("-");
-	}
-	else if (e.keyCode == 39) // Right arrow
-	{ 
-		updatePosition("+");
-	}
-	if (e.keyCode == 38) // Up arrow
-	{
-		updateTempo("tempo","+");
-	}
-	else if (e.keyCode == 40) // Down arrow
-	{
-		updateTempo("tempo","-");
-	}
-	else if (e.keyCode == 191) // ?
-	{
-		updateEndMeasure("+");
-	}
-	else if (e.keyCode == 190) // . >
-	{
-		updateEndMeasure("-");
-	}
-	else if (e.keyCode == 90) // z
-	{
-		updateStartMeasure("-");
-	}
-	else if (e.keyCode == 88) // . x
-	{
-		updateStartMeasure("+");
-	}
-	else if (e.keyCode == 32) // Space
-	{
-		if (didPressPlayBtn)
-		{
-			didPressPauseButton();
-		}
-		else
-		{
-			didPressPlayButton(STARTPLAY);		
-		}
-	}
-	else if (e.keyCode == 13) // Enter
-	{
-		$('#startMeasure').blur();
-		$('#endMeasure').blur();
-	}
-	else if (e.keyCode == 76) // l
-	{
-		$('input[name=hand][value=left]').prop("checked",true);
-		didSelectHand('left');
-	}
-	else if (e.keyCode == 82) // r
-	{
-		$('input[name=hand][value=right]').prop("checked",true);
-		didSelectHand('right');
-	}
-	else if (e.keyCode == 66) // b
-	{
-		$('input[name=hand][value=both]').prop("checked",true);	
-	}
-	else if (e.keyCode == 83) // s
-	{
-		didPressPauseButton(STOP);	
-	}
-	else if (e.keyCode == 84) // t
-	{
-		repeatToggle();
-	}
-
-});
-
 function repeatToggle()
 {
 	if($("#repeatCheck").is(':checked'))
@@ -516,6 +394,22 @@ function repeatMask()
 	}
 	
 }
+
+function didSelectHand(hand)
+{
+	for(var key = 0; key < 88; key++)
+	{
+		note = key + 21
+		keyColor =  $("#key-"+key).css("background-color");
+		if ((keyColor == "rgb(255, 0, 0)" && hand == "right") || (keyColor == "rgb(0, 255, 0)" && hand == "left"))
+		{
+			resetNote(note);
+			MIDI.noteOff(0, note, 0);
+		}
+	}
+}
+
+
 
 
 
