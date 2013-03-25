@@ -8,6 +8,24 @@ var info = {
 	'repeatControl'  : "<br>Press 1 to repeat one measure.<br>Press 2 to repeat two measures."
 };
 
+function drawScreen()
+{
+	drawPiano();
+	drawControls();
+	feedbackForm();
+	playDisplay();
+	display();
+}
+
+function display()
+{
+	$("#loading").css("display","none");
+	$("#controls").css("display","");
+	$("#pianoWrapper").css("display","");
+	$("#chair").css("display","");
+	$("#feedback").css("display","");
+}
+
 function drawPiano()
 {
 	whiteKeySpacing = 2;
@@ -178,14 +196,6 @@ function drawControls()
 	});
 }
 
-function display()
-{
-	$("#loading").css("display","none");
-	$("#controls").css("display","");
-	$("#pianoWrapper").css("display","");
-	$("#chair").css("display","");
-	$("#feedback").css("display","");
-}
 
 function feedbackForm() {
 	$("#feedbackForm").find("*").andSelf().each(

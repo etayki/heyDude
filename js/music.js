@@ -32,11 +32,7 @@ $(document).ready(function() {
 		instrument: "acoustic_grand_piano",
 		callback: function() {
 			// MIDI Player has loaded, so now allow user interaction
-			drawPiano();
-			drawControls();
-			feedbackForm();
-			playDisplay();
-			display();
+			drawScreen();
 			MIDI.setVolume(0, 127);
 		}
 	});	
@@ -408,8 +404,6 @@ function didSelectHand(hand)
 		}
 	}
 }
-
-
 
 
 
