@@ -1,15 +1,14 @@
-cat js/music.js js/tune.js js/keyboard.js js/view.js js/MIDI/AudioDetect.js js/MIDI/LoadPlugin.js js/MIDI/Plugin.js js/MIDI/Player.js js/Window/DOMLoader.XMLHttp.js js/Window/DOMLoader.script.js inc/WebMIDIAPI.js inc/base64binary.js > js/app.js
+# Create new html.index
+#sed '/script/d' index.html > tmp && mv tmp index.html
+#printf '3a\n<script src="./js/app.js"></script>\n.\nw\n' | ed index.html
+#printf '3a\n<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>\n.\nw\n' | ed index.html
 
-cat js/tune.js js/music.js > production/app.js 
-
-# CORE FILES
-curl -T index.html -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/
-curl -T js/music.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/
-curl -T js/tune.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/
-
+# Create app.js
+#cat js/music.js js/tune.js js/keyboard.js js/view.js js/MIDI/AudioDetect.js js/MIDI/LoadPlugin.js js/MIDI/Plugin.js js/MIDI/Player.js js/Window/DOMLoader.XMLHttp.js js/Window/DOMLoader.script.js inc/WebMIDIAPI.js inc/Base64.js inc/base64binary.js slider/dhtmlxcommon.js slider/dhtmlxslider.js > js/app.js
+#cp js/app.js production/app.js 
 
 # PHP
-curl -T php/feedback.php -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/php/
+#curl -T php/feedback.php -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/php/
 
 # IMAGES
 #curl -T images/redCarpet.jpg -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/images/
@@ -34,3 +33,8 @@ curl -T php/feedback.php -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmea
 #curl -T js/MIDI/Player.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/MIDI/
 #curl -T js/MIDI/Plugin.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/MIDI/
 #curl -T inc/WebMIDIAPI.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/inc/
+
+# CORE FILES
+#curl -T index.html -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/
+#curl -T js/music.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/
+#curl -T js/tune.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/js/
