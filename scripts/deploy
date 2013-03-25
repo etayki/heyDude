@@ -1,3 +1,5 @@
+cat js/music.js js/tune.js js/keyboard.js js/view.js js/MIDI/AudioDetect.js js/MIDI/LoadPlugin.js js/MIDI/Plugin.js js/MIDI/Player.js js/Window/DOMLoader.XMLHttp.js js/Window/DOMLoader.script.js inc/WebMIDIAPI.js inc/base64binary.js > js/app.js
+
 cat js/tune.js js/music.js > production/app.js 
 
 # CORE FILES
