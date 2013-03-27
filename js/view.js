@@ -10,6 +10,7 @@ var info = {
 
 function drawScreen()
 {
+	//drawMeasureGrid();
 	drawPiano();
 	drawControls();
 	feedbackForm();

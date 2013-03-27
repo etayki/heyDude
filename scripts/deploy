@@ -8,6 +8,8 @@ cat js/music.js js/tune.js js/keyboard.js js/view.js js/MIDI/AudioDetect.js js/M
 
 # Uglify app.js
 java -jar production/compiler.jar --js=production/app.js > production/tmp
+# Uncomment following line after I get rid of DHTML slider and comment one above
+#java -jar production/compiler.jar --compilation_level ADVANCED_OPTIMIZATIONS --js=production/app.js --externs production/jquery-1.3.2.externs.js > production/tmp
 mv production/tmp production/app.js
 
 # Upload app.js
