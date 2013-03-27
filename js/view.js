@@ -10,7 +10,9 @@ var info = {
 
 function drawScreen()
 {
-	//drawMeasureGrid();
+	screenWidth = screen.width;
+	
+	drawMeasureGrid();
 	drawPiano();
 	drawControls();
 	feedbackForm();
@@ -21,18 +23,34 @@ function drawScreen()
 function display()
 {
 	$("#loading").css("display","none");
-	$("#controls").css("display","");
-	$("#pianoWrapper").css("display","");
-	$("#chair").css("display","");
-	$("#feedback").css("display","");
+	//$("#controls").css("display","");
+	//$("#pianoWrapper").css("display","");
+	//$("#chair").css("display","");
+	//$("#feedback").css("display","");
+}
+
+function drawMeasureGrid()
+{
+	$("body").append('<div id="measureGrid">');
+	tagAdjust("measureGrid", 100, 100, 100, 100, "green");
+
+}
+
+function tagAdjust(tag, left, top, width, height, backgroundColor)
+{
+	$("#"+tag).css("position", "absolute");
+	$("#"+tag).css("left", left);
+	$("#"+tag).css("top", top);
+	$("#"+tag).css("width", width);
+	$("#"+tag).css("height", height);
+	$("#"+tag).css("background-color", backgroundColor);
 }
 
 function drawPiano()
 {
 	whiteKeySpacing = 2;
 	// White Key - 15x73
-	screenWidth = screen.width;
-
+	
 	userAgent = navigator.userAgent;
 	if(userAgent.indexOf("iPhone") !== -1)
 	{
