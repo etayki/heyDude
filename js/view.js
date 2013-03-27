@@ -139,7 +139,6 @@ function drawControls()
 	$("#controls").css("left", controlsLeft);
 	
 	dhtmlxEvent(window, "load", sliderInit);
-	sliderInit();
 	
 	infoTop = chairTop + 50;//350;
 	infoLeft = chairLeft + 30;//150;

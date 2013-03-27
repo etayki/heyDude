@@ -33,11 +33,13 @@ $(document).ready(function() {
 			//debug("MIDI Player Load END: "+(new Date()).getMilliseconds());
 			// MIDI Player has loaded, so now allow user interaction
 			//debug("Draw screen START: "+(new Date()).getMilliseconds());
-			drawScreen();
 			//debug("Draw screen END: "+(new Date()).getMilliseconds());
 			MIDI.setVolume(0, 127);
 		}
 	});
+	/* This will increase loading time. The user won't hear anything until MIDI loaded, that's all */
+	drawScreen();
+
 });
 
 /* --- ================ CONTROLS ================== */
