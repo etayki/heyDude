@@ -23,19 +23,21 @@ var REPEAT = 1;
 var TURNOFFNOTES = 2;
 var STOP = 3;
 
-
-
 $(document).ready(function() {
 	/* Load the MIDI Player*/
+	//debug("MIDI Player Load START: "+(new Date()).getMilliseconds());
 	MIDI.loadPlugin({
 		soundfontUrl: "./soundfont/",
 		instrument: "acoustic_grand_piano",
 		callback: function() {
+			//debug("MIDI Player Load END: "+(new Date()).getMilliseconds());
 			// MIDI Player has loaded, so now allow user interaction
+			//debug("Draw screen START: "+(new Date()).getMilliseconds());
 			drawScreen();
+			//debug("Draw screen END: "+(new Date()).getMilliseconds());
 			MIDI.setVolume(0, 127);
 		}
-	});	
+	});
 });
 
 /* --- ================ CONTROLS ================== */
@@ -413,7 +415,7 @@ function debug(param)
 {
 	try { param = param.replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 	catch(err){}
-	param = '<div id="debug" style="position:absolute;z-index:6;top:'+debugTop+'px;left:10px;color:red;font-size:15px">' + param + "<br></div>";
+	param = '<div id="debug" style="position:absolute;z-index:6;top:'+debugTop+'px;left:10px;color:white;font-size:15px">' + param + "<br></div>";
 	$("#debug").append(param);
 	debugTop += 40;
 }
