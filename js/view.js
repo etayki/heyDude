@@ -16,7 +16,7 @@ function drawScreen()
 	drawPiano();
 	drawControls();
 	feedbackForm();
-	playDisplay();
+	//playDisplay();
 	display();
 }
 
@@ -31,9 +31,21 @@ function display()
 
 function drawMeasureGrid()
 {
-	$("body").append('<div id="measureGrid">');
-	tagAdjust("measureGrid", 100, 100, 100, 100, "green");
+	$("body").append('<div id="measureGridHeader">');
+	measureGridHeaderWidth = screenWidth * 0.8;
+	measureGridHeaderLeft = (screenWidth - measureGridHeaderWidth)/2;
+	tagAdjust("measureGridHeader", measureGridHeaderLeft, 50, measureGridHeaderWidth, 40, "gray");
 
+	measureBoxLeft = (screenWidth - measureGridHeaderWidth)/2;
+
+	for (i = 1; i <= 20; i++)
+	{
+		$("body").append('<div id="measureBox-'+i+'">');
+		measureBoxWidth = measureGridHeaderWidth * 0.05;
+		measureBoxHeight = measureBoxWidth;
+		tagAdjust("measureBox-"+i, measureBoxLeft, 90, measureBoxWidth, measureBoxHeight, "yellow");
+		measureBoxLeft += measureBoxWidth;
+	}
 }
 
 function tagAdjust(tag, left, top, width, height, backgroundColor)
@@ -294,54 +306,54 @@ function feedbackForm() {
   
 }
 
-function playDisplay()
-{
-	rulerWidth = Number($("#playDisplay").css("width").replace(/px/g, '')) * 0.8;
-	rulerLeft = Number($("#playDisplay").css("left").replace(/px/g, '')) + rulerWidth/10;
-	rulerTop = Number($("#playDisplay").css("height").replace(/px/g, ''))/2 - 10;
-	markTop = rulerTop - 12;
-	markHeight = 13;
-	markLeft = 0;
-	
-	
-	var ruler='<div id="ruler" style="position:absolute;z-index:5;top:'+rulerTop+'px;left:'+rulerLeft+'px; background-color:black;width:'+rulerWidth+'px;height:3px"></div>';
-	$("#playDisplay").append(ruler);
-	
-	for(var i = 1; i < tune.length + 1; i++)
-	{
-		var check='<div id="check-'+i+'" style="position:absolute;z-index:5;top:'+markTop+'px;left:'+markLeft+'px; background-color:black;width:2px;height:'+markHeight+'px"></div>';
-		$("#ruler").append(check);
-	
-		if (i%5 == 0 || i == 1)
-		{				
-			var checkNum = '<b><div style="position:absolute;top:12px;left:-9px;width:20px;z-index:6;font-size:12px;text-align:center;background-color:clear";font-weight:bold>'+i+'</div></b>';
-			$("#check-"+i).append(checkNum);
-		}
-		
-		measureBoxLeft = markLeft;
-		measureBoxTop = markTop;
-		measureBoxWidth = rulerWidth/(tune.length-1);
-		measureBoxHeight = markHeight;
-		var measureBox='<div class="measureBox" id="measureBox-'+i+'" style="position:absolute;z-index:7;top:'+measureBoxTop+'px;left:'+measureBoxLeft+'px; background-color:clear;width:'+measureBoxWidth+'px;height:'+measureBoxHeight+'px"></div>';
-		$("#ruler").append(measureBox);
-		
-		markLeft += rulerWidth/(tune.length-1);
-	}
-
-	playIntervalLeft = 0;
-	playIntervalWidth = rulerWidth/(tune.length-1);
-	var playInterval='<div id="playInterval" style="position:absolute;top:'+markTop+'px;left:'+playIntervalLeft+'px; background-color:green;width:'+playIntervalWidth+'px;height:'+markHeight+'px;z-index:4"></div>';
-	$("#ruler").append(playInterval);
-
-	var curPosition='<div id="curPosition" style="position:absolute;z-index:5;top:'+markTop+'px;left:0px; background-color:red;width:3px;height:'+markHeight+'px"></div>';
-	$("#ruler").append(curPosition);
-	
-	$(".measureBox").click(function(){
-		selectedMeasureBox = $(this).attr('id');
-		selectedMeasure = Number(selectedMeasureBox.replace(/measureBox-/g,''));
-		updatePosition(selectedMeasure);
-	  });
-}
+//function playDisplay()
+//{
+//	rulerWidth = Number($("#playDisplay").css("width").replace(/px/g, '')) * 0.8;
+//	rulerLeft = Number($("#playDisplay").css("left").replace(/px/g, '')) + rulerWidth/10;
+//	rulerTop = Number($("#playDisplay").css("height").replace(/px/g, ''))/2 - 10;
+//	markTop = rulerTop - 12;
+//	markHeight = 13;
+//	markLeft = 0;
+//	
+//	
+//	var ruler='<div id="ruler" style="position:absolute;z-index:5;top:'+rulerTop+'px;left:'+rulerLeft+'px; background-color:black;width:'+rulerWidth+'px;height:3px"></div>';
+//	$("#playDisplay").append(ruler);
+//	
+//	for(var i = 1; i < tune.length + 1; i++)
+//	{
+//		var check='<div id="check-'+i+'" style="position:absolute;z-index:5;top:'+markTop+'px;left:'+markLeft+'px; background-color:black;width:2px;height:'+markHeight+'px"></div>';
+//		$("#ruler").append(check);
+//	
+//		if (i%5 == 0 || i == 1)
+//		{				
+//			var checkNum = '<b><div style="position:absolute;top:12px;left:-9px;width:20px;z-index:6;font-size:12px;text-align:center;background-color:clear";font-weight:bold>'+i+'</div></b>';
+//			$("#check-"+i).append(checkNum);
+//		}
+//		
+//		measureBoxLeft = markLeft;
+//		measureBoxTop = markTop;
+//		measureBoxWidth = rulerWidth/(tune.length-1);
+//		measureBoxHeight = markHeight;
+//		var measureBox='<div class="measureBox" id="measureBox-'+i+'" style="position:absolute;z-index:7;top:'+measureBoxTop+'px;left:'+measureBoxLeft+'px; background-color:clear;width:'+measureBoxWidth+'px;height:'+measureBoxHeight+'px"></div>';
+//		$("#ruler").append(measureBox);
+//		
+//		markLeft += rulerWidth/(tune.length-1);
+//	}
+//
+//	playIntervalLeft = 0;
+//	playIntervalWidth = rulerWidth/(tune.length-1);
+//	var playInterval='<div id="playInterval" style="position:absolute;top:'+markTop+'px;left:'+playIntervalLeft+'px; background-color:green;width:'+playIntervalWidth+'px;height:'+markHeight+'px;z-index:4"></div>';
+//	$("#ruler").append(playInterval);
+//
+//	var curPosition='<div id="curPosition" style="position:absolute;z-index:5;top:'+markTop+'px;left:0px; background-color:red;width:3px;height:'+markHeight+'px"></div>';
+//	$("#ruler").append(curPosition);
+//	
+//	$(".measureBox").click(function(){
+//		selectedMeasureBox = $(this).attr('id');
+//		selectedMeasure = Number(selectedMeasureBox.replace(/measureBox-/g,''));
+//		updatePosition(selectedMeasure);
+//	  });
+//}
 
 /* --- ================ SLIDER ================== */
 function sliderInit()
