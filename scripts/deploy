@@ -6,6 +6,10 @@ printf '3a\n<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min
 # Create app.js
 cat js/music.js js/tune.js js/keyboard.js js/view.js js/MIDI/AudioDetect.js js/MIDI/LoadPlugin.js js/MIDI/Plugin.js js/MIDI/Player.js js/Window/DOMLoader.XMLHttp.js js/Window/DOMLoader.script.js inc/WebMIDIAPI.js inc/Base64.js inc/base64binary.js slider/dhtmlxcommon.js slider/dhtmlxslider.js > production/app.js
 
+# Uglify app.js
+java -jar production/compiler.jar --js=production/app.js > production/tmp
+mv production/tmp production/app.js
+
 # Upload app.js
 curl -T production/index.html -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/
 curl -T production/app.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/
