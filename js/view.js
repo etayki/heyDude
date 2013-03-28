@@ -13,6 +13,7 @@ function drawScreen()
 	screenWidth = screen.width;
 	
 	drawMeasureGrid();
+	drawMarkers();
 	drawPiano();
 	drawControls();
 	feedbackForm();
@@ -32,7 +33,7 @@ function display()
 function drawMeasureGrid()
 {
 	/* MEASURE GRID HEADER */
-	$("body").append('<div id="measureGridHeader">');
+	$("body").append('<div id="measureGridHeader"></div>');
 	measureGridHeaderWidth = Math.floor(screenWidth * 0.8) - 1; // Subtract one to account for border of measureBox
 	measureGridHeaderLeft = (screenWidth - measureGridHeaderWidth)/2;
 	measureGridHeaderTop = 50;
@@ -84,22 +85,19 @@ function drawMeasureGrid()
 		}
 		measureBoxTop += measureBoxHeight;
 	}
-
-	//var measureBoxLabel = '<b><div class="measureBoxLabel" id="measureBoxLabel-'+col+'" style="color:black;position:absolute;top:0px;left:0px;z-index:5;font-size:50px;font-weight:bold>1</div></b>';
-
-	//
-
 }
 
-//function getFontSize(tag)
-//{
-//	do {
-//	    tag.css('font-size', fontSize);
-//	    textHeight = ourText.height();
-//	    fontSize = fontSize + 2;
-//	} while (textHeight < doNotTrepass );	
-//	
-//}
+function drawMarkers()
+{
+	/* LEFT MARKER */
+	$("body").append('<div id="leftMarker">');
+	measureGridHeaderWidth = Math.floor(measureBoxWidth * 0.2);
+	measureGridHeaderLeft = (screenWidth - measureGridHeaderWidth)/2;
+	measureGridHeaderTop = 50;
+	measureGridHeaderHeight = 40;
+	measureGridHeaderColor = "#919191";
+	//tagAdjust("measureGridHeader", measureGridHeaderLeft, measureGridHeaderTop, measureGridHeaderWidth, measureGridHeaderHeight, measureGridHeaderColor);	
+}
 
 function tagAdjust(tag, left, top, width, height, backgroundColor)
 {
