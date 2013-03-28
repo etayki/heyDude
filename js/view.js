@@ -52,14 +52,9 @@ function drawMeasureGrid()
 	measureBoxLabelLeft = (measureBoxWidth - measureBoxLabelWidth)/2;
 	measureBoxLabelTop = measureBoxLabelLeft;
 	measureBoxLabelHeight = measureBoxLabelWidth;
-	$("body").append('<div id="measureBoxLabel"><span id="textSpan">00</span></div>');
-	var textSpan = $('textSpan'); 
-	measureBoxLabelFontSize = 0;
-	do {
-	    measureBoxLabelFontSize += 2;
-	    $("#measureBoxLabel").css('font-size', measureBoxLabelFontSize);
-	    textHeight = $("#textSpan").css('height').replace(/px/g, '');
-	} while (textHeight < measureBoxLabelHeight )
+	$("body").append('<div id="measureBoxLabel"><span id="measureBoxSpan">00</span></div>');
+	$("#measureBoxLabel").css("height", measureBoxLabelHeight);
+	measureBoxLabelFontSize = getFontSize("measureBoxLabel", "measureBoxSpan");
 	$('#measureBoxLabel').css("display","none");
 
 	/* MEASURE GRID */
@@ -80,13 +75,24 @@ function drawMeasureGrid()
 			$("#measureBox-"+number).append(measureBoxLabel);
 			//getFontSize(measureBoxLabel);
 
-			adjustTag("measureBoxLabel-"+number, measureBoxLabelLeft, measureBoxLabelTop, measureBoxLabelWidth, measureBoxLabelHeight, "clear");
+			adjustTag("measureBoxLabel-"+number, measureBoxLabelLeft, measureBoxLabelTop, measureBoxLabelWidth, measureBoxLabelHeight, "clear", measureBoxLabelFontSize);
 			$("#measureBoxLabel-"+number).css("position", "absolute");
-			$("#measureBoxLabel-"+number).css("font-size", measureBoxLabelFontSize+"px");
-
+			//$("#measureBoxLabel-"+number).css("font-size", measureBoxLabelFontSize+"px");
 		}
 		measureBoxTop += measureBoxHeight;
 	}
+}
+
+function getFontSize(label, span)
+{
+	fontSize = 0;
+	do {
+	    fontSize += 2;
+	    $("#"+label).css('font-size', fontSize);
+	    spanHeight = Number($("#"+span).css('height').replace(/px/g, ''));
+	    labelHeight = Number($("#"+label).css("height").replace(/px/g, ''));
+	} while (spanHeight < labelHeight)
+	return fontSize;
 }
 
 function drawMarkers()
@@ -159,7 +165,7 @@ function setRightMarker(measure)
 	$("#rightMarker").css("top", rightMarkTop);	
 }
 
-function adjustTag(tag, left, top, width, height, backgroundColor)
+function adjustTag(tag, left, top, width, height, backgroundColor, fontSize)
 {
 	$("#"+tag).css("position", "absolute");
 	$("#"+tag).css("left", left);
@@ -167,6 +173,7 @@ function adjustTag(tag, left, top, width, height, backgroundColor)
 	$("#"+tag).css("width", width);
 	$("#"+tag).css("height", height);
 	$("#"+tag).css("background-color", backgroundColor);
+	$("#"+tag).css("font-size", fontSize+"px");
 }
 
 function drawControls()
@@ -177,10 +184,16 @@ function drawControls()
 	controlsBackgroundTop = Number($("#measureBox-68").css("top").replace(/px/g, '')) + measureBoxHeight;
 	controlsBackgroundWidth = measureGridHeaderWidth;
 	controlsBackgroundHeight = measureBoxHeight * 1.5;
-	adjustTag("controlsBackground", controlsBackgroundLeft, controlsBackgroundTop, controlsBackgroundWidth, controlsBackgroundHeight, "yellow");
+	adjustTag("controlsBackground", controlsBackgroundLeft, controlsBackgroundTop, controlsBackgroundWidth, controlsBackgroundHeight, "clear");
 
-	/* LEFT HAND LABEL */
-	$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid; border-width:1px">');
+	/* HANDS LABEL */
+	$("body").append('<div id="handsLabel"><span id="leftHandSpan">Hands</span></div>');
+	handsLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.05;
+	handsLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.1;
+	handsLabelWidth = controlsBackgroundWidth * 0.05;
+	handsLabelHeight = 20;
+	adjustTag("handsLabel", handsLabelLeft, handsLabelTop, handsLabelWidth, handsLabelHeight, "yellow");
+
 	
 }
 
