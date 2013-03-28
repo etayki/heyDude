@@ -51,22 +51,25 @@ function drawMeasureGrid()
 		measureBoxLeft = (screenWidth - measureGridHeaderWidth)/2;
 		for (col = 1; col <= 20; col++)
 		{
-			$("body").append('<div id="measureBox-'+col+'-'+row+'" style="border-style:solid; border-width:1px">');
+			number = (row-1) * 20 + col;
+			$("body").append('<div id="measureBox-'+number+'" style="border-style:solid; border-width:1px">');
 			measureBoxHeight = measureBoxWidth;
-			tagAdjust("measureBox-"+col+"-"+row, measureBoxLeft, measureBoxTop, measureBoxWidth, measureBoxHeight, measureBoxColor);
+			tagAdjust("measureBox-"+number, measureBoxLeft, measureBoxTop, measureBoxWidth, measureBoxHeight, measureBoxColor);
 			measureBoxLeft += measureBoxWidth;
+			
+			var measureBoxLabel = '<div id="measureBoxLabel-'+number+'" style="text-align:center">'+number+'</div>';
+			$("#measureBox-"+number).append(measureBoxLabel);
+			measureBoxLabelWidth = measureBoxWidth * 0.4;
+			measureBoxLabelLeft = (measureBoxWidth - measureBoxLabelWidth)/2;
+			measureBoxLabelTop = measureBoxLabelLeft;
+			measureBoxLabelHeight = measureBoxLabelWidth;
+			tagAdjust("measureBoxLabel-"+number, measureBoxLabelLeft, measureBoxLabelTop, measureBoxLabelWidth, measureBoxLabelHeight, "yellow");
 		}
 		measureBoxTop += measureBoxHeight;
 	}
 
 	//var measureBoxLabel = '<b><div class="measureBoxLabel" id="measureBoxLabel-'+col+'" style="color:black;position:absolute;top:0px;left:0px;z-index:5;font-size:50px;font-weight:bold>1</div></b>';
-	var measureBoxLabel = '<div id="measureBoxLabel" style="text-align:center">1</div>';
-	$("#measureBox-1-1").append(measureBoxLabel);
-	measureBoxLabelWidth = measureBoxWidth * 0.4;
-	measureBoxLabelLeft = (measureBoxWidth - measureBoxLabelWidth)/2;
-	measureBoxLabelTop = measureBoxLabelLeft;
-	measureBoxLabelHeight = measureBoxLabelWidth;
-	tagAdjust("measureBoxLabel", measureBoxLabelLeft, measureBoxLabelTop, measureBoxLabelWidth, measureBoxLabelHeight, "yellow");
+
 	//
 	//do {
 	//    ourText.css('font-size', fontSize);
