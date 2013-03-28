@@ -14,8 +14,8 @@ function drawScreen()
 	
 	drawMeasureGrid();
 	drawMarkers();
-	drawPiano();
 	drawControls();
+	drawPiano();
 	feedbackForm();
 	//playDisplay();
 	display();
@@ -39,7 +39,7 @@ function drawMeasureGrid()
 	measureGridHeaderTop = 50;
 	measureGridHeaderHeight = 40;
 	measureGridHeaderColor = "#919191";
-	tagAdjust("measureGridHeader", measureGridHeaderLeft, measureGridHeaderTop, measureGridHeaderWidth, measureGridHeaderHeight, measureGridHeaderColor);
+	adjustTag("measureGridHeader", measureGridHeaderLeft, measureGridHeaderTop, measureGridHeaderWidth, measureGridHeaderHeight, measureGridHeaderColor);
 
 	/* MEASURE BOX */
 	measureBoxWidth = measureGridHeaderWidth * 0.05;
@@ -73,14 +73,14 @@ function drawMeasureGrid()
 				return;
 			$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid; border-width:1px">');
 			measureBoxHeight = measureBoxWidth;
-			tagAdjust("measureBox-"+number, measureBoxLeft, measureBoxTop, measureBoxWidth, measureBoxHeight, measureBoxColor);
+			adjustTag("measureBox-"+number, measureBoxLeft, measureBoxTop, measureBoxWidth, measureBoxHeight, measureBoxColor);
 			measureBoxLeft += measureBoxWidth;
 			
 			var measureBoxLabel = '<div id="measureBoxLabel-'+number+'" style="text-align:center">'+number+'</div>';
 			$("#measureBox-"+number).append(measureBoxLabel);
 			//getFontSize(measureBoxLabel);
 
-			tagAdjust("measureBoxLabel-"+number, measureBoxLabelLeft, measureBoxLabelTop, measureBoxLabelWidth, measureBoxLabelHeight, "clear");
+			adjustTag("measureBoxLabel-"+number, measureBoxLabelLeft, measureBoxLabelTop, measureBoxLabelWidth, measureBoxLabelHeight, "clear");
 			$("#measureBoxLabel-"+number).css("position", "absolute");
 			$("#measureBoxLabel-"+number).css("font-size", measureBoxLabelFontSize+"px");
 
@@ -97,7 +97,7 @@ function drawMarkers()
 	leftMarkTop = $("#measureBox-1").css("top").replace(/px/g, '');
 	leftMarkWidth = Math.floor(measureBoxWidth * 0.4);
 	leftMarkHeight = measureBoxHeight;
-	tagAdjust("leftMarker", leftMarkLeft, leftMarkTop, leftMarkWidth, leftMarkHeight, "clear");
+	adjustTag("leftMarker", leftMarkLeft, leftMarkTop, leftMarkWidth, leftMarkHeight, "clear");
 	
 	$('img').on('dragstart', function(event) { event.preventDefault(); });
 
@@ -107,7 +107,7 @@ function drawMarkers()
 	rightMarkTop = leftMarkTop;
 	rightMarkWidth = leftMarkWidth;
 	rightMarkHeight = measureBoxHeight;
-	tagAdjust("rightMarker", rightMarkLeft, rightMarkTop, rightMarkWidth, rightMarkHeight, "clear");
+	adjustTag("rightMarker", rightMarkLeft, rightMarkTop, rightMarkWidth, rightMarkHeight, "clear");
 
 	$('img').on('dragstart', function(event) { event.preventDefault(); });
 
@@ -159,7 +159,7 @@ function setRightMarker(measure)
 	$("#rightMarker").css("top", rightMarkTop);	
 }
 
-function tagAdjust(tag, left, top, width, height, backgroundColor)
+function adjustTag(tag, left, top, width, height, backgroundColor)
 {
 	$("#"+tag).css("position", "absolute");
 	$("#"+tag).css("left", left);
@@ -168,6 +168,97 @@ function tagAdjust(tag, left, top, width, height, backgroundColor)
 	$("#"+tag).css("height", height);
 	$("#"+tag).css("background-color", backgroundColor);
 }
+
+function drawControls()
+{
+	$("body").append('<img id="controlsBackground" src="./images/controlsBackground.png"></img>');
+	controlsBackgroundLeft =  measureGridHeaderLeft;
+	controlsBackgroundTop = Number($("#measureBox-68").css("top").replace(/px/g, '')) + measureBoxHeight;
+	controlsBackgroundWidth = measureGridHeaderWidth;
+	controlsBackgroundHeight = measureBoxHeight * 1.5;
+	adjustTag("controlsBackground", controlsBackgroundLeft, controlsBackgroundTop, controlsBackgroundWidth, controlsBackgroundHeight, "yellow");
+
+}
+
+
+//function drawControls()
+//{
+//	$("#controls").find("*").andSelf().each(
+//	    function(){
+//		var width = $(this).css('width');
+//		var left = $(this).css('left');
+//		var fontSize = $(this).css('font-size');
+//		width = width.replace(/px/g, '');
+//		left = left.replace(/px/g, '');
+//		fontSize = fontSize.replace(/px/g, '');
+//		
+//		$(this).css("width",width*whiteKeyWidth/20+"px");
+//		$(this).css("left",left*whiteKeyWidth/20+"px");
+//		$(this).css("font-size",fontSize*(whiteKeyWidth/50+3/5)+"px");
+//	    }
+//	);
+//
+//	var controlsWidth = $("#controls").css("width").replace(/px/g, '');
+//	// Not sure why the PianoLeft wasn't added here, but it works
+//	var controlsLeft = pianoLeft + (pianoWidth - Number(controlsWidth))/2;
+//	$("#controls").css("left", controlsLeft);
+//	
+//	dhtmlxEvent(window, "load", sliderInit);
+//	
+//	infoTop = chairTop + 50;//350;
+//	infoLeft = chairLeft + 30;//150;
+//	infoWidth = chairWidth - 50;//800;
+//	var infoArea = '<b><div id="info" style="position:absolute;top:'+infoTop+'px;left:'+infoLeft+'px;width:'+infoWidth+'px;height:50px;background-color:clear;color:white;font-size:22px"></b>';
+//	$("body").after(infoArea);
+//
+//	$(".control").hover(function(){
+//		if(!(userAgent.indexOf("iPhone") !== -1 || userAgent.indexOf("iPad") !== -1))
+//		{
+//			message = info[$(this).attr('id')];
+//			$("#info").append(message);
+//		}
+//	  },
+//	  function(){
+//	    $("#info").text("");              
+//	});
+//	
+//	$("#repeatMeasure").change(function(){
+//		$('#repeatMeasure').blur();
+//		var text = $("#repeatMeasure option:selected").text();
+//		text = text.replace(/ Measure/g, '');
+//		text = text.replace(/s/g, '');
+//		newMeasureLength = Number(text);
+//	  });
+//
+//	$("#repeatCheck").click(function(){
+//		repeatMask();
+//	  });
+//	
+//	$(".key").click(function(){
+//		keyPress = $(this).attr('id');
+//		keyPress = keyPress.replace(/key-/g,'');
+//		notePress = Number(keyPress) + 21;
+//		MIDI.noteOn(0,notePress,90,0);
+//		MIDI.noteOff(0,notePress,0.4);
+//		$("#key-"+keyPress).css("background-color","yellow");
+//
+//		timers.push(setTimeout(function() {
+//			resetNote(notePress);
+//		}, 400));
+//			
+//	  });
+//
+//	  $('#startMeasure').live('blur', function() {
+//		if ($("#startMeasure").val() == "")
+//			$("#startMeasure").val(startMeasure);
+//	});
+//
+//
+//	  $('#endMeasure').live('blur', function() {	
+//		if ($("#endMeasure").val() == "")
+//			$("#endMeasure").val(endMeasure);
+//	});
+//}
 
 function drawPiano()
 {
@@ -258,84 +349,7 @@ function drawPiano()
 	$("#chair").css("height", chairHeight);
 }
 
-function drawControls()
-{
-	$("#controls").find("*").andSelf().each(
-	    function(){
-		var width = $(this).css('width');
-		var left = $(this).css('left');
-		var fontSize = $(this).css('font-size');
-		width = width.replace(/px/g, '');
-		left = left.replace(/px/g, '');
-		fontSize = fontSize.replace(/px/g, '');
-		
-		$(this).css("width",width*whiteKeyWidth/20+"px");
-		$(this).css("left",left*whiteKeyWidth/20+"px");
-		$(this).css("font-size",fontSize*(whiteKeyWidth/50+3/5)+"px");
-	    }
-	);
 
-	var controlsWidth = $("#controls").css("width").replace(/px/g, '');
-	// Not sure why the PianoLeft wasn't added here, but it works
-	var controlsLeft = pianoLeft + (pianoWidth - Number(controlsWidth))/2;
-	$("#controls").css("left", controlsLeft);
-	
-	dhtmlxEvent(window, "load", sliderInit);
-	
-	infoTop = chairTop + 50;//350;
-	infoLeft = chairLeft + 30;//150;
-	infoWidth = chairWidth - 50;//800;
-	var infoArea = '<b><div id="info" style="position:absolute;top:'+infoTop+'px;left:'+infoLeft+'px;width:'+infoWidth+'px;height:50px;background-color:clear;color:white;font-size:22px"></b>';
-	$("body").after(infoArea);
-
-	$(".control").hover(function(){
-		if(!(userAgent.indexOf("iPhone") !== -1 || userAgent.indexOf("iPad") !== -1))
-		{
-			message = info[$(this).attr('id')];
-			$("#info").append(message);
-		}
-	  },
-	  function(){
-	    $("#info").text("");              
-	});
-	
-	$("#repeatMeasure").change(function(){
-		$('#repeatMeasure').blur();
-		var text = $("#repeatMeasure option:selected").text();
-		text = text.replace(/ Measure/g, '');
-		text = text.replace(/s/g, '');
-		newMeasureLength = Number(text);
-	  });
-
-	$("#repeatCheck").click(function(){
-		repeatMask();
-	  });
-	
-	$(".key").click(function(){
-		keyPress = $(this).attr('id');
-		keyPress = keyPress.replace(/key-/g,'');
-		notePress = Number(keyPress) + 21;
-		MIDI.noteOn(0,notePress,90,0);
-		MIDI.noteOff(0,notePress,0.4);
-		$("#key-"+keyPress).css("background-color","yellow");
-
-		timers.push(setTimeout(function() {
-			resetNote(notePress);
-		}, 400));
-			
-	  });
-
-	  $('#startMeasure').live('blur', function() {
-		if ($("#startMeasure").val() == "")
-			$("#startMeasure").val(startMeasure);
-	});
-
-
-	  $('#endMeasure').live('blur', function() {	
-		if ($("#endMeasure").val() == "")
-			$("#endMeasure").val(endMeasure);
-	});
-}
 
 
 function feedbackForm() {
