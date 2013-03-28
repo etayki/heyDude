@@ -58,7 +58,7 @@ function drawMeasureGrid()
 	do {
 	    measureBoxLabelFontSize += 2;
 	    $("#measureBoxLabel").css('font-size', measureBoxLabelFontSize);
-	    textHeight = $("#textSpan").css('height').replace(/px/g, '');;
+	    textHeight = $("#textSpan").css('height').replace(/px/g, '');
 	} while (textHeight < measureBoxLabelHeight )
 	$('#measureBoxLabel').css("display","none");
 
@@ -90,13 +90,20 @@ function drawMeasureGrid()
 function drawMarkers()
 {
 	/* LEFT MARKER */
-	$("body").append('<div id="leftMarker">');
-	measureGridHeaderWidth = Math.floor(measureBoxWidth * 0.2);
-	measureGridHeaderLeft = (screenWidth - measureGridHeaderWidth)/2;
-	measureGridHeaderTop = 50;
-	measureGridHeaderHeight = 40;
-	measureGridHeaderColor = "#919191";
-	//tagAdjust("measureGridHeader", measureGridHeaderLeft, measureGridHeaderTop, measureGridHeaderWidth, measureGridHeaderHeight, measureGridHeaderColor);	
+	$("body").append('<img id="leftMarker" src="./images/leftMark.png"></img>');
+	leftMarkLeft = $("#measureBox-1").css("left").replace(/px/g, '');
+	leftMarkTop = $("#measureBox-1").css("top").replace(/px/g, '');
+	leftMarkWidth = Math.floor(measureBoxWidth * 0.4);
+	leftMarkHeight = measureBoxHeight;
+	tagAdjust("leftMarker", leftMarkLeft, leftMarkTop, leftMarkWidth, leftMarkHeight, "clear");
+
+	/* RIGHT MARKER */
+	$("body").append('<img id="rightMarker" src="./images/rightMark.png"></img>');
+	rightMarkLeft = $("#measureBox-5").css("left").replace(/px/g, '') - leftMarkWidth +1 // Add 1 because PowerPoint gives padding of 1;
+	rightMarkTop = leftMarkTop;
+	rightMarkWidth = leftMarkWidth;
+	rightMarkHeight = measureBoxHeight;
+	tagAdjust("rightMarker", rightMarkLeft, rightMarkTop, rightMarkWidth, rightMarkHeight, "clear");	
 }
 
 function tagAdjust(tag, left, top, width, height, backgroundColor)
