@@ -32,18 +32,19 @@ function display()
 function drawMeasureGrid()
 {
 	$("body").append('<div id="measureGridHeader">');
-	measureGridHeaderWidth = screenWidth * 0.8;
+	measureGridHeaderWidth = Math.floor(screenWidth * 0.8) - 1; // Subtract one to account for border of measureBox
 	measureGridHeaderLeft = (screenWidth - measureGridHeaderWidth)/2;
 	tagAdjust("measureGridHeader", measureGridHeaderLeft, 50, measureGridHeaderWidth, 40, "gray");
 
 	measureBoxLeft = (screenWidth - measureGridHeaderWidth)/2;
+	measureBoxWidth = measureGridHeaderWidth * 0.05;
 
-	for (i = 1; i <= 20; i++)
+	//for ()
+	for (col = 1; col <= 20; col++)
 	{
-		$("body").append('<div id="measureBox-'+i+'">');
-		measureBoxWidth = measureGridHeaderWidth * 0.05;
+		$("body").append('<div id="measureBox-'+col+'" style="border-style:solid; border-width:1px">');
 		measureBoxHeight = measureBoxWidth;
-		tagAdjust("measureBox-"+i, measureBoxLeft, 90, measureBoxWidth, measureBoxHeight, "yellow");
+		tagAdjust("measureBox-"+col, measureBoxLeft, 90, measureBoxWidth, measureBoxHeight, "yellow");
 		measureBoxLeft += measureBoxWidth;
 	}
 }
