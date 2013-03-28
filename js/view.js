@@ -45,7 +45,23 @@ function drawMeasureGrid()
 	measureBoxHeight = measureBoxWidth;
 	measureBoxTop = measureGridHeaderTop + measureGridHeaderHeight;
 	measureBoxColor = "#cbcbcb";
+	
+	/* MEASURE LABEL */
+	measureBoxLabelWidth = measureBoxWidth * 0.4;
+	measureBoxLabelLeft = (measureBoxWidth - measureBoxLabelWidth)/2;
+	measureBoxLabelTop = measureBoxLabelLeft;
+	measureBoxLabelHeight = measureBoxLabelWidth;
+	$("body").append('<div id="measureBoxLabel"><span id="textSpan">00</span></div>');
+	var textSpan = $('textSpan'); 
+	measureBoxLabelFontSize = 0;
+	do {
+	    measureBoxLabelFontSize += 2;
+	    $("#measureBoxLabel").css('font-size', measureBoxLabelFontSize);
+	    textHeight = $("#textSpan").css('height').replace(/px/g, '');;
+	} while (textHeight < measureBoxLabelHeight )
+	$('#measureBoxLabel').css("display","none");
 
+	/* MEASURE GRID */
 	for (row = 1; row <= 4; row++)
 	{
 		measureBoxLeft = (screenWidth - measureGridHeaderWidth)/2;
@@ -59,11 +75,12 @@ function drawMeasureGrid()
 			
 			var measureBoxLabel = '<div id="measureBoxLabel-'+number+'" style="text-align:center">'+number+'</div>';
 			$("#measureBox-"+number).append(measureBoxLabel);
-			measureBoxLabelWidth = measureBoxWidth * 0.4;
-			measureBoxLabelLeft = (measureBoxWidth - measureBoxLabelWidth)/2;
-			measureBoxLabelTop = measureBoxLabelLeft;
-			measureBoxLabelHeight = measureBoxLabelWidth;
-			tagAdjust("measureBoxLabel-"+number, measureBoxLabelLeft, measureBoxLabelTop, measureBoxLabelWidth, measureBoxLabelHeight, "yellow");
+			//getFontSize(measureBoxLabel);
+
+			tagAdjust("measureBoxLabel-"+number, measureBoxLabelLeft, measureBoxLabelTop, measureBoxLabelWidth, measureBoxLabelHeight, "clear");
+			$("#measureBoxLabel-"+number).css("position", "absolute");
+			$("#measureBoxLabel-"+number).css("font-size", measureBoxLabelFontSize+"px");
+
 		}
 		measureBoxTop += measureBoxHeight;
 	}
@@ -71,12 +88,18 @@ function drawMeasureGrid()
 	//var measureBoxLabel = '<b><div class="measureBoxLabel" id="measureBoxLabel-'+col+'" style="color:black;position:absolute;top:0px;left:0px;z-index:5;font-size:50px;font-weight:bold>1</div></b>';
 
 	//
-	//do {
-	//    ourText.css('font-size', fontSize);
-	//    textHeight = ourText.height();
-	//    fontSize = fontSize + 2;
-	//} while (textHeight < doNotTrepass );
+
 }
+
+//function getFontSize(tag)
+//{
+//	do {
+//	    tag.css('font-size', fontSize);
+//	    textHeight = ourText.height();
+//	    fontSize = fontSize + 2;
+//	} while (textHeight < doNotTrepass );	
+//	
+//}
 
 function tagAdjust(tag, left, top, width, height, backgroundColor)
 {
