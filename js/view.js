@@ -69,6 +69,8 @@ function drawMeasureGrid()
 		for (col = 1; col <= 20; col++)
 		{
 			number = (row-1) * 20 + col;
+			if (number == tune.length)
+				return;
 			$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid; border-width:1px">');
 			measureBoxHeight = measureBoxWidth;
 			tagAdjust("measureBox-"+number, measureBoxLeft, measureBoxTop, measureBoxWidth, measureBoxHeight, measureBoxColor);
