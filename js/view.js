@@ -148,6 +148,25 @@ function setRightMarker(measure)
 	$("#rightMarker").css("top", rightMarkTop);	
 }
 
+function drawControls()
+{
+	/* CONTROLS BACKGROUND */
+	$("body").append('<img id="controlsBackground" src="./images/controlsBackground.png"></img>');
+	controlsBackgroundLeft =  measureGridHeaderLeft;
+	controlsBackgroundTop = Number($("#measureBox-68").css("top").replace(/px/g, '')) + measureBoxHeight;
+	controlsBackgroundWidth = measureGridHeaderWidth;
+	controlsBackgroundHeight = measureBoxHeight * 1.5;
+	adjustTag("controlsBackground", controlsBackgroundLeft, controlsBackgroundTop, controlsBackgroundWidth, controlsBackgroundHeight, "clear");
+
+	/* HANDS LABEL */
+	$("body").append('<div id="handsLabel">Hands</div>');
+	handsLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.05;
+	handsLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.1;
+	handsLabelWidth = controlsBackgroundWidth * 0.05;
+	handsLabelHeight = 20;
+	adjustTag("handsLabel", handsLabelLeft, handsLabelTop, handsLabelWidth, handsLabelHeight, "yellow");
+}
+
 /* HELPER FUNCTIONS */
 function adjustTag(tag, left, top, width, height, backgroundColor)
 {
@@ -175,29 +194,9 @@ function getFontSize(labelHeight)
 	    $("#textLabel").css('font-size', fontSize);
 	    spanHeight = Number($("#textSpan").css('height').replace(/px/g, ''));
 	} while (spanHeight < labelHeight)
-	//$('#textLabel').css("display","none");
-	return fontSize;
-}
-
-function drawControls()
-{
-	/* CONTROLS BACKGROUND */
-	$("body").append('<img id="controlsBackground" src="./images/controlsBackground.png"></img>');
-	controlsBackgroundLeft =  measureGridHeaderLeft;
-	controlsBackgroundTop = Number($("#measureBox-68").css("top").replace(/px/g, '')) + measureBoxHeight;
-	controlsBackgroundWidth = measureGridHeaderWidth;
-	controlsBackgroundHeight = measureBoxHeight * 1.5;
-	adjustTag("controlsBackground", controlsBackgroundLeft, controlsBackgroundTop, controlsBackgroundWidth, controlsBackgroundHeight, "clear");
-
-	/* HANDS LABEL */
-	$("body").append('<div id="handsLabel">Hands</div>');
-	handsLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.05;
-	handsLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.1;
-	handsLabelWidth = controlsBackgroundWidth * 0.05;
-	handsLabelHeight = 20;
-	adjustTag("handsLabel", handsLabelLeft, handsLabelTop, handsLabelWidth, handsLabelHeight, "yellow");
-
 	
+	$('#textLabel').remove();
+	return fontSize;
 }
 
 
