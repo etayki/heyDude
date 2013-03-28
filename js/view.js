@@ -69,7 +69,7 @@ function drawMeasureGrid()
 		for (col = 1; col <= 20; col++)
 		{
 			number = (row-1) * 20 + col;
-			$("body").append('<div id="measureBox-'+number+'" style="border-style:solid; border-width:1px">');
+			$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid; border-width:1px">');
 			measureBoxHeight = measureBoxWidth;
 			tagAdjust("measureBox-"+number, measureBoxLeft, measureBoxTop, measureBoxWidth, measureBoxHeight, measureBoxColor);
 			measureBoxLeft += measureBoxWidth;
@@ -96,14 +96,52 @@ function drawMarkers()
 	leftMarkWidth = Math.floor(measureBoxWidth * 0.4);
 	leftMarkHeight = measureBoxHeight;
 	tagAdjust("leftMarker", leftMarkLeft, leftMarkTop, leftMarkWidth, leftMarkHeight, "clear");
+	
+	$('img').on('dragstart', function(event) { event.preventDefault(); });
 
 	/* RIGHT MARKER */
 	$("body").append('<img id="rightMarker" src="./images/rightMark.png"></img>');
-	rightMarkLeft = $("#measureBox-5").css("left").replace(/px/g, '') - leftMarkWidth +1 // Add 1 because PowerPoint gives padding of 1;
+	rightMarkLeft = $("#measureBox-5").css("left").replace(/px/g, '') - leftMarkWidth +1; // Add 1 because PowerPoint gives padding of 1;
 	rightMarkTop = leftMarkTop;
 	rightMarkWidth = leftMarkWidth;
 	rightMarkHeight = measureBoxHeight;
-	tagAdjust("rightMarker", rightMarkLeft, rightMarkTop, rightMarkWidth, rightMarkHeight, "clear");	
+	tagAdjust("rightMarker", rightMarkLeft, rightMarkTop, rightMarkWidth, rightMarkHeight, "clear");
+
+	$('img').on('dragstart', function(event) { event.preventDefault(); });
+
+	leftMarkerMouseDown = 0;
+	rightMarkerMouseDown = 0;	
+	$("#leftMarker").mousedown(function() {
+		leftMarkerMouseDown = 1;
+	});
+
+	$("#rightMarker").mousedown(function() {
+		rightMarkerMouseDown = 1;
+	});
+	
+	$("body").mouseup(function() {
+		leftMarkerMouseDown = 0;
+		rightMarkerMouseDown = 0;
+	});
+
+	$(".measureBox").hover(function() {
+		measureBoxId = $(this).attr('id');
+		if (leftMarkerMouseDown)
+		{
+			leftMarkLeft = $("#"+measureBoxId).css("left").replace(/px/g, '');
+			leftMarkTop = $("#"+measureBoxId).css("top").replace(/px/g, '');
+			$("#leftMarker").css("left", leftMarkLeft);
+			$("#leftMarker").css("top", leftMarkTop);
+		}
+		else if (rightMarkerMouseDown)
+		{
+			rightMarkLeft = $("#"+measureBoxId).css("left").replace(/px/g, '') - leftMarkWidth + 1 + measureBoxWidth;
+			rightMarkTop = $("#"+measureBoxId).css("top").replace(/px/g, '');
+			$("#rightMarker").css("left", rightMarkLeft);
+			$("#rightMarker").css("top", rightMarkTop);
+		}
+	});
+
 }
 
 function tagAdjust(tag, left, top, width, height, backgroundColor)
