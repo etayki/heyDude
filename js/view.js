@@ -126,22 +126,35 @@ function drawMarkers()
 
 	$(".measureBox").hover(function() {
 		measureBoxId = $(this).attr('id');
+		newMeasure = measureBoxId.replace(/measureBox-/g, '');
 		if (leftMarkerMouseDown)
 		{
-			leftMarkLeft = $("#"+measureBoxId).css("left").replace(/px/g, '');
-			leftMarkTop = $("#"+measureBoxId).css("top").replace(/px/g, '');
-			$("#leftMarker").css("left", leftMarkLeft);
-			$("#leftMarker").css("top", leftMarkTop);
+			setLeftMarker(newMeasure);
+			//updateStartMeasure(newMeasure);
 		}
 		else if (rightMarkerMouseDown)
 		{
-			rightMarkLeft = $("#"+measureBoxId).css("left").replace(/px/g, '') - leftMarkWidth + 1 + measureBoxWidth;
-			rightMarkTop = $("#"+measureBoxId).css("top").replace(/px/g, '');
-			$("#rightMarker").css("left", rightMarkLeft);
-			$("#rightMarker").css("top", rightMarkTop);
+			setRightMarker(newMeasure);
+			//updateEndMeasure(newMeasure);
 		}
 	});
 
+}
+
+function setLeftMarker(measure)
+{
+	leftMarkLeft = $("#measureBox-"+measure).css("left").replace(/px/g, '');
+	leftMarkTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
+	$("#leftMarker").css("left", leftMarkLeft);
+	$("#leftMarker").css("top", leftMarkTop);	
+}
+
+function setRightMarker(measure)
+{
+	rightMarkLeft =  $("#measureBox-"+measure).css("left").replace(/px/g, '') - leftMarkWidth + 1 + measureBoxWidth;
+	rightMarkTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
+	$("#rightMarker").css("left", rightMarkLeft);
+	$("#rightMarker").css("top", rightMarkTop);	
 }
 
 function tagAdjust(tag, left, top, width, height, backgroundColor)

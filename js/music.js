@@ -327,7 +327,7 @@ function updateEndMeasure(val)
 	if (endMeasure <= startMeasure)
 		updateStartMeasure(Number(endMeasure)-1);
 
-	// Update Measure Display
+	// Update Right Marker
 	$("#playInterval").css("width", (endMeasure - startMeasure) * (playIntervalWidth));
 }
 
