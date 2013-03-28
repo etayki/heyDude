@@ -34,18 +34,27 @@ function drawMeasureGrid()
 	$("body").append('<div id="measureGridHeader">');
 	measureGridHeaderWidth = Math.floor(screenWidth * 0.8) - 1; // Subtract one to account for border of measureBox
 	measureGridHeaderLeft = (screenWidth - measureGridHeaderWidth)/2;
-	tagAdjust("measureGridHeader", measureGridHeaderLeft, 50, measureGridHeaderWidth, 40, "gray");
+	measureGridHeaderTop = 50;
+	measureGridHeaderHeight = 40;
+	measureGridHeaderColor = "#919191";
+	tagAdjust("measureGridHeader", measureGridHeaderLeft, measureGridHeaderTop, measureGridHeaderWidth, measureGridHeaderHeight, measureGridHeaderColor);
 
-	measureBoxLeft = (screenWidth - measureGridHeaderWidth)/2;
 	measureBoxWidth = measureGridHeaderWidth * 0.05;
+	measureBoxHeight = measureBoxWidth;
+	measureBoxTop = measureGridHeaderTop + measureGridHeaderHeight;
+	measureBoxColor = "#cbcbcb";
 
-	//for ()
-	for (col = 1; col <= 20; col++)
+	for (row = 1; row <= 4; row++)
 	{
-		$("body").append('<div id="measureBox-'+col+'" style="border-style:solid; border-width:1px">');
-		measureBoxHeight = measureBoxWidth;
-		tagAdjust("measureBox-"+col, measureBoxLeft, 90, measureBoxWidth, measureBoxHeight, "yellow");
-		measureBoxLeft += measureBoxWidth;
+		measureBoxLeft = (screenWidth - measureGridHeaderWidth)/2;
+		for (col = 1; col <= 20; col++)
+		{
+			$("body").append('<div id="measureBox-'+col+'x'+row+'" style="border-style:solid; border-width:1px">');
+			measureBoxHeight = measureBoxWidth;
+			tagAdjust("measureBox-"+col+"x"+row, measureBoxLeft, measureBoxTop, measureBoxWidth, measureBoxHeight, measureBoxColor);
+			measureBoxLeft += measureBoxWidth;
+		}
+		measureBoxTop += measureBoxHeight;
 	}
 }
 
