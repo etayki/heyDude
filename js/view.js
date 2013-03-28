@@ -71,7 +71,7 @@ function drawMeasureGrid()
 			number = (row-1) * 20 + col;
 			if (number == tune.length)
 				return;
-			$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid; border-width:1px">');
+			$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid; border-width:1px"></div>');
 			measureBoxHeight = measureBoxWidth;
 			adjustTag("measureBox-"+number, measureBoxLeft, measureBoxTop, measureBoxWidth, measureBoxHeight, measureBoxColor);
 			measureBoxLeft += measureBoxWidth;
@@ -171,6 +171,7 @@ function adjustTag(tag, left, top, width, height, backgroundColor)
 
 function drawControls()
 {
+	/* CONTROLS BACKGROUND */
 	$("body").append('<img id="controlsBackground" src="./images/controlsBackground.png"></img>');
 	controlsBackgroundLeft =  measureGridHeaderLeft;
 	controlsBackgroundTop = Number($("#measureBox-68").css("top").replace(/px/g, '')) + measureBoxHeight;
@@ -178,6 +179,9 @@ function drawControls()
 	controlsBackgroundHeight = measureBoxHeight * 1.5;
 	adjustTag("controlsBackground", controlsBackgroundLeft, controlsBackgroundTop, controlsBackgroundWidth, controlsBackgroundHeight, "yellow");
 
+	/* LEFT HAND LABEL */
+	$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid; border-width:1px">');
+	
 }
 
 
