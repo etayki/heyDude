@@ -31,6 +31,7 @@ function display()
 
 function drawMeasureGrid()
 {
+	/* MEASURE GRID HEADER */
 	$("body").append('<div id="measureGridHeader">');
 	measureGridHeaderWidth = Math.floor(screenWidth * 0.8) - 1; // Subtract one to account for border of measureBox
 	measureGridHeaderLeft = (screenWidth - measureGridHeaderWidth)/2;
@@ -39,6 +40,7 @@ function drawMeasureGrid()
 	measureGridHeaderColor = "#919191";
 	tagAdjust("measureGridHeader", measureGridHeaderLeft, measureGridHeaderTop, measureGridHeaderWidth, measureGridHeaderHeight, measureGridHeaderColor);
 
+	/* MEASURE BOX */
 	measureBoxWidth = measureGridHeaderWidth * 0.05;
 	measureBoxHeight = measureBoxWidth;
 	measureBoxTop = measureGridHeaderTop + measureGridHeaderHeight;
@@ -49,13 +51,28 @@ function drawMeasureGrid()
 		measureBoxLeft = (screenWidth - measureGridHeaderWidth)/2;
 		for (col = 1; col <= 20; col++)
 		{
-			$("body").append('<div id="measureBox-'+col+'x'+row+'" style="border-style:solid; border-width:1px">');
+			$("body").append('<div id="measureBox-'+col+'-'+row+'" style="border-style:solid; border-width:1px">');
 			measureBoxHeight = measureBoxWidth;
-			tagAdjust("measureBox-"+col+"x"+row, measureBoxLeft, measureBoxTop, measureBoxWidth, measureBoxHeight, measureBoxColor);
+			tagAdjust("measureBox-"+col+"-"+row, measureBoxLeft, measureBoxTop, measureBoxWidth, measureBoxHeight, measureBoxColor);
 			measureBoxLeft += measureBoxWidth;
 		}
 		measureBoxTop += measureBoxHeight;
 	}
+
+	//var measureBoxLabel = '<b><div class="measureBoxLabel" id="measureBoxLabel-'+col+'" style="color:black;position:absolute;top:0px;left:0px;z-index:5;font-size:50px;font-weight:bold>1</div></b>';
+	var measureBoxLabel = '<div id="measureBoxLabel" style="text-align:center">1</div>';
+	$("#measureBox-1-1").append(measureBoxLabel);
+	measureBoxLabelWidth = measureBoxWidth * 0.4;
+	measureBoxLabelLeft = (measureBoxWidth - measureBoxLabelWidth)/2;
+	measureBoxLabelTop = measureBoxLabelLeft;
+	measureBoxLabelHeight = measureBoxLabelWidth;
+	tagAdjust("measureBoxLabel", measureBoxLabelLeft, measureBoxLabelTop, measureBoxLabelWidth, measureBoxLabelHeight, "yellow");
+	//
+	//do {
+	//    ourText.css('font-size', fontSize);
+	//    textHeight = ourText.height();
+	//    fontSize = fontSize + 2;
+	//} while (textHeight < doNotTrepass );
 }
 
 function tagAdjust(tag, left, top, width, height, backgroundColor)
