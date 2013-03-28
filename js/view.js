@@ -160,11 +160,27 @@ function drawControls()
 
 	/* HANDS LABEL */
 	$("body").append('<div id="handsLabel">Hands</div>');
-	handsLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.05;
+	handsLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.01;
 	handsLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.1;
 	handsLabelWidth = controlsBackgroundWidth * 0.05;
-	handsLabelHeight = 20;
-	adjustTag("handsLabel", handsLabelLeft, handsLabelTop, handsLabelWidth, handsLabelHeight, "yellow");
+	handsLabelHeight = controlsBackgroundHeight * 0.2;
+	adjustTag("handsLabel", handsLabelLeft, handsLabelTop, handsLabelWidth, handsLabelHeight, "clear");
+	
+	/* LEFT HAND */
+	$("body").append('<img id="leftHandEnabled" src="./images/leftHandEnabled.png"></img>');
+	leftHandWidth = controlsBackgroundHeight * 0.6;
+	leftHandHeight = leftHandWidth;
+	leftHandLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.1;
+	leftHandTop = controlsBackgroundTop + (controlsBackgroundHeight - leftHandHeight)/2;
+	adjustTag("leftHandEnabled", leftHandLeft, leftHandTop, leftHandWidth, leftHandHeight, "clear");
+	
+	/* RIGHT HAND */
+	$("body").append('<img id="rightHandEnabled" src="./images/rightHandEnabled.png"></img>');
+	leftHandWidth = controlsBackgroundHeight * 0.6;
+	leftHandHeight = leftHandWidth;
+	leftHandLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.2;
+	leftHandTop = controlsBackgroundTop + (controlsBackgroundHeight - leftHandHeight)/2;
+	adjustTag("rightHandEnabled", leftHandLeft, leftHandTop, leftHandWidth, leftHandHeight, "clear");
 }
 
 /* HELPER FUNCTIONS */
