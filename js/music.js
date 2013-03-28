@@ -1,7 +1,7 @@
 var startTempo = 2500;
 var tempo = 3900 - (startTempo - 1300);
 var startMeasure = 1;
-var endMeasure = 2;
+var endMeasure = 4;
 var timers = new Array();
 var noteOn = new Array();
 var didPressPlayBtn = 0;
@@ -282,10 +282,8 @@ function updateStartMeasure(val)
 	if (startMeasure >= endMeasure)
 		updateEndMeasure(Number(startMeasure)+1);
 
-
-	// Update Measure Display
-	$("#playInterval").css("left", (startMeasure-1) * (playIntervalWidth));
-	$("#playInterval").css("width", (endMeasure - startMeasure) * (playIntervalWidth));
+	// Update Left Marker
+	setLeftMarker(startMeasure);
 }
 
 function updateEndMeasure(val)
@@ -328,7 +326,7 @@ function updateEndMeasure(val)
 		updateStartMeasure(Number(endMeasure)-1);
 
 	// Update Right Marker
-	$("#playInterval").css("width", (endMeasure - startMeasure) * (playIntervalWidth));
+	setRightMarker(endMeasure);
 }
 
 function updateTempo(slider, val) {

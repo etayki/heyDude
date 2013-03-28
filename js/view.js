@@ -129,13 +129,11 @@ function drawMarkers()
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
 		if (leftMarkerMouseDown)
 		{
-			setLeftMarker(newMeasure);
-			//updateStartMeasure(newMeasure);
+			updateStartMeasure(newMeasure);
 		}
 		else if (rightMarkerMouseDown)
 		{
-			setRightMarker(newMeasure);
-			//updateEndMeasure(newMeasure);
+			updateEndMeasure(newMeasure);
 		}
 	});
 
@@ -143,6 +141,7 @@ function drawMarkers()
 
 function setLeftMarker(measure)
 {
+	leftMarkerMeasure = measure;
 	leftMarkLeft = $("#measureBox-"+measure).css("left").replace(/px/g, '');
 	leftMarkTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
 	$("#leftMarker").css("left", leftMarkLeft);
@@ -151,6 +150,7 @@ function setLeftMarker(measure)
 
 function setRightMarker(measure)
 {
+	rightMarkerMeasure = measure;
 	rightMarkLeft =  $("#measureBox-"+measure).css("left").replace(/px/g, '') - leftMarkWidth + 1 + measureBoxWidth;
 	rightMarkTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
 	$("#rightMarker").css("left", rightMarkLeft);
