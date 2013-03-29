@@ -149,8 +149,6 @@ function drawMarkers()
 	leftMarkHeight = measureBoxHeight;
 	adjustTag("leftMarker", leftMarkLeft, leftMarkTop, leftMarkWidth, leftMarkHeight, "clear");
 	
-	$('img').on('dragstart', function(event) { event.preventDefault(); });
-
 	/* RIGHT MARKER */
 	$("body").append('<img id="rightMarker" src="./images/rightMark.png"></img>');
 	rightMarkLeft = $("#measureBox-5").css("left").replace(/px/g, '') - leftMarkWidth +1; // Add 1 because PowerPoint gives padding of 1;
