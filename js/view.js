@@ -318,18 +318,26 @@ function getFontSize(labelHeight)
 function drawPiano()
 {
 	/* RED LINE */
-	$("body").append('<img id="redVelvet" src="./images/redLine.png"></img>');
+	$("body").append('<img id="redVelvet" src="./images/redLine.png" style="z-index:5"></img>');
 	redLineLeft =  controlsBackgroundLeft;
 	redLineTop = controlsBackgroundTop + controlsBackgroundHeight;
 	redLineWidth = controlsBackgroundWidth;
 	redLineHeight = 5;
 	adjustTag("redVelvet", redLineLeft, redLineTop, redLineWidth, redLineHeight, "clear");
+
+	/* KEYBOARD BACKGROUND */
+	$("body").append('<div id="keyboardBgrd"></div>');
+	keyboardBgrdLeft =  controlsBackgroundLeft;
+	keyboardBgrdTop = redLineTop + redLineHeight;
+	keyboardBgrdWidth = controlsBackgroundWidth;
+	keyboardBgrdHeight = controlsBackgroundWidth * 0.102;
+	adjustTag("keyboardBgrd", keyboardBgrdLeft, keyboardBgrdTop, keyboardBgrdWidth, keyboardBgrdHeight, "black");	
 	
 	/* WHITE KEY */
-	whiteKeyLeft = controlsBackgroundLeft;
-	whiteKeyTop = redLineTop + redLineHeight;
-	whiteKeyWidth = controlsBackgroundWidth/52; // 52 white keys on keyboard
-	whiteKeyHeight = Math.floor(whiteKeyWidth * 4.87);
+	whiteKeyWidth = controlsBackgroundWidth/53; // 52 white keys on keyboard, but we need room for margins
+	whiteKeyLeft = controlsBackgroundLeft + (controlsBackgroundWidth - whiteKeyWidth * 52) * 0.4;
+	whiteKeyTop = keyboardBgrdTop;
+	whiteKeyHeight = controlsBackgroundWidth * 0.095;
 	
 	/* WHITE KEY LABEL */
 	whiteKeyLabelLeft = 0;
