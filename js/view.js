@@ -10,15 +10,28 @@ var info = {
 
 function drawScreen()
 {
-	screenWidth = screen.width;
-	
+	setSceenWidth();
 	drawMeasureGrid();
 	drawMarkers();
 	drawControls();
-	//drawPiano();
+	drawPiano();
 	//feedbackForm();
 	//playDisplay();
 	display();
+}
+
+function setSceenWidth()
+{
+	screenWidth = screen.width;
+	userAgent = navigator.userAgent;
+	if(userAgent.indexOf("iPhone") !== -1)
+	{
+		screenWidth = 1000;
+	}
+	else if(userAgent.indexOf("iPad") !== -1)
+	{
+		screenWidth = 1000;
+	}
 }
 
 function display()
@@ -296,6 +309,7 @@ function getFontSize(labelHeight)
 }
 
 
+
 //function drawControls()
 //{
 //	$("#controls").find("*").andSelf().each(
@@ -378,17 +392,6 @@ function getFontSize(labelHeight)
 function drawPiano()
 {
 	whiteKeySpacing = 2;
-	// White Key - 15x73
-	
-	userAgent = navigator.userAgent;
-	if(userAgent.indexOf("iPhone") !== -1)
-	{
-		screenWidth = 1000;
-	}
-	else if(userAgent.indexOf("iPad") !== -1)
-	{
-		screenWidth = 1000;
-	}
 	
 	whiteKeyWidth = screenWidth/65;
 	
