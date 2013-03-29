@@ -187,6 +187,7 @@ function didPressLeftHand()
 		$("#leftHand").attr("src", "./images/leftHandDisabled.png");
 		leftHandEnabled = 0
 		if (!rightHandEnabled) didPressRightHand();
+		clearHand("right");
 	}
 	else
 	{
@@ -203,11 +204,26 @@ function didPressRightHand()
 		$("#rightHand").attr("src", "./images/rightHandDisabled.png");
 		rightHandEnabled = 0
 		if (!leftHandEnabled) didPressLeftHand();
+		clearHand("left");
 	}
 	else
 	{
 		$("#rightHand").attr("src", "./images/rightHandEnabled.png");
 		rightHandEnabled = 1;
+	}
+}
+
+function clearHand(hand)
+{
+	for(var key = 0; key < 88; key++)
+	{
+		note = key + 21
+		keyColor =  $("#key-"+key).css("background-color");
+		if ((keyColor == "rgb(255, 0, 0)" && hand == "right") || (keyColor == "rgb(0, 255, 0)" && hand == "left"))
+		{
+			resetNote(note);
+			MIDI.noteOff(0, note, 0);
+		}
 	}
 }
 
@@ -430,19 +446,7 @@ function repeatMask()
 	
 }
 
-function didSelectHand(hand)
-{
-	for(var key = 0; key < 88; key++)
-	{
-		note = key + 21
-		keyColor =  $("#key-"+key).css("background-color");
-		if ((keyColor == "rgb(255, 0, 0)" && hand == "right") || (keyColor == "rgb(0, 255, 0)" && hand == "left"))
-		{
-			resetNote(note);
-			MIDI.noteOff(0, note, 0);
-		}
-	}
-}
+
 
 
 
