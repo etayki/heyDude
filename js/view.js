@@ -55,12 +55,28 @@ function drawHeader()
 	measureGridHeaderColor = "#919191";
 	adjustTag("measureGridHeader", measureGridHeaderLeft, measureGridHeaderTop, measureGridHeaderWidth, measureGridHeaderHeight, measureGridHeaderColor);	
 	
+	/* LOGO */
+	$("body").append('<img id="logo" src="./images/logo1.png"></img>');
+	logoLeft = measureGridHeaderLeft + 60;
+	logoHeight = measureGridHeaderHeight * 0.5;
+	logoTop = measureGridHeaderTop + (measureGridHeaderHeight - logoHeight)/4;
+	logoWidth = measureGridHeaderHeight * 1.1;
+	adjustTag("logo", logoLeft, logoTop, logoWidth, logoHeight, "clear");
+
+	/* LOGO LABEL */
+	$("body").append('<div id="logoLabel">WatchAndRepeat</div>');
+	logoLabelLeft =  logoLeft - 30;
+	logoLabelTop = measureGridHeaderTop + logoHeight + measureGridHeaderHeight * 0.1;
+	logoLabelWidth = logoWidth;
+	logoLabelHeight = measureGridHeaderHeight * 0.3;
+	adjustTag("logoLabel", logoLabelLeft, logoLabelTop, logoLabelWidth, logoLabelHeight, "clear");
+	
 	/* COMPOSER PIC */
 	$("body").append('<img id="composerPic" src="./images/beethoven.jpeg"></img>');
-	composerPicLeft = measureGridHeaderLeft;
 	composerPicTop = measureGridHeaderTop;
 	composerPicHeight = measureGridHeaderHeight;
 	composerPicWidth = measureGridHeaderHeight * 1.2;
+	composerPicLeft = measureGridHeaderLeft + measureGridHeaderWidth - composerPicWidth;
 	adjustTag("composerPic", composerPicLeft, composerPicTop, composerPicWidth, composerPicHeight, "clear");
 	
 	/* TUNE LABEL */
