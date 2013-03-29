@@ -176,11 +176,19 @@ function drawControls()
 	
 	/* RIGHT HAND */
 	$("body").append('<img id="rightHandEnabled" src="./images/rightHandEnabled.png"></img>');
-	leftHandWidth = controlsBackgroundHeight * 0.6;
-	leftHandHeight = leftHandWidth;
-	leftHandLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.2;
-	leftHandTop = controlsBackgroundTop + (controlsBackgroundHeight - leftHandHeight)/2;
-	adjustTag("rightHandEnabled", leftHandLeft, leftHandTop, leftHandWidth, leftHandHeight, "clear");
+	rightHandWidth = controlsBackgroundHeight * 0.6;
+	rightHandHeight = leftHandHeight;
+	rightHandLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.2;
+	rightHandTop = controlsBackgroundTop + (controlsBackgroundHeight - rightHandHeight)/2;
+	adjustTag("rightHandEnabled", rightHandLeft, rightHandTop, rightHandWidth, rightHandHeight, "clear");
+		
+	/* INFO BUTTON */
+	$("body").append('<img id="infoButton" src="./images/info.png"></img>');
+	infoButtonWidth = controlsBackgroundHeight * 0.3;
+	infoButtonHeight = infoButtonWidth;
+	infoButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.3;
+	infoButtonTop = controlsBackgroundTop + controlsBackgroundHeight * 0.1;
+	adjustTag("infoButton", infoButtonLeft, infoButtonTop, infoButtonWidth, infoButtonHeight, "clear");
 }
 
 /* HELPER FUNCTIONS */
