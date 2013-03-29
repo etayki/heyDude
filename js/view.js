@@ -73,18 +73,25 @@ function drawMeasureGrid()
 		for (col = 1; col <= 20; col++)
 		{
 			number = (row-1) * 20 + col;
-			if (number == tune.length)
-				return;
+			
+			/* MEASURE BOX */
 			$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid; border-width:1px"></div>');
 			measureBoxHeight = measureBoxWidth;
 			adjustTag("measureBox-"+number, measureBoxLeft, measureBoxTop, measureBoxWidth, measureBoxHeight, measureBoxColor);
 			measureBoxLeft += measureBoxWidth;
 			
-			var measureBoxLabel = '<div id="measureBoxLabel-'+number+'">'+number+'</div>';
-			$("#measureBox-"+number).append(measureBoxLabel);
-
-			adjustTag("measureBoxLabel-"+number, measureBoxLabelLeft, measureBoxLabelTop, measureBoxLabelWidth, measureBoxLabelHeight, "clear");
-			$("#measureBoxLabel-"+number).css("position", "absolute");
+			if (number < tune.length)
+			{
+				/* MEASURE BOX LABEL */
+				measureBoxLabel = '<div id="measureBoxLabel-'+number+'">'+number+'</div>';
+				$("#measureBox-"+number).append(measureBoxLabel);
+				adjustTag("measureBoxLabel-"+number, measureBoxLabelLeft, measureBoxLabelTop, measureBoxLabelWidth, measureBoxLabelHeight, "clear");
+				$("#measureBoxLabel-"+number).css("position", "absolute");
+			}
+			else
+			{
+				$("#measureBox-"+number).css("class", "");
+			}
 		}
 		measureBoxTop += measureBoxHeight;
 	}
