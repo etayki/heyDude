@@ -189,6 +189,22 @@ function drawControls()
 	infoButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.3;
 	infoButtonTop = controlsBackgroundTop + controlsBackgroundHeight * 0.1;
 	adjustTag("infoButton", infoButtonLeft, infoButtonTop, infoButtonWidth, infoButtonHeight, "clear");
+	
+	/* DIVIDER */
+	$("body").append('<img id="divider1" src="./images/divider.png"></img>');
+	dividerLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.35;
+	dividerTop = controlsBackgroundTop;
+	dividerWidth = 20;
+	dividerHeight = controlsBackgroundHeight;
+	adjustTag("divider1", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
+	
+	/* PLAY LABEL */
+	$("body").append('<div id="playLabel">Play</div>');
+	playLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.4;
+	playLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.1;
+	playLabelWidth = controlsBackgroundWidth * 0.05;
+	playLabelHeight = controlsBackgroundHeight * 0.2;
+	adjustTag("playLabel", playLabelLeft, playLabelTop, playLabelWidth, playLabelHeight, "clear");
 }
 
 /* HELPER FUNCTIONS */
