@@ -221,6 +221,46 @@ function drawControls()
 	stopButtonWidth = controlsBackgroundHeight * 0.6;
 	stopButtonHeight = leftHandHeight;
 	adjustTag("stopBtn", stopButtonLeft, stopButtonTop, stopButtonWidth, stopButtonHeight, "clear");
+	
+	/* DIVIDER */
+	$("body").append('<img id="divider2" src="./images/divider.png"></img>');
+	dividerLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.6;
+	dividerTop = controlsBackgroundTop;
+	dividerWidth = 20;
+	dividerHeight = controlsBackgroundHeight;
+	adjustTag("divider2", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
+	
+	/* TEMPO LABEL */
+	$("body").append('<div id="tempoLabel">Tempo</div>');
+	tempoLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.65;
+	tempoLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.1;
+	tempoLabelWidth = controlsBackgroundWidth * 0.05;
+	tempoLabelHeight = controlsBackgroundHeight * 0.2;
+	adjustTag("tempoLabel", tempoLabelLeft, tempoLabelTop, tempoLabelWidth, tempoLabelHeight, "clear");
+
+	/* METRONOME BUTTON */
+	$("body").append('<img id="metronome" src="./images/metronome.png"></img>');
+	metronomeHeight = controlsBackgroundHeight * 0.6;
+	metronomeLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.7;
+	metronomeTop = controlsBackgroundTop + (controlsBackgroundHeight - metronomeHeight) * 0.7;
+	metronomeWidth = metronomeHeight * 0.6;
+	adjustTag("metronome", metronomeLeft, metronomeTop, metronomeWidth, metronomeHeight, "clear");
+	
+	/* SLOW LABEL */
+	$("body").append('<div id="slowLabel">Slow</div>');
+	slowLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.75;
+	slowLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.6;
+	slowLabelWidth = controlsBackgroundWidth * 0.05;
+	slowLabelHeight = controlsBackgroundHeight * 0.2;
+	adjustTag("slowLabel", slowLabelLeft, slowLabelTop, slowLabelWidth, slowLabelHeight, "clear");
+	
+	/* FAST LABEL */
+	$("body").append('<div id="fastLabel">Fast</div>');
+	fastLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.85;
+	fastLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.6;
+	fastLabelWidth = controlsBackgroundWidth * 0.05;
+	fastLabelHeight = controlsBackgroundHeight * 0.2;
+	adjustTag("fastLabel", fastLabelLeft, fastLabelTop, fastLabelWidth, fastLabelHeight, "clear");
 }
 
 /* HELPER FUNCTIONS */
