@@ -390,81 +390,80 @@ function getFontSize(labelHeight)
 //}
 
 function drawPiano()
-{
-	whiteKeySpacing = 2;
-	
-	whiteKeyWidth = screenWidth/65;
-	
-	whiteKeyHeight = Math.floor(whiteKeyWidth * 73/15);
+{	
+	/* WHITE KEY */
+	whiteKeyLeft = controlsBackgroundLeft;
+	whiteKeyTop = controlsBackgroundTop + controlsBackgroundHeight;
+	whiteKeyWidth = controlsBackgroundWidth/52; // 52 white keys on keyboard
+	whiteKeyHeight = Math.floor(whiteKeyWidth * 4.87);
 	whiteKeyOffset = whiteKeyWidth/3;
 	
-	// White Key Label
-	whiteKeyLabelTop = Math.floor(whiteKeyHeight*0.70);
-	whiteKeyLabelLeft = Math.floor(whiteKeyWidth*0.30);
+	/* WHITE KEY LABEL */
+	whiteKeyLabelTop = controlsBackgroundTop + controlsBackgroundHeight;
+	whiteKeyLabelLeft = controlsBackgroundLeft;
 	whiteKeyLabelSize = 120 * whiteKeyWidth/15;
 
-	// Black Key - 11x42
-	blackKeyWidth = Math.floor(whiteKeyWidth * 0.32) * 2 + whiteKeySpacing;
+	/* BLACK KEY */
+	blackKeyWidth = Math.floor(whiteKeyWidth * 0.32) * 2;
 	blackKeyHeight = Math.floor(whiteKeyHeight * 0.58);
 	blackKeyOffset = whiteKeyOffset + Math.floor(whiteKeyWidth * 0.75);
 	
-	// Black Key Label
-	blackKeyLabelTop = Math.floor(blackKeyHeight*0.50);
-	blackKeyLabelLeft = Math.floor(blackKeyWidth*0.25);
+	/* BLACK KEY LABEL */
+	blackKeyLabelTop = Math.floor(blackKeyHeight * 0.50);
+	blackKeyLabelLeft = Math.floor(blackKeyWidth * 0.25);
 	blackKeyLabelSize = 90 * whiteKeyWidth/15;
 	
 	for (var key = 0; key < 88; key++)
 	{
-		var octave = Math.floor(key/12);
 		var keyIdx = key % 12;
 		if (!(keyIdx==1 || keyIdx==4 || keyIdx==6 || keyIdx == 9 || keyIdx==11))
 		{
-			if (key !=0) whiteKeyOffset += whiteKeyWidth + whiteKeySpacing;
-			var whiteKey='<div class="key" id="key-'+key+'" style="position:absolute;z-index:1;top:211px;left:'+whiteKeyOffset+'px; background-color:white;width:'+whiteKeyWidth+'px;height:'+whiteKeyHeight+'px"></div>';
-			var whiteKeyLabel = '<b><div class="keyLabel" id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+whiteKeyLabelTop+'px;left:'+whiteKeyLabelLeft+'px;z-index:2;font-size:'+whiteKeyLabelSize+'%";font-weight:bold></div></b>';
-			$("#piano").after(whiteKey);
-			$("#key-"+key).append(whiteKeyLabel);
+			if (key !=0) whiteKeyLeft += whiteKeyWidth;
+			$("body").append('<div id="key-'+key+'" class="key" style="border-style:solid; border-width:2px"></div>');
+			adjustTag("key-"+key, whiteKeyLeft, whiteKeyTop, whiteKeyWidth, whiteKeyHeight, "white");
+			//var whiteKeyLabel = '<b><div class="keyLabel" id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+whiteKeyLabelTop+'px;left:'+whiteKeyLabelLeft+'px;z-index:2;font-size:'+whiteKeyLabelSize+'%";font-weight:bold></div></b>';			
+			//$("#key-"+key).append(whiteKeyLabel);
 		}
 		else
 		{
 			blackKeyOffset = whiteKeyOffset + Math.floor(whiteKeyWidth * 0.75);
 			var blackKey='<div class="key" id="key-'+key+'" style="position:absolute;z-index:2;top:211px;left:'+blackKeyOffset+'px; background-color:black;width:'+blackKeyWidth+'px;height:'+blackKeyHeight+'px;border:0px solid #000"></div>';
 			var blackKeyLabel = '<b><div class="keyLabel" id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+blackKeyLabelTop+'px;left:'+blackKeyLabelLeft+'px;z-index:2;font-size:'+blackKeyLabelSize+'%";font-weight:bold></div></b>';
-			$("#piano").after(blackKey);
-			$("#key-"+key).append(blackKeyLabel);
+			//$("#piano").after(blackKey);
+			//$("#key-"+key).append(blackKeyLabel);
 		}
 	}
 
 	
-	firstKeyLeft = Number($("#key-0").css("left").replace(/px/g, ''));
-	lastKeyLeft  = Number($("#key-87").css("left").replace(/px/g, ''));
-	keyTop       = Number($("#key-87").css("top").replace(/px/g, ''));
-	
-	pianoWidth = Number(lastKeyLeft) + whiteKeyWidth + Number(firstKeyLeft);
-	pianoLeft = (screenWidth - pianoWidth)/2;
-	pianoHeight = Number(keyTop) + whiteKeyHeight + 5;
-	$("#pianoWrapper").css("width", pianoWidth);
-	$("#pianoWrapper").css("left", pianoLeft);
-	$("#pianoWrapper").css("height", pianoHeight);
-	
-	redLineTop = keyTop;
-	redLineLeft = pianoLeft + 6;
-	redLineWidth = pianoWidth - 12;
-
-	$("#redLine").css("width", redLineWidth);
-	$("#redLine").css("left", redLineLeft);
-	$("#redLine").css("top", redLineTop);
-	
-
-	chairWidth = whiteKeyWidth * 18;
-	chairHeight = chairWidth * 0.5;
-	chairTop = pianoHeight + 100; 
-	chairLeft = pianoLeft + (pianoWidth - chairWidth)/2;
-
-	$("#chair").css("top", chairTop);
-	$("#chair").css("left", chairLeft);
-	$("#chair").css("width", chairWidth);
-	$("#chair").css("height", chairHeight);
+	//firstKeyLeft = Number($("#key-0").css("left").replace(/px/g, ''));
+	//lastKeyLeft  = Number($("#key-87").css("left").replace(/px/g, ''));
+	//keyTop       = Number($("#key-87").css("top").replace(/px/g, ''));
+	//
+	//pianoWidth = Number(lastKeyLeft) + whiteKeyWidth + Number(firstKeyLeft);
+	//pianoLeft = (screenWidth - pianoWidth)/2;
+	//pianoHeight = Number(keyTop) + whiteKeyHeight + 5;
+	//$("#pianoWrapper").css("width", pianoWidth);
+	//$("#pianoWrapper").css("left", pianoLeft);
+	//$("#pianoWrapper").css("height", pianoHeight);
+	//
+	//redLineTop = keyTop;
+	//redLineLeft = pianoLeft + 6;
+	//redLineWidth = pianoWidth - 12;
+	//
+	//$("#redLine").css("width", redLineWidth);
+	//$("#redLine").css("left", redLineLeft);
+	//$("#redLine").css("top", redLineTop);
+	//
+	//
+	//chairWidth = whiteKeyWidth * 18;
+	//chairHeight = chairWidth * 0.5;
+	//chairTop = pianoHeight + 100; 
+	//chairLeft = pianoLeft + (pianoWidth - chairWidth)/2;
+	//
+	//$("#chair").css("top", chairTop);
+	//$("#chair").css("left", chairLeft);
+	//$("#chair").css("width", chairWidth);
+	//$("#chair").css("height", chairHeight);
 }
 
 
