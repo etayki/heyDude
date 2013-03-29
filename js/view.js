@@ -82,8 +82,13 @@ function drawHeader()
 
 function drawMeasureGrid()
 {
+	maxColumn = 23;
+	maxBoxes = Math.floor(tune.length/maxColumn);
+	maxBoxes = maxColumn * (maxBoxes+1);
+	
 	/* MEASURE BOX */
-	measureBoxWidth = measureGridHeaderWidth * 0.05;
+	measureBoxLeft = measureGridHeaderLeft;
+	measureBoxWidth = measureGridHeaderWidth/maxColumn;
 	measureBoxHeight = measureBoxWidth;
 	measureBoxTop = measureGridHeaderTop + measureGridHeaderHeight;
 	measureBoxColor = "#cbcbcb";
@@ -93,35 +98,35 @@ function drawMeasureGrid()
 	measureBoxLabelLeft = (measureBoxWidth - measureBoxLabelWidth)/2;
 	measureBoxLabelTop = measureBoxLabelLeft;
 	measureBoxLabelHeight = measureBoxLabelWidth;
+	
 
 	/* MEASURE GRID */
-	for (row = 1; row <= 4; row++)
-	{
-		measureBoxLeft = (screenWidth - measureGridHeaderWidth)/2;
-		for (col = 1; col <= 20; col++)
+	for (number = 1; number <= maxBoxes; number++)
+	{			
+		/* MEASURE BOX */
+		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid; border-width:1px"></div>');
+		adjustTag("measureBox-"+number, measureBoxLeft, measureBoxTop, measureBoxWidth, measureBoxHeight, measureBoxColor);
+		
+		if (number < tune.length)
 		{
-			number = (row-1) * 20 + col;
-			
-			/* MEASURE BOX */
-			$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid; border-width:1px"></div>');
-			measureBoxHeight = measureBoxWidth;
-			adjustTag("measureBox-"+number, measureBoxLeft, measureBoxTop, measureBoxWidth, measureBoxHeight, measureBoxColor);
-			measureBoxLeft += measureBoxWidth;
-			
-			if (number < tune.length)
-			{
-				/* MEASURE BOX LABEL */
-				measureBoxLabel = '<div id="measureBoxLabel-'+number+'">'+number+'</div>';
-				$("#measureBox-"+number).append(measureBoxLabel);
-				adjustTag("measureBoxLabel-"+number, measureBoxLabelLeft, measureBoxLabelTop, measureBoxLabelWidth, measureBoxLabelHeight, "clear");
-				$("#measureBoxLabel-"+number).css("position", "absolute");
-			}
-			else
-			{
-				$("#measureBox-"+number).css("class", "");
-			}
+			/* MEASURE BOX LABEL */
+			measureBoxLabel = '<div id="measureBoxLabel-'+number+'">'+number+'</div>';
+			$("#measureBox-"+number).append(measureBoxLabel);
+			adjustTag("measureBoxLabel-"+number, measureBoxLabelLeft, measureBoxLabelTop, measureBoxLabelWidth, measureBoxLabelHeight, "clear");
+			$("#measureBoxLabel-"+number).css("position", "absolute");
 		}
-		measureBoxTop += measureBoxHeight;
+		else
+		{
+			/* ROW FILL MEASURE BOXES SHOULD NOT RESPOND TO EVENTS */
+			$("#measureBox-"+number).attr("class", "");
+		}
+	
+		measureBoxLeft += measureBoxWidth;
+		if (measureBoxLeft >= (measureGridHeaderLeft + measureGridHeaderWidth - measureBoxWidth/2)) // Need to subtract a little, don't know why
+		{
+			measureBoxLeft = (screenWidth - measureGridHeaderWidth)/2;
+			measureBoxTop += measureBoxHeight;
+		}
 	}
 }
 
