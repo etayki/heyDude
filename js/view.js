@@ -15,8 +15,8 @@ function drawScreen()
 	drawMeasureGrid();
 	drawMarkers();
 	drawControls();
-	drawPiano();
-	feedbackForm();
+	//drawPiano();
+	//feedbackForm();
 	//playDisplay();
 	display();
 }
@@ -200,11 +200,27 @@ function drawControls()
 	
 	/* PLAY LABEL */
 	$("body").append('<div id="playLabel">Play</div>');
-	playLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.4;
+	playLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.37;
 	playLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.1;
 	playLabelWidth = controlsBackgroundWidth * 0.05;
 	playLabelHeight = controlsBackgroundHeight * 0.2;
 	adjustTag("playLabel", playLabelLeft, playLabelTop, playLabelWidth, playLabelHeight, "clear");
+	
+	/* PLAY BUTTON */
+	$("body").append('<img id="playBtn" src="./images/playButton.png"></img>');
+	playButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.45;
+	playButtonTop = rightHandTop;
+	playButtonWidth = controlsBackgroundHeight * 0.6;
+	playButtonHeight = leftHandHeight;
+	adjustTag("playBtn", playButtonLeft, playButtonTop, playButtonWidth, playButtonHeight, "clear");
+	
+	/* STOP BUTTON */
+	$("body").append('<img id="stopBtn" src="./images/stopButton.png"></img>');
+	stopButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.53;
+	stopButtonTop = rightHandTop;
+	stopButtonWidth = controlsBackgroundHeight * 0.6;
+	stopButtonHeight = leftHandHeight;
+	adjustTag("stopBtn", stopButtonLeft, stopButtonTop, stopButtonWidth, stopButtonHeight, "clear");
 }
 
 /* HELPER FUNCTIONS */
