@@ -56,20 +56,20 @@ function drawHeader()
 	adjustTag("measureGridHeader", measureGridHeaderLeft, measureGridHeaderTop, measureGridHeaderWidth, measureGridHeaderHeight, measureGridHeaderColor);	
 	
 	/* LOGO */
-	$("body").append('<img id="logo" src="./images/logo1.png"></img>');
-	logoLeft = measureGridHeaderLeft + 60;
-	logoHeight = measureGridHeaderHeight * 0.5;
-	logoTop = measureGridHeaderTop + (measureGridHeaderHeight - logoHeight)/4;
-	logoWidth = measureGridHeaderHeight * 1.1;
+	$("body").append('<img id="logo" src="./images/logo.png"></img>');
+	logoLeft = measureGridHeaderLeft + measureGridHeaderWidth * 0.03;
+	logoHeight = measureGridHeaderHeight * 0.8;
+	logoTop = measureGridHeaderTop + (measureGridHeaderHeight - logoHeight)/2;
+	logoWidth = measureGridHeaderHeight * 1.3;
 	adjustTag("logo", logoLeft, logoTop, logoWidth, logoHeight, "clear");
 
-	/* LOGO LABEL */
-	$("body").append('<div id="logoLabel">WatchAndRepeat</div>');
-	logoLabelLeft =  logoLeft - 30;
-	logoLabelTop = measureGridHeaderTop + logoHeight + measureGridHeaderHeight * 0.1;
-	logoLabelWidth = logoWidth;
-	logoLabelHeight = measureGridHeaderHeight * 0.3;
-	adjustTag("logoLabel", logoLabelLeft, logoLabelTop, logoLabelWidth, logoLabelHeight, "clear");
+	///* LOGO LABEL */
+	//$("body").append('<div id="logoLabel">WatchAndRepeat</div>');
+	//logoLabelLeft =  logoLeft - 30;
+	//logoLabelTop = measureGridHeaderTop + logoHeight + measureGridHeaderHeight * 0.1;
+	//logoLabelWidth = logoWidth;
+	//logoLabelHeight = measureGridHeaderHeight * 0.3;
+	//adjustTag("logoLabel", logoLabelLeft, logoLabelTop, logoLabelWidth, logoLabelHeight, "clear");
 	
 	/* COMPOSER PIC */
 	$("body").append('<img id="composerPic" src="./images/beethoven.jpeg"></img>');
