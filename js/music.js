@@ -11,6 +11,8 @@ var feedbackFormDisplayed = 0;
 var currentPosition = 1;
 var measureSlider;
 var tempoSlider;
+var leftHandEnabled = 1;
+var rightHandEnabled = 1;
 
 var DELAY = 0;
 var DURATION = 1;
@@ -175,6 +177,38 @@ function didPressStopButton()
 	//$("#currentPosition").text(currentPosition);
 	// Update Measure Display
 	//$("#curPosition").css("left", (delay/4) * playIntervalWidth);
+}
+
+function didPressLeftHand()
+{
+	/* TOGGLE FROM ENABLED TO DISABLED */
+	if (leftHandEnabled)
+	{
+		$("#leftHand").attr("src", "./images/leftHandDisabled.png");
+		leftHandEnabled = 0
+		if (!rightHandEnabled) didPressRightHand();
+	}
+	else
+	{
+		$("#leftHand").attr("src", "./images/leftHandEnabled.png");
+		leftHandEnabled = 1;
+	}
+}
+
+function didPressRightHand()
+{
+	/* TOGGLE FROM ENABLED TO DISABLED */
+	if (rightHandEnabled)
+	{
+		$("#rightHand").attr("src", "./images/rightHandDisabled.png");
+		rightHandEnabled = 0
+		if (!leftHandEnabled) didPressLeftHand();
+	}
+	else
+	{
+		$("#rightHand").attr("src", "./images/rightHandEnabled.png");
+		rightHandEnabled = 1;
+	}
 }
 
 function resetNote(note)

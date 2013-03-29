@@ -187,20 +187,20 @@ function drawControls()
 	adjustTag("handsLabel", handsLabelLeft, handsLabelTop, handsLabelWidth, handsLabelHeight, "clear");
 	
 	/* LEFT HAND */
-	$("body").append('<img id="leftHandEnabled" src="./images/leftHandEnabled.png"></img>');
+	$("body").append('<img id="leftHand" src="./images/leftHandEnabled.png" onclick="didPressLeftHand()"></img>');
 	leftHandWidth = controlsBackgroundHeight * 0.6;
 	leftHandHeight = leftHandWidth;
 	leftHandLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.1;
 	leftHandTop = controlsBackgroundTop + (controlsBackgroundHeight - leftHandHeight)/2;
-	adjustTag("leftHandEnabled", leftHandLeft, leftHandTop, leftHandWidth, leftHandHeight, "clear");
+	adjustTag("leftHand", leftHandLeft, leftHandTop, leftHandWidth, leftHandHeight, "clear");
 	
 	/* RIGHT HAND */
-	$("body").append('<img id="rightHandEnabled" src="./images/rightHandEnabled.png"></img>');
+	$("body").append('<img id="rightHand" src="./images/rightHandEnabled.png" onclick="didPressRightHand()"></img>');
 	rightHandWidth = controlsBackgroundHeight * 0.6;
 	rightHandHeight = leftHandHeight;
 	rightHandLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.2;
 	rightHandTop = controlsBackgroundTop + (controlsBackgroundHeight - rightHandHeight)/2;
-	adjustTag("rightHandEnabled", rightHandLeft, rightHandTop, rightHandWidth, rightHandHeight, "clear");
+	adjustTag("rightHand", rightHandLeft, rightHandTop, rightHandWidth, rightHandHeight, "clear");
 		
 	/* INFO BUTTON */
 	$("body").append('<img id="infoButton" src="./images/info.png"></img>');
@@ -227,7 +227,7 @@ function drawControls()
 	adjustTag("playLabel", playLabelLeft, playLabelTop, playLabelWidth, playLabelHeight, "clear");
 	
 	/* PLAY BUTTON */
-	$("body").append('<img id="playBtn" src="./images/playButton.png" onclick="didPressPlayButton(STARTPLAY)"></img>');
+	$("body").append('<img id="playBtn" src="./images/playButton.png" onclick="didPressPlayButton()"></img>');
 	playButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.45;
 	playButtonTop = rightHandTop;
 	playButtonWidth = controlsBackgroundHeight * 0.6;

@@ -51,15 +51,13 @@ $(document).keydown(function(e){
 		$('#startMeasure').blur();
 		$('#endMeasure').blur();
 	}
-	else if (e.keyCode == 76) // l
+	else if (e.keyCode == L)
 	{
-		$('input[name=hand][value=left]').prop("checked",true);
-		didSelectHand('left');
+		didPressLeftHand()
 	}
-	else if (e.keyCode == 82) // r
+	else if (e.keyCode == R)
 	{
-		$('input[name=hand][value=right]').prop("checked",true);
-		didSelectHand('right');
+		didPressRightHand()
 	}
 	else if (e.keyCode == 66) // b
 	{
@@ -77,3 +75,5 @@ $(document).keydown(function(e){
 
 SPACE = 32;
 S = 83;
+L = 76;
+R = 82;
