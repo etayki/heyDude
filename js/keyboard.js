@@ -42,7 +42,7 @@ $(document).keydown(function(e){
 	{
 		updateStartMeasure("+");
 	}
-	else if (e.keyCode == 32) // Space
+	else if (e.keyCode == SPACE)
 	{
 		if (didPressPlayBtn)
 		{
@@ -81,3 +81,5 @@ $(document).keydown(function(e){
 		repeatToggle();
 	}
 });
+
+SPACE = 32;

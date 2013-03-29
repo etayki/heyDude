@@ -227,7 +227,7 @@ function drawControls()
 	adjustTag("playLabel", playLabelLeft, playLabelTop, playLabelWidth, playLabelHeight, "clear");
 	
 	/* PLAY BUTTON */
-	$("body").append('<img id="playBtn" src="./images/playButton.png"></img>');
+	$("body").append('<img id="playBtn" src="./images/playButton.png" onclick="didPressPlayButton(0)"></img>');
 	playButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.45;
 	playButtonTop = rightHandTop;
 	playButtonWidth = controlsBackgroundHeight * 0.6;
@@ -235,7 +235,7 @@ function drawControls()
 	adjustTag("playBtn", playButtonLeft, playButtonTop, playButtonWidth, playButtonHeight, "clear");
 	
 	/* STOP BUTTON */
-	$("body").append('<img id="stopBtn" src="./images/stopButton.png"></img>');
+	$("body").append('<img id="stopBtn" src="./images/stopButton.png" onclick="didPressPauseButton(3)"></img>');
 	stopButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.53;
 	stopButtonTop = rightHandTop;
 	stopButtonWidth = controlsBackgroundHeight * 0.6;

@@ -49,17 +49,19 @@ function didPressPlayButton(option)
 	if(feedbackFormDisplayed)
 		return;
 	
-	if ($("#playButton").text() == "Play")
+	if (!didPressPlayBtn)
 	{
+		didPressPlayBtn = 1;
+		$("#playBtn").attr("src", "./images/pauseButton.png");
 		$("#playButton").text("Pause");
 	}	
 	else if (didPressPlayBtn == 1 && option == STARTPLAY)
 	{
-		didPressPauseButton(0);
+		didPressPauseButton();
 		return;
 	}
 	
-	didPressPlayBtn = 1;
+	
 	
 	if (option == STARTPLAY)
 	{
@@ -139,7 +141,7 @@ function didPressPlayButton(option)
 		currentPosition = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
 		$("#currentPosition").text(currentPosition);
 		// Update Measure Display
-		$("#curPosition").css("left", (delay/4) * playIntervalWidth);
+		//	$("#curPosition").css("left", (delay/4) * playIntervalWidth);
 		didPressPlayButton(REPEAT);
 	}, 4*tempo/600));	
 	
@@ -147,6 +149,7 @@ function didPressPlayButton(option)
 
 function didPressPauseButton(option)
 {
+	$("#playBtn").attr("src", "./images/playButton.png");
 	didPressPlayBtn = 0;
 	$("#playButton").text("Play");
 	
