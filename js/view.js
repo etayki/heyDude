@@ -308,92 +308,19 @@ function getFontSize(labelHeight)
 	return fontSize;
 }
 
-
-
-//function drawControls()
-//{
-//	$("#controls").find("*").andSelf().each(
-//	    function(){
-//		var width = $(this).css('width');
-//		var left = $(this).css('left');
-//		var fontSize = $(this).css('font-size');
-//		width = width.replace(/px/g, '');
-//		left = left.replace(/px/g, '');
-//		fontSize = fontSize.replace(/px/g, '');
-//		
-//		$(this).css("width",width*whiteKeyWidth/20+"px");
-//		$(this).css("left",left*whiteKeyWidth/20+"px");
-//		$(this).css("font-size",fontSize*(whiteKeyWidth/50+3/5)+"px");
-//	    }
-//	);
-//
-//	var controlsWidth = $("#controls").css("width").replace(/px/g, '');
-//	// Not sure why the PianoLeft wasn't added here, but it works
-//	var controlsLeft = pianoLeft + (pianoWidth - Number(controlsWidth))/2;
-//	$("#controls").css("left", controlsLeft);
-//	
-//	dhtmlxEvent(window, "load", sliderInit);
-//	
-//	infoTop = chairTop + 50;//350;
-//	infoLeft = chairLeft + 30;//150;
-//	infoWidth = chairWidth - 50;//800;
-//	var infoArea = '<b><div id="info" style="position:absolute;top:'+infoTop+'px;left:'+infoLeft+'px;width:'+infoWidth+'px;height:50px;background-color:clear;color:white;font-size:22px"></b>';
-//	$("body").after(infoArea);
-//
-//	$(".control").hover(function(){
-//		if(!(userAgent.indexOf("iPhone") !== -1 || userAgent.indexOf("iPad") !== -1))
-//		{
-//			message = info[$(this).attr('id')];
-//			$("#info").append(message);
-//		}
-//	  },
-//	  function(){
-//	    $("#info").text("");              
-//	});
-//	
-//	$("#repeatMeasure").change(function(){
-//		$('#repeatMeasure').blur();
-//		var text = $("#repeatMeasure option:selected").text();
-//		text = text.replace(/ Measure/g, '');
-//		text = text.replace(/s/g, '');
-//		newMeasureLength = Number(text);
-//	  });
-//
-//	$("#repeatCheck").click(function(){
-//		repeatMask();
-//	  });
-//	
-//	$(".key").click(function(){
-//		keyPress = $(this).attr('id');
-//		keyPress = keyPress.replace(/key-/g,'');
-//		notePress = Number(keyPress) + 21;
-//		MIDI.noteOn(0,notePress,90,0);
-//		MIDI.noteOff(0,notePress,0.4);
-//		$("#key-"+keyPress).css("background-color","yellow");
-//
-//		timers.push(setTimeout(function() {
-//			resetNote(notePress);
-//		}, 400));
-//			
-//	  });
-//
-//	  $('#startMeasure').live('blur', function() {
-//		if ($("#startMeasure").val() == "")
-//			$("#startMeasure").val(startMeasure);
-//	});
-//
-//
-//	  $('#endMeasure').live('blur', function() {	
-//		if ($("#endMeasure").val() == "")
-//			$("#endMeasure").val(endMeasure);
-//	});
-//}
-
 function drawPiano()
-{	
+{
+	/* RED LINE */
+	$("body").append('<img id="redVelvet" src="./images/redLine.png"></img>');
+	redLineLeft =  controlsBackgroundLeft;
+	redLineTop = controlsBackgroundTop + controlsBackgroundHeight;
+	redLineWidth = controlsBackgroundWidth;
+	redLineHeight = 5;
+	adjustTag("redVelvet", redLineLeft, redLineTop, redLineWidth, redLineHeight, "clear");
+	
 	/* WHITE KEY */
 	whiteKeyLeft = controlsBackgroundLeft;
-	whiteKeyTop = controlsBackgroundTop + controlsBackgroundHeight;
+	whiteKeyTop = redLineTop + redLineHeight;
 	whiteKeyWidth = controlsBackgroundWidth/52; // 52 white keys on keyboard
 	whiteKeyHeight = Math.floor(whiteKeyWidth * 4.87);
 	
@@ -434,37 +361,6 @@ function drawPiano()
 			//adjustTag("keyLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop, whiteKeyLabelWidth, whiteKeyLabelHeight, "clear");
 		}
 	}
-
-	
-	//firstKeyLeft = Number($("#key-0").css("left").replace(/px/g, ''));
-	//lastKeyLeft  = Number($("#key-87").css("left").replace(/px/g, ''));
-	//keyTop       = Number($("#key-87").css("top").replace(/px/g, ''));
-	//
-	//pianoWidth = Number(lastKeyLeft) + whiteKeyWidth + Number(firstKeyLeft);
-	//pianoLeft = (screenWidth - pianoWidth)/2;
-	//pianoHeight = Number(keyTop) + whiteKeyHeight + 5;
-	//$("#pianoWrapper").css("width", pianoWidth);
-	//$("#pianoWrapper").css("left", pianoLeft);
-	//$("#pianoWrapper").css("height", pianoHeight);
-	//
-	//redLineTop = keyTop;
-	//redLineLeft = pianoLeft + 6;
-	//redLineWidth = pianoWidth - 12;
-	//
-	//$("#redLine").css("width", redLineWidth);
-	//$("#redLine").css("left", redLineLeft);
-	//$("#redLine").css("top", redLineTop);
-	//
-	//
-	//chairWidth = whiteKeyWidth * 18;
-	//chairHeight = chairWidth * 0.5;
-	//chairTop = pianoHeight + 100; 
-	//chairLeft = pianoLeft + (pianoWidth - chairWidth)/2;
-	//
-	//$("#chair").css("top", chairTop);
-	//$("#chair").css("left", chairLeft);
-	//$("#chair").css("width", chairWidth);
-	//$("#chair").css("height", chairHeight);
 }
 
 
@@ -548,6 +444,85 @@ function feedbackForm() {
 
   
 }
+
+//function drawControls()
+//{
+//	$("#controls").find("*").andSelf().each(
+//	    function(){
+//		var width = $(this).css('width');
+//		var left = $(this).css('left');
+//		var fontSize = $(this).css('font-size');
+//		width = width.replace(/px/g, '');
+//		left = left.replace(/px/g, '');
+//		fontSize = fontSize.replace(/px/g, '');
+//		
+//		$(this).css("width",width*whiteKeyWidth/20+"px");
+//		$(this).css("left",left*whiteKeyWidth/20+"px");
+//		$(this).css("font-size",fontSize*(whiteKeyWidth/50+3/5)+"px");
+//	    }
+//	);
+//
+//	var controlsWidth = $("#controls").css("width").replace(/px/g, '');
+//	// Not sure why the PianoLeft wasn't added here, but it works
+//	var controlsLeft = pianoLeft + (pianoWidth - Number(controlsWidth))/2;
+//	$("#controls").css("left", controlsLeft);
+//	
+//	dhtmlxEvent(window, "load", sliderInit);
+//	
+//	infoTop = chairTop + 50;//350;
+//	infoLeft = chairLeft + 30;//150;
+//	infoWidth = chairWidth - 50;//800;
+//	var infoArea = '<b><div id="info" style="position:absolute;top:'+infoTop+'px;left:'+infoLeft+'px;width:'+infoWidth+'px;height:50px;background-color:clear;color:white;font-size:22px"></b>';
+//	$("body").after(infoArea);
+//
+//	$(".control").hover(function(){
+//		if(!(userAgent.indexOf("iPhone") !== -1 || userAgent.indexOf("iPad") !== -1))
+//		{
+//			message = info[$(this).attr('id')];
+//			$("#info").append(message);
+//		}
+//	  },
+//	  function(){
+//	    $("#info").text("");              
+//	});
+//	
+//	$("#repeatMeasure").change(function(){
+//		$('#repeatMeasure').blur();
+//		var text = $("#repeatMeasure option:selected").text();
+//		text = text.replace(/ Measure/g, '');
+//		text = text.replace(/s/g, '');
+//		newMeasureLength = Number(text);
+//	  });
+//
+//	$("#repeatCheck").click(function(){
+//		repeatMask();
+//	  });
+//	
+//	$(".key").click(function(){
+//		keyPress = $(this).attr('id');
+//		keyPress = keyPress.replace(/key-/g,'');
+//		notePress = Number(keyPress) + 21;
+//		MIDI.noteOn(0,notePress,90,0);
+//		MIDI.noteOff(0,notePress,0.4);
+//		$("#key-"+keyPress).css("background-color","yellow");
+//
+//		timers.push(setTimeout(function() {
+//			resetNote(notePress);
+//		}, 400));
+//			
+//	  });
+//
+//	  $('#startMeasure').live('blur', function() {
+//		if ($("#startMeasure").val() == "")
+//			$("#startMeasure").val(startMeasure);
+//	});
+//
+//
+//	  $('#endMeasure').live('blur', function() {	
+//		if ($("#endMeasure").val() == "")
+//			$("#endMeasure").val(endMeasure);
+//	});
+//}
 
 //function playDisplay()
 //{
