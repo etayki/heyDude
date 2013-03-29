@@ -396,17 +396,17 @@ function drawPiano()
 	whiteKeyTop = controlsBackgroundTop + controlsBackgroundHeight;
 	whiteKeyWidth = controlsBackgroundWidth/52; // 52 white keys on keyboard
 	whiteKeyHeight = Math.floor(whiteKeyWidth * 4.87);
-	whiteKeyOffset = whiteKeyWidth/3;
 	
 	/* WHITE KEY LABEL */
-	whiteKeyLabelTop = controlsBackgroundTop + controlsBackgroundHeight;
-	whiteKeyLabelLeft = controlsBackgroundLeft;
-	whiteKeyLabelSize = 120 * whiteKeyWidth/15;
-
+	whiteKeyLabelLeft = 0;
+	whiteKeyLabelTop = whiteKeyHeight * 0.6;
+	whiteKeyLabelWidth = whiteKeyWidth;
+	whiteKeyLabelHeight = whiteKeyLabelWidth * 1.5;
+	
 	/* BLACK KEY */
 	blackKeyWidth = Math.floor(whiteKeyWidth * 0.32) * 2;
 	blackKeyHeight = Math.floor(whiteKeyHeight * 0.58);
-	blackKeyOffset = whiteKeyOffset + Math.floor(whiteKeyWidth * 0.75);
+	//blackKeyOffset = whiteKeyOffset + Math.floor(whiteKeyWidth * 0.75);
 	
 	/* BLACK KEY LABEL */
 	blackKeyLabelTop = Math.floor(blackKeyHeight * 0.50);
@@ -421,16 +421,18 @@ function drawPiano()
 			if (key !=0) whiteKeyLeft += whiteKeyWidth;
 			$("body").append('<div id="key-'+key+'" class="key" style="border-style:solid; border-width:2px"></div>');
 			adjustTag("key-"+key, whiteKeyLeft, whiteKeyTop, whiteKeyWidth, whiteKeyHeight, "white");
-			//var whiteKeyLabel = '<b><div class="keyLabel" id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+whiteKeyLabelTop+'px;left:'+whiteKeyLabelLeft+'px;z-index:2;font-size:'+whiteKeyLabelSize+'%";font-weight:bold></div></b>';			
-			//$("#key-"+key).append(whiteKeyLabel);
+			//var whiteKeyLabel = '<b><div class="keyLabel" id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+whiteKeyLabelTop+'px;left:'+whiteKeyLabelLeft+'px;z-index:2;font-size:'+whiteKeyLabelSize+'%";font-weight:bold></div></b>';
+
+			$("#key-"+key).append('<div id="keyLabel-'+key+'" class="keyLabel" style="color:#330099">4</div>');			
+			adjustTag("keyLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop, whiteKeyLabelWidth, whiteKeyLabelHeight, "clear");
 		}
 		else
 		{
-			blackKeyOffset = whiteKeyOffset + Math.floor(whiteKeyWidth * 0.75);
-			var blackKey='<div class="key" id="key-'+key+'" style="position:absolute;z-index:2;top:211px;left:'+blackKeyOffset+'px; background-color:black;width:'+blackKeyWidth+'px;height:'+blackKeyHeight+'px;border:0px solid #000"></div>';
-			var blackKeyLabel = '<b><div class="keyLabel" id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+blackKeyLabelTop+'px;left:'+blackKeyLabelLeft+'px;z-index:2;font-size:'+blackKeyLabelSize+'%";font-weight:bold></div></b>';
-			//$("#piano").after(blackKey);
-			//$("#key-"+key).append(blackKeyLabel);
+			//blackKeyOffset =  Math.floor(whiteKeyWidth * 0.75);
+			//var blackKey='<div class="key" id="key-'+key+'" style="position:absolute;z-index:2;top:211px;left:'+blackKeyOffset+'px; background-color:black;width:'+blackKeyWidth+'px;height:'+blackKeyHeight+'px;border:0px solid #000"></div>';
+			//var blackKeyLabel = '<b><div class="keyLabel" id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+blackKeyLabelTop+'px;left:'+blackKeyLabelLeft+'px;z-index:2;font-size:'+blackKeyLabelSize+'%";font-weight:bold></div></b>';
+			////$("#piano").after(blackKey);
+			////$("#key-"+key).append(blackKeyLabel);
 		}
 	}
 
