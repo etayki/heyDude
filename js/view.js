@@ -404,35 +404,34 @@ function drawPiano()
 	whiteKeyLabelHeight = whiteKeyLabelWidth * 1.5;
 	
 	/* BLACK KEY */
-	blackKeyWidth = Math.floor(whiteKeyWidth * 0.32) * 2;
+	blackKeyLeft =  controlsBackgroundLeft;
+	blackKeyTop = whiteKeyTop;
+	blackKeyWidth = Math.floor(whiteKeyWidth * 0.65);
 	blackKeyHeight = Math.floor(whiteKeyHeight * 0.58);
-	//blackKeyOffset = whiteKeyOffset + Math.floor(whiteKeyWidth * 0.75);
 	
 	/* BLACK KEY LABEL */
 	blackKeyLabelTop = Math.floor(blackKeyHeight * 0.50);
 	blackKeyLabelLeft = Math.floor(blackKeyWidth * 0.25);
 	blackKeyLabelSize = 90 * whiteKeyWidth/15;
-	
+
 	for (var key = 0; key < 88; key++)
 	{
 		var keyIdx = key % 12;
 		if (!(keyIdx==1 || keyIdx==4 || keyIdx==6 || keyIdx == 9 || keyIdx==11))
 		{
 			if (key !=0) whiteKeyLeft += whiteKeyWidth;
-			$("body").append('<div id="key-'+key+'" class="key" style="border-style:solid; border-width:2px"></div>');
+			$("body").append('<div id="key-'+key+'" class="key" style="border-style:solid; border-width:2px; z-index:2"></div>');
 			adjustTag("key-"+key, whiteKeyLeft, whiteKeyTop, whiteKeyWidth, whiteKeyHeight, "white");
-			//var whiteKeyLabel = '<b><div class="keyLabel" id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+whiteKeyLabelTop+'px;left:'+whiteKeyLabelLeft+'px;z-index:2;font-size:'+whiteKeyLabelSize+'%";font-weight:bold></div></b>';
-
 			$("#key-"+key).append('<div id="keyLabel-'+key+'" class="keyLabel" style="color:#330099">4</div>');			
 			adjustTag("keyLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop, whiteKeyLabelWidth, whiteKeyLabelHeight, "clear");
 		}
 		else
 		{
-			//blackKeyOffset =  Math.floor(whiteKeyWidth * 0.75);
-			//var blackKey='<div class="key" id="key-'+key+'" style="position:absolute;z-index:2;top:211px;left:'+blackKeyOffset+'px; background-color:black;width:'+blackKeyWidth+'px;height:'+blackKeyHeight+'px;border:0px solid #000"></div>';
-			//var blackKeyLabel = '<b><div class="keyLabel" id="keyLabel-'+key+'" style="color:#330099;position:absolute;top:'+blackKeyLabelTop+'px;left:'+blackKeyLabelLeft+'px;z-index:2;font-size:'+blackKeyLabelSize+'%";font-weight:bold></div></b>';
-			////$("#piano").after(blackKey);
-			////$("#key-"+key).append(blackKeyLabel);
+			blackKeyLeft =  whiteKeyLeft + Math.floor(whiteKeyWidth * 0.75);
+			$("body").append('<div id="key-'+key+'" class="key" style="z-index:3"></div>');
+			adjustTag("key-"+key, blackKeyLeft, blackKeyTop, blackKeyWidth, blackKeyHeight, "black");
+			//$("#key-"+key).append('<div id="keyLabel-'+key+'" class="keyLabel" style="color:#330099">4</div>');			
+			//adjustTag("keyLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop, whiteKeyLabelWidth, whiteKeyLabelHeight, "clear");
 		}
 	}
 
