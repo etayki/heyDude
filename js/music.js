@@ -187,7 +187,7 @@ function didPressLeftHand()
 		$("#leftHand").attr("src", "./images/leftHandDisabled.png");
 		leftHandEnabled = 0
 		if (!rightHandEnabled) didPressRightHand();
-		clearHand("right");
+		clearHand("left");
 	}
 	else
 	{
@@ -204,7 +204,7 @@ function didPressRightHand()
 		$("#rightHand").attr("src", "./images/rightHandDisabled.png");
 		rightHandEnabled = 0
 		if (!leftHandEnabled) didPressLeftHand();
-		clearHand("left");
+		clearHand("right");
 	}
 	else
 	{
@@ -219,7 +219,7 @@ function clearHand(hand)
 	{
 		note = key + 21
 		keyColor =  $("#key-"+key).css("background-color");
-		if ((keyColor == "rgb(255, 0, 0)" && hand == "right") || (keyColor == "rgb(0, 255, 0)" && hand == "left"))
+		if ((keyColor == "rgb(0, 255, 0)" && hand == "right") || (keyColor == "rgb(255, 0, 0)" && hand == "left"))
 		{
 			resetNote(note);
 			MIDI.noteOff(0, note, 0);
