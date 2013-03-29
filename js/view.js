@@ -344,9 +344,10 @@ function drawPiano()
 	blackKeyHeight = Math.floor(whiteKeyHeight * 0.58);
 	
 	/* BLACK KEY LABEL */
-	blackKeyLabelTop = Math.floor(blackKeyHeight * 0.50);
-	blackKeyLabelLeft = Math.floor(blackKeyWidth * 0.25);
-	blackKeyLabelSize = 90 * whiteKeyWidth/15;
+	blackKeyLabelLeft = 0;
+	blackKeyLabelTop = blackKeyHeight * 0.5;
+	blackKeyLabelWidth = blackKeyWidth;
+	blackKeyLabelHeight = blackKeyLabelWidth * 1.5;
 
 	for (var key = 0; key < 88; key++)
 	{
@@ -354,18 +355,22 @@ function drawPiano()
 		if (!(keyIdx==1 || keyIdx==4 || keyIdx==6 || keyIdx == 9 || keyIdx==11))
 		{
 			if (key !=0) whiteKeyLeft += whiteKeyWidth;
+			/* WHITE KEY */
 			$("body").append('<div id="key-'+key+'" class="key" style="border-style:solid; border-width:2px; z-index:2"></div>');
 			adjustTag("key-"+key, whiteKeyLeft, whiteKeyTop, whiteKeyWidth, whiteKeyHeight, "white");
-			$("#key-"+key).append('<div id="keyLabel-'+key+'" class="keyLabel" style="color:#330099">4</div>');			
+			/* WHITE KEY LABEL */
+			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:#330099"></div></b>');			
 			adjustTag("keyLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop, whiteKeyLabelWidth, whiteKeyLabelHeight, "clear");
 		}
 		else
 		{
+			/* BLACK KEY */
 			blackKeyLeft =  whiteKeyLeft + Math.floor(whiteKeyWidth * 0.75);
 			$("body").append('<div id="key-'+key+'" class="key" style="z-index:3"></div>');
 			adjustTag("key-"+key, blackKeyLeft, blackKeyTop, blackKeyWidth, blackKeyHeight, "black");
-			//$("#key-"+key).append('<div id="keyLabel-'+key+'" class="keyLabel" style="color:#330099">4</div>');			
-			//adjustTag("keyLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop, whiteKeyLabelWidth, whiteKeyLabelHeight, "clear");
+			/* BLACK KEY LABEL */
+			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:#330099"></div></b>');			
+			adjustTag("keyLabel-"+key, blackKeyLabelLeft, blackKeyLabelTop, blackKeyLabelWidth, blackKeyLabelHeight, "clear");
 		}
 	}
 }
