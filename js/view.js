@@ -62,14 +62,6 @@ function drawHeader()
 	logoTop = measureGridHeaderTop + (measureGridHeaderHeight - logoHeight)/2;
 	logoWidth = measureGridHeaderHeight * 1.3;
 	adjustTag("logo", logoLeft, logoTop, logoWidth, logoHeight, "clear");
-
-	///* LOGO LABEL */
-	//$("body").append('<div id="logoLabel">WatchAndRepeat</div>');
-	//logoLabelLeft =  logoLeft - 30;
-	//logoLabelTop = measureGridHeaderTop + logoHeight + measureGridHeaderHeight * 0.1;
-	//logoLabelWidth = logoWidth;
-	//logoLabelHeight = measureGridHeaderHeight * 0.3;
-	//adjustTag("logoLabel", logoLabelLeft, logoLabelTop, logoLabelWidth, logoLabelHeight, "clear");
 	
 	/* COMPOSER PIC */
 	$("body").append('<img id="composerPic" src="./images/beethoven.jpeg"></img>');
