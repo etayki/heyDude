@@ -11,6 +11,7 @@ var info = {
 function drawScreen()
 {
 	setSceenWidth();
+	drawHeader();
 	drawMeasureGrid();
 	drawMarkers();
 	drawControls();
@@ -43,17 +44,44 @@ function display()
 	//$("#feedback").css("display","");
 }
 
-function drawMeasureGrid()
+function drawHeader()
 {
 	/* MEASURE GRID HEADER */
 	$("body").append('<div id="measureGridHeader"></div>');
 	measureGridHeaderWidth = Math.floor(screenWidth * 0.8) - 1; // Subtract one to account for border of measureBox
 	measureGridHeaderLeft = (screenWidth - measureGridHeaderWidth)/2;
-	measureGridHeaderTop = 50;
-	measureGridHeaderHeight = 40;
+	measureGridHeaderTop = 0;
+	measureGridHeaderHeight = 80;
 	measureGridHeaderColor = "#919191";
-	adjustTag("measureGridHeader", measureGridHeaderLeft, measureGridHeaderTop, measureGridHeaderWidth, measureGridHeaderHeight, measureGridHeaderColor);
+	adjustTag("measureGridHeader", measureGridHeaderLeft, measureGridHeaderTop, measureGridHeaderWidth, measureGridHeaderHeight, measureGridHeaderColor);	
+	
+	/* COMPOSER PIC */
+	$("body").append('<img id="composerPic" src="./images/beethoven.jpeg"></img>');
+	composerPicLeft = measureGridHeaderLeft;
+	composerPicTop = measureGridHeaderTop;
+	composerPicHeight = measureGridHeaderHeight;
+	composerPicWidth = measureGridHeaderHeight * 1.2;
+	adjustTag("composerPic", composerPicLeft, composerPicTop, composerPicWidth, composerPicHeight, "clear");
+	
+	/* TUNE LABEL */
+	$("body").append('<div id="tuneLabel">Moonlight Sonata</div>');
+	tuneLabelLeft =  measureGridHeaderLeft;
+	tuneLabelTop = measureGridHeaderTop + measureGridHeaderHeight * 0.1;
+	tuneLabelWidth = measureGridHeaderWidth;
+	tuneLabelHeight = measureGridHeaderHeight * 0.4;
+	adjustTag("tuneLabel", tuneLabelLeft, tuneLabelTop, tuneLabelWidth, tuneLabelHeight, "clear");
+	
+	/* ARTIST LABEL */
+	$("body").append('<div id="artisitLabel">L.V. Beethoven</div>');
+	artisitLabelLeft =  measureGridHeaderLeft;
+	artisitLabelTop = measureGridHeaderTop + measureGridHeaderHeight * 0.55;
+	artisitLabelWidth = measureGridHeaderWidth;
+	artisitLabelHeight = measureGridHeaderHeight * 0.25;
+	adjustTag("artisitLabel", artisitLabelLeft, artisitLabelTop, artisitLabelWidth, artisitLabelHeight, "clear");
+}
 
+function drawMeasureGrid()
+{
 	/* MEASURE BOX */
 	measureBoxWidth = measureGridHeaderWidth * 0.05;
 	measureBoxHeight = measureBoxWidth;
