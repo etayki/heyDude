@@ -46,23 +46,10 @@ $(document).ready(function() {
 
 function didPressPlayButton(option)
 {
-	if(feedbackFormDisplayed)
-		return;
-	
-	if (!didPressPlayBtn)
-	{
-		didPressPlayBtn = 1;
-		$("#playBtn").attr("src", "./images/pauseButton.png");
-		$("#playButton").text("Pause");
-	}	
-	else if (didPressPlayBtn == 1 && option == STARTPLAY)
-	{
-		didPressPauseButton();
-		return;
-	}
-	
-	
-	
+	/* TOGGLE FROM PLAY TO PAUSE */
+	$("#playBtn").attr("src", "./images/pauseButton.png");
+	$("#playBtn").attr("onclick", "didPressPauseButton()");
+		
 	if (option == STARTPLAY)
 	{
 		oldTempo = tempo;
@@ -147,27 +134,15 @@ function didPressPlayButton(option)
 	
 }
 
-function didPressPauseButton(option)
+function didPressPauseButton()
 {
+	/* TOGGLE FROM PAUSE TO PLAY */
 	$("#playBtn").attr("src", "./images/playButton.png");
-	didPressPlayBtn = 0;
-	$("#playButton").text("Play");
-	
-	if (option == STOP)
-	{
-		delay = startDelay;
-		currentPosition = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
-		$("#currentPosition").text(currentPosition);
-		// Update Measure Display
-		$("#curPosition").css("left", (delay/4) * playIntervalWidth);
-	}
+	$("#playBtn").attr("onclick", "didPressPlayButton()");
 
 	for (var note = 21; note < 108; note++)
 	{
 		MIDI.noteOff(0, note, 0);
-
-		if (option)
-			resetNote(note);
 	}
 
 	// clear all timers in the array
@@ -175,6 +150,31 @@ function didPressPauseButton(option)
 	{
 	    clearTimeout(timers[i]);
 	}
+}
+
+function didPressStopButton()
+{
+	/* TOGGLE FROM PAUSE TO PLAY */
+	$("#playBtn").attr("src", "./images/playButton.png");
+	$("#playBtn").attr("onclick", "didPressPlayButton()");
+
+	for (var note = 21; note < 108; note++)
+	{
+		MIDI.noteOff(0, note, 0);
+		resetNote(note);
+	}
+
+	// clear all timers in the array
+	for (var i = 0; i < timers.length; i++)
+	{
+	    clearTimeout(timers[i]);
+	}
+	
+	delay = startDelay;
+	currentPosition = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
+	//$("#currentPosition").text(currentPosition);
+	// Update Measure Display
+	//$("#curPosition").css("left", (delay/4) * playIntervalWidth);
 }
 
 function resetNote(note)

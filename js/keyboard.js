@@ -44,14 +44,7 @@ $(document).keydown(function(e){
 	}
 	else if (e.keyCode == SPACE)
 	{
-		if (didPressPlayBtn)
-		{
-			didPressPauseButton();
-		}
-		else
-		{
-			didPressPlayButton(STARTPLAY);		
-		}
+		$("#playBtn").click();
 	}
 	else if (e.keyCode == 13) // Enter
 	{
@@ -72,9 +65,9 @@ $(document).keydown(function(e){
 	{
 		$('input[name=hand][value=both]').prop("checked",true);	
 	}
-	else if (e.keyCode == 83) // s
+	else if (e.keyCode == S)
 	{
-		didPressPauseButton(STOP);	
+		didPressStopButton();	
 	}
 	else if (e.keyCode == 84) // t
 	{
@@ -83,3 +76,4 @@ $(document).keydown(function(e){
 });
 
 SPACE = 32;
+S = 83;
