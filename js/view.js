@@ -51,7 +51,7 @@ function drawHeader()
 	measureGridHeaderWidth = Math.floor(screenWidth * 0.8) - 1; // Subtract one to account for border of measureBox
 	measureGridHeaderLeft = (screenWidth - measureGridHeaderWidth)/2;
 	measureGridHeaderTop = 0;
-	measureGridHeaderHeight = 80;
+	measureGridHeaderHeight = measureGridHeaderWidth * 0.065;
 	measureGridHeaderColor = "#919191";
 	adjustTag("measureGridHeader", measureGridHeaderLeft, measureGridHeaderTop, measureGridHeaderWidth, measureGridHeaderHeight, measureGridHeaderColor);	
 	
