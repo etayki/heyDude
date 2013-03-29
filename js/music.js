@@ -80,9 +80,8 @@ function didPressPlayButton(option)
 				if (tempo == 200) // End fastfoward
 					tempo = oldTempo;
 				
-				var hand = $('input:radio[name=hand]:checked').val();
 				var finger = tune[measure][noteIdx][FINGER];
-				if (( finger < 0 && hand == "right") || (finger > 0 && hand == "left"))
+				if (( finger < 0 && !leftHandEnabled) || (finger > 0 && !rightHandEnabled))
 					continue;
 	
 				MIDI.noteOn(0, note, tune[measure][noteIdx][VELOCITY], 0);
