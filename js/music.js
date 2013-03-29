@@ -50,7 +50,7 @@ function didPressPlayButton(option)
 	$("#playBtn").attr("src", "./images/pauseButton.png");
 	$("#playBtn").attr("onclick", "didPressPauseButton()");
 		
-	if (option == STARTPLAY)
+	if (option != REPEAT)
 	{
 		oldTempo = tempo;
 		tempo = 200; // Fast forward to the next note upon resume;
