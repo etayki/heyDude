@@ -252,6 +252,9 @@ function setStartMeasure(newMeasure)
 		delay = startDelay;
 		setPositionMarker();
 		resetNotes();
+		hello = $("#playBtn").attr("src");
+		if ($("#playBtn").attr("src") ==  "./images/pauseButton.png")
+			didPressPlayButton();
 	}
 	
 	if (startMeasure > endMeasure)
