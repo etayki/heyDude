@@ -127,16 +127,8 @@ function didPressPlayButton(option)
 		{
 			didPressPauseButton(STOP);
 		}
-		position = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
-		$("#positionLabel").text(position);
 		
-		
-		/* Update Measure Display */
-		currentMeasure = Math.floor(position);
-		measureBoxLeft = Number($("#measureBox-"+currentMeasure).css("left").replace(/px/g, ''));
-		measureBoxTop = Number($("#measureBox-"+currentMeasure).css("top").replace(/px/g, ''));
-		$("#positionMarker").css("left", measureBoxLeft + (position-currentMeasure) * measureBoxWidth);
-		$("#positionMarker").css("top", measureBoxTop);
+		setCurrentPosition();
 		didPressPlayButton(REPEAT);
 	}, 4*tempo/600));	
 	
@@ -179,11 +171,7 @@ function didPressStopButton()
 	}
 	
 	delay = startDelay;
-	position = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
-	$("#positionLabel").text(position);
-	
-	/* UPDATE POSITION MARKER */
-	//$("#curPosition").css("left", (delay/4) * playIntervalWidth);
+	setCurrentPosition();
 }
 
 function didPressLeftHand()
@@ -248,7 +236,21 @@ function resetNote(note)
 	noteOn.splice(noteOn.indexOf(note), 1);
 }
 
-function updatePosition(val)
+function setCurrentPosition()
+{
+	/* SET POSITION LABEL */
+	position = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
+	$("#positionLabel").text(position);
+	
+	/* SET POSITION MARKER */
+	currentMeasure = Math.floor(position);
+	measureBoxLeft = Number($("#measureBox-"+currentMeasure).css("left").replace(/px/g, ''));
+	measureBoxTop = Number($("#measureBox-"+currentMeasure).css("top").replace(/px/g, ''));
+	$("#positionMarker").css("left", measureBoxLeft + (position-currentMeasure) * measureBoxWidth);
+	$("#positionMarker").css("top", measureBoxTop);	
+}
+
+function setCurrentMeasure(val)
 {
 
 	position = Math.floor(position);
@@ -290,11 +292,11 @@ function updatePosition(val)
 
 	// Update Start Measure
 	if (position < startMeasure)
-		updateStartMeasure(Math.floor(Number(position))-1);
+		setStartMeasure(Math.floor(Number(position))-1);
 		
 	// Update End Measure
 	if (position >= endMeasure)
-		updateEndMeasure(Math.floor(Number(position))+1);
+		setEndMeasure(Math.floor(Number(position))+1);
 
 	// Update Measure Display
 	$("#curPosition").css("left", (delay/4) * playIntervalWidth);
@@ -303,7 +305,7 @@ function updatePosition(val)
 
 }
 
-function updateStartMeasure(val)
+function setStartMeasure(val)
 {
 	if (isNaN(Number(val)) && !(val == "+" || val == "-"))
 		val = 0;
@@ -340,13 +342,13 @@ function updateStartMeasure(val)
 	
 	// Update End Measure
 	if (startMeasure >= endMeasure)
-		updateEndMeasure(Number(startMeasure)+1);
+		setEndMeasure(Number(startMeasure)+1);
 
 	// Update Left Marker
 	setLeftMarker(startMeasure);
 }
 
-function updateEndMeasure(val)
+function setEndMeasure(val)
 {
 	if (isNaN(Number(val)) && !(val == "+" || val == "-"))
 		val = 0;
@@ -383,7 +385,7 @@ function updateEndMeasure(val)
 
 	// Update Start Measure
 	if (endMeasure <= startMeasure)
-		updateStartMeasure(Number(endMeasure)-1);
+		setStartMeasure(Number(endMeasure)-1);
 
 	// Update Right Marker
 	setRightMarker(endMeasure);
@@ -438,8 +440,8 @@ function repeatMask()
 	{
 		startMeasure = savedStartMeasure;
 		endMeasure = savedEndMeasure;
-		updateStartMeasure(startMeasure);
-		updateEndMeasure(endMeasure);
+		setStartMeasure(startMeasure);
+		setEndMeasure(endMeasure);
 		$('#playInterval').css("display","");
 	}
 	else
@@ -447,8 +449,8 @@ function repeatMask()
 		$('#playInterval').css("display","none");
 		savedStartMeasure = startMeasure;
 		savedEndMeasure = endMeasure;
-		updateStartMeasure(1);
-		updateEndMeasure(tune.length);
+		setStartMeasure(1);
+		setEndMeasure(tune.length);
 	}
 	
 }
