@@ -237,13 +237,13 @@ function setCurrentMeasure(newMeasure)
 {
 	if (newMeasure == "-")
 	{
-		currentMeasure = Math.floor((delay/4 + 1)*100)/100;
+		currentMeasure = Math.floor((delay/4 + 1));
 		newMeasure = currentMeasure - 1;
 		if (newMeasure == 0) return;
 	}
 	else if (newMeasure == "+")
 	{
-		currentMeasure = Math.floor((delay/4 + 1)*100)/100;
+		currentMeasure = Math.floor((delay/4 + 1));
 		newMeasure = currentMeasure + 1;
 		if (newMeasure == tune.length) return;
 	}
@@ -252,7 +252,7 @@ function setCurrentMeasure(newMeasure)
 
 
 
-	//if (position < startMeasure)
+	//if (newMeasure < startMeasure)
 	//	setStartMeasure(Math.floor(Number(position))-1);
 	//
 	//// Update End Measure

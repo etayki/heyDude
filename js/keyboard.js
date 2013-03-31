@@ -12,11 +12,11 @@ $(document).keydown(function(e){
 	}
 	if (e.keyCode == LEFT_ARROW)
 	{ 
-		updatePosition("-");
+		setCurrentMeasure("-");
 	}
 	else if (e.keyCode == RIGHT_ARROW)
 	{ 
-		updatePosition("+");
+		setCurrentMeasure("+");
 	}
 	if (e.keyCode == 38) // Up arrow
 	{
