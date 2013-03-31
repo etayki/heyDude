@@ -252,7 +252,6 @@ function setStartMeasure(newMeasure)
 		delay = startDelay;
 		setPositionMarker();
 		resetNotes();
-		didPressPlayButton();
 	}
 	
 	if (startMeasure > endMeasure)
@@ -280,11 +279,11 @@ function setEndMeasure(newMeasure)
 	endMeasure = Number(newMeasure);
 	endDelay = endMeasure * 4;
 
-	if (endDelay < delay)
+	if (endDelay <= delay)
 	{
-		resetNotes();
 		delay = startDelay;
 		setPositionMarker();
+		resetNotes();
 	}
 	
 	if (startMeasure > endMeasure)
