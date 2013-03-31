@@ -16,6 +16,7 @@ function drawScreen()
 	drawMarkers();
 	colorizeMeasures();
 	drawControls();
+	drawMetronome();
 	drawPiano();
 	setEvents();
 	//feedbackForm();
@@ -140,7 +141,6 @@ function drawMeasureGrid()
 		}
 	}	
 }
-
 
 function drawMarkers()
 {
@@ -278,15 +278,15 @@ function drawControls()
 	/* SLOW LABEL */
 	$("body").append('<div id="slowLabel">Slow</div>');
 	slowLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.75;
-	slowLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.6;
+	slowLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.65;
 	slowLabelWidth = controlsBackgroundWidth * 0.05;
 	slowLabelHeight = controlsBackgroundHeight * 0.2;
 	adjustTag("slowLabel", slowLabelLeft, slowLabelTop, slowLabelWidth, slowLabelHeight, "clear");
 	
 	/* FAST LABEL */
 	$("body").append('<div id="fastLabel">Fast</div>');
-	fastLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.85;
-	fastLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.6;
+	fastLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.9;
+	fastLabelTop = slowLabelTop;
 	fastLabelWidth = controlsBackgroundWidth * 0.05;
 	fastLabelHeight = controlsBackgroundHeight * 0.2;
 	adjustTag("fastLabel", fastLabelLeft, fastLabelTop, fastLabelWidth, fastLabelHeight, "clear");
@@ -301,36 +301,31 @@ function drawControls()
 
 }
 
-/* HELPER FUNCTIONS */
-function adjustTag(tag, left, top, width, height, backgroundColor)
+function drawMetronome()
 {
-	$("#"+tag).css("position", "absolute");
-	$("#"+tag).css("left", left);
-	$("#"+tag).css("top", top);
-	$("#"+tag).css("width", width);
-	$("#"+tag).css("height", height);
-	$("#"+tag).css("background-color", backgroundColor);
-	if (tag.indexOf("Label") !== -1)
-	{
-		fontSize = getFontSize(height);
-		$("#"+tag).css("font-size", fontSize+"px");
-		$("#"+tag).css("text-align","center");
-	}
-}
-
-function getFontSize(labelHeight)
-{
-	$("body").append('<div id="textLabel"><span id="textSpan">00</span></div>');
-
-	fontSize = 0;
-	do {
-	    fontSize += 2;
-	    $("#textLabel").css('font-size', fontSize);
-	    spanHeight = Number($("#textSpan").css('height').replace(/px/g, ''));
-	} while (spanHeight < labelHeight)
+	/* MEASURE BOX */
+	metronomeBoxLeft = slowLabelLeft + slowLabelWidth/2;
+	metronomeBoxWidth = (fastLabelLeft - slowLabelLeft)/10;
+	metronomeBoxHeight = controlsBackgroundHeight * 0.2;
+	metronomeBoxTop = controlsBackgroundTop + (controlsBackgroundHeight - metronomeBoxHeight)/2;
+	metronomeBoxColor = "5884F1";
 	
-	$('#textLabel').remove();
-	return fontSize;
+	for (number = 1; number <= 11; number++)
+	{	
+		/* METRONOME BOX */
+		$("body").append('<div id="metronomeBox-'+number+'" class="metronomeBox" style="border-style:solid; border-width:1px"></div>');
+		adjustTag("metronomeBox-"+number, metronomeBoxLeft, metronomeBoxTop, metronomeBoxWidth, metronomeBoxHeight, metronomeBoxColor);
+		metronomeBoxLeft += metronomeBoxWidth;
+	}
+	
+	/* DRAGGER */
+	draggerBoxLeft = $("#metronomeBox-6").css("left").replace(/px/g, '');
+	draggerBoxWidth = metronomeBoxWidth * 1.4;
+	draggerBoxLeft = draggerBoxLeft - (draggerBoxWidth-metronomeBoxWidth)/2;
+	draggerBoxHeight = draggerBoxWidth;
+	draggerBoxTop = metronomeBoxTop - (draggerBoxHeight-metronomeBoxHeight)/3;
+	$("body").append('<img id="dragger" src="./images/dragger.png"></img>');
+	adjustTag("dragger", draggerBoxLeft, draggerBoxTop, draggerBoxWidth, draggerBoxHeight, "clear");
 }
 
 function drawPiano()
@@ -401,6 +396,38 @@ function drawPiano()
 	}
 }
 
+/* HELPER FUNCTIONS */
+function adjustTag(tag, left, top, width, height, backgroundColor)
+{
+	$("#"+tag).css("position", "absolute");
+	$("#"+tag).css("left", left);
+	$("#"+tag).css("top", top);
+	$("#"+tag).css("width", width);
+	$("#"+tag).css("height", height);
+	$("#"+tag).css("background-color", backgroundColor);
+	if (tag.indexOf("Label") !== -1)
+	{
+		fontSize = getFontSize(height);
+		$("#"+tag).css("font-size", fontSize+"px");
+		$("#"+tag).css("text-align","center");
+	}
+}
+
+function getFontSize(labelHeight)
+{
+	$("body").append('<div id="textLabel"><span id="textSpan">00</span></div>');
+
+	fontSize = 0;
+	do {
+	    fontSize += 2;
+	    $("#textLabel").css('font-size', fontSize);
+	    spanHeight = Number($("#textSpan").css('height').replace(/px/g, ''));
+	} while (spanHeight < labelHeight)
+	
+	$('#textLabel').remove();
+	return fontSize;
+}
+
 function setEvents()
 {
 	$('img').on('dragstart', function(event) { event.preventDefault(); });
@@ -462,27 +489,12 @@ function setEvents()
 		}, 400));
 			
 	  });
-
-	/* REPEAT */
-	$(".key").click(function(){
-		keyPress = $(this).attr('id');
-		keyPress = keyPress.replace(/key-/g,'');
-		/* RELEASE PREVIOUS NOTE */
-		resetNote(notePress);
-		for (var i = 0; i < timers.length; i++)
-		{
-		    clearTimeout(timers[i]);
-		}
-		
-		notePress = Number(keyPress) + 21;
-		MIDI.noteOn(0,notePress,90,0);
-		MIDI.noteOff(0,notePress,0.4);
-		$("#key-"+keyPress).css("background-color","yellow");
-
-		timers.push(setTimeout(function() {
-			resetNote(notePress);
-		}, 400));
-			
+	
+	/* METRONOME BOX */
+	$(".metronomeBox").click(function(){
+		newMetronomeBox = $(this).attr('id');
+		newMetronomeBox = Number(newMetronomeBox.replace(/metronomeBox-/g,''));
+		setTempo(newMetronomeBox);	
 	  });
 }
 
@@ -672,121 +684,6 @@ function feedbackForm() {
 	
 }
 
-//function drawControls()
-//{
-//	$("#controls").find("*").andSelf().each(
-//	    function(){
-//		var width = $(this).css('width');
-//		var left = $(this).css('left');
-//		var fontSize = $(this).css('font-size');
-//		width = width.replace(/px/g, '');
-//		left = left.replace(/px/g, '');
-//		fontSize = fontSize.replace(/px/g, '');
-//		
-//		$(this).css("width",width*whiteKeyWidth/20+"px");
-//		$(this).css("left",left*whiteKeyWidth/20+"px");
-//		$(this).css("font-size",fontSize*(whiteKeyWidth/50+3/5)+"px");
-//	    }
-//	);
-//
-//	var controlsWidth = $("#controls").css("width").replace(/px/g, '');
-//	// Not sure why the PianoLeft wasn't added here, but it works
-//	var controlsLeft = pianoLeft + (pianoWidth - Number(controlsWidth))/2;
-//	$("#controls").css("left", controlsLeft);
-//	
-//	dhtmlxEvent(window, "load", sliderInit);
-//	
-//	infoTop = chairTop + 50;//350;
-//	infoLeft = chairLeft + 30;//150;
-//	infoWidth = chairWidth - 50;//800;
-//	var infoArea = '<b><div id="info" style="position:absolute;top:'+infoTop+'px;left:'+infoLeft+'px;width:'+infoWidth+'px;height:50px;background-color:clear;color:white;font-size:22px"></b>';
-//	$("body").after(infoArea);
-//
-//	$(".control").hover(function(){
-//		if(!(userAgent.indexOf("iPhone") !== -1 || userAgent.indexOf("iPad") !== -1))
-//		{
-//			message = info[$(this).attr('id')];
-//			$("#info").append(message);
-//		}
-//	  },
-//	  function(){
-//	    $("#info").text("");              
-//	});
-//	
-//	$("#repeatMeasure").change(function(){
-//		$('#repeatMeasure').blur();
-//		var text = $("#repeatMeasure option:selected").text();
-//		text = text.replace(/ Measure/g, '');
-//		text = text.replace(/s/g, '');
-//		newMeasureLength = Number(text);
-//	  });
-//
-//	$("#repeatCheck").click(function(){
-//		repeatMask();
-//	  });
-//	
-
-//
-//	  $('#startMeasure').live('blur', function() {
-//		if ($("#startMeasure").val() == "")
-//			$("#startMeasure").val(startMeasure);
-//	});
-//
-//
-//	  $('#endMeasure').live('blur', function() {	
-//		if ($("#endMeasure").val() == "")
-//			$("#endMeasure").val(endMeasure);
-//	});
-//}
-
-//function playDisplay()
-//{
-//	rulerWidth = Number($("#playDisplay").css("width").replace(/px/g, '')) * 0.8;
-//	rulerLeft = Number($("#playDisplay").css("left").replace(/px/g, '')) + rulerWidth/10;
-//	rulerTop = Number($("#playDisplay").css("height").replace(/px/g, ''))/2 - 10;
-//	markTop = rulerTop - 12;
-//	markHeight = 13;
-//	markLeft = 0;
-//	
-//	
-//	var ruler='<div id="ruler" style="position:absolute;z-index:5;top:'+rulerTop+'px;left:'+rulerLeft+'px; background-color:black;width:'+rulerWidth+'px;height:3px"></div>';
-//	$("#playDisplay").append(ruler);
-//	
-//	for(var i = 1; i < tune.length + 1; i++)
-//	{
-//		var check='<div id="check-'+i+'" style="position:absolute;z-index:5;top:'+markTop+'px;left:'+markLeft+'px; background-color:black;width:2px;height:'+markHeight+'px"></div>';
-//		$("#ruler").append(check);
-//	
-//		if (i%5 == 0 || i == 1)
-//		{				
-//			var checkNum = '<b><div style="position:absolute;top:12px;left:-9px;width:20px;z-index:6;font-size:12px;text-align:center;background-color:clear";font-weight:bold>'+i+'</div></b>';
-//			$("#check-"+i).append(checkNum);
-//		}
-//		
-//		measureBoxLeft = markLeft;
-//		measureBoxTop = markTop;
-//		measureBoxWidth = rulerWidth/(tune.length-1);
-//		measureBoxHeight = markHeight;
-//		var measureBox='<div class="measureBox" id="measureBox-'+i+'" style="position:absolute;z-index:7;top:'+measureBoxTop+'px;left:'+measureBoxLeft+'px; background-color:clear;width:'+measureBoxWidth+'px;height:'+measureBoxHeight+'px"></div>';
-//		$("#ruler").append(measureBox);
-//		
-//		markLeft += rulerWidth/(tune.length-1);
-//	}
-//
-//	playIntervalLeft = 0;
-//	playIntervalWidth = rulerWidth/(tune.length-1);
-//	var playInterval='<div id="playInterval" style="position:absolute;top:'+markTop+'px;left:'+playIntervalLeft+'px; background-color:green;width:'+playIntervalWidth+'px;height:'+markHeight+'px;z-index:4"></div>';
-//	$("#ruler").append(playInterval);
-//
-//	var curPosition='<div id="curPosition" style="position:absolute;z-index:5;top:'+markTop+'px;left:0px; background-color:red;width:3px;height:'+markHeight+'px"></div>';
-//	$("#ruler").append(curPosition);
-//	
-//	$(".measureBox").click(function(){
-//		selectedMeasureBox = $(this).attr('id');
-//		selectedMeasure = Number(selectedMeasureBox.replace(/measureBox-/g,''));
-//		updatePosition(selectedMeasure);
-//	  });
-//}
 
 /* --- ================ SLIDER ================== */
 function sliderInit()

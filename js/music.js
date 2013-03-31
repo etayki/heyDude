@@ -1,6 +1,5 @@
 /* TEMPO */
-var startTempo = 3900;
-var tempo = 3900 - (startTempo - 1300);
+var tempo = 20;
 
 /* MEASURE/DELAY */
 var startMeasure = currentMeasure = 1;
@@ -135,7 +134,7 @@ function didPressPlayButton(option)
 		
 		setPositionMarker();
 		didPressPlayButton(REPEAT);
-	}, 4*tempo/600));	
+	}, tempo));	
 	
 }
 
@@ -299,6 +298,12 @@ function setEndMeasure(newMeasure)
 	colorizeMeasures();
 }
 
+function setTempo(newMetronomeBox)
+{
+	// Set new tempo	
+	tempo = (11 - newMetronomeBox) * 4;
+}
+
 function updateTempo(slider, val) {
 	if (isNaN(Number(val)) && !(val == "+" || val == "-"))
 		val = 0;
@@ -321,47 +326,10 @@ function updateTempo(slider, val) {
 	if (val > 3900)
 		val = 3900;
 		
-	// Set new tempo	
-	tempoSlider.setValue(3900 - (val - 1300));
-	document.getElementById("tempo").value = 3900 - (val - 1300);
-	tempo = val;
+
 };
 
-function repeatToggle()
-{
-	if($("#repeatCheck").is(':checked'))
-	{
-		$('#repeatCheck').prop('checked', false);
 
-	}
-	else
-	{
-		$('#repeatCheck').prop('checked', true);
-	}
-	
-	repeatMask();
-}
-
-function repeatMask()
-{
-	if($("#repeatCheck").is(':checked'))
-	{
-		startMeasure = savedStartMeasure;
-		endMeasure = savedEndMeasure;
-		setStartMeasure(startMeasure);
-		setEndMeasure(endMeasure);
-		$('#playInterval').css("display","");
-	}
-	else
-	{
-		$('#playInterval').css("display","none");
-		savedStartMeasure = startMeasure;
-		savedEndMeasure = endMeasure;
-		setStartMeasure(1);
-		setEndMeasure(tune.length);
-	}
-	
-}
 
 /* --- ================ DEBUG ================== */
 debugTop = 0;
