@@ -124,6 +124,7 @@ function drawMeasureGrid()
 			$("#measureBox-"+number).append(measureBoxLabel);
 			adjustTag("measureBoxLabel-"+number, measureBoxLabelLeft, measureBoxLabelTop, measureBoxLabelWidth, measureBoxLabelHeight, "clear");
 			$("#measureBoxLabel-"+number).css("position", "absolute");
+
 		}
 		else
 		{

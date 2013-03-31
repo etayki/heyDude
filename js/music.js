@@ -42,9 +42,16 @@ $(document).ready(function() {
 			MIDI.setVolume(0, 127);
 		}
 	});
+	
 	/* This will increase loading time. The user won't hear anything until MIDI loaded, that's all */
 	drawScreen();
-
+	
+	/* DISABLE SELECTION */
+	$("body").css("-webkit-user-select","none");
+	$("body").css("-moz-user-select","none");
+	$("body").css("-ms-user-select","none");
+	$("body").css("-o-user-select","none");
+	$("body").css("user-select","none");
 });
 
 /* --- ================ CONTROLS ================== */
