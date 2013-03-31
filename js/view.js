@@ -223,7 +223,7 @@ function setPositionMarker()
 	$("#positionMarker").css("top", measureBoxTop);	
 }
 
-function setLeftMarker(measure)
+function setStartMarker(measure)
 {
 	leftMarkerMeasure = measure;
 	leftMarkLeft = $("#measureBox-"+measure).css("left").replace(/px/g, '');
@@ -232,7 +232,7 @@ function setLeftMarker(measure)
 	$("#leftMarker").css("top", leftMarkTop);	
 }
 
-function setRightMarker(measure)
+function setEndMarker(measure)
 {
 	rightMarkerMeasure = measure;
 	rightMarkLeft =  $("#measureBox-"+measure).css("left").replace(/px/g, '') - leftMarkWidth + 1 + measureBoxWidth;

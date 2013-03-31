@@ -250,106 +250,63 @@ function setCurrentMeasure(newMeasure)
 
 	delay = (newMeasure - 1) * 4;
 
+	if (newMeasure < startMeasure)
+		setStartMeasure(newMeasure);
 
-
-	//if (newMeasure < startMeasure)
-	//	setStartMeasure(Math.floor(Number(position))-1);
-	//
-	//// Update End Measure
-	//if (position >= endMeasure)
-	//	setEndMeasure(Math.floor(Number(position))+1);
-
-	/* SET POSITION MARKER */
-	setPositionMarker();
+	if (newMeasure > endMeasure)
+		setEndMeasure(newMeasure);
 
 	resetNotes();
 	didPressPlayButton();
 }
 
-function setStartMeasure(val)
+function setStartMeasure(newMeasure)
 {
-	if (isNaN(Number(val)) && !(val == "+" || val == "-"))
-		val = 0;
-		
-	if (val == "-")
+	if (newMeasure == "-")
 	{
-		val = Number(startMeasure) - 1;
-		if (val == 0)
-		{
-			return;
-		}
+		currentMeasure = Math.floor((delay/4 + 1));
+		newMeasure = currentMeasure - 1;
+		if (newMeasure == 0) return;
+	}
+	else if (newMeasure == "+")
+	{
+		currentMeasure = Math.floor((delay/4 + 1));
+		newMeasure = currentMeasure + 1;
+		if (newMeasure == tune.length) return;
 	}
 	
-	maxMeasure = Math.floor(tune.length);
-
-	if (val == "+")
-	{
-		if (startMeasure == maxMeasure)
-			return;
-		val = Number(startMeasure) + 1;
-	}
+	startMeasure = newMeasure;
+	startDelay = (newMeasure - 1) * 4;
 	
-	// Limit to min measure
-	if (val < 1)
-		val = 1;
-		
-	// Limit to max measure
-	if (val > maxMeasure)
-		val = maxMeasure;
-		
-	// Set new measure	
-	$("#startMeasure").val(val);
-	startMeasure = val;
-	
-	// Update End Measure
-	if (startMeasure >= endMeasure)
-		setEndMeasure(Number(startMeasure)+1);
+	if (startMeasure > endMeasure)
+		setEndMeasure(startMeasure);
 
 	// Update Left Marker
-	setLeftMarker(startMeasure);
+	setStartMarker(startMeasure);
 }
 
-function setEndMeasure(val)
+function setEndMeasure(newMeasure)
 {
-	if (isNaN(Number(val)) && !(val == "+" || val == "-"))
-		val = 0;
-		
-	if (val == "-")
+	if (newMeasure == "-")
 	{
-		val = Number(endMeasure) - 1;
-		if (val == 0)
-		{
-			return;
-		}
+		currentMeasure = Math.floor((delay/4 + 1));
+		newMeasure = currentMeasure - 1;
+		if (newMeasure == 0) return;
+	}
+	else if (newMeasure == "+")
+	{
+		currentMeasure = Math.floor((delay/4 + 1));
+		newMeasure = currentMeasure + 1;
+		if (newMeasure == tune.length) return;
 	}
 	
-	maxMeasure = Math.floor(tune.length);
-
-	if (val == "+")
-	{
-		if (endMeasure == maxMeasure)
-			return;
-		val = Number(endMeasure) + 1;
-	}
+	startMeasure = newMeasure;
+	startDelay = (newMeasure - 1) * 4;
 	
-	// Limit to min measure
-	if (val < 1)
-		val = 1;
-		
-	// Limit to max measure
-	if (val > maxMeasure)
-		val = maxMeasure;
-		
-	// Set new measure	
-	$("#endMeasure").val(val);
-	endMeasure = val;
+	if (startMeasure > endMeasure)
+		setEndMeasure(startMeasure);
 
-	// Update Start Measure
-	if (endMeasure <= startMeasure)
-		setStartMeasure(Number(endMeasure)-1);
-
-	// Update Right Marker
-	setRightMarker(endMeasure);
+	setRightMarker(startMeasure);
 }
 
 function updateTempo(slider, val) {
