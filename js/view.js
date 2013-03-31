@@ -350,7 +350,7 @@ function drawControls()
 	
 	/* PLAY BUTTON */
 	$("body").append('<img id="playBtn" src="./images/playButton.png" onclick="didPressPlayButton()"></img>');
-	playButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.45;
+	playButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.43;
 	playButtonTop = rightHandTop;
 	playButtonWidth = controlsBackgroundHeight * 0.6;
 	playButtonHeight = leftHandHeight;
@@ -358,11 +358,19 @@ function drawControls()
 	
 	/* STOP BUTTON */
 	$("body").append('<img id="stopBtn" src="./images/stopButton.png" onclick="didPressStopButton()"></img>');
-	stopButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.53;
+	stopButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.5;
 	stopButtonTop = rightHandTop;
 	stopButtonWidth = controlsBackgroundHeight * 0.6;
 	stopButtonHeight = leftHandHeight;
 	adjustTag("stopBtn", stopButtonLeft, stopButtonTop, stopButtonWidth, stopButtonHeight, "clear");
+	
+	/* REPEAT BUTTON */
+	$("body").append('<img id="repeatButton" src="./images/repeatEnabled.png" onclick="didPressRepeatButton()"></img>');
+	repeatButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.555;
+	repeatButtonTop = rightHandTop;
+	repeatButtonWidth = controlsBackgroundHeight * 0.6;
+	repeatButtonHeight = leftHandHeight;
+	adjustTag("repeatButton", repeatButtonLeft, repeatButtonTop, repeatButtonWidth, repeatButtonHeight, "clear");
 	
 	/* DIVIDER */
 	$("body").append('<img id="divider2" src="./images/divider.png"></img>');
