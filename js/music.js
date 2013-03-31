@@ -59,7 +59,7 @@ function didPressPlayButton(option)
 		tempo = 200; // Fast forward to the next note upon resume;
 	}
 	
-	for (measure = Math.floor(startMeasure); measure < Math.ceil(endMeasure); measure++)
+	for (measure = startMeasure; measure <= endMeasure; measure++)
 	{
 		for (var noteIdx = 0; noteIdx < tune[measure].length; noteIdx++)
 		{
