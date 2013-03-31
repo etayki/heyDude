@@ -278,6 +278,12 @@ function setStartMeasure(newMeasure)
 	startMeasure = Number(newMeasure);
 	startDelay = (startMeasure - 1) * 4;
 	
+	if (startDelay > delay)
+	{
+		delay = startDelay;
+		setPositionMarker();
+	}
+	
 	if (startMeasure > endMeasure)
 		setEndMeasure(startMeasure);
 
@@ -302,6 +308,12 @@ function setEndMeasure(newMeasure)
 	
 	endMeasure = Number(newMeasure);
 	endDelay = (endMeasure - 1) * 4;
+
+	if (endDelay < delay)
+	{
+		delay = startDelay;
+		setPositionMarker();
+	}
 	
 	if (startMeasure > endMeasure)
 		setStartMeasure(endMeasure);
