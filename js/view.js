@@ -197,6 +197,20 @@ function drawMarkers()
 
 }
 
+function setPositionMarker()
+{
+	/* SET POSITION LABEL */
+	position = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
+	$("#positionLabel").text(position);
+	
+	/* SET POSITION MARKER */
+	currentMeasure = Math.floor(position);
+	measureBoxLeft = Number($("#measureBox-"+currentMeasure).css("left").replace(/px/g, ''));
+	measureBoxTop = Number($("#measureBox-"+currentMeasure).css("top").replace(/px/g, ''));
+	$("#positionMarker").css("left", measureBoxLeft + (position-currentMeasure) * measureBoxWidth);
+	$("#positionMarker").css("top", measureBoxTop);	
+}
+
 function setLeftMarker(measure)
 {
 	leftMarkerMeasure = measure;
