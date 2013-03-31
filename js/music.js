@@ -1,12 +1,12 @@
 /* TEMPO */
-var startTempo = 2500;
+var startTempo = 3900;
 var tempo = 3900 - (startTempo - 1300);
 
 /* MEASURE/DELAY */
 var startMeasure = currentMeasure = 1;
-var endMeasure = 6;
-var delay = 0;
-var startDelay = 0;
+var endMeasure = 2;
+var startDelay = delay = 0;
+var endDelay = endMeasure * 4;
 
 /* HAND SELECTION */
 var leftHandEnabled = 1;
@@ -108,14 +108,11 @@ function didPressPlayButton(option)
 		}
 	}
 	
-	var repeat = $("#repeatCheck").is(':checked');
-	endDelay = (endMeasure - 1) * 4;
-	startDelay = (startMeasure - 1) * 4;
-
+	var repeat = 0;
 	if (!repeat && delay >= endDelay - 0.01)
 	{
-		// Arrived at end of measure. Don't repeat
-		didPressPauseButton(3);
+		/* REACHED END OF SELECTION. DON'T REPEAT. */
+		didPressStopButton();
 		return;
 	}
 	
@@ -304,7 +301,7 @@ function setEndMeasure(newMeasure)
 	}
 	
 	endMeasure = Number(newMeasure);
-	endDelay = (endMeasure - 1) * 4;
+	endDelay = endMeasure * 4;
 
 	if (endDelay < delay)
 	{
