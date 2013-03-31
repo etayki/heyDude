@@ -1,5 +1,3 @@
-/* --- ================ PIANO DRAW ================== */
-
 var info = {
 	'measureControl' : "Press LEFT and RIGHT keys to change the Start Measure.<br>Press UP and DOWN keys to change the End Measure.<br>Press T to toggle between repeat and NO repeat.",
 	'playControl'    : "Press SPACE key to toggle between Play and Pause.<br>Press S to stop.",
@@ -19,8 +17,7 @@ function drawScreen()
 	drawMetronome();
 	drawPiano();
 	setEvents();
-	//feedbackForm();
-	//playDisplay();
+	drawfeedback();
 	display();
 }
 
@@ -404,38 +401,6 @@ function drawPiano()
 	}
 }
 
-/* HELPER FUNCTIONS */
-function adjustTag(tag, left, top, width, height, backgroundColor)
-{
-	$("#"+tag).css("position", "absolute");
-	$("#"+tag).css("left", left);
-	$("#"+tag).css("top", top);
-	$("#"+tag).css("width", width);
-	$("#"+tag).css("height", height);
-	$("#"+tag).css("background-color", backgroundColor);
-	if (tag.indexOf("Label") !== -1)
-	{
-		fontSize = getFontSize(height);
-		$("#"+tag).css("font-size", fontSize+"px");
-		$("#"+tag).css("text-align","center");
-	}
-}
-
-function getFontSize(labelHeight)
-{
-	$("body").append('<div id="textLabel"><span id="textSpan">00</span></div>');
-
-	fontSize = 0;
-	do {
-	    fontSize += 2;
-	    $("#textLabel").css('font-size', fontSize);
-	    spanHeight = Number($("#textSpan").css('height').replace(/px/g, ''));
-	} while (spanHeight < labelHeight)
-	
-	$('#textLabel').remove();
-	return fontSize;
-}
-
 function setEvents()
 {
 	$('img').on('dragstart', function(event) { event.preventDefault(); });
@@ -633,100 +598,117 @@ function didPressRepeatButton()
 	}
 }
 
-function feedbackForm() {
-	$("#feedbackForm").find("*").andSelf().each(
-	    function(){
-		var width = $(this).css('width');
-		var left = $(this).css('left');
-		var fontSize = $(this).css('font-size');
-		width = width.replace(/px/g, '');
-		left = left.replace(/px/g, '');
-		fontSize = fontSize.replace(/px/g, '');
-		
-		$(this).css("width",width*whiteKeyWidth/20+"px");
-		$(this).css("left",left*whiteKeyWidth/20+"px");
-		$(this).css("font-size",fontSize*(whiteKeyWidth/50+3/5)+"px");
-	    }
-	);
-	
-	feedbackFormWidth = pianoWidth * 0.34;
-	feedbackFormHeight = pianoHeight * 0.7;
-	feedbackFormTop = screen.height * 0.25; 
-	feedbackFormLeft = pianoLeft + (pianoWidth - feedbackFormWidth)/2;
+function drawfeedback()
+{
+	feedbackTabLeft = 0
+	feedbackTabTop = controlsBackgroundTop;
+	feedbackTabHeight = screenWidth/55;
 
-	$("#feedbackForm").css("top", feedbackFormTop);
-	$("#feedbackForm").css("left", feedbackFormLeft);
-	$("#feedbackForm").css("width", feedbackFormWidth);
-	$("#feedbackForm").css("height", feedbackFormHeight);
+	$("body").append('<div id="feedbackTabLabel">Feedback</div>');
+	adjustTag("feedbackTabLabel", feedbackTabLeft, feedbackTabTop, 0, feedbackTabHeight, "green");
+        $('#feedbackTabLabel').css({"-webkit-transform" : "rotate(-90deg)"});
+	$("#feedbackTabLabel").css({"-o-transform" : "rotate(-90deg)"});
+	$("#feedbackTabLabel").css({"-ms-transform" : "rotate(-90deg)"});
+	$("#feedbackTabLabel").css({"-transform" : "rotate(-90deg)"});
+	$("#feedbackTabLabel").css({"filter" : "progid:DXImageTransform.Microsoft.Matrix(M11=0.9396926207859084,M12=-0.3420201433256687,M21=0.3420201433256687,M22=0.9396926207859084,sizingMethod='auto expand')"});
+	$("#feedbackTabLabel").css({"zoom" : "1"});
 
-	feedbackHeight = whiteKeyHeight;
-	feedbackWidth = 20;
-	fontSize = $("#feedback").css('font-size').replace(/px/g, '');
-	fontSize = fontSize*(screenWidth/1300)
+	//
+	//
+	//feedbackWidth = 20;
+	//fontSize = $("#feedback").css('font-size').replace(/px/g, '');
+	//fontSize = fontSize*(screenWidth/1300)
+	//
+	//$("#feedback").css("width", feedbackHeight);
+	//$("#feedback").css("height", feedbackWidth);
+	//$("#feedback").css("left", feedbackWidth/2 - feedbackHeight/2 - 1);
+	//$("#feedback").css("top", screen.height*0.4);
+	//$("#feedback").css("font-size",fontSize+"px");
 	
-	$("#feedback").css("width", feedbackHeight);
-	$("#feedback").css("height", feedbackWidth);
-	$("#feedback").css("left", feedbackWidth/2 - feedbackHeight/2 - 1);
-	$("#feedback").css("top", screen.height*0.4);
-	$("#feedback").css("font-size",fontSize+"px");
-	
-	$("#feedback").click(function() {
-		if (didPressPlayBtn)
-			didPressPauseButton();
-		feedbackFormDisplayed = 1;
-		$('#feedbackForm').css("display","");
-		$('#message').focus();
-		
-	});
-
-	$("#cancel").click(function() {	
-		$('#feedbackForm').css("display","none");
-		feedbackFormDisplayed = 0;
-	});
-	
-	$('#submit').click(function() {	
-		var message = $("textarea#message").val();
-		if (message == "") {
-			$("textarea#message").focus();
-			return false;
-		}
-		
-		var dataString = '&message='+ message;
-		$.ajax({
-		  type: "POST",
-		  url: "./php/feedback.php",
-		  data: dataString,
-		  success: function() {
-			$('#feedbackForm').css("display","none");
-			feedbackFormDisplayed = 0;
-			$('#feedbackThanks').css("display","");
-			setTimeout(function() {
-				$('#feedbackThanks').css("display","none");
-			}, 2000);
-		  }
-		});
-		return false;
-	});
-	
+	//feedbackFormWidth = pianoWidth * 0.34;
+	//feedbackFormHeight = pianoHeight * 0.7;
+	//feedbackFormTop = screen.height * 0.25; 
+	//feedbackFormLeft = pianoLeft + (pianoWidth - feedbackFormWidth)/2;
+	//
+	//$("#feedbackForm").css("top", feedbackFormTop);
+	//$("#feedbackForm").css("left", feedbackFormLeft);
+	//$("#feedbackForm").css("width", feedbackFormWidth);
+	//$("#feedbackForm").css("height", feedbackFormHeight);
+	//
+	//$("#feedback").click(function() {
+	//	if (didPressPlayBtn)
+	//		didPressPauseButton();
+	//	feedbackFormDisplayed = 1;
+	//	$('#feedbackForm').css("display","");
+	//	$('#message').focus();
+	//	
+	//});
+	//
+	//$("#cancel").click(function() {	
+	//	$('#feedbackForm').css("display","none");
+	//	feedbackFormDisplayed = 0;
+	//});
+	//
+	//$('#submit').click(function() {	
+	//	var message = $("textarea#message").val();
+	//	if (message == "") {
+	//		$("textarea#message").focus();
+	//		return false;
+	//	}
+	//	
+	//	var dataString = '&message='+ message;
+	//	$.ajax({
+	//	  type: "POST",
+	//	  url: "./php/feedback.php",
+	//	  data: dataString,
+	//	  success: function() {
+	//		$('#feedbackForm').css("display","none");
+	//		feedbackFormDisplayed = 0;
+	//		$('#feedbackThanks').css("display","");
+	//		setTimeout(function() {
+	//			$('#feedbackThanks').css("display","none");
+	//		}, 2000);
+	//	  }
+	//	});
+	//	return false;
+	//});
 }
 
-
-/* --- ================ SLIDER ================== */
-function sliderInit()
-{	// Add 200 to max as ugly fix to keep slider going off deep end
-	tempoSlider = new dhtmlxSlider("tempoSlider", 100 * whiteKeyWidth/21, "dhx_skyblue", false, 1300, 3900+200, 3900 - (tempo - 1300), 200);
-	tempoSlider.setImagePath("./slider/imgs/");
-	tempoSlider.attachEvent("onChange", function(newtempo) {
-		// Ugly fix to keep slider going off deep end
-		if (newtempo > 3900) 
-		{
-			tempoSlider.setValue(3900);
-			return;
-		}
-		document.getElementById("tempo").value = newtempo;
-		tempo = 3900 - (newtempo - 1300);
-		});
+/* HELPER FUNCTIONS */
+function adjustTag(tag, left, top, width, height, backgroundColor)
+{
+	$("#"+tag).css("position", "absolute");
+	$("#"+tag).css("left", left);
+	$("#"+tag).css("top", top);
+	$("#"+tag).css("width", width);
+	$("#"+tag).css("height", height);
+	$("#"+tag).css("background-color", backgroundColor);
 	
-	document.getElementById("tempo").value = 3900 - (tempo - 1300);	
-	tempoSlider.init();
-};
+	if (tag.indexOf("Label") !== -1)
+	{
+		fontSize = getFontSize(height);
+		$("#"+tag).css("font-size", fontSize+"px");
+		$("#"+tag).css("text-align","center");
+	}
+	
+	if (tag.indexOf("feedbackTabLabel") !== -1)
+	{
+		$("#feedbackTabLabel").css("width",feedbackTabWidth);
+	}
+}
+
+function getFontSize(labelHeight)
+{
+	$("body").append('<div id="textLabel"><span id="textSpan">Feedback</span></div>');
+
+	fontSize = 0;
+	do {
+	    fontSize += 2;
+	    $("#textLabel").css('font-size', fontSize);
+	    spanHeight = Number($("#textSpan").css('height').replace(/px/g, ''));
+	    feedbackTabWidth = Number($("#textSpan").css('width').replace(/px/g, ''));
+	} while (spanHeight < labelHeight)
+	
+	$('#textLabel').remove();
+	return fontSize;
+}
