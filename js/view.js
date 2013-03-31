@@ -608,7 +608,9 @@ function drawfeedback()
 	adjustTag("feedbackTabLabel", feedbackTabLeft, feedbackTabTop, 0, feedbackTabHeight, "green");
 	$("#feedbackTabLabel").css("left", -feedbackTabWidth/2 + 2);
 
+	/* 90 DEGREE ROTATION */
         $('#feedbackTabLabel').css({"-webkit-transform" : "rotate(-90deg)"});
+        $('#feedbackTabLabel').css({"-moz-transform" : "rotate(-90deg)"});
 	$("#feedbackTabLabel").css({"-o-transform" : "rotate(-90deg)"});
 	$("#feedbackTabLabel").css({"-ms-transform" : "rotate(-90deg)"});
 	$("#feedbackTabLabel").css({"-transform" : "rotate(-90deg)"});
