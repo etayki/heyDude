@@ -288,6 +288,8 @@ function setEndMeasure(newMeasure)
 		delay = startDelay;
 		setPositionMarker();
 		resetNotes();
+		if ($("#playBtn").attr("src") ==  "./images/pauseButton.png" && repeatEnabled)
+			didPressPlayButton();
 	}
 	
 	if (startMeasure > endMeasure)
@@ -360,10 +362,6 @@ function repeatMask()
 	}
 	
 }
-
-
-
-
 
 /* --- ================ DEBUG ================== */
 debugTop = 0;
