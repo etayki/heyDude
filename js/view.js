@@ -135,12 +135,20 @@ function drawMeasureGrid()
 			measureBoxLeft = (screenWidth - measureGridHeaderWidth)/2;
 			measureBoxTop += measureBoxHeight;
 		}
-	}
+	}	
 }
 
 
 function drawMarkers()
 {
+	/* POSITION MARKER */
+	$("body").append('<div id="positionMarker" ></div>');
+	positionMarkerLeft = $("#measureBox-1").css("left").replace(/px/g, '');
+	positionMarkerTop = $("#measureBox-1").css("top").replace(/px/g, '');
+	positionMarkerWidth = Math.floor(measureBoxWidth * 0.1);
+	positionMarkerHeight = measureBoxHeight;
+	adjustTag("positionMarker", positionMarkerLeft, positionMarkerTop, positionMarkerWidth, positionMarkerHeight, "green");
+	
 	/* LEFT MARKER */
 	$("body").append('<img id="leftMarker" src="./images/leftMark.png"></img>');
 	leftMarkLeft = $("#measureBox-1").css("left").replace(/px/g, '');
@@ -320,6 +328,15 @@ function drawControls()
 	fastLabelWidth = controlsBackgroundWidth * 0.05;
 	fastLabelHeight = controlsBackgroundHeight * 0.2;
 	adjustTag("fastLabel", fastLabelLeft, fastLabelTop, fastLabelWidth, fastLabelHeight, "clear");
+
+	/* POSITION LABEL */
+	$("body").append('<div id="positionLabel">1.00</div>');
+	positionLabelLeft =  350;
+	positionLabelTop = 25;
+	positionLabelWidth = 40;
+	positionLabelHeight = 40;
+	adjustTag("positionLabel", positionLabelLeft, positionLabelTop, positionLabelWidth, positionLabelHeight, "clear");	
+
 }
 
 /* HELPER FUNCTIONS */

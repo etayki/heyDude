@@ -8,7 +8,7 @@ var didPressPlayBtn = 0;
 var delay = 0;
 var startDelay = 0;
 var feedbackFormDisplayed = 0;
-var currentPosition = 1;
+var positionLabel = 1;
 var measureSlider;
 var tempoSlider;
 var leftHandEnabled = 1;
@@ -126,10 +126,12 @@ function didPressPlayButton(option)
 		{
 			didPressPauseButton(STOP);
 		}
-		currentPosition = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
-		$("#currentPosition").text(currentPosition);
-		// Update Measure Display
-		//	$("#curPosition").css("left", (delay/4) * playIntervalWidth);
+		position = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
+		$("#positionLabel").text(position);
+		
+		/* Update Measure Display */
+		measureBoxLeft = Number($("#measureBox-1").css("left").replace(/px/g, ''));
+		$("#positionMarker").css("left", measureBoxLeft + (delay/4) * measureBoxWidth);
 		didPressPlayButton(REPEAT);
 	}, 4*tempo/600));	
 	
@@ -172,10 +174,10 @@ function didPressStopButton()
 	}
 	
 	delay = startDelay;
-	currentPosition = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
-	//$("#currentPosition").text(currentPosition);
+	position = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
+	$("#positionLabel").text(position);
 	// Update Measure Display
-	//$("#curPosition").css("left", (delay/4) * playIntervalWidth);
+	$("#curPosition").css("left", (delay/4) * playIntervalWidth);
 }
 
 function didPressLeftHand()
@@ -243,7 +245,7 @@ function resetNote(note)
 function updatePosition(val)
 {
 
-	position = Math.floor(currentPosition);
+	position = Math.floor(position);
 
 	if (isNaN(Number(val)) && !(val == "+" || val == "-"))
 		val = 0;
