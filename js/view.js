@@ -220,8 +220,18 @@ function setPositionMarker()
 	currentMeasure = Math.floor(position);
 	measureBoxLeft = Number($("#measureBox-"+currentMeasure).css("left").replace(/px/g, ''));
 	measureBoxTop = Number($("#measureBox-"+currentMeasure).css("top").replace(/px/g, ''));
-	$("#positionMarker").css("left", measureBoxLeft + (position-currentMeasure) * measureBoxWidth);
-	$("#positionMarker").css("top", measureBoxTop);	
+	positionMarkerLeft = measureBoxLeft + (position-currentMeasure) * measureBoxWidth;
+	$("#positionMarker").css("left", positionMarkerLeft);
+	$("#positionMarker").css("top", measureBoxTop);
+	$("#positionMarker").css("width", positionMarkerWidth);
+	
+	if (currentMeasure == endMeasure)
+	{
+		remainingMeasureWidth = measureBoxWidth - (position-currentMeasure) * measureBoxWidth;
+		if (positionMarkerWidth > remainingMeasureWidth)
+			$("#positionMarker").css("width", remainingMeasureWidth);
+	}
+
 }
 
 function setStartMarker(measure)
