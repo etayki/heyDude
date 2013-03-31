@@ -129,9 +129,13 @@ function didPressPlayButton(option)
 		position = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
 		$("#positionLabel").text(position);
 		
+		
 		/* Update Measure Display */
-		measureBoxLeft = Number($("#measureBox-1").css("left").replace(/px/g, ''));
-		$("#positionMarker").css("left", measureBoxLeft + (delay/4) * measureBoxWidth);
+		measureNumber = Math.floor(position);
+		measureBoxLeft = Number($("#measureBox-"+measureNumber).css("left").replace(/px/g, ''));
+		measureBoxTop = Number($("#measureBox-"+measureNumber).css("top").replace(/px/g, ''));
+		$("#positionMarker").css("left", measureBoxLeft + (position-measureNumber) * measureBoxWidth);
+		$("#positionMarker").css("top", measureBoxTop);
 		didPressPlayButton(REPEAT);
 	}, 4*tempo/600));	
 	
