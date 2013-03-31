@@ -300,13 +300,13 @@ function setEndMeasure(newMeasure)
 		if (newMeasure == tune.length) return;
 	}
 	
-	startMeasure = newMeasure;
-	startDelay = (newMeasure - 1) * 4;
+	endMeasure = newMeasure;
+	endDelay = (newMeasure - 1) * 4;
 	
 	if (startMeasure > endMeasure)
-		setEndMeasure(startMeasure);
+		setEndMeasure(endMeasure);
 
-	setRightMarker(startMeasure);
+	setEndMarker(endMeasure);
 }
 
 function updateTempo(slider, val) {
