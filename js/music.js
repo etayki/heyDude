@@ -1,30 +1,30 @@
+/* TEMPO */
 var startTempo = 2500;
 var tempo = 3900 - (startTempo - 1300);
-var startMeasure = 1;
-var endMeasure = 4;
-var timers = new Array();
-var noteOn = new Array();
-var didPressPlayBtn = 0;
+
+/* MEASURE/DELAY */
+var startMeasure = currentMeasure = 1;
+var endMeasure = 6;
 var delay = 0;
 var startDelay = 0;
-var feedbackFormDisplayed = 0;
-var positionLabel = 1;
-var currentMeasure = 1;
-var measureSlider;
-var tempoSlider;
+
+/* HAND SELECTION */
 var leftHandEnabled = 1;
 var rightHandEnabled = 1;
 
+/* TIMER */
+var timers = new Array();
+
+/* CONSTANTS */
 var DELAY = 0;
 var DURATION = 1;
 var NOTE = 2;
 var VELOCITY = 3;
 var FINGER = 4;
-
-var STARTPLAY = 0;
 var REPEAT = 1;
-var TURNOFFNOTES = 2;
-var STOP = 3;
+
+/* FEEDBACK */
+var feedbackFormDisplayed = 0;
 
 $(document).ready(function() {
 	/* Load the MIDI Player*/
@@ -93,8 +93,6 @@ function didPressPlayButton(option)
 				}
 				$("#key-"+key).css("background-color",color);
 				$("#keyLabel-"+key).text(finger);
-				noteOn.push(note);
-	
 			}
 			else if ((delay - 0.01) < (noteEnd - 0.01) && (noteEnd - 0.01) <= delay)
 			{
@@ -125,7 +123,7 @@ function didPressPlayButton(option)
 		delay += 0.01;
 		if (delay < startDelay || delay > endDelay)
 		{
-			didPressPauseButton(STOP);
+			didPressPauseButton();
 		}
 		
 		setPositionMarker();
@@ -229,7 +227,6 @@ function resetNote(note)
 	}
 	$("#key-"+key).css("background-color",color);
 	$("#keyLabel-"+key).text("");
-	noteOn.splice(noteOn.indexOf(note), 1);
 }
 
 /* SET THE CURRENT MEASURE EITHER WITH ARROW KEYS OR BY CLICKING ON MEASURE BOX */

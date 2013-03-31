@@ -160,7 +160,7 @@ function drawMarkers()
 	
 	/* RIGHT MARKER */
 	$("body").append('<img id="rightMarker" src="./images/rightMark.png"></img>');
-	rightMarkLeft = $("#measureBox-5").css("left").replace(/px/g, '') - leftMarkWidth +1; // Add 1 because PowerPoint gives padding of 1;
+	rightMarkLeft = $("#measureBox-"+endMeasure).css("left").replace(/px/g, '') - leftMarkWidth + 1; // Add 1 because PowerPoint gives padding of 1;
 	rightMarkTop = leftMarkTop;
 	rightMarkWidth = leftMarkWidth;
 	rightMarkHeight = measureBoxHeight;
