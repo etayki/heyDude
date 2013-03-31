@@ -606,6 +606,8 @@ function drawfeedback()
 
 	$("body").append('<div id="feedbackTabLabel">Feedback</div>');
 	adjustTag("feedbackTabLabel", feedbackTabLeft, feedbackTabTop, 0, feedbackTabHeight, "green");
+	$("#feedbackTabLabel").css("left", -feedbackTabWidth/2 + 2);
+
         $('#feedbackTabLabel').css({"-webkit-transform" : "rotate(-90deg)"});
 	$("#feedbackTabLabel").css({"-o-transform" : "rotate(-90deg)"});
 	$("#feedbackTabLabel").css({"-ms-transform" : "rotate(-90deg)"});
@@ -687,13 +689,15 @@ function adjustTag(tag, left, top, width, height, backgroundColor)
 	if (tag.indexOf("Label") !== -1)
 	{
 		fontSize = getFontSize(height);
+		if (tag.indexOf("feedbackTabLabel") !== -1)
+		    fontSize -= 2;
 		$("#"+tag).css("font-size", fontSize+"px");
 		$("#"+tag).css("text-align","center");
 	}
 	
 	if (tag.indexOf("feedbackTabLabel") !== -1)
 	{
-		$("#feedbackTabLabel").css("width",feedbackTabWidth);
+		$("#feedbackTabLabel").css("width",feedbackTabWidth * 1.2);
 	}
 }
 
@@ -709,6 +713,6 @@ function getFontSize(labelHeight)
 	    feedbackTabWidth = Number($("#textSpan").css('width').replace(/px/g, ''));
 	} while (spanHeight < labelHeight)
 	
-	$('#textLabel').remove();
+	$('#textLabel').remove();	
 	return fontSize;
 }
