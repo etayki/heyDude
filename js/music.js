@@ -22,6 +22,7 @@ var NOTE = 2;
 var VELOCITY = 3;
 var FINGER = 4;
 var REPEAT = 1;
+var RETAIN_VISUAL = 1;
 
 /* FEEDBACK */
 var feedbackFormDisplayed = 0;
@@ -70,8 +71,8 @@ function didPressPlayButton(option)
 			var noteDuration = tune[measure][noteIdx][DURATION];
 			var noteEnd = noteStart + noteDuration;
 			
-			if (noteEnd > (endMeasure - 1) * 4)
-				noteEnd = (endMeasure - 1) * 4 - 0.01;
+			if (noteEnd > endMeasure * 4)
+				noteEnd = endMeasure * 4 - 0.01;
 			
 			if ( (delay - 0.01) <= noteStart && noteStart < delay )
 			{
@@ -135,7 +136,7 @@ function didPressPauseButton()
 	$("#playBtn").attr("src", "./images/playButton.png");
 	$("#playBtn").attr("onclick", "didPressPlayButton()");
 
-	resetNotes();
+	resetNotes(RETAIN_VISUAL);
 }
 
 function didPressStopButton()
@@ -198,15 +199,15 @@ function clearHand(hand)
 	}
 }
 
-function resetNotes()
+function resetNotes(retainVisual)
 {
 	for (var note = 21; note < 108; note++)
 	{
 		MIDI.noteOff(0, note, 0);
-		resetNote(note);
+		if (!retainVisual)
+			resetNote(note);
 	}
 
-	// clear all timers in the array
 	for (var i = 0; i < timers.length; i++)
 	{
 	    clearTimeout(timers[i]);
