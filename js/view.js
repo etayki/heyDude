@@ -168,128 +168,6 @@ function drawMarkers()
 	adjustTag("rightMarker", rightMarkLeft, rightMarkTop, rightMarkWidth, rightMarkHeight, "clear");
 }
 
-function setEvents()
-{
-	$('img').on('dragstart', function(event) { event.preventDefault(); });
-
-	leftMarkerMouseDown = 0;
-	rightMarkerMouseDown = 0;	
-	$("#leftMarker").mousedown(function() {
-		leftMarkerMouseDown = 1;
-	});
-
-	$("#rightMarker").mousedown(function() {
-		rightMarkerMouseDown = 1;
-	});
-	
-	$("body").mouseup(function() {
-		leftMarkerMouseDown = 0;
-		rightMarkerMouseDown = 0;
-	});
-
-	/* SET LEFT/RIGHT MARKERS */
-	$(".measureBox").hover(function() {
-		measureBoxId = $(this).attr('id');
-		newMeasure = measureBoxId.replace(/measureBox-/g, '');
-		if (leftMarkerMouseDown)
-		{
-			setStartMeasure(newMeasure);
-		}
-		else if (rightMarkerMouseDown)
-		{
-			setEndMeasure(newMeasure);
-		}
-	});
-	
-	/* SET CURRENT MEASURE */
-	$(".measureBox").click(function() {
-		measureBoxId = $(this).attr('id');
-		newMeasure = measureBoxId.replace(/measureBox-/g, '');
-		setCurrentMeasure(newMeasure);
-	});
-	
-	$(".key").click(function(){
-		keyPress = $(this).attr('id');
-		keyPress = keyPress.replace(/key-/g,'');
-		/* RELEASE PREVIOUS NOTE */
-		resetNote(notePress);
-		for (var i = 0; i < timers.length; i++)
-		{
-		    clearTimeout(timers[i]);
-		}
-		
-		notePress = Number(keyPress) + 21;
-		MIDI.noteOn(0,notePress,90,0);
-		MIDI.noteOff(0,notePress,0.4);
-		$("#key-"+keyPress).css("background-color","yellow");
-
-		timers.push(setTimeout(function() {
-			resetNote(notePress);
-		}, 400));
-			
-	  });
-}
-
-
-function setPositionMarker()
-{
-	/* SET POSITION LABEL */
-	position = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
-	$("#positionLabel").text(position);
-	
-	/* SET POSITION MARKER */
-	currentMeasure = Math.floor(position);
-	measureBoxLeft = Number($("#measureBox-"+currentMeasure).css("left").replace(/px/g, ''));
-	measureBoxTop = Number($("#measureBox-"+currentMeasure).css("top").replace(/px/g, ''));
-	positionMarkerLeft = measureBoxLeft + (position-currentMeasure) * measureBoxWidth;
-	$("#positionMarker").css("left", positionMarkerLeft);
-	$("#positionMarker").css("top", measureBoxTop);
-	$("#positionMarker").css("width", positionMarkerWidth);
-	
-	if (currentMeasure == endMeasure)
-	{
-		remainingMeasureWidth = measureBoxWidth - (position-currentMeasure) * measureBoxWidth;
-		if (positionMarkerWidth > remainingMeasureWidth)
-			$("#positionMarker").css("width", remainingMeasureWidth);
-	}
-
-}
-
-function setStartMarker(measure)
-{
-	leftMarkLeft = $("#measureBox-"+measure).css("left").replace(/px/g, '');
-	leftMarkTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
-	$("#leftMarker").css("left", leftMarkLeft);
-	$("#leftMarker").css("top", leftMarkTop);	
-}
-
-function setEndMarker(measure)
-{
-	rightMarkLeft =  $("#measureBox-"+measure).css("left").replace(/px/g, '') - leftMarkWidth + 1 + measureBoxWidth;
-	rightMarkTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
-	$("#rightMarker").css("left", rightMarkLeft);
-	$("#rightMarker").css("top", rightMarkTop);	
-}
-
-function colorizeMeasures()
-{
-	for (number = 1; number <= startMeasure; number++)
-	{			
-		/* MEASURE BOX */
-		$("#measureBox-"+number).css("background-color",measureBoxColor);
-	}
-	for (number = startMeasure; number <= endMeasure; number++)
-	{			
-		/* MEASURE BOX */
-		$("#measureBox-"+number).css("background-color","yellow");
-	}
-	for (number = endMeasure + 1; number <= maxBoxes; number++)
-	{			
-		/* MEASURE BOX */
-		$("#measureBox-"+number).css("background-color",measureBoxColor);
-	}
-}
-
 function drawControls()
 {
 	/* CONTROLS BACKGROUND */
@@ -365,7 +243,7 @@ function drawControls()
 	adjustTag("stopBtn", stopButtonLeft, stopButtonTop, stopButtonWidth, stopButtonHeight, "clear");
 	
 	/* REPEAT BUTTON */
-	$("body").append('<img id="repeatButton" src="./images/repeatEnabled.png" onclick="didPressRepeatButton()"></img>');
+	$("body").append('<img id="repeatButton" src="./images/repeatEnabled.png"></img>');
 	repeatButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.555;
 	repeatButtonTop = rightHandTop;
 	repeatButtonWidth = controlsBackgroundHeight * 0.6;
@@ -522,7 +400,184 @@ function drawPiano()
 	}
 }
 
+function setEvents()
+{
+	$('img').on('dragstart', function(event) { event.preventDefault(); });
 
+	leftMarkerMouseDown = 0;
+	rightMarkerMouseDown = 0;	
+	$("#leftMarker").mousedown(function() {
+		leftMarkerMouseDown = 1;
+	});
+
+	$("#rightMarker").mousedown(function() {
+		rightMarkerMouseDown = 1;
+	});
+	
+	$("body").mouseup(function() {
+		leftMarkerMouseDown = 0;
+		rightMarkerMouseDown = 0;
+	});
+
+	/* SET LEFT/RIGHT MARKERS */
+	$(".measureBox").hover(function() {
+		measureBoxId = $(this).attr('id');
+		newMeasure = measureBoxId.replace(/measureBox-/g, '');
+		if (leftMarkerMouseDown)
+		{
+			setStartMeasure(newMeasure);
+		}
+		else if (rightMarkerMouseDown)
+		{
+			setEndMeasure(newMeasure);
+		}
+	});
+	
+	/* SET CURRENT MEASURE */
+	$(".measureBox").click(function() {
+		measureBoxId = $(this).attr('id');
+		newMeasure = measureBoxId.replace(/measureBox-/g, '');
+		setCurrentMeasure(newMeasure);
+	});
+	
+	/* KEY TAP */
+	$(".key").click(function(){
+		keyPress = $(this).attr('id');
+		keyPress = keyPress.replace(/key-/g,'');
+		/* RELEASE PREVIOUS NOTE */
+		resetNote(notePress);
+		for (var i = 0; i < timers.length; i++)
+		{
+		    clearTimeout(timers[i]);
+		}
+		
+		notePress = Number(keyPress) + 21;
+		MIDI.noteOn(0,notePress,90,0);
+		MIDI.noteOff(0,notePress,0.4);
+		$("#key-"+keyPress).css("background-color","yellow");
+
+		timers.push(setTimeout(function() {
+			resetNote(notePress);
+		}, 400));
+			
+	  });
+
+	/* REPEAT */
+	$(".key").click(function(){
+		keyPress = $(this).attr('id');
+		keyPress = keyPress.replace(/key-/g,'');
+		/* RELEASE PREVIOUS NOTE */
+		resetNote(notePress);
+		for (var i = 0; i < timers.length; i++)
+		{
+		    clearTimeout(timers[i]);
+		}
+		
+		notePress = Number(keyPress) + 21;
+		MIDI.noteOn(0,notePress,90,0);
+		MIDI.noteOff(0,notePress,0.4);
+		$("#key-"+keyPress).css("background-color","yellow");
+
+		timers.push(setTimeout(function() {
+			resetNote(notePress);
+		}, 400));
+			
+	  });
+}
+
+
+function setPositionMarker()
+{
+	/* SET POSITION LABEL */
+	position = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
+	$("#positionLabel").text(position);
+	
+	/* SET POSITION MARKER */
+	currentMeasure = Math.floor(position);
+	measureBoxLeft = Number($("#measureBox-"+currentMeasure).css("left").replace(/px/g, ''));
+	measureBoxTop = Number($("#measureBox-"+currentMeasure).css("top").replace(/px/g, ''));
+	positionMarkerLeft = measureBoxLeft + (position-currentMeasure) * measureBoxWidth;
+	$("#positionMarker").css("left", positionMarkerLeft);
+	$("#positionMarker").css("top", measureBoxTop);
+	$("#positionMarker").css("width", positionMarkerWidth);
+	
+	if (currentMeasure == endMeasure)
+	{
+		remainingMeasureWidth = measureBoxWidth - (position-currentMeasure) * measureBoxWidth;
+		if (positionMarkerWidth > remainingMeasureWidth)
+			$("#positionMarker").css("width", remainingMeasureWidth);
+	}
+
+}
+
+function setStartMarker(measure)
+{
+	leftMarkLeft = $("#measureBox-"+measure).css("left").replace(/px/g, '');
+	leftMarkTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
+	$("#leftMarker").css("left", leftMarkLeft);
+	$("#leftMarker").css("top", leftMarkTop);	
+}
+
+function setEndMarker(measure)
+{
+	rightMarkLeft =  $("#measureBox-"+measure).css("left").replace(/px/g, '') - leftMarkWidth + 1 + measureBoxWidth;
+	rightMarkTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
+	$("#rightMarker").css("left", rightMarkLeft);
+	$("#rightMarker").css("top", rightMarkTop);	
+}
+
+function colorizeMeasures()
+{
+	for (number = 1; number <= startMeasure; number++)
+	{			
+		/* MEASURE BOX */
+		$("#measureBox-"+number).css("background-color",measureBoxColor);
+	}
+	for (number = startMeasure; number <= endMeasure; number++)
+	{			
+		/* MEASURE BOX */
+		$("#measureBox-"+number).css("background-color","yellow");
+	}
+	for (number = endMeasure + 1; number <= maxBoxes; number++)
+	{			
+		/* MEASURE BOX */
+		$("#measureBox-"+number).css("background-color",measureBoxColor);
+	}
+}
+
+function didPressLeftHand()
+{
+	/* TOGGLE FROM ENABLED TO DISABLED */
+	if (leftHandEnabled)
+	{
+		$("#leftHand").attr("src", "./images/leftHandDisabled.png");
+		leftHandEnabled = 0
+		if (!rightHandEnabled) didPressRightHand();
+		clearHand("left");
+	}
+	else
+	{
+		$("#leftHand").attr("src", "./images/leftHandEnabled.png");
+		leftHandEnabled = 1;
+	}
+}
+
+function didPressRightHand()
+{
+	/* TOGGLE FROM ENABLED TO DISABLED */
+	if (rightHandEnabled)
+	{
+		$("#rightHand").attr("src", "./images/rightHandDisabled.png");
+		rightHandEnabled = 0
+		if (!leftHandEnabled) didPressLeftHand();
+		clearHand("right");
+	}
+	else
+	{
+		$("#rightHand").attr("src", "./images/rightHandEnabled.png");
+		rightHandEnabled = 1;
+	}
+}
 
 
 function feedbackForm() {
@@ -600,8 +655,6 @@ function feedbackForm() {
 		return false;
 	});
 	
-
-  
 }
 
 //function drawControls()

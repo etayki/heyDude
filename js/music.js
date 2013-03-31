@@ -152,40 +152,6 @@ function didPressStopButton()
 	setPositionMarker();
 }
 
-function didPressLeftHand()
-{
-	/* TOGGLE FROM ENABLED TO DISABLED */
-	if (leftHandEnabled)
-	{
-		$("#leftHand").attr("src", "./images/leftHandDisabled.png");
-		leftHandEnabled = 0
-		if (!rightHandEnabled) didPressRightHand();
-		clearHand("left");
-	}
-	else
-	{
-		$("#leftHand").attr("src", "./images/leftHandEnabled.png");
-		leftHandEnabled = 1;
-	}
-}
-
-function didPressRightHand()
-{
-	/* TOGGLE FROM ENABLED TO DISABLED */
-	if (rightHandEnabled)
-	{
-		$("#rightHand").attr("src", "./images/rightHandDisabled.png");
-		rightHandEnabled = 0
-		if (!leftHandEnabled) didPressLeftHand();
-		clearHand("right");
-	}
-	else
-	{
-		$("#rightHand").attr("src", "./images/rightHandEnabled.png");
-		rightHandEnabled = 1;
-	}
-}
-
 function clearHand(hand)
 {
 	for(var key = 0; key < 88; key++)
