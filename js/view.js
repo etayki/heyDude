@@ -244,7 +244,7 @@ function drawControls()
 	adjustTag("stopBtn", stopButtonLeft, stopButtonTop, stopButtonWidth, stopButtonHeight, "clear");
 	
 	/* REPEAT BUTTON */
-	$("body").append('<img id="repeatButton" src="./images/repeatEnabled.png"></img>');
+	$("body").append('<img id="repeatButton" src="./images/repeatEnabled.png" onclick="didPressRepeatButton()"></img>');
 	repeatButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.555;
 	repeatButtonTop = rightHandTop;
 	repeatButtonWidth = controlsBackgroundHeight * 0.6;
@@ -580,6 +580,20 @@ function didPressRightHand()
 	}
 }
 
+function didPressRepeatButton()
+{
+	/* TOGGLE FROM ENABLED TO DISABLED */
+	if (repeatEnabled)
+	{
+		$("#repeatButton").attr("src", "./images/repeatDisabled.png");
+		repeatEnabled = 0;
+	}
+	else
+	{
+		$("#repeatButton").attr("src", "./images/repeatEnabled.png");
+		repeatEnabled = 1;
+	}
+}
 
 function feedbackForm() {
 	$("#feedbackForm").find("*").andSelf().each(

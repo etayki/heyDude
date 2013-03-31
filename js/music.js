@@ -4,7 +4,7 @@ var tempo = 3900 - (startTempo - 1300);
 
 /* MEASURE/DELAY */
 var startMeasure = currentMeasure = 1;
-var endMeasure = 2;
+var endMeasure = 1;
 var startDelay = delay = 0;
 var endDelay = endMeasure * 4;
 var FAST_FORWARD = 200;
@@ -28,6 +28,7 @@ var RETAIN_VISUAL = 1;
 /* FEEDBACK */
 var feedbackFormDisplayed = 0;
 var notePress = 21;
+var repeatEnabled = 1;
 
 $(document).ready(function() {
 	/* Load the MIDI Player*/
@@ -118,8 +119,7 @@ function didPressPlayButton(option)
 		}
 	}
 	
-	var repeat = 0;
-	if (!repeat && delay >= endDelay - 0.01)
+	if (!repeatEnabled && delay >= endDelay - 0.01)
 	{
 		/* REACHED END OF SELECTION. DON'T REPEAT. */
 		didPressStopButton();
@@ -128,9 +128,9 @@ function didPressPlayButton(option)
 	
 	timers.push(setTimeout(function() {
 		delay += 0.01;
-		if (delay < startDelay || delay > endDelay)
+		if (delay >= endDelay)
 		{
-			didPressPauseButton();
+			delay = startDelay;
 		}
 		
 		setPositionMarker();
