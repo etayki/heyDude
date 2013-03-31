@@ -300,36 +300,8 @@ function setEndMeasure(newMeasure)
 
 function setTempo(newMetronomeBox)
 {
-	// Set new tempo	
 	tempo = (11 - newMetronomeBox) * 4;
 }
-
-function updateTempo(slider, val) {
-	if (isNaN(Number(val)) && !(val == "+" || val == "-"))
-		val = 0;
-
-	if (val == "-")
-		val = Number(tempo) + 200;
-
-	if (val == "+")
-		val = Number(tempo) - 200;
-		
-			// Limit to min measure
-	if (val < 1)
-		val = 1;
-
-	// Limit to max tempo
-	if (val < 1300)
-		val = 1300;
-		
-	// Limit to min tempo
-	if (val > 3900)
-		val = 3900;
-		
-
-};
-
-
 
 /* --- ================ DEBUG ================== */
 debugTop = 0;

@@ -444,6 +444,7 @@ function setEvents()
 	$("body").mouseup(function() {
 		leftMarkerMouseDown = 0;
 		rightMarkerMouseDown = 0;
+		draggerMouseDown = 0;	
 	});
 
 	/* SET LEFT/RIGHT MARKERS */
@@ -497,6 +498,23 @@ function setEvents()
 		$("#dragger").css("left", draggerBoxLeft);
 		setTempo(newMetronomeBox);	
 	  });
+	
+	$(".metronomeBox").hover(function() {
+		metronomeBoxId = $(this).attr('id');
+		newTempo = metronomeBoxId.replace(/metronomeBox-/g, '');
+		if (draggerMouseDown)
+		{
+			draggerBoxLeft = $("#metronomeBox-"+newTempo).css("left").replace(/px/g, '');
+			$("#dragger").css("left", draggerBoxLeft);
+			setTempo(newTempo);
+		}
+	});
+
+	/* DRAGGER */
+	draggerMouseDown = 0;	
+	$("#dragger").mousedown(function() {
+		draggerMouseDown = 1;
+	});
 }
 
 
