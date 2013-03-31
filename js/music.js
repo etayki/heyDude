@@ -7,6 +7,7 @@ var startMeasure = currentMeasure = 1;
 var endMeasure = 2;
 var startDelay = delay = 0;
 var endDelay = endMeasure * 4;
+var FAST_FORWARD = 200;
 
 /* HAND SELECTION */
 var leftHandEnabled = 1;
@@ -65,7 +66,7 @@ function didPressPlayButton(option)
 	if (option != REPEAT)
 	{
 		oldTempo = tempo;
-		tempo = 200; // Fast forward to the next note upon resume;
+		tempo = FAST_FORWARD; // Fast forward to the next note upon resume;
 	}
 	
 	for (measure = startMeasure; measure <= endMeasure; measure++)
@@ -87,7 +88,7 @@ function didPressPlayButton(option)
 				// Turn note on (sound + visual)
 				//debug("ON " + note + " " + noteStart + " " + noteEnd);
 				
-				if (tempo == 200) // End fastfoward
+				if (tempo == FAST_FORWARD) // End fastfoward
 					tempo = oldTempo;
 				
 				var finger = tune[measure][noteIdx][FINGER];
