@@ -35,22 +35,7 @@
     </div>
     
     <!-- Controls --> 
-    <div id="controls" style="position:absolute;top:20px;left:0px;width:750px;height:150px;z-index:3;display:none;background-color:clear">
-        <!-- Measure Control -->
-        <div class="control" id="measureControl" style="position:absolute;top:0px;left:0px;width:750px;height:50px; background-color:blue">
-            <div style="position:absolute;top:5px;left:10px;color:white; width:70px;height:30px;z-index:3;text-align:center">Start Measure</div>
-            <input type="text" id="startMeasure" style="position:absolute;top:13px;left:80px;width:37px;z-index:3;font-size:12px" value="1" onchange="updateStartMeasure(this.value)" onfocus="this.value = ''">
-            <div id="startMeasureMinus" onclick="updateStartMeasure('-')" style="position:absolute;top:15px;left:135px;cursor:pointer;z-index:3;text-align:center;width:10px;background-color:white">-</div>
-            <div id="startMeasurePlus" onclick="updateStartMeasure('+')" style="position:absolute;top:15px;left:155px;cursor:pointer;text-align:center;width:10px;z-index:3;background-color:white;">+</div>
 
-            <div style="position:absolute;top:5px;left:210px;color:white; width:70px;height:30px;z-index:3;text-align:center">End Measure</div>
-            <input type="text" id="endMeasure" style="position:absolute;top:13px;left:280px;width:37px;z-index:3;font-size:12px" value="2" onchange="updateEndMeasure(this.value)" onfocus="this.value = ''">
-            <div id="endMeasureMinus" onclick="updateEndMeasure('-')" style="position:absolute;top:15px;left:335px;cursor:pointer;z-index:3;text-align:center;width:10px;background-color:white">-</div>
-            <div id="ednMeasurePlus" onclick="updateEndMeasure('+')" style="position:absolute;top:15px;left:355px;cursor:pointer;text-align:center;width:10px;z-index:3;background-color:white;">+</div>
-
-            <div style="position:absolute;top:15px;left:550px;color:white;width:70px;height:30px;z-index:3">Repeat</div>
-            <input id="repeatCheck" type="checkbox" name="repeat" value="on" checked="checked" style="position:absolute;left:620px;top:18px">
-        </div>
         <!-- Tempo Control -->
         <div class="control" id="tempoControl" style="position:absolute;top:80px;left:190px;width:250px;height:50px;background-color:blue">       
             <div style="position:absolute;top:15px;left:10px;color:white; width:70px;height:30px;z-index:3">Tempo</div>
@@ -59,14 +44,6 @@
             <div id="tempoMinus" onclick="updateTempo('tempo','-')" style="position:absolute;top:15px;left:200px;width:10px;cursor:pointer;z-index:3;text-align:center;background-color:white">-</div>
             <div id="tempoPlus" onclick="updateTempo('tempo','+')" style="position:absolute;top:15px;left:220px;width:10px;cursor:pointer;z-index:3;text-align:center;background-color:white;">+</div>
         </div>
-        <!-- Play Display -->
-        <div class="control" id="playDisplay" style="position:absolute;top:140px;left:0px;width:750px;height:35px; background-color:blue">
-            <div                      style="position:absolute;top:5px;left:7px;color:white; width:70px;height:30px;z-index:5;font-size:13px">Measure</div>
-
-        </div>
-    </div>
-    <div id="redLine" style="position:absolute;height:2px;z-index:5;background-color:#800000;display:none"></div>
-    <img id="chair" src="./images/chair.png" style="position:absolute;left:410px;top:400px;height:200px;width:400px;display:none">
     <div id="feedback" style="position:absolute;z-index:4;background-color:green;text-align:center;font-size:18px;display:none;cursor:pointer;
         -moz-transform: rotate(-90deg);  
         -o-transform: rotate(-90deg);  
