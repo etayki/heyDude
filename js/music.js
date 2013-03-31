@@ -284,8 +284,8 @@ function setStartMeasure(newMeasure)
 	if (startMeasure > endMeasure)
 		setEndMeasure(startMeasure);
 
-	// Update Left Marker
 	setStartMarker(startMeasure);
+	colorizeMeasures();
 }
 
 function setEndMeasure(newMeasure)
@@ -316,6 +316,7 @@ function setEndMeasure(newMeasure)
 		setStartMeasure(endMeasure);
 
 	setEndMarker(endMeasure);
+	colorizeMeasures();
 }
 
 function updateTempo(slider, val) {

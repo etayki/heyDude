@@ -14,6 +14,7 @@ function drawScreen()
 	drawHeader();
 	drawMeasureGrid();
 	drawMarkers();
+	colorizeMeasures();
 	drawControls();
 	drawPiano();
 	setEvents();
@@ -225,7 +226,6 @@ function setPositionMarker()
 
 function setStartMarker(measure)
 {
-	leftMarkerMeasure = measure;
 	leftMarkLeft = $("#measureBox-"+measure).css("left").replace(/px/g, '');
 	leftMarkTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
 	$("#leftMarker").css("left", leftMarkLeft);
@@ -234,11 +234,29 @@ function setStartMarker(measure)
 
 function setEndMarker(measure)
 {
-	rightMarkerMeasure = measure;
 	rightMarkLeft =  $("#measureBox-"+measure).css("left").replace(/px/g, '') - leftMarkWidth + 1 + measureBoxWidth;
 	rightMarkTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
 	$("#rightMarker").css("left", rightMarkLeft);
 	$("#rightMarker").css("top", rightMarkTop);	
+}
+
+function colorizeMeasures()
+{
+	for (number = 1; number <= startMeasure; number++)
+	{			
+		/* MEASURE BOX */
+		$("#measureBox-"+number).css("background-color",measureBoxColor);
+	}
+	for (number = startMeasure; number <= endMeasure; number++)
+	{			
+		/* MEASURE BOX */
+		$("#measureBox-"+number).css("background-color","yellow");
+	}
+	for (number = endMeasure; number <= maxBoxes; number++)
+	{			
+		/* MEASURE BOX */
+		$("#measureBox-"+number).css("background-color",measureBoxColor);
+	}
 }
 
 function drawControls()
