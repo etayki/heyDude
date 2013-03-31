@@ -186,17 +186,25 @@ function setEvents()
 		rightMarkerMouseDown = 0;
 	});
 
+	/* SET LEFT/RIGHT MARKERS */
 	$(".measureBox").hover(function() {
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
 		if (leftMarkerMouseDown)
 		{
-			updateStartMeasure(newMeasure);
+			setStartMeasure(newMeasure);
 		}
 		else if (rightMarkerMouseDown)
 		{
-			updateEndMeasure(newMeasure);
+			setEndMeasure(newMeasure);
 		}
+	});
+	
+	/* SET CURRENT MEASURE */
+	$(".measureBox").click(function() {
+		measureBoxId = $(this).attr('id');
+		newMeasure = measureBoxId.replace(/measureBox-/g, '');
+		setCurrentMeasure(newMeasure);
 	});
 }
 

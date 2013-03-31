@@ -140,16 +140,7 @@ function didPressPauseButton()
 	$("#playBtn").attr("src", "./images/playButton.png");
 	$("#playBtn").attr("onclick", "didPressPlayButton()");
 
-	for (var note = 21; note < 108; note++)
-	{
-		MIDI.noteOff(0, note, 0);
-	}
-
-	// clear all timers in the array
-	for (var i = 0; i < timers.length; i++)
-	{
-	    clearTimeout(timers[i]);
-	}
+	resetNotes();
 }
 
 function didPressStopButton()
@@ -158,17 +149,7 @@ function didPressStopButton()
 	$("#playBtn").attr("src", "./images/playButton.png");
 	$("#playBtn").attr("onclick", "didPressPlayButton()");
 
-	for (var note = 21; note < 108; note++)
-	{
-		MIDI.noteOff(0, note, 0);
-		resetNote(note);
-	}
-
-	// clear all timers in the array
-	for (var i = 0; i < timers.length; i++)
-	{
-	    clearTimeout(timers[i]);
-	}
+	resetNotes();
 	
 	delay = startDelay;
 	setPositionMarker();
@@ -222,6 +203,21 @@ function clearHand(hand)
 	}
 }
 
+function resetNotes()
+{
+	for (var note = 21; note < 108; note++)
+	{
+		MIDI.noteOff(0, note, 0);
+		resetNote(note);
+	}
+
+	// clear all timers in the array
+	for (var i = 0; i < timers.length; i++)
+	{
+	    clearTimeout(timers[i]);
+	}
+}
+
 function resetNote(note)
 {
 	key = note - 21;
@@ -237,54 +233,37 @@ function resetNote(note)
 }
 
 /* SET THE CURRENT MEASURE EITHER WITH ARROW KEYS OR BY CLICKING ON MEASURE BOX */
-function setCurrentMeasure(val)
+function setCurrentMeasure(newMeasure)
 {
-		hello = $(this).attr('id');
-	if (val == "-")
+	if (newMeasure == "-")
 	{
-		val = Number(position) - 1;
-		if (val == 0)
-		{
-			val = 1;
-		}
+		currentMeasure = Math.floor((delay/4 + 1)*100)/100;
+		newMeasure = currentMeasure - 1;
+		if (newMeasure == 0) return;
 	}
-	
-	maxMeasure = Math.floor(tune.length);
-
-	if (val == "+")
+	else if (newMeasure == "+")
 	{
-		if (position + 1 == maxMeasure)
-			return;
-		val = Number(position) + 1;
+		currentMeasure = Math.floor((delay/4 + 1)*100)/100;
+		newMeasure = currentMeasure + 1;
+		if (newMeasure == tune.length) return;
 	}
-	
-	// Limit to min measure
-	if (val < 1)
-		val = 1;
-		
-	// Limit to max measure
-	if (val > maxMeasure)
-		val = maxMeasure;
-		
-	// Set new measure	
-	$("#curPosition").val(val);
-	position = val;
-	delay = (position - 1) * 4;
+
+	delay = (newMeasure - 1) * 4;
 
 
-	if (position < startMeasure)
-		setStartMeasure(Math.floor(Number(position))-1);
-		
-	// Update End Measure
-	if (position >= endMeasure)
-		setEndMeasure(Math.floor(Number(position))+1);
+
+	//if (position < startMeasure)
+	//	setStartMeasure(Math.floor(Number(position))-1);
+	//
+	//// Update End Measure
+	//if (position >= endMeasure)
+	//	setEndMeasure(Math.floor(Number(position))+1);
 
 	/* SET POSITION MARKER */
 	setPositionMarker();
-	
-	didPressStopButton();
-	didPressPlayButton();
 
+	resetNotes();
+	didPressPlayButton();
 }
 
 function setStartMeasure(val)
