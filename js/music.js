@@ -6,7 +6,7 @@ var startMeasure = currentMeasure = 1;
 var endMeasure = 1;
 var startDelay = delay = 0;
 var endDelay = endMeasure * 4;
-var FAST_FORWARD = 200;
+var FAST_FORWARD = 0.01;
 
 /* HAND SELECTION */
 var leftHandEnabled = 1;

@@ -305,25 +305,24 @@ function drawMetronome()
 {
 	/* MEASURE BOX */
 	metronomeBoxLeft = slowLabelLeft + slowLabelWidth/2;
-	metronomeBoxWidth = (fastLabelLeft - slowLabelLeft)/10;
-	metronomeBoxHeight = controlsBackgroundHeight * 0.2;
+	metronomeBoxWidth = (fastLabelLeft - slowLabelLeft)/7;
+	metronomeBoxHeight = metronomeBoxWidth * 0.4;
 	metronomeBoxTop = controlsBackgroundTop + (controlsBackgroundHeight - metronomeBoxHeight)/2;
 	metronomeBoxColor = "5884F1";
 	
-	for (number = 1; number <= 11; number++)
+	for (number = 1; number <= 13; number = number + 2)
 	{	
 		/* METRONOME BOX */
-		$("body").append('<div id="metronomeBox-'+number+'" class="metronomeBox" style="border-style:solid; border-width:1px"></div>');
+		$("body").append('<div id="metronomeBox-'+number+'" class="metronomeBox" style="border-style:solid; border-width:0px"></div>');
 		adjustTag("metronomeBox-"+number, metronomeBoxLeft, metronomeBoxTop, metronomeBoxWidth, metronomeBoxHeight, metronomeBoxColor);
 		metronomeBoxLeft += metronomeBoxWidth;
 	}
 	
 	/* DRAGGER */
-	draggerBoxLeft = $("#metronomeBox-6").css("left").replace(/px/g, '');
-	draggerBoxWidth = metronomeBoxWidth * 1.4;
-	draggerBoxLeft = draggerBoxLeft - (draggerBoxWidth-metronomeBoxWidth)/2;
+	draggerBoxLeft = $("#metronomeBox-7").css("left").replace(/px/g, '');
+	draggerBoxWidth = metronomeBoxWidth;
 	draggerBoxHeight = draggerBoxWidth;
-	draggerBoxTop = metronomeBoxTop - (draggerBoxHeight-metronomeBoxHeight)/3;
+	draggerBoxTop = metronomeBoxTop - (draggerBoxHeight-metronomeBoxHeight)/2;
 	$("body").append('<img id="dragger" src="./images/dragger.png"></img>');
 	adjustTag("dragger", draggerBoxLeft, draggerBoxTop, draggerBoxWidth, draggerBoxHeight, "clear");
 }
@@ -494,6 +493,8 @@ function setEvents()
 	$(".metronomeBox").click(function(){
 		newMetronomeBox = $(this).attr('id');
 		newMetronomeBox = Number(newMetronomeBox.replace(/metronomeBox-/g,''));
+		draggerBoxLeft = $("#metronomeBox-"+newMetronomeBox).css("left").replace(/px/g, '');
+		$("#dragger").css("left", draggerBoxLeft);
 		setTempo(newMetronomeBox);	
 	  });
 }
