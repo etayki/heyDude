@@ -306,9 +306,18 @@ function drawMetronome()
 	/* MEASURE BOX */
 	metronomeBoxLeft = slowLabelLeft + slowLabelWidth/2;
 	metronomeBoxWidth = (fastLabelLeft - slowLabelLeft)/7;
-	metronomeBoxHeight = metronomeBoxWidth * 0.4;
+	metronomeBoxHeight = controlsBackgroundHeight;
 	metronomeBoxTop = controlsBackgroundTop + (controlsBackgroundHeight - metronomeBoxHeight)/2;
-	metronomeBoxColor = "5884F1";
+	metronomeBoxColor = "clear";
+
+	/* DRAGGER TRACK */
+	draggerTrackLeft = metronomeBoxLeft;
+	draggerTrackWidth = (fastLabelLeft - slowLabelLeft);
+	draggerTrackHeight = metronomeBoxWidth * 0.4;
+	draggerTrackTop = controlsBackgroundTop + (controlsBackgroundHeight - draggerTrackHeight)/2;
+	draggerTrackColor = "5884F1";
+	$("body").append('<div id="draggerTrack"></div>');
+	adjustTag("draggerTrack", draggerTrackLeft, draggerTrackTop, draggerTrackWidth, draggerTrackHeight, draggerTrackColor);
 	
 	for (number = 1; number <= 13; number = number + 2)
 	{	
