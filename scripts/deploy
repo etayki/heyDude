@@ -16,6 +16,8 @@ mv production/tmp production/app.js
 curl -T production/index.html -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/
 curl -T production/app.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/
 
+# PRODUCTION IMAGES
+cp images/* production/images/
 # PHP
 #curl -T php/feedback.php -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/php/
 
