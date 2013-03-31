@@ -434,20 +434,12 @@ function drawPiano()
 	redLineWidth = controlsBackgroundWidth;
 	redLineHeight = 5;
 	adjustTag("redVelvet", redLineLeft, redLineTop, redLineWidth, redLineHeight, "clear");
-
-	/* KEYBOARD BACKGROUND */
-	$("body").append('<div id="keyboardBgrd"></div>');
-	keyboardBgrdLeft =  controlsBackgroundLeft;
-	keyboardBgrdTop = redLineTop + redLineHeight;
-	keyboardBgrdWidth = controlsBackgroundWidth;
-	keyboardBgrdHeight = controlsBackgroundWidth * 0.102;
-	adjustTag("keyboardBgrd", keyboardBgrdLeft, keyboardBgrdTop, keyboardBgrdWidth, keyboardBgrdHeight, "black");	
 	
 	/* WHITE KEY */
-	whiteKeyWidth = controlsBackgroundWidth/53; // 52 white keys on keyboard, but we need room for margins
+	whiteKeyWidth = controlsBackgroundWidth/52.5; // 52 white keys on keyboard, but we need room for margins
 	whiteKeyLeft = controlsBackgroundLeft + (controlsBackgroundWidth - whiteKeyWidth * 52) * 0.4;
-	whiteKeyTop = keyboardBgrdTop;
-	whiteKeyHeight = controlsBackgroundWidth * 0.095;
+	whiteKeyTop = redLineTop + redLineHeight;
+	whiteKeyHeight = whiteKeyWidth * 4.3;
 	
 	/* WHITE KEY LABEL */
 	whiteKeyLabelLeft = 0;
@@ -467,6 +459,14 @@ function drawPiano()
 	blackKeyLabelWidth = blackKeyWidth;
 	blackKeyLabelHeight = blackKeyLabelWidth * 1.5;
 
+	/* KEYBOARD BACKGROUND */
+	$("body").append('<div id="keyboardBgrd"></div>');
+	keyboardBgrdLeft =  controlsBackgroundLeft;
+	keyboardBgrdTop = redLineTop + redLineHeight;
+	keyboardBgrdWidth = controlsBackgroundWidth;
+	keyboardBgrdHeight = whiteKeyHeight * 1.07;
+	adjustTag("keyboardBgrd", keyboardBgrdLeft, keyboardBgrdTop, keyboardBgrdWidth, keyboardBgrdHeight, "black");
+	
 	for (var key = 0; key < 88; key++)
 	{
 		var keyIdx = key % 12;
