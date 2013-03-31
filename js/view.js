@@ -331,10 +331,10 @@ function drawControls()
 
 	/* POSITION LABEL */
 	$("body").append('<div id="positionLabel">1.00</div>');
-	positionLabelLeft =  350;
-	positionLabelTop = 25;
-	positionLabelWidth = 40;
-	positionLabelHeight = 40;
+	positionLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.37;
+	positionLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.38;
+	positionLabelWidth = controlsBackgroundWidth * 0.03;
+	positionLabelHeight = positionLabelWidth;
 	adjustTag("positionLabel", positionLabelLeft, positionLabelTop, positionLabelWidth, positionLabelHeight, "clear");	
 
 }

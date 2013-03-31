@@ -10,11 +10,11 @@ $(document).keydown(function(e){
 	{
 		return;
 	}
-	if (e.keyCode == 37) // Left arrow
+	if (e.keyCode == LEFT_ARROW)
 	{ 
 		updatePosition("-");
 	}
-	else if (e.keyCode == 39) // Right arrow
+	else if (e.keyCode == RIGHT_ARROW)
 	{ 
 		updatePosition("+");
 	}
@@ -77,3 +77,5 @@ SPACE = 32;
 S = 83;
 L = 76;
 R = 82;
+RIGHT_ARROW = 39;
+LEFT_ARROW = 37;

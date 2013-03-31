@@ -9,6 +9,7 @@ var delay = 0;
 var startDelay = 0;
 var feedbackFormDisplayed = 0;
 var positionLabel = 1;
+var currentMeasure = 1;
 var measureSlider;
 var tempoSlider;
 var leftHandEnabled = 1;
@@ -131,10 +132,10 @@ function didPressPlayButton(option)
 		
 		
 		/* Update Measure Display */
-		measureNumber = Math.floor(position);
-		measureBoxLeft = Number($("#measureBox-"+measureNumber).css("left").replace(/px/g, ''));
-		measureBoxTop = Number($("#measureBox-"+measureNumber).css("top").replace(/px/g, ''));
-		$("#positionMarker").css("left", measureBoxLeft + (position-measureNumber) * measureBoxWidth);
+		currentMeasure = Math.floor(position);
+		measureBoxLeft = Number($("#measureBox-"+currentMeasure).css("left").replace(/px/g, ''));
+		measureBoxTop = Number($("#measureBox-"+currentMeasure).css("top").replace(/px/g, ''));
+		$("#positionMarker").css("left", measureBoxLeft + (position-currentMeasure) * measureBoxWidth);
 		$("#positionMarker").css("top", measureBoxTop);
 		didPressPlayButton(REPEAT);
 	}, 4*tempo/600));	
@@ -180,8 +181,9 @@ function didPressStopButton()
 	delay = startDelay;
 	position = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
 	$("#positionLabel").text(position);
-	// Update Measure Display
-	$("#curPosition").css("left", (delay/4) * playIntervalWidth);
+	
+	/* UPDATE POSITION MARKER */
+	//$("#curPosition").css("left", (delay/4) * playIntervalWidth);
 }
 
 function didPressLeftHand()
