@@ -236,14 +236,10 @@ function resetNote(note)
 	noteOn.splice(noteOn.indexOf(note), 1);
 }
 
+/* SET THE CURRENT MEASURE EITHER WITH ARROW KEYS OR BY CLICKING ON MEASURE BOX */
 function setCurrentMeasure(val)
 {
-
-	position = Math.floor(position);
-
-	if (isNaN(Number(val)) && !(val == "+" || val == "-"))
-		val = 0;
-		
+		hello = $(this).attr('id');
 	if (val == "-")
 	{
 		val = Number(position) - 1;
@@ -276,7 +272,6 @@ function setCurrentMeasure(val)
 	delay = (position - 1) * 4;
 
 
-	// Update Start Measure
 	if (position < startMeasure)
 		setStartMeasure(Math.floor(Number(position))-1);
 		
@@ -284,10 +279,11 @@ function setCurrentMeasure(val)
 	if (position >= endMeasure)
 		setEndMeasure(Math.floor(Number(position))+1);
 
-	// Update Measure Display
-	$("#curPosition").css("left", (delay/4) * playIntervalWidth);
-	didPressPauseButton(TURNOFFNOTES);
-	didPressPlayButton(STARTPLAY);
+	/* SET POSITION MARKER */
+	setPositionMarker();
+	
+	didPressStopButton();
+	didPressPlayButton();
 
 }
 

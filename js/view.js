@@ -16,6 +16,7 @@ function drawScreen()
 	drawMarkers();
 	drawControls();
 	drawPiano();
+	setEvents();
 	//feedbackForm();
 	//playDisplay();
 	display();
@@ -164,7 +165,10 @@ function drawMarkers()
 	rightMarkWidth = leftMarkWidth;
 	rightMarkHeight = measureBoxHeight;
 	adjustTag("rightMarker", rightMarkLeft, rightMarkTop, rightMarkWidth, rightMarkHeight, "clear");
+}
 
+function setEvents()
+{
 	$('img').on('dragstart', function(event) { event.preventDefault(); });
 
 	leftMarkerMouseDown = 0;
@@ -194,8 +198,8 @@ function drawMarkers()
 			updateEndMeasure(newMeasure);
 		}
 	});
-
 }
+
 
 function setPositionMarker()
 {
