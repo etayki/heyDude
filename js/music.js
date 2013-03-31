@@ -275,8 +275,8 @@ function setStartMeasure(newMeasure)
 		if (newMeasure == tune.length) return;
 	}
 	
-	startMeasure = newMeasure;
-	startDelay = (newMeasure - 1) * 4;
+	startMeasure = Number(newMeasure);
+	startDelay = (startMeasure - 1) * 4;
 	
 	if (startMeasure > endMeasure)
 		setEndMeasure(startMeasure);
@@ -300,11 +300,11 @@ function setEndMeasure(newMeasure)
 		if (newMeasure == tune.length) return;
 	}
 	
-	endMeasure = newMeasure;
-	endDelay = (newMeasure - 1) * 4;
+	endMeasure = Number(newMeasure);
+	endDelay = (endMeasure - 1) * 4;
 	
 	if (startMeasure > endMeasure)
-		setEndMeasure(endMeasure);
+		setStartMeasure(endMeasure);
 
 	setEndMarker(endMeasure);
 }
