@@ -161,7 +161,7 @@ function drawMarkers()
 	
 	/* RIGHT MARKER */
 	$("body").append('<img id="rightMarker" src="./images/rightMark.png"></img>');
-	rightMarkLeft = $("#measureBox-"+endMeasure).css("left").replace(/px/g, '') - leftMarkWidth + 1; // Add 1 because PowerPoint gives padding of 1;
+	rightMarkLeft = $("#measureBox-"+endMeasure).css("left").replace(/px/g, '')  - leftMarkWidth + 1 + measureBoxWidth; // Add 1 because PowerPoint gives padding of 1;
 	rightMarkTop = leftMarkTop;
 	rightMarkWidth = leftMarkWidth;
 	rightMarkHeight = measureBoxHeight;
@@ -252,7 +252,7 @@ function colorizeMeasures()
 		/* MEASURE BOX */
 		$("#measureBox-"+number).css("background-color","yellow");
 	}
-	for (number = endMeasure; number <= maxBoxes; number++)
+	for (number = endMeasure + 1; number <= maxBoxes; number++)
 	{			
 		/* MEASURE BOX */
 		$("#measureBox-"+number).css("background-color",measureBoxColor);
