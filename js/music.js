@@ -26,6 +26,7 @@ var RETAIN_VISUAL = 1;
 
 /* FEEDBACK */
 var feedbackFormDisplayed = 0;
+var notePress = 21;
 
 $(document).ready(function() {
 	/* Load the MIDI Player*/

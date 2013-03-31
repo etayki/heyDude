@@ -207,6 +207,27 @@ function setEvents()
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
 		setCurrentMeasure(newMeasure);
 	});
+	
+	$(".key").click(function(){
+		keyPress = $(this).attr('id');
+		keyPress = keyPress.replace(/key-/g,'');
+		/* RELEASE PREVIOUS NOTE */
+		resetNote(notePress);
+		for (var i = 0; i < timers.length; i++)
+		{
+		    clearTimeout(timers[i]);
+		}
+		
+		notePress = Number(keyPress) + 21;
+		MIDI.noteOn(0,notePress,90,0);
+		MIDI.noteOff(0,notePress,0.4);
+		$("#key-"+keyPress).css("background-color","yellow");
+
+		timers.push(setTimeout(function() {
+			resetNote(notePress);
+		}, 400));
+			
+	  });
 }
 
 
@@ -628,19 +649,7 @@ function feedbackForm() {
 //		repeatMask();
 //	  });
 //	
-//	$(".key").click(function(){
-//		keyPress = $(this).attr('id');
-//		keyPress = keyPress.replace(/key-/g,'');
-//		notePress = Number(keyPress) + 21;
-//		MIDI.noteOn(0,notePress,90,0);
-//		MIDI.noteOff(0,notePress,0.4);
-//		$("#key-"+keyPress).css("background-color","yellow");
-//
-//		timers.push(setTimeout(function() {
-//			resetNote(notePress);
-//		}, 400));
-//			
-//	  });
+
 //
 //	  $('#startMeasure').live('blur', function() {
 //		if ($("#startMeasure").val() == "")
