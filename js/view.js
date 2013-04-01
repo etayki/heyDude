@@ -600,6 +600,7 @@ function didPressRepeatButton()
 
 function drawfeedback()
 {
+	/* FEEDBACK TAB */
 	feedbackTabLeft = 0
 	feedbackTabTop = controlsBackgroundTop;
 	feedbackTabHeight = screenWidth/55;
@@ -617,36 +618,26 @@ function drawfeedback()
 	$("#feedbackTabLabel").css({"filter" : "progid:DXImageTransform.Microsoft.Matrix(M11=0.9396926207859084,M12=-0.3420201433256687,M21=0.3420201433256687,M22=0.9396926207859084,sizingMethod='auto expand')"});
 	$("#feedbackTabLabel").css({"zoom" : "1"});
 
-	//
-	//
-	//feedbackWidth = 20;
-	//fontSize = $("#feedback").css('font-size').replace(/px/g, '');
-	//fontSize = fontSize*(screenWidth/1300)
-	//
-	//$("#feedback").css("width", feedbackHeight);
-	//$("#feedback").css("height", feedbackWidth);
-	//$("#feedback").css("left", feedbackWidth/2 - feedbackHeight/2 - 1);
-	//$("#feedback").css("top", screen.height*0.4);
-	//$("#feedback").css("font-size",fontSize+"px");
+	/* FEEDBACK FORM */
+	feedbackFormWidth = controlsBackgroundWidth * 0.4;
+	feedbackFormHeight = controlsBackgroundWidth * 0.3;
+	feedbackFormLeft = controlsBackgroundLeft + (controlsBackgroundWidth - feedbackFormWidth)/2;
+	feedbackFormTop = controlsBackgroundTop - 2 * measureBoxHeight;
 	
-	//feedbackFormWidth = pianoWidth * 0.34;
-	//feedbackFormHeight = pianoHeight * 0.7;
-	//feedbackFormTop = screen.height * 0.25; 
-	//feedbackFormLeft = pianoLeft + (pianoWidth - feedbackFormWidth)/2;
-	//
-	//$("#feedbackForm").css("top", feedbackFormTop);
-	//$("#feedbackForm").css("left", feedbackFormLeft);
-	//$("#feedbackForm").css("width", feedbackFormWidth);
-	//$("#feedbackForm").css("height", feedbackFormHeight);
-	//
-	//$("#feedback").click(function() {
-	//	if (didPressPlayBtn)
-	//		didPressPauseButton();
-	//	feedbackFormDisplayed = 1;
-	//	$('#feedbackForm').css("display","");
-	//	$('#message').focus();
-	//	
-	//});
+	$("body").append('<div id="feedbackForm"></div>');
+	adjustTag("feedbackForm", feedbackFormLeft, feedbackFormTop, feedbackFormWidth, feedbackFormHeight, "green");
+	$('#feedbackForm').css("z-index","6");
+	$('#feedbackForm').css("display","none");
+
+
+	$("#feedbackTabLabel").click(function() {
+		if ($("#playBtn").attr("src") ==  "./images/pauseButton.png")
+			didPressPauseButton();
+		feedbackFormDisplayed = 1;
+		$('#feedbackForm').css("display","");
+		$('#message').focus();
+		
+	});
 	//
 	//$("#cancel").click(function() {	
 	//	$('#feedbackForm').css("display","none");
