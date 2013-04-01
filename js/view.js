@@ -637,8 +637,7 @@ function drawfeedback()
 	$("body").append('<div id="feedbackForm"></div>');
 	adjustTag("feedbackForm", feedbackFormLeft, feedbackFormTop, feedbackFormWidth, feedbackFormHeight, "green");
 	$('#feedbackForm').css("z-index","6");
-	//$('#feedbackForm').css("display","none");
-
+	$('#feedbackForm').css("display","none");
 
 	/* FEEDBACK FORM LABEL */
 	feedbackFormLabelLeft = feedbackFormWidth * 0.1;
@@ -667,19 +666,6 @@ function drawfeedback()
 	$("#feedbackForm").append('<input id="sendButton" type="button" name="send" value="Send">');
 	adjustTag("sendButton", sendButtonLeft, sendButtonTop, sendButtonWidth, sendButtonHeight, "clear");
 
-	/* CANCEL BUTTON */
-	cancelButtonLeft = sendButtonLeft - sendButtonWidth * 1.5;
-	cancelButtonTop = feedbackFormHeight * 0.9;
-	cancelButtonWidth = feedbackFormWidth * 0.15;
-	cancelButtonHeight = sendButtonHeight;
-	$("#feedbackForm").append('<input id="cancelButton" type="button" name="cancel" value="Cancel">');
-	adjustTag("cancelButton", cancelButtonLeft, cancelButtonTop, cancelButtonWidth, cancelButtonHeight, "clear");
-
-	$("#cancelButton").click(function() {	
-		$('#feedbackForm').css("display","none");
-		feedbackFormDisplayed = 0;
-	});
-	
 	$('#sendButton').click(function() {	
 		var message = $("textarea#feedbackFormTextArea").val();
 		if (message == "") {
@@ -695,14 +681,38 @@ function drawfeedback()
 		  success: function() {
 			$('#feedbackForm').css("display","none");
 			feedbackFormDisplayed = 0;
-			//$('#feedbackThanks').css("display","");
-			//setTimeout(function() {
-			//	$('#feedbackThanks').css("display","none");
-			//}, 2000);
+			$('#feedbackFormThanksLabel').css("display","");
+			setTimeout(function() {
+				$('#feedbackFormThanksLabel').css("display","none");
+			}, 2000);
 		  }
 		});
 		return false;
 	});
+	
+	/* CANCEL BUTTON */
+	cancelButtonLeft = sendButtonLeft - sendButtonWidth * 1.5;
+	cancelButtonTop = feedbackFormHeight * 0.9;
+	cancelButtonWidth = feedbackFormWidth * 0.15;
+	cancelButtonHeight = sendButtonHeight;
+	$("#feedbackForm").append('<input id="cancelButton" type="button" name="cancel" value="Cancel">');
+	adjustTag("cancelButton", cancelButtonLeft, cancelButtonTop, cancelButtonWidth, cancelButtonHeight, "clear");
+
+	$("#cancelButton").click(function() {	
+		$('#feedbackForm').css("display","none");
+		feedbackFormDisplayed = 0;
+	});
+	
+	/* FEEDBACK FORM THANKS */
+	feedbackFormThanksLabelLeft = feedbackFormLeft;
+	feedbackFormThanksLabelTop = feedbackFormTop;
+	feedbackFormThanksLabelWidth = feedbackFormWidth;
+	feedbackFormThanksLabelHeight = feedbackFormLabelHeight;
+	$("body").append('<div id="feedbackFormThanksLabel">We appreciate your feedback. Thank you!</div>');
+	adjustTag("feedbackFormThanksLabel", feedbackFormThanksLabelLeft, feedbackFormThanksLabelTop, feedbackFormThanksLabelWidth, feedbackFormThanksLabelHeight, "green");
+	//$("#feedbackFormThanksLabel").css("text-align","left");
+	$('#feedbackFormThanksLabel').css("display","none");
+
 }
 
 /* HELPER FUNCTIONS */
