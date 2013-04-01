@@ -11,6 +11,24 @@ java -jar production/compiler.jar --js=production/app.js > production/tmp
 # Uncomment following line after I get rid of DHTML slider and comment one above
 #java -jar production/compiler.jar --compilation_level ADVANCED_OPTIMIZATIONS --js=production/app.js --externs production/jquery-1.3.2.externs.js > production/tmp
 mv production/tmp production/app.js
+sed -i "" 's/drawScreen/aab/g' production/app.js
+sed -i "" 's/drawHeader/aac/g' production/app.js
+sed -i "" 's/drawMeasureGrid/aad/g' production/app.js
+sed -i "" 's/drawMarkers/aae/g' production/app.js
+sed -i "" 's/colorizeMeasures/aaf/g' production/app.js
+sed -i "" 's/drawControls/aag/g' production/app.js
+sed -i "" 's/drawMetronome/aah/g' production/app.js
+sed -i "" 's/drawPiano/aai/g' production/app.js
+sed -i "" 's/setEvents/aaj/g' production/app.js
+sed -i "" 's/drawfeedback/aak/g' production/app.js
+sed -i "" 's/Height/aal/g' production/app.js
+sed -i "" 's/measure/aam/g' production/app.js
+sed -i "" 's/Width/aan/g' production/app.js
+sed -i "" 's/Left/aao/g' production/app.js
+sed -i "" 's/Top/aap/g' production/app.js
+sed -i "" 's/adjustTag/aaq/g' production/app.js
+sed -i "" 's/tune/aar/g' production/app.js
+
 
 # Upload app.js
 curl -T production/index.html -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/
