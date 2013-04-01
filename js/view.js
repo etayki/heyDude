@@ -657,8 +657,21 @@ function drawfeedback()
 	adjustTag("feedbackFormTextArea", feedbackFormTextAreaLeft, feedbackFormTextAreaTop, feedbackFormTextAreaWidth, feedbackFormTextAreaHeight, "clear");
 	$("#feedbackFormTextArea").css("text-align","left");
 	
-    <!--         -->
-
+	/* CANCEL BUTTON */
+	cancelButtonLeft = feedbackFormWidth * 0.6;
+	cancelButtonTop = feedbackFormHeight * 0.9;
+	cancelButtonWidth = feedbackFormWidth * 0.13;
+	cancelButtonHeight = feedbackFormHeight * 0.05;
+	$("#feedbackForm").append('<input id="cancelButton" type="button" name="cancel" value="Cancel">');
+	adjustTag("cancelButton", cancelButtonLeft, cancelButtonTop, cancelButtonWidth, cancelButtonHeight, "clear");
+	
+	/* SEND BUTTON */
+	sendButtonLeft = feedbackFormWidth * 0.77;
+	sendButtonTop = feedbackFormHeight * 0.9;
+	sendButtonWidth = feedbackFormWidth * 0.13;
+	sendButtonHeight = feedbackFormHeight * 0.05;
+	$("#feedbackForm").append('<input id="sendButton" type="button" name="send" value="Send">');
+	adjustTag("sendButton", sendButtonLeft, sendButtonTop, sendButtonWidth, sendButtonHeight, "clear");
     
 	$("#cancel").click(function() {	
 		$('#feedbackForm').css("display","none");
