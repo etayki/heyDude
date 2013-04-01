@@ -4,7 +4,7 @@ printf '3a\n<script src="./app.js"></script>\n.\nw\n' | ed production/index.html
 printf '3a\n<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>\n.\nw\n' | ed production/index.html
 
 # Create app.js
-cat js/music.js js/tune.js js/keyboard.js js/view.js js/MIDI/AudioDetect.js js/MIDI/LoadPlugin.js js/MIDI/Plugin.js js/MIDI/Player.js js/Window/DOMLoader.XMLHttp.js js/Window/DOMLoader.script.js inc/WebMIDIAPI.js inc/Base64.js inc/base64binary.js > production/app.js
+cat inc/base64binary.js js/Window/DOMLoader.XMLHttp.js   js/keyboard.js js/view.js js/MIDI/AudioDetect.js js/MIDI/LoadPlugin.js js/MIDI/Plugin.js js/MIDI/Player.js js/tune.js js/Window/DOMLoader.script.js  inc/WebMIDIAPI.js js/music.js inc/Base64.js  > production/app.js
 
 # Uglify app.js
 java -jar production/compiler.jar --js=production/app.js > production/tmp
