@@ -638,16 +638,28 @@ function drawfeedback()
 	$('#feedbackForm').css("z-index","6");
 	//$('#feedbackForm').css("display","none");
 
+
 	/* FEEDBACK FORM LABEL */
 	feedbackFormLabelLeft = feedbackFormWidth * 0.1;
-	feedbackFormLabelTop = feedbackFormHeight * 0.1;
+	feedbackFormLabelTop = feedbackFormHeight * 0.05;
 	feedbackFormLabelWidth = feedbackFormWidth - feedbackFormLabelLeft;
 	feedbackFormLabelHeight = feedbackFormHeight * 0.07;
 	$("#feedbackForm").append('<div id="feedbackFormLabel">Tell us what you think about our site.</div>');
 	adjustTag("feedbackFormLabel", feedbackFormLabelLeft, feedbackFormLabelTop, feedbackFormLabelWidth, feedbackFormLabelHeight, "clear");
 	$("#feedbackFormLabel").css("text-align","left");
 
+	/* FEEDBACK FORM TEXTAREA */
+	feedbackFormTextAreaWidth = feedbackFormWidth * 0.8;
+	feedbackFormTextAreaLeft = (feedbackFormWidth - feedbackFormTextAreaWidth)/2;
+	feedbackFormTextAreaTop = feedbackFormHeight * 0.15;
+	feedbackFormTextAreaHeight = feedbackFormHeight * 0.7;
+	$("#feedbackForm").append('<textarea name="message" id="feedbackFormTextArea" rows="5" cols="30" wrap="SOFT"></textarea>');
+	adjustTag("feedbackFormTextArea", feedbackFormTextAreaLeft, feedbackFormTextAreaTop, feedbackFormTextAreaWidth, feedbackFormTextAreaHeight, "clear");
+	$("#feedbackFormTextArea").css("text-align","left");
+	
+    <!--         -->
 
+    
 	$("#cancel").click(function() {	
 		$('#feedbackForm').css("display","none");
 		feedbackFormDisplayed = 0;
