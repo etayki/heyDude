@@ -2,9 +2,9 @@
 
 $(document).keydown(function(e){
 	
-	if (e.keyCode == 27) // Esc
+	if (e.keyCode == ESCAPE) // Esc
 	{
-		$("#cancel").click();
+		$("#cancelButton").click();
 	}
 	if (feedbackFormDisplayed)
 	{
@@ -79,3 +79,4 @@ L = 76;
 R = 82;
 RIGHT_ARROW = 39;
 LEFT_ARROW = 37;
+ESCAPE = 27;
