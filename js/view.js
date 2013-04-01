@@ -636,7 +636,7 @@ function drawfeedback()
 	$("body").append('<div id="feedbackForm"></div>');
 	adjustTag("feedbackForm", feedbackFormLeft, feedbackFormTop, feedbackFormWidth, feedbackFormHeight, "green");
 	$('#feedbackForm').css("z-index","6");
-	//$('#feedbackForm').css("display","none");
+	$('#feedbackForm').css("display","none");
 
 
 	/* FEEDBACK FORM LABEL */
@@ -656,7 +656,8 @@ function drawfeedback()
 	$("#feedbackForm").append('<textarea name="message" id="feedbackFormTextArea" rows="5" cols="30" wrap="SOFT"></textarea>');
 	adjustTag("feedbackFormTextArea", feedbackFormTextAreaLeft, feedbackFormTextAreaTop, feedbackFormTextAreaWidth, feedbackFormTextAreaHeight, "clear");
 	$("#feedbackFormTextArea").css("text-align","left");
-	
+	$("#feedbackFormTextArea").focus();
+
 	/* CANCEL BUTTON */
 	cancelButtonLeft = feedbackFormWidth * 0.6;
 	cancelButtonTop = feedbackFormHeight * 0.9;
@@ -664,6 +665,11 @@ function drawfeedback()
 	cancelButtonHeight = feedbackFormHeight * 0.05;
 	$("#feedbackForm").append('<input id="cancelButton" type="button" name="cancel" value="Cancel">');
 	adjustTag("cancelButton", cancelButtonLeft, cancelButtonTop, cancelButtonWidth, cancelButtonHeight, "clear");
+
+	$("#cancelButton").click(function() {	
+		$('#feedbackForm').css("display","none");
+		feedbackFormDisplayed = 0;
+	});
 	
 	/* SEND BUTTON */
 	sendButtonLeft = feedbackFormWidth * 0.77;
@@ -673,34 +679,29 @@ function drawfeedback()
 	$("#feedbackForm").append('<input id="sendButton" type="button" name="send" value="Send">');
 	adjustTag("sendButton", sendButtonLeft, sendButtonTop, sendButtonWidth, sendButtonHeight, "clear");
     
-	$("#cancel").click(function() {	
-		$('#feedbackForm').css("display","none");
-		feedbackFormDisplayed = 0;
+	$('#sendButton').click(function() {	
+		var message = $("textarea#feedbackFormTextArea").val();
+		if (message == "") {
+			$("#feedbackFormTextArea").focus();
+			return false;
+		}
+		
+		var dataString = '&message='+ message;
+		$.ajax({
+		  type: "POST",
+		  url: "./php/feedback.php",
+		  data: dataString,
+		  success: function() {
+			$('#feedbackForm').css("display","none");
+			feedbackFormDisplayed = 0;
+			//$('#feedbackThanks').css("display","");
+			//setTimeout(function() {
+			//	$('#feedbackThanks').css("display","none");
+			//}, 2000);
+		  }
+		});
+		return false;
 	});
-	//
-	//$('#submit').click(function() {	
-	//	var message = $("textarea#message").val();
-	//	if (message == "") {
-	//		$("textarea#message").focus();
-	//		return false;
-	//	}
-	//	
-	//	var dataString = '&message='+ message;
-	//	$.ajax({
-	//	  type: "POST",
-	//	  url: "./php/feedback.php",
-	//	  data: dataString,
-	//	  success: function() {
-	//		$('#feedbackForm').css("display","none");
-	//		feedbackFormDisplayed = 0;
-	//		$('#feedbackThanks').css("display","");
-	//		setTimeout(function() {
-	//			$('#feedbackThanks').css("display","none");
-	//		}, 2000);
-	//	  }
-	//	});
-	//	return false;
-	//});
 }
 
 /* HELPER FUNCTIONS */
