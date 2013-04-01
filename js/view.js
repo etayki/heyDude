@@ -624,8 +624,7 @@ function drawfeedback()
 			didPressPauseButton();
 		feedbackFormDisplayed = 1;
 		$('#feedbackForm').css("display","");
-		$('#message').focus();
-		
+		$("#feedbackFormTextArea").focus();	
 	});
 	
 	/* FEEDBACK FORM */
@@ -656,7 +655,6 @@ function drawfeedback()
 	$("#feedbackForm").append('<textarea name="message" id="feedbackFormTextArea" rows="5" cols="30" wrap="SOFT"></textarea>');
 	adjustTag("feedbackFormTextArea", feedbackFormTextAreaLeft, feedbackFormTextAreaTop, feedbackFormTextAreaWidth, feedbackFormTextAreaHeight, "clear");
 	$("#feedbackFormTextArea").css("text-align","left");
-	$("#feedbackFormTextArea").focus();
 	
 	/* SEND BUTTON */
 	sendButtonWidth = feedbackFormWidth * 0.15;
