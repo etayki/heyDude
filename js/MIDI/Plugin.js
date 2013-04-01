@@ -294,10 +294,14 @@ if (window.Audio) (function () {
 		if (!note) return;
 		var instrumentNoteId = instrumentId + "" + note.id;
 
-		for(var i=0;i<channelInstrumentNoteIds.length;i++){
-			var cId = channelInstrumentNoteIds[i];
+		for(var i=0;i<channels.length;i++){
+			var nid = (i + channel_nid + 1) % channels.length;
+			var cId = channelInstrumentNoteIds[nid];
+
 			if(cId && cId == instrumentNoteId){
-				channels[i].pause();
+				channels[nid].pause();
+				channelInstrumentNoteIds[nid] = null;
+				return;
 			}
 		}
 	};
@@ -447,10 +451,10 @@ if (window.Audio) (function () {
 
 	};
 
-	root.connect = function (conf) {
+	root.connect = function (instruments, conf) {
 		soundManager.flashVersion = 9;
 		soundManager.useHTML5Audio = true;
-		soundManager.url = '../inc/SoundManager2/swf/';
+		soundManager.url = conf.soundManagerSwfUrl || '../inc/SoundManager2/swf/';
 		soundManager.useHighPerformance = true;
 		soundManager.wmode = 'transparent';
 		soundManager.flashPollingInterval = 1;
@@ -467,15 +471,19 @@ if (window.Audio) (function () {
 					onload: onload
 				});			
 			};
-			for (var instrument in MIDI.Soundfont) {
-				var loaded = [];
+			var loaded = [];
+			var samplesPerInstrument = 88;
+			var samplesToLoad = instruments.length * samplesPerInstrument;
+				
+			for (var i = 0; i < instruments.length; i++) {
+				var instrument = instruments[i];
 				var onload = function () {
 					loaded.push(this.sID);
 					if (typeof (MIDI.loader) === "undefined") return;
 					MIDI.loader.update(null, "Processing: " + this.sID);
 				};
-				for (var i = 0; i < 88; i++) {
-					var id = noteReverse[i + 21];
+				for (var j = 0; j < samplesPerInstrument; j++) {
+					var id = noteReverse[j + 21];
 					createBuffer(instrument, id, onload);
 				}
 			}
@@ -483,7 +491,7 @@ if (window.Audio) (function () {
 			setPlugin(root);
 			//
 			var interval = window.setInterval(function () {
-				if (loaded.length !== 88) return;
+				if (loaded.length < samplesToLoad) return;
 				window.clearInterval(interval);
 				if (conf.callback) conf.callback();
 			}, 25);
