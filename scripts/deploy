@@ -31,7 +31,7 @@ sed -i "" 's/Top/aap/g' production/app.js
 sed -i "" 's/adjustTag/aaq/g' production/app.js
 sed -i "" 's/tune/aar/g' production/app.js
 sed -i "" 's/Label/aas/g' production/app.js
-sed -i "" 's/feedback/aat/g' production/app.js
+#sed -i "" 's/feedback/aat/g' production/app.js
 sed -i "" 's/keyboard/aau/g' production/app.js
 sed -i "" 's/Box/aav/g' production/app.js
 sed -i "" 's/Key/aaw/g' production/app.js
