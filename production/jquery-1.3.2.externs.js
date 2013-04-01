@@ -712,3 +712,8 @@ jQuery.fx.off;
  * @return {number}
  */
 jQueryObject.prototype.inArray = function(value, array) {};
+
+jQueryObject.prototype.ready = function(fn) {};
+jQueryObject.prototype.on = function(fn) {};
+
+    //$('img').on('dragstart', function(event) { event.preventDefault(); });
