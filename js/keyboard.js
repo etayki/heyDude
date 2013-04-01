@@ -20,27 +20,27 @@ $(document).keydown(function(e){
 	}
 	if (e.keyCode == 38) // Up arrow
 	{
-		updateTempo("tempo","+");
+		//updateTempo("tempo","+");
 	}
 	else if (e.keyCode == 40) // Down arrow
 	{
-		updateTempo("tempo","-");
+		//updateTempo("tempo","-");
 	}
 	else if (e.keyCode == 191) // ?
 	{
-		updateEndMeasure("+");
+		//updateEndMeasure("+");
 	}
 	else if (e.keyCode == 190) // . >
 	{
-		updateEndMeasure("-");
+		//updateEndMeasure("-");
 	}
 	else if (e.keyCode == 90) // z
 	{
-		updateStartMeasure("-");
+		//updateStartMeasure("-");
 	}
 	else if (e.keyCode == 88) // . x
 	{
-		updateStartMeasure("+");
+		//updateStartMeasure("+");
 	}
 	else if (e.keyCode == SPACE)
 	{
@@ -61,7 +61,7 @@ $(document).keydown(function(e){
 	}
 	else if (e.keyCode == 66) // b
 	{
-		$('input[name=hand][value=both]').prop("checked",true);	
+		//$('input[name=hand][value=both]').prop("checked",true);	
 	}
 	else if (e.keyCode == S)
 	{
@@ -69,7 +69,7 @@ $(document).keydown(function(e){
 	}
 	else if (e.keyCode == 84) // t
 	{
-		repeatToggle();
+		//repeatToggle();
 	}
 });
 
