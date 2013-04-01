@@ -11,6 +11,8 @@ java -jar production/compiler.jar --js=production/app.js > production/tmp
 # Uncomment following line after I get rid of DHTML slider and comment one above
 #java -jar production/compiler.jar --compilation_level ADVANCED_OPTIMIZATIONS --js=production/app.js --externs production/jquery-1.3.2.externs.js > production/tmp
 mv production/tmp production/app.js
+
+# OBFUSCATION - make sure not to do anything that is an image
 sed -i "" 's/drawScreen/aab/g' production/app.js
 sed -i "" 's/drawHeader/aac/g' production/app.js
 sed -i "" 's/drawMeasureGrid/aad/g' production/app.js
@@ -28,6 +30,19 @@ sed -i "" 's/Left/aao/g' production/app.js
 sed -i "" 's/Top/aap/g' production/app.js
 sed -i "" 's/adjustTag/aaq/g' production/app.js
 sed -i "" 's/tune/aar/g' production/app.js
+sed -i "" 's/Label/aas/g' production/app.js
+sed -i "" 's/feedback/aat/g' production/app.js
+sed -i "" 's/keyboard/aau/g' production/app.js
+sed -i "" 's/Box/aav/g' production/app.js
+sed -i "" 's/Key/aaw/g' production/app.js
+sed -i "" 's/slow/aax/g' production/app.js
+sed -i "" 's/fast/aay/g' production/app.js
+sed -i "" 's/composer/aaz/g' production/app.js
+sed -i "" 's/Grid/aba/g' production/app.js
+sed -i "" 's/Header/abb/g' production/app.js
+sed -i "" 's/did/abc/g' production/app.js
+sed -i "" 's/MouseDown/abd/g' production/app.js
+sed -i "" 's/Track/abd/g' production/app.js
 
 
 # Upload app.js
