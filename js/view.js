@@ -23,6 +23,7 @@ function drawScreen()
 
 function setSceenWidth()
 {
+	//screenWidth = 1000;
 	screenWidth = screen.width;
 	userAgent = navigator.userAgent;
 	if(userAgent.indexOf("iPhone") !== -1)
@@ -636,7 +637,7 @@ function drawfeedback()
 	$("body").append('<div id="feedbackForm"></div>');
 	adjustTag("feedbackForm", feedbackFormLeft, feedbackFormTop, feedbackFormWidth, feedbackFormHeight, "green");
 	$('#feedbackForm').css("z-index","6");
-	$('#feedbackForm').css("display","none");
+	//$('#feedbackForm').css("display","none");
 
 
 	/* FEEDBACK FORM LABEL */
@@ -657,12 +658,20 @@ function drawfeedback()
 	adjustTag("feedbackFormTextArea", feedbackFormTextAreaLeft, feedbackFormTextAreaTop, feedbackFormTextAreaWidth, feedbackFormTextAreaHeight, "clear");
 	$("#feedbackFormTextArea").css("text-align","left");
 	$("#feedbackFormTextArea").focus();
+	
+	/* SEND BUTTON */
+	sendButtonWidth = feedbackFormWidth * 0.15;
+	sendButtonLeft = feedbackFormTextAreaLeft + feedbackFormTextAreaWidth - sendButtonWidth;
+	sendButtonTop = feedbackFormHeight * 0.9;
+	sendButtonHeight = feedbackFormHeight * 0.5;
+	$("#feedbackForm").append('<input id="sendButton" type="button" name="send" value="Send">');
+	adjustTag("sendButton", sendButtonLeft, sendButtonTop, sendButtonWidth, sendButtonHeight, "clear");
 
 	/* CANCEL BUTTON */
-	cancelButtonLeft = feedbackFormWidth * 0.6;
+	cancelButtonLeft = sendButtonLeft - sendButtonWidth * 1.5;
 	cancelButtonTop = feedbackFormHeight * 0.9;
-	cancelButtonWidth = feedbackFormWidth * 0.13;
-	cancelButtonHeight = feedbackFormHeight * 0.05;
+	cancelButtonWidth = feedbackFormWidth * 0.15;
+	cancelButtonHeight = sendButtonHeight;
 	$("#feedbackForm").append('<input id="cancelButton" type="button" name="cancel" value="Cancel">');
 	adjustTag("cancelButton", cancelButtonLeft, cancelButtonTop, cancelButtonWidth, cancelButtonHeight, "clear");
 
@@ -671,14 +680,6 @@ function drawfeedback()
 		feedbackFormDisplayed = 0;
 	});
 	
-	/* SEND BUTTON */
-	sendButtonLeft = feedbackFormWidth * 0.77;
-	sendButtonTop = feedbackFormHeight * 0.9;
-	sendButtonWidth = feedbackFormWidth * 0.13;
-	sendButtonHeight = feedbackFormHeight * 0.05;
-	$("#feedbackForm").append('<input id="sendButton" type="button" name="send" value="Send">');
-	adjustTag("sendButton", sendButtonLeft, sendButtonTop, sendButtonWidth, sendButtonHeight, "clear");
-    
 	$('#sendButton').click(function() {	
 		var message = $("textarea#feedbackFormTextArea").val();
 		if (message == "") {
