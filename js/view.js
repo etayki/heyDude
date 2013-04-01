@@ -609,7 +609,7 @@ function drawfeedback()
 	adjustTag("feedbackTabLabel", feedbackTabLeft, feedbackTabTop, 0, feedbackTabHeight, "green");
 	$("#feedbackTabLabel").css("left", -feedbackTabWidth/2 + 2);
 
-	/* 90 DEGREE ROTATION */
+	/* FEEDBACK TAB 90 DEGREE ROTATION */
         $('#feedbackTabLabel').css({"-webkit-transform" : "rotate(-90deg)"});
         $('#feedbackTabLabel').css({"-moz-transform" : "rotate(-90deg)"});
 	$("#feedbackTabLabel").css({"-o-transform" : "rotate(-90deg)"});
@@ -617,18 +617,6 @@ function drawfeedback()
 	$("#feedbackTabLabel").css({"-transform" : "rotate(-90deg)"});
 	$("#feedbackTabLabel").css({"filter" : "progid:DXImageTransform.Microsoft.Matrix(M11=0.9396926207859084,M12=-0.3420201433256687,M21=0.3420201433256687,M22=0.9396926207859084,sizingMethod='auto expand')"});
 	$("#feedbackTabLabel").css({"zoom" : "1"});
-
-	/* FEEDBACK FORM */
-	feedbackFormWidth = controlsBackgroundWidth * 0.4;
-	feedbackFormHeight = controlsBackgroundWidth * 0.3;
-	feedbackFormLeft = controlsBackgroundLeft + (controlsBackgroundWidth - feedbackFormWidth)/2;
-	feedbackFormTop = controlsBackgroundTop - 2 * measureBoxHeight;
-	
-	$("body").append('<div id="feedbackForm"></div>');
-	adjustTag("feedbackForm", feedbackFormLeft, feedbackFormTop, feedbackFormWidth, feedbackFormHeight, "green");
-	$('#feedbackForm').css("z-index","6");
-	$('#feedbackForm').css("display","none");
-
 
 	$("#feedbackTabLabel").click(function() {
 		if ($("#playBtn").attr("src") ==  "./images/pauseButton.png")
@@ -638,11 +626,32 @@ function drawfeedback()
 		$('#message').focus();
 		
 	});
-	//
-	//$("#cancel").click(function() {	
-	//	$('#feedbackForm').css("display","none");
-	//	feedbackFormDisplayed = 0;
-	//});
+	
+	/* FEEDBACK FORM */
+	feedbackFormWidth = controlsBackgroundWidth * 0.4;
+	feedbackFormHeight = controlsBackgroundWidth * 0.3;
+	feedbackFormLeft = controlsBackgroundLeft + (controlsBackgroundWidth - feedbackFormWidth)/2;
+	feedbackFormTop = controlsBackgroundTop - 2 * measureBoxHeight;
+	
+	$("body").append('<div id="feedbackForm"></div>');
+	adjustTag("feedbackForm", feedbackFormLeft, feedbackFormTop, feedbackFormWidth, feedbackFormHeight, "green");
+	$('#feedbackForm').css("z-index","6");
+	//$('#feedbackForm').css("display","none");
+
+	/* FEEDBACK FORM LABEL */
+	feedbackFormLabelLeft = feedbackFormWidth * 0.1;
+	feedbackFormLabelTop = feedbackFormHeight * 0.1;
+	feedbackFormLabelWidth = feedbackFormWidth - feedbackFormLabelLeft;
+	feedbackFormLabelHeight = feedbackFormHeight * 0.07;
+	$("#feedbackForm").append('<div id="feedbackFormLabel">Tell us what you think about our site.</div>');
+	adjustTag("feedbackFormLabel", feedbackFormLabelLeft, feedbackFormLabelTop, feedbackFormLabelWidth, feedbackFormLabelHeight, "clear");
+	$("#feedbackFormLabel").css("text-align","left");
+
+
+	$("#cancel").click(function() {	
+		$('#feedbackForm').css("display","none");
+		feedbackFormDisplayed = 0;
+	});
 	//
 	//$('#submit').click(function() {	
 	//	var message = $("textarea#message").val();
@@ -690,7 +699,7 @@ function adjustTag(tag, left, top, width, height, backgroundColor)
 	
 	if (tag.indexOf("feedbackTabLabel") !== -1)
 	{
-		$("#feedbackTabLabel").css("width",feedbackTabWidth * 1.2);
+		$("#"+tag).css("width",feedbackTabWidth * 1.2);
 	}
 }
 
