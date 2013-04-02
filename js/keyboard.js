@@ -67,9 +67,9 @@ $(document).keydown(function(e){
 	{
 		didPressStopButton();	
 	}
-	else if (e.keyCode == 84) // t
+	else if (e.keyCode == T)
 	{
-		//repeatToggle();
+		$("#repeatButton").click();
 	}
 });
 
@@ -80,3 +80,4 @@ R = 82;
 RIGHT_ARROW = 39;
 LEFT_ARROW = 37;
 ESCAPE = 27;
+T = 84;
