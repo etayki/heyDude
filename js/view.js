@@ -655,6 +655,7 @@ function drawfeedback()
 	$("#feedbackForm").append('<textarea name="message" id="feedbackFormTextArea" rows="5" cols="30" wrap="SOFT"></textarea>');
 	adjustTag("feedbackFormTextArea", feedbackFormTextAreaLeft, feedbackFormTextAreaTop, feedbackFormTextAreaWidth, feedbackFormTextAreaHeight, "clear");
 	$("#feedbackFormTextArea").css("text-align","left");
+	$("#feedbackFormTextArea").css("font-size",$("#feedbackFormLabel").css("font-size").replace(/px/g, '') - 4);
 	
 	/* SEND BUTTON */
 	sendButtonWidth = feedbackFormWidth * 0.15;
