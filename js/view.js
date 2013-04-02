@@ -208,6 +208,47 @@ function drawControls()
 	infoButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.3;
 	infoButtonTop = controlsBackgroundTop + controlsBackgroundHeight * 0.1;
 	adjustTag("infoButton", infoButtonLeft, infoButtonTop, infoButtonWidth, infoButtonHeight, "clear");
+
+	$("#infoButton").click(function() {
+		if ($("#playBtn").attr("src") ==  "./images/pauseButton.png")
+			didPressPauseButton();
+		feedbackFormDisplayed = 1;
+		$('#handInfoPopup').css("display","");
+		$('#handInfoPopupCloseButton').css("display","");
+	});
+	
+	/* HAND INFO POPUP */
+	$("body").append('<img id="handInfoPopup" src="./images/handInfo.png"></img>');
+	handInfoPopupWidth = controlsBackgroundWidth * 0.3;
+	handInfoPopupHeight = handInfoPopupWidth * 0.9;
+	handInfoPopupLeft = controlsBackgroundLeft + (controlsBackgroundWidth - handInfoPopupWidth)/2;
+	handInfoPopupTop = controlsBackgroundTop - 2 * measureBoxHeight;
+	
+	adjustTag("handInfoPopup", handInfoPopupLeft, handInfoPopupTop, handInfoPopupWidth, handInfoPopupHeight, "clear");
+	$('#handInfoPopup').css("z-index","6");
+	$('#handInfoPopup').css("display","none");
+
+	$("#handInfoPopup").click(function() {
+		feedbackFormDisplayed = 0;
+		$('#handInfoPopup').css("display","none");
+		//$('#handInfoPopupCloseButton').css("display","none");
+	});
+	
+	/* HAND INFO POPUP CLOSE BUTTON */
+	//$("body").append('<div id="handInfoPopupCloseButton"></div>');
+	//handInfoPopupCloseButtonWidth = handInfoPopupWidth * 0.15;
+	//handInfoPopupCloseButtonLeft = handInfoPopupLeft + handInfoPopupWidth - handInfoPopupCloseButtonWidth;
+	//handInfoPopupCloseButtonHeight = handInfoPopupCloseButtonWidth;
+	//handInfoPopupCloseButtonTop = handInfoPopupTop
+	//$('#handInfoPopupCloseButton').css("z-index","6");
+	//$('#handInfoPopupCloseButton').css("display","none");
+	//adjustTag("handInfoPopupCloseButton", handInfoPopupCloseButtonLeft, handInfoPopupCloseButtonTop, handInfoPopupCloseButtonWidth, handInfoPopupCloseButtonHeight, "clear");
+	//
+	//$("#handInfoPopupCloseButton").click(function() {
+	//	feedbackFormDisplayed = 0;
+	//	$('#handInfoPopup').css("display","none");
+	//	$('#handInfoPopupCloseButton').css("display","none");
+	//});
 	
 	/* DIVIDER */
 	$("body").append('<img id="divider1" src="./images/divider.png"></img>');
