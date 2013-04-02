@@ -295,8 +295,8 @@ function drawControls()
 	positionLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.38;
 	positionLabelWidth = controlsBackgroundWidth * 0.03;
 	positionLabelHeight = positionLabelWidth;
-	adjustTag("positionLabel", positionLabelLeft, positionLabelTop, positionLabelWidth, positionLabelHeight, "clear");	
-
+	adjustTag("positionLabel", positionLabelLeft, positionLabelTop, positionLabelWidth, positionLabelHeight, "clear");
+	$('#positionLabel').css("display","none");
 }
 
 function drawMetronome()
