@@ -660,8 +660,8 @@ function drawfeedback()
 	sendButtonWidth = feedbackFormWidth * 0.15;
 	sendButtonLeft = feedbackFormTextAreaLeft + feedbackFormTextAreaWidth - sendButtonWidth;
 	sendButtonTop = feedbackFormHeight * 0.9;
-	sendButtonHeight = feedbackFormHeight * 0.5;
-	$("#feedbackForm").append('<input id="sendButton" type="button" name="send" value="Send">');
+	sendButtonHeight = feedbackFormHeight * 0.06;
+	$("#feedbackForm").append('<input id="sendButton" type="button" name="send" value="Send" style="border:none">');
 	adjustTag("sendButton", sendButtonLeft, sendButtonTop, sendButtonWidth, sendButtonHeight, "clear");
 
 	$('#sendButton').click(function() {	
@@ -689,11 +689,11 @@ function drawfeedback()
 	});
 	
 	/* CANCEL BUTTON */
-	cancelButtonLeft = sendButtonLeft - sendButtonWidth * 1.5;
+	cancelButtonLeft = sendButtonLeft - sendButtonWidth * 1.4;
 	cancelButtonTop = feedbackFormHeight * 0.9;
-	cancelButtonWidth = feedbackFormWidth * 0.15;
+	cancelButtonWidth = sendButtonWidth;
 	cancelButtonHeight = sendButtonHeight;
-	$("#feedbackForm").append('<input id="cancelButton" type="button" name="cancel" value="Cancel">');
+	$("#feedbackForm").append('<input id="cancelButton" type="button" name="cancel" value="Cancel" style="border:none">');
 	adjustTag("cancelButton", cancelButtonLeft, cancelButtonTop, cancelButtonWidth, cancelButtonHeight, "clear");
 
 	$("#cancelButton").click(function() {	
@@ -723,11 +723,15 @@ function adjustTag(tag, left, top, width, height, backgroundColor)
 	$("#"+tag).css("height", height);
 	$("#"+tag).css("background-color", backgroundColor);
 	
-	if (tag.indexOf("Label") !== -1)
+	if (tag.indexOf("Label") !== -1 || tag.indexOf("Button") !== -1)
 	{
 		fontSize = getFontSize(height);
 		if (tag.indexOf("feedbackTabLabel") !== -1)
 		    fontSize -= 2;
+		    
+		if (tag.indexOf("Button") !== -1)
+		    fontSize -= 4;
+		    
 		$("#"+tag).css("font-size", fontSize+"px");
 		$("#"+tag).css("text-align","center");
 	}
