@@ -113,7 +113,7 @@ function drawMeasureGrid()
 	for (number = 1; number <= maxBoxes; number++)
 	{			
 		/* MEASURE BOX */
-		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid; border-width:1px"></div>');
+		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:1px;cursor:pointer"></div>');
 		adjustTag("measureBox-"+number, measureBoxLeft, measureBoxTop, measureBoxWidth, measureBoxHeight, measureBoxColor);
 		
 		if (number < tune.length)
@@ -647,7 +647,7 @@ function drawfeedback()
 	feedbackTabTop = controlsBackgroundTop;
 	feedbackTabHeight = screenWidth/55;
 
-	$("body").append('<div id="feedbackTabLabel">Feedback</div>');
+	$("body").append('<div id="feedbackTabLabel" style="cursor:pointer">Feedback</div>');
 	adjustTag("feedbackTabLabel", feedbackTabLeft, feedbackTabTop, 0, feedbackTabHeight, "green");
 	$("#feedbackTabLabel").css("left", -feedbackTabWidth/2 + 2);
 
