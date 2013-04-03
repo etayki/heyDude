@@ -504,7 +504,7 @@ function setEvents()
 			$('#endMarkerInfoLabel').css("display","none");
 		}
 	});
-	
+
 	/* SET CURRENT MEASURE */
 	$(".measureBox").click(function() {
 		measureBoxId = $(this).attr('id');
@@ -705,7 +705,7 @@ function drawfeedback()
 	$("body").append('<div id="feedbackForm"></div>');
 	adjustTag("feedbackForm", feedbackFormLeft, feedbackFormTop, feedbackFormWidth, feedbackFormHeight, "green");
 	$('#feedbackForm').css("z-index","6");
-	$('#feedbackForm').css("display","none");
+	//$('#feedbackForm').css("display","none");
 
 	/* FEEDBACK FORM LABEL */
 	feedbackFormLabelLeft = feedbackFormWidth * 0.1;
@@ -716,15 +716,33 @@ function drawfeedback()
 	adjustTag("feedbackFormLabel", feedbackFormLabelLeft, feedbackFormLabelTop, feedbackFormLabelWidth, feedbackFormLabelHeight, "clear");
 	$("#feedbackFormLabel").css("text-align","left");
 
+	/* FEEDBACK FORM EMAIL TEXTAREA */
+	feedbackFormEmailTaWidth = feedbackFormWidth * 0.8;
+	feedbackFormEmailTaLeft = (feedbackFormWidth - feedbackFormEmailTaWidth)/2;
+	feedbackFormEmailTaTop = feedbackFormHeight * 0.15;
+	feedbackFormEmailTaHeight = feedbackFormHeight * 0.09;
+	$("#feedbackForm").append('<textarea name="message" id="feedbackFormEmailTa" rows="1" cols="30" wrap="SOFT">myEmail@domain.com</textarea>');
+	adjustTag("feedbackFormEmailTa", feedbackFormEmailTaLeft, feedbackFormEmailTaTop, feedbackFormEmailTaWidth, feedbackFormEmailTaHeight, "clear");
+	$("#feedbackFormEmailTa").css("text-align","left");
+	$("#feedbackFormEmailTa").css("font-size",$("#feedbackFormLabel").css("font-size").replace(/px/g, '') - 4);
+
+	$('#feedbackFormEmailTa').click(function() {	
+			$("#feedbackFormEmailTa").val('');
+		});
+		
 	/* FEEDBACK FORM TEXTAREA */
 	feedbackFormTextAreaWidth = feedbackFormWidth * 0.8;
 	feedbackFormTextAreaLeft = (feedbackFormWidth - feedbackFormTextAreaWidth)/2;
-	feedbackFormTextAreaTop = feedbackFormHeight * 0.15;
-	feedbackFormTextAreaHeight = feedbackFormHeight * 0.7;
-	$("#feedbackForm").append('<textarea name="message" id="feedbackFormTextArea" rows="5" cols="30" wrap="SOFT"></textarea>');
+	feedbackFormTextAreaTop = feedbackFormHeight * 0.3;
+	feedbackFormTextAreaHeight = feedbackFormHeight * 0.55;
+	$("#feedbackForm").append('<textarea name="message" id="feedbackFormTextArea" rows="5" cols="30" wrap="SOFT">Type your message here ...</textarea>');
 	adjustTag("feedbackFormTextArea", feedbackFormTextAreaLeft, feedbackFormTextAreaTop, feedbackFormTextAreaWidth, feedbackFormTextAreaHeight, "clear");
 	$("#feedbackFormTextArea").css("text-align","left");
 	$("#feedbackFormTextArea").css("font-size",$("#feedbackFormLabel").css("font-size").replace(/px/g, '') - 4);
+
+	$('#feedbackFormTextArea').click(function() {	
+			$("#feedbackFormTextArea").val('');
+		});
 	
 	/* SEND BUTTON */
 	sendButtonWidth = feedbackFormWidth * 0.15;
