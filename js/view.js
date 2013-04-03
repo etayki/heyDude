@@ -69,7 +69,7 @@ function drawHeader()
 	composerPicTop = measureGridHeaderTop;
 	composerPicHeight = measureGridHeaderHeight;
 	composerPicWidth = measureGridHeaderHeight * 1.2;
-	composerPicLeft = measureGridHeaderLeft + measureGridHeaderWidth - composerPicWidth;
+	composerPicLeft = measureGridHeaderLeft + measureGridHeaderWidth - composerPicWidth + 1;
 	adjustTag("composerPic", composerPicLeft, composerPicTop, composerPicWidth, composerPicHeight, "clear");
 	
 	/* TUNE LABEL */
@@ -292,21 +292,21 @@ function drawControls()
 	playLabelHeight = controlsBackgroundHeight * 0.2;
 	adjustTag("playLabel", playLabelLeft, playLabelTop, playLabelWidth, playLabelHeight, "clear");
 	
-	/* PLAY BUTTON */
-	$("body").append('<img id="playBtn" src="./images/playButton.png" onclick="didPressPlayButton()"></img>');
-	playButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.43;
-	playButtonTop = rightHandTop;
-	playButtonWidth = controlsBackgroundHeight * 0.6;
-	playButtonHeight = leftHandHeight;
-	adjustTag("playBtn", playButtonLeft, playButtonTop, playButtonWidth, playButtonHeight, "clear");
-	
 	/* STOP BUTTON */
 	$("body").append('<img id="stopBtn" src="./images/stopButton.png" onclick="didPressStopButton()"></img>');
-	stopButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.5;
+	stopButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.43;
 	stopButtonTop = rightHandTop;
 	stopButtonWidth = controlsBackgroundHeight * 0.6;
 	stopButtonHeight = leftHandHeight;
 	adjustTag("stopBtn", stopButtonLeft, stopButtonTop, stopButtonWidth, stopButtonHeight, "clear");
+
+	/* PLAY BUTTON */
+	$("body").append('<img id="playBtn" src="./images/playButton.png" onclick="didPressPlayButton()"></img>');
+	playButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.5;
+	playButtonTop = rightHandTop;
+	playButtonWidth = controlsBackgroundHeight * 0.6;
+	playButtonHeight = leftHandHeight;
+	adjustTag("playBtn", playButtonLeft, playButtonTop, playButtonWidth, playButtonHeight, "clear");
 	
 	/* REPEAT BUTTON */
 	$("body").append('<img id="repeatButton" src="./images/repeatEnabled.png" onclick="didPressRepeatButton()"></img>');
