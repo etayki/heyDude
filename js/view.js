@@ -294,7 +294,7 @@ function drawControls()
 	
 	/* STOP BUTTON */
 	$("body").append('<img id="stopBtn" src="./images/stopButton.png" onclick="didPressStopButton()"></img>');
-	stopButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.43;
+	stopButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.42;
 	stopButtonTop = rightHandTop;
 	stopButtonWidth = controlsBackgroundHeight * 0.6;
 	stopButtonHeight = leftHandHeight;
@@ -302,7 +302,7 @@ function drawControls()
 
 	/* PLAY BUTTON */
 	$("body").append('<img id="playBtn" src="./images/playButton.png" onclick="didPressPlayButton()"></img>');
-	playButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.5;
+	playButtonLeft =  stopButtonLeft + stopButtonWidth * 1.5;
 	playButtonTop = rightHandTop;
 	playButtonWidth = controlsBackgroundHeight * 0.6;
 	playButtonHeight = leftHandHeight;
@@ -310,7 +310,7 @@ function drawControls()
 	
 	/* REPEAT BUTTON */
 	$("body").append('<img id="repeatButton" src="./images/repeatEnabled.png" onclick="didPressRepeatButton()"></img>');
-	repeatButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.555;
+	repeatButtonLeft =  stopButtonLeft + stopButtonWidth * 3;
 	repeatButtonTop = rightHandTop;
 	repeatButtonWidth = controlsBackgroundHeight * 0.6;
 	repeatButtonHeight = leftHandHeight;
