@@ -758,8 +758,14 @@ function drawfeedback()
 			$("#feedbackFormTextArea").focus();
 			return false;
 		}
+
+		var email = $("textarea#feedbackFormEmailTa").val();
+		if (email == "") {
+			$("#feedbackFormEmailTa").focus();
+			return false;
+		}
 		
-		var dataString = '&message='+ message;
+		var dataString = '&message='+ message + '&email=' + email;
 		$.ajax({
 		  type: "POST",
 		  url: "./php/feedback.php",

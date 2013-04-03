@@ -3,7 +3,7 @@
   $email_to = "etayluz@gmail.com";
   $email_subject = "New Feedback";
    
-  $email_from = "etayluz@gmail.com";
+  $email_from = $_POST['email'];
   $email_message = $_POST['message'];
      
      
