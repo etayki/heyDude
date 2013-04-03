@@ -15,7 +15,6 @@
     <script src="./js/keyboard.js" type="text/javascript"></script>
 </head>
 <body style="background-image:url('./images/redCarpet.jpg');background-repeat:repeat">
-<?php include_once("php/analyticstracking.php") ?>
 
 <!-- Loading Animation -->
 <div id="loading"  style="position:absolute;top:100px;left:500px;z-index:3;font-size:12px"><img src="./images/loading.gif"></img></div>
