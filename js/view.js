@@ -87,6 +87,15 @@ function drawHeader()
 	artisitLabelWidth = measureGridHeaderWidth;
 	artisitLabelHeight = measureGridHeaderHeight * 0.25;
 	adjustTag("artisitLabel", artisitLabelLeft, artisitLabelTop, artisitLabelWidth, artisitLabelHeight, "clear");
+
+	/* MEASURE GRID Bar */
+	$("body").append('<div id="measureGridBar" style="border-style:solid;border-width:1px"></div>');
+	measureGridBarWidth = measureGridHeaderWidth; 
+	measureGridBarLeft = measureGridHeaderLeft;
+	measureGridBarTop = measureGridHeaderTop + measureGridHeaderHeight;
+	measureGridBarHeight = measureGridHeaderHeight * 0.4;
+	measureGridBarColor = "#919191";
+	adjustTag("measureGridBar", measureGridBarLeft, measureGridBarTop, measureGridBarWidth, measureGridBarHeight, measureGridBarColor);
 }
 
 function drawMeasureGrid()
@@ -99,7 +108,7 @@ function drawMeasureGrid()
 	measureBoxLeft = measureGridHeaderLeft;
 	measureBoxWidth = measureGridHeaderWidth/maxColumn;
 	measureBoxHeight = measureBoxWidth;
-	measureBoxTop = measureGridHeaderTop + measureGridHeaderHeight;
+	measureBoxTop = measureGridBarTop + measureGridBarHeight;
 	measureBoxColor = "#cbcbcb";
 
 	/* MEASURE LABEL */
@@ -165,6 +174,23 @@ function drawMarkers()
 	rightMarkWidth = leftMarkWidth;
 	rightMarkHeight = measureBoxHeight;
 	adjustTag("rightMarker", rightMarkLeft, rightMarkTop, rightMarkWidth, rightMarkHeight, "clear");
+
+	/* START MARKER INFO LABEL */
+	$("body").append('<div id="startMarkerInfoLabel" style="color:white">Drag to Start</div>');
+	startMarkerInfoLabelLeft =  measureGridHeaderLeft + measureBoxWidth * 0.1;
+	startMarkerInfoLabelHeight = measureGridBarHeight * 0.5;
+	startMarkerInfoLabelTop = measureGridBarTop + (measureGridBarHeight - startMarkerInfoLabelHeight)/2;
+	startMarkerInfoLabelWidth = measureBoxWidth * 2;
+	adjustTag("startMarkerInfoLabel", startMarkerInfoLabelLeft, startMarkerInfoLabelTop, startMarkerInfoLabelWidth, startMarkerInfoLabelHeight, "clear");
+	$("#startMarkerInfoLabel").css("text-align", "left");
+	
+	/* END MARKER INFO LABEL */
+	$("body").append('<div id="endMarkerInfoLabel" style="color:white">Drag to End</div>');
+	endMarkerInfoLabelLeft =  measureGridHeaderLeft + measureBoxWidth * (endMeasure-2);
+	endMarkerInfoLabelHeight = measureGridBarHeight * 0.5;
+	endMarkerInfoLabelTop = measureGridBarTop + (measureGridBarHeight - endMarkerInfoLabelHeight)/2;
+	endMarkerInfoLabelWidth = measureBoxWidth * 4;
+	adjustTag("endMarkerInfoLabel", endMarkerInfoLabelLeft, endMarkerInfoLabelTop, endMarkerInfoLabelWidth, endMarkerInfoLabelHeight, "clear");
 }
 
 function drawControls()
@@ -467,13 +493,15 @@ function setEvents()
 	$(".measureBox").hover(function() {
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
-		if (leftMarkerMouseDown)
+		if (leftMarkerMouseDown && newMeasure != startMeasure)
 		{
 			setStartMeasure(newMeasure);
+			$('#startMarkerInfoLabel').css("display","none");
 		}
-		else if (rightMarkerMouseDown)
+		else if (rightMarkerMouseDown && newMeasure != endMeasure)
 		{
 			setEndMeasure(newMeasure);
+			$('#endMarkerInfoLabel').css("display","none");
 		}
 	});
 	
