@@ -705,7 +705,7 @@ function drawfeedback()
 	$("body").append('<div id="feedbackForm"></div>');
 	adjustTag("feedbackForm", feedbackFormLeft, feedbackFormTop, feedbackFormWidth, feedbackFormHeight, "green");
 	$('#feedbackForm').css("z-index","6");
-	//$('#feedbackForm').css("display","none");
+	$('#feedbackForm').css("display","none");
 
 	/* FEEDBACK FORM LABEL */
 	feedbackFormLabelLeft = feedbackFormWidth * 0.1;
