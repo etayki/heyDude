@@ -693,7 +693,7 @@ function drawfeedback()
 			didPressPauseButton();
 		feedbackFormDisplayed = 1;
 		$('#feedbackForm').css("display","");
-		$("#feedbackFormTextArea").focus();	
+		//$("#feedbackFormTextArea").focus();	
 	});
 	
 	/* FEEDBACK FORM */
