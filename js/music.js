@@ -102,7 +102,8 @@ function didPressPlayButton(option)
 					finger *= -1;
 				}
 				$("#key-"+key).css("background-color",color);
-				$("#keyLabel-"+key).text(finger);
+				if (finger != 0)
+					$("#keyLabel-"+key).text(finger);
 			}
 			else if ((delay - 0.01) < (noteEnd - 0.01) && (noteEnd - 0.01) <= delay)
 			{
