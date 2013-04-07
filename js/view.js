@@ -49,7 +49,7 @@ function drawHeader()
 {
 	/* MEASURE GRID HEADER */
 	$("body").append('<div id="measureGridHeader"></div>');
-	measureGridHeaderWidth = Math.floor(screenWidth * 0.8) - 1; // Subtract one to account for border of measureBox
+	measureGridHeaderWidth = Math.floor(screenWidth * 1) - 1; // Subtract one to account for border of measureBox
 	measureGridHeaderLeft = (screenWidth - measureGridHeaderWidth)/2;
 	measureGridHeaderTop = 0;
 	measureGridHeaderHeight = measureGridHeaderWidth * 0.065;
@@ -675,7 +675,7 @@ function drawfeedback()
 	feedbackTabTop = controlsBackgroundTop;
 	feedbackTabHeight = screenWidth/55;
 
-	$("body").append('<div id="feedbackTabLabel" style="cursor:pointer">Feedback</div>');
+	//$("body").append('<div id="feedbackTabLabel" style="cursor:pointer">Feedback</div>');
 	adjustTag("feedbackTabLabel", feedbackTabLeft, feedbackTabTop, 0, feedbackTabHeight, "green");
 	$("#feedbackTabLabel").css("left", -feedbackTabWidth/2 + 2);
 

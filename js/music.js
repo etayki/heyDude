@@ -3,7 +3,7 @@ var tempo = 20;
 
 /* MEASURE/DELAY */
 var startMeasure = currentMeasure = 1;
-var endMeasure = 5;
+var endMeasure = 8;
 var startDelay = delay = 0;
 var endDelay = endMeasure * 4;
 var FAST_FORWARD = 0.01;
@@ -40,7 +40,7 @@ $(document).ready(function() {
 			// MIDI Player has loaded, so now allow user interaction
 			//debug("Draw screen START: "+(new Date()).getMilliseconds());
 			//debug("Draw screen END: "+(new Date()).getMilliseconds());
-			MIDI.setVolume(0, 127);
+			MIDI.setVolume(0, 300);
 		}
 	});
 	
