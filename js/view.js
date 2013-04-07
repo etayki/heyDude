@@ -333,7 +333,7 @@ function drawControls()
 	adjustTag("repeatButton", repeatButtonLeft, repeatButtonTop, repeatButtonWidth, repeatButtonHeight, "clear");
 
 	/* REPEAT LABEL */
-	$("body").append('<div id="repeatLabel">Repat On</div>');
+	$("body").append('<div id="repeatLabel">Repeat On</div>');
 	repeatLabelLeft =  repeatButtonLeft - repeatButtonWidth;
 	repeatLabelTop = leftHandLabelTop;
 	repeatLabelWidth = leftHandLabelWidth;
