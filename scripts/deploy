@@ -28,7 +28,7 @@ sed -i "" 's/drawfeedback/aak/g' production/app.js
 sed -i "" 's/Height/aal/g' production/app.js
 sed -i "" 's/measure/aam/g' production/app.js
 sed -i "" 's/Width/aan/g' production/app.js
-sed -i "" 's/Left/aao/g' production/app.js
+#sed -i "" 's/Left/aao/g' production/app.js
 sed -i "" 's/Top/aap/g' production/app.js
 sed -i "" 's/adjustTag/aaq/g' production/app.js
 sed -i "" 's/tune/aar/g' production/app.js
