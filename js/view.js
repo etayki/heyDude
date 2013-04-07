@@ -374,25 +374,6 @@ function drawMetronome()
 	metronomeBoxHeight = controlsBackgroundHeight;
 	metronomeBoxTop = controlsBackgroundTop + (controlsBackgroundHeight - metronomeBoxHeight)/2;
 	metronomeBoxColor = "clear";
-
-	$(".metronomeBox").click(function(){
-		newMetronomeBox = $(this).attr('id');
-		newMetronomeBox = Number(newMetronomeBox.replace(/metronomeBox-/g,''));
-		draggerBoxLeft = $("#metronomeBox-"+newMetronomeBox).css("left").replace(/px/g, '');
-		$("#dragger").css("left", draggerBoxLeft);
-		setTempo(newMetronomeBox);	
-	  });
-	
-	$(".metronomeBox").hover(function() {
-		metronomeBoxId = $(this).attr('id');
-		newTempo = metronomeBoxId.replace(/metronomeBox-/g, '');
-		if (draggerMouseDown)
-		{
-			draggerBoxLeft = $("#metronomeBox-"+newTempo).css("left").replace(/px/g, '');
-			$("#dragger").css("left", draggerBoxLeft);
-			setTempo(newTempo);
-		}
-	});
 	
 	/* DRAGGER TRACK */
 	draggerTrackLeft = metronomeBoxLeft;
@@ -419,6 +400,26 @@ function drawMetronome()
 	$("body").append('<img id="dragger" src="./images/dragger.png"></img>');
 	adjustTag("dragger", draggerBoxLeft, draggerBoxTop, draggerBoxWidth, draggerBoxHeight, "clear");
 
+	/* EVENTS */
+	$(".metronomeBox").click(function(){
+		newMetronomeBox = $(this).attr('id');
+		newMetronomeBox = Number(newMetronomeBox.replace(/metronomeBox-/g,''));
+		draggerBoxLeft = $("#metronomeBox-"+newMetronomeBox).css("left").replace(/px/g, '');
+		$("#dragger").css("left", draggerBoxLeft);
+		setTempo(newMetronomeBox);	
+	  });
+	
+	$(".metronomeBox").hover(function() {
+		metronomeBoxId = $(this).attr('id');
+		newTempo = metronomeBoxId.replace(/metronomeBox-/g, '');
+		if (draggerMouseDown)
+		{
+			draggerBoxLeft = $("#metronomeBox-"+newTempo).css("left").replace(/px/g, '');
+			$("#dragger").css("left", draggerBoxLeft);
+			setTempo(newTempo);
+		}
+	});
+	
 	draggerMouseDown = 0;	
 	$("#dragger").mousedown(function() {
 		draggerMouseDown = 1;
