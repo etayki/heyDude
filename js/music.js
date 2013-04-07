@@ -62,6 +62,8 @@ function didPressPlayButton(option)
 	/* TOGGLE FROM PLAY TO PAUSE */
 	$("#playBtn").attr("src", "./images/pauseButton.png");
 	$("#playBtn").attr("onclick", "didPressPauseButton()");
+	$('#playLabel').text("Pause");
+
 		
 	if (option != REPEAT)
 	{
@@ -144,6 +146,7 @@ function didPressPauseButton()
 	/* TOGGLE FROM PAUSE TO PLAY */
 	$("#playBtn").attr("src", "./images/playButton.png");
 	$("#playBtn").attr("onclick", "didPressPlayButton()");
+	$('#playLabel').text("Play");
 
 	resetNotes(RETAIN_VISUAL);
 }

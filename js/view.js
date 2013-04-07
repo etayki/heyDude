@@ -227,13 +227,13 @@ function drawControls()
 	rightHandTop = leftHandTop;
 	adjustTag("rightHand", rightHandLeft, rightHandTop, rightHandWidth, rightHandHeight, "clear");
 
-	/* LEFT HAND LABEL */
-	$("body").append('<div id="rightHandsLabel">Right On</div>');
+	/* RIGHT HAND LABEL */
+	$("body").append('<div id="rightHandLabel">Right On</div>');
 	rightHandLabelLeft =  rightHandLeft - rightHandWidth;
 	rightHandLabelTop = leftHandLabelTop;
 	rightHandLabelWidth = rightHandWidth * 3;
 	rightHandLabelHeight = controlsBackgroundHeight * 0.145;
-	adjustTag("rightHandsLabel", rightHandLabelLeft, rightHandLabelTop, rightHandLabelWidth, rightHandLabelHeight, "clear");
+	adjustTag("rightHandLabel", rightHandLabelLeft, rightHandLabelTop, rightHandLabelWidth, rightHandLabelHeight, "clear");
 	
 	/* INFO BUTTON */
 	$("body").append('<img id="infoButton" src="./images/info.png"></img>');
@@ -658,11 +658,14 @@ function didPressLeftHand()
 		$("#leftHand").attr("src", "./images/leftHandDisabled.png");
 		leftHandEnabled = 0
 		if (!rightHandEnabled) didPressRightHand();
+		$("#leftHand").attr("src", "./images/leftHandDisabled.png");
+		$('#leftHandLabel').text("Left Off");
 		clearHand("left");
 	}
 	else
 	{
 		$("#leftHand").attr("src", "./images/leftHandEnabled.png");
+		$('#leftHandLabel').text("Left On");
 		leftHandEnabled = 1;
 	}
 }
@@ -675,11 +678,13 @@ function didPressRightHand()
 		$("#rightHand").attr("src", "./images/rightHandDisabled.png");
 		rightHandEnabled = 0
 		if (!leftHandEnabled) didPressLeftHand();
+		$('#rightHandLabel').text("Right Off");
 		clearHand("right");
 	}
 	else
 	{
 		$("#rightHand").attr("src", "./images/rightHandEnabled.png");
+		$('#rightHandLabel').text("Right On");
 		rightHandEnabled = 1;
 	}
 }
@@ -690,11 +695,13 @@ function didPressRepeatButton()
 	if (repeatEnabled)
 	{
 		$("#repeatButton").attr("src", "./images/repeatDisabled.png");
+		$('#repeatLabel').text("Repeat Off");
 		repeatEnabled = 0;
 	}
 	else
 	{
 		$("#repeatButton").attr("src", "./images/repeatEnabled.png");
+		$('#repeatLabel').text("Repeat On");
 		repeatEnabled = 1;
 	}
 }
