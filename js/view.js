@@ -159,7 +159,7 @@ function drawMarkers()
 	positionMarkerHeight = measureBoxHeight;
 	adjustTag("positionMarker", positionMarkerLeft, positionMarkerTop, positionMarkerWidth, positionMarkerHeight, "green");
 	
-	/* LEFT MARKER */
+	/* START MARKER */
 	$("body").append('<a><img id="startMarker" src="./images/startMarker.png"></img></a>');
 	startMarkerLeft = $("#measureBox-1").css("left").replace(/px/g, '');
 	startMarkerTop = $("#measureBox-1").css("top").replace(/px/g, '');
@@ -167,7 +167,7 @@ function drawMarkers()
 	startMarkerHeight = measureBoxHeight;
 	adjustTag("startMarker", startMarkerLeft, startMarkerTop, startMarkerWidth, startMarkerHeight, "clear");
 	
-	/* RIGHT MARKER */
+	/* END MARKER */
 	$("body").append('<a><img id="endMarker" src="./images/endMarker.png"></img></a>');
 	endMarkerLeft = $("#measureBox-"+endMeasure).css("left").replace(/px/g, '')  - startMarkerWidth + 1 + measureBoxWidth; // Add 1 because PowerPoint gives padding of 1;
 	endMarkerTop = startMarkerTop;
