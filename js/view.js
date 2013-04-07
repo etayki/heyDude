@@ -2,7 +2,7 @@ var info = {
 	'measureControl' : "Press LEFT and RIGHT keys to change the Start Measure.<br>Press UP and DOWN keys to change the End Measure.<br>Press T to toggle between repeat and NO repeat.",
 	'playControl'    : "Press SPACE key to toggle between Play and Pause.<br>Press S to stop.",
 	'tempoControl'   : "Press < to decrease tempo.<br>Press > to increase tempo.",
-	'handControl'    : "Press L for left hand only.<br>Press R for right hand only.<br>Press B to display both hands.",
+	'handControl'    : "Press L for left hand only.<br>Press R for right hand only.<br>Press B to display both leftHand.",
 	'repeatControl'  : "<br>Press 1 to repeat one measure.<br>Press 2 to repeat two measures."
 };
 
@@ -202,36 +202,44 @@ function drawControls()
 	controlsBackgroundWidth = measureGridHeaderWidth + 2;
 	controlsBackgroundHeight = measureBoxHeight * 1.5;
 	adjustTag("controlsBackground", controlsBackgroundLeft, controlsBackgroundTop, controlsBackgroundWidth, controlsBackgroundHeight, "clear");
-
-	/* HANDS LABEL */
-	$("body").append('<div id="handsLabel">Hands</div>');
-	handsLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.01;
-	handsLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.1;
-	handsLabelWidth = controlsBackgroundWidth * 0.05;
-	handsLabelHeight = controlsBackgroundHeight * 0.2;
-	adjustTag("handsLabel", handsLabelLeft, handsLabelTop, handsLabelWidth, handsLabelHeight, "clear");
 	
 	/* LEFT HAND */
 	$("body").append('<img id="leftHand" src="./images/leftHandEnabled.png" onclick="didPressLeftHand()"></img>');
 	leftHandWidth = controlsBackgroundHeight * 0.6;
 	leftHandHeight = leftHandWidth;
 	leftHandLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.1;
-	leftHandTop = controlsBackgroundTop + (controlsBackgroundHeight - leftHandHeight)/2;
+	leftHandTop = controlsBackgroundTop + (controlsBackgroundHeight - leftHandHeight) * 0.6;
 	adjustTag("leftHand", leftHandLeft, leftHandTop, leftHandWidth, leftHandHeight, "clear");
+
+	/* LEFT HAND LABEL */
+	$("body").append('<div id="leftHandLabel">Left On</div>');
+	leftHandLabelLeft =  leftHandLeft - leftHandWidth;
+	leftHandLabelTop = leftHandTop - leftHandHeight * 0.3;
+	leftHandLabelWidth = leftHandWidth * 3;
+	leftHandLabelHeight = controlsBackgroundHeight * 0.145;
+	adjustTag("leftHandLabel", leftHandLabelLeft, leftHandLabelTop, leftHandLabelWidth, leftHandLabelHeight, "clear");
 	
 	/* RIGHT HAND */
 	$("body").append('<img id="rightHand" src="./images/rightHandEnabled.png" onclick="didPressRightHand()"></img>');
 	rightHandWidth = controlsBackgroundHeight * 0.6;
 	rightHandHeight = leftHandHeight;
 	rightHandLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.2;
-	rightHandTop = controlsBackgroundTop + (controlsBackgroundHeight - rightHandHeight)/2;
+	rightHandTop = leftHandTop;
 	adjustTag("rightHand", rightHandLeft, rightHandTop, rightHandWidth, rightHandHeight, "clear");
-		
+
+	/* LEFT HAND LABEL */
+	$("body").append('<div id="rightHandsLabel">Right On</div>');
+	rightHandLabelLeft =  rightHandLeft - rightHandWidth;
+	rightHandLabelTop = leftHandLabelTop;
+	rightHandLabelWidth = rightHandWidth * 3;
+	rightHandLabelHeight = controlsBackgroundHeight * 0.145;
+	adjustTag("rightHandsLabel", rightHandLabelLeft, rightHandLabelTop, rightHandLabelWidth, rightHandLabelHeight, "clear");
+	
 	/* INFO BUTTON */
 	$("body").append('<img id="infoButton" src="./images/info.png"></img>');
 	infoButtonWidth = controlsBackgroundHeight * 0.3;
 	infoButtonHeight = infoButtonWidth;
-	infoButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.3;
+	infoButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.27;
 	infoButtonTop = controlsBackgroundTop + controlsBackgroundHeight * 0.1;
 	adjustTag("infoButton", infoButtonLeft, infoButtonTop, infoButtonWidth, infoButtonHeight, "clear");
 
@@ -284,37 +292,53 @@ function drawControls()
 	dividerHeight = controlsBackgroundHeight;
 	adjustTag("divider1", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
 	
-	/* PLAY LABEL */
-	$("body").append('<div id="playLabel">Play</div>');
-	playLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.37;
-	playLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.1;
-	playLabelWidth = controlsBackgroundWidth * 0.05;
-	playLabelHeight = controlsBackgroundHeight * 0.2;
-	adjustTag("playLabel", playLabelLeft, playLabelTop, playLabelWidth, playLabelHeight, "clear");
-	
 	/* STOP BUTTON */
 	$("body").append('<img id="stopBtn" src="./images/stopButton.png" onclick="didPressStopButton()"></img>');
 	stopButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.42;
-	stopButtonTop = rightHandTop;
+	stopButtonTop = leftHandTop;
 	stopButtonWidth = controlsBackgroundHeight * 0.6;
 	stopButtonHeight = leftHandHeight;
 	adjustTag("stopBtn", stopButtonLeft, stopButtonTop, stopButtonWidth, stopButtonHeight, "clear");
 
+	/* STOP LABEL */
+	$("body").append('<div id="stopLabel">Stop</div>');
+	stopLabelLeft =  stopButtonLeft - stopButtonWidth;
+	stopLabelTop = leftHandLabelTop;
+	stopLabelWidth = leftHandLabelWidth;
+	stopLabelHeight = leftHandLabelHeight;
+	adjustTag("stopLabel", stopLabelLeft, stopLabelTop, stopLabelWidth, stopLabelHeight, "clear");
+	
 	/* PLAY BUTTON */
 	$("body").append('<img id="playBtn" src="./images/playButton.png" onclick="didPressPlayButton()"></img>');
 	playButtonLeft =  stopButtonLeft + stopButtonWidth * 1.5;
-	playButtonTop = rightHandTop;
+	playButtonTop = leftHandTop;
 	playButtonWidth = controlsBackgroundHeight * 0.6;
 	playButtonHeight = leftHandHeight;
 	adjustTag("playBtn", playButtonLeft, playButtonTop, playButtonWidth, playButtonHeight, "clear");
-	
+
+	/* PLAY LABEL */
+	$("body").append('<div id="playLabel">Play</div>');
+	playLabelLeft =  playButtonLeft - playButtonWidth;
+	playLabelTop = leftHandLabelTop;
+	playLabelWidth = leftHandLabelWidth;
+	playLabelHeight = controlsBackgroundHeight * 0.145;
+	adjustTag("playLabel", playLabelLeft, playLabelTop, playLabelWidth, playLabelHeight, "clear");
+
 	/* REPEAT BUTTON */
 	$("body").append('<img id="repeatButton" src="./images/repeatEnabled.png" onclick="didPressRepeatButton()"></img>');
 	repeatButtonLeft =  stopButtonLeft + stopButtonWidth * 3;
-	repeatButtonTop = rightHandTop;
+	repeatButtonTop = leftHandTop;
 	repeatButtonWidth = controlsBackgroundHeight * 0.6;
 	repeatButtonHeight = leftHandHeight;
 	adjustTag("repeatButton", repeatButtonLeft, repeatButtonTop, repeatButtonWidth, repeatButtonHeight, "clear");
+
+	/* REPEAT LABEL */
+	$("body").append('<div id="repeatLabel">Repat On</div>');
+	repeatLabelLeft =  repeatButtonLeft - repeatButtonWidth;
+	repeatLabelTop = leftHandLabelTop;
+	repeatLabelWidth = leftHandLabelWidth;
+	repeatLabelHeight = leftHandLabelHeight;
+	adjustTag("repeatLabel", repeatLabelLeft, repeatLabelTop, repeatLabelWidth, repeatLabelHeight, "clear");
 	
 	/* DIVIDER */
 	$("body").append('<img id="divider2" src="./images/divider.png"></img>');
@@ -324,21 +348,29 @@ function drawControls()
 	dividerHeight = controlsBackgroundHeight;
 	adjustTag("divider2", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
 	
-	/* TEMPO LABEL */
-	$("body").append('<div id="tempoLabel">Tempo</div>');
-	tempoLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.65;
-	tempoLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.1;
-	tempoLabelWidth = controlsBackgroundWidth * 0.05;
-	tempoLabelHeight = controlsBackgroundHeight * 0.2;
-	adjustTag("tempoLabel", tempoLabelLeft, tempoLabelTop, tempoLabelWidth, tempoLabelHeight, "clear");
+	///* TEMPO LABEL */
+	//$("body").append('<div id="tempoLabel">Tempo</div>');
+	//tempoLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.65;
+	//tempoLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.1;
+	//tempoLabelWidth = controlsBackgroundWidth * 0.05;
+	//tempoLabelHeight = controlsBackgroundHeight * 0.2;
+	//adjustTag("tempoLabel", tempoLabelLeft, tempoLabelTop, tempoLabelWidth, tempoLabelHeight, "clear");
 
-	/* METRONOME BUTTON */
+	/* METRONOME IMAGE */
 	$("body").append('<img id="metronome" src="./images/metronome.png"></img>');
 	metronomeHeight = controlsBackgroundHeight * 0.6;
 	metronomeLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.7;
 	metronomeTop = controlsBackgroundTop + (controlsBackgroundHeight - metronomeHeight) * 0.7;
 	metronomeWidth = metronomeHeight * 0.6;
 	adjustTag("metronome", metronomeLeft, metronomeTop, metronomeWidth, metronomeHeight, "clear");
+	
+	/* TEMPO LABEL */
+	$("body").append('<div id="tempoLabel">Tempo</div>');
+	tempoLabelLeft =  metronomeLeft - metronomeWidth;
+	tempoLabelTop = leftHandLabelTop;
+	tempoLabelWidth = metronomeWidth * 3;
+	tempoLabelHeight = leftHandLabelHeight;
+	adjustTag("tempoLabel", tempoLabelLeft, tempoLabelTop, tempoLabelWidth, tempoLabelHeight, "clear");
 	
 	/* SLOW LABEL */
 	$("body").append('<div id="slowLabel">Slow</div>');
