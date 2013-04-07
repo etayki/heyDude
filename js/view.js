@@ -160,7 +160,7 @@ function drawMarkers()
 	adjustTag("positionMarker", positionMarkerLeft, positionMarkerTop, positionMarkerWidth, positionMarkerHeight, "green");
 	
 	/* START MARKER */
-	$("body").append('<a><img id="startMarker" src="./images/startMarker.png"></img></a>');
+	$("body").append('<div id="test"><img id="startMarker" src="./images/startMarker.png"></img></div>');
 	startMarkerLeft = $("#measureBox-1").css("left").replace(/px/g, '');
 	startMarkerTop = $("#measureBox-1").css("top").replace(/px/g, '');
 	startMarkerWidth = Math.floor(measureBoxWidth * 0.4);
@@ -368,13 +368,32 @@ function drawControls()
 
 function drawMetronome()
 {
-	/* MEASURE BOX */
+	/* METRONOME BOX */
 	metronomeBoxLeft = slowLabelLeft + slowLabelWidth/2;
 	metronomeBoxWidth = (fastLabelLeft - slowLabelLeft)/7;
 	metronomeBoxHeight = controlsBackgroundHeight;
 	metronomeBoxTop = controlsBackgroundTop + (controlsBackgroundHeight - metronomeBoxHeight)/2;
 	metronomeBoxColor = "clear";
 
+	$(".metronomeBox").click(function(){
+		newMetronomeBox = $(this).attr('id');
+		newMetronomeBox = Number(newMetronomeBox.replace(/metronomeBox-/g,''));
+		draggerBoxLeft = $("#metronomeBox-"+newMetronomeBox).css("left").replace(/px/g, '');
+		$("#dragger").css("left", draggerBoxLeft);
+		setTempo(newMetronomeBox);	
+	  });
+	
+	$(".metronomeBox").hover(function() {
+		metronomeBoxId = $(this).attr('id');
+		newTempo = metronomeBoxId.replace(/metronomeBox-/g, '');
+		if (draggerMouseDown)
+		{
+			draggerBoxLeft = $("#metronomeBox-"+newTempo).css("left").replace(/px/g, '');
+			$("#dragger").css("left", draggerBoxLeft);
+			setTempo(newTempo);
+		}
+	});
+	
 	/* DRAGGER TRACK */
 	draggerTrackLeft = metronomeBoxLeft;
 	draggerTrackWidth = (fastLabelLeft - slowLabelLeft);
@@ -399,6 +418,11 @@ function drawMetronome()
 	draggerBoxTop = metronomeBoxTop - (draggerBoxHeight-metronomeBoxHeight)/2;
 	$("body").append('<img id="dragger" src="./images/dragger.png"></img>');
 	adjustTag("dragger", draggerBoxLeft, draggerBoxTop, draggerBoxWidth, draggerBoxHeight, "clear");
+
+	draggerMouseDown = 0;	
+	$("#dragger").mousedown(function() {
+		draggerMouseDown = 1;
+	});
 }
 
 function drawPiano()
@@ -489,7 +513,7 @@ function setEvents()
 		draggerMouseDown = 0;	
 	});
 
-	/* SET LEFT/RIGHT MARKERS */
+	/* SET START/END MARKERS */
 	$(".measureBox").hover(function() {
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
@@ -531,32 +555,6 @@ function setEvents()
 		}, 400);
 			
 	  });
-	
-	/* METRONOME BOX */
-	$(".metronomeBox").click(function(){
-		newMetronomeBox = $(this).attr('id');
-		newMetronomeBox = Number(newMetronomeBox.replace(/metronomeBox-/g,''));
-		draggerBoxLeft = $("#metronomeBox-"+newMetronomeBox).css("left").replace(/px/g, '');
-		$("#dragger").css("left", draggerBoxLeft);
-		setTempo(newMetronomeBox);	
-	  });
-	
-	$(".metronomeBox").hover(function() {
-		metronomeBoxId = $(this).attr('id');
-		newTempo = metronomeBoxId.replace(/metronomeBox-/g, '');
-		if (draggerMouseDown)
-		{
-			draggerBoxLeft = $("#metronomeBox-"+newTempo).css("left").replace(/px/g, '');
-			$("#dragger").css("left", draggerBoxLeft);
-			setTempo(newTempo);
-		}
-	});
-
-	/* DRAGGER */
-	draggerMouseDown = 0;	
-	$("#dragger").mousedown(function() {
-		draggerMouseDown = 1;
-	});
 }
 
 
