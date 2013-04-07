@@ -90,7 +90,7 @@ function drawHeader()
 
 	/* MEASURE GRID Bar */
 	$("body").append('<div id="measureGridBar" style="border-style:solid;border-width:1px"></div>');
-	measureGridBarWidth = measureGridHeaderWidth; 
+	measureGridBarWidth = measureGridHeaderWidth - 2; // Subtract two because of the border width which adds one pixel on either side 
 	measureGridBarLeft = measureGridHeaderLeft;
 	measureGridBarTop = measureGridHeaderTop + measureGridHeaderHeight;
 	measureGridBarHeight = measureGridHeaderHeight * 0.4;
@@ -160,7 +160,7 @@ function drawMarkers()
 	adjustTag("positionMarker", positionMarkerLeft, positionMarkerTop, positionMarkerWidth, positionMarkerHeight, "green");
 	
 	/* LEFT MARKER */
-	$("body").append('<img id="startMarkerer" src="./images/startMarker.png"></img>');
+	$("body").append('<a><img id="startMarkerer" src="./images/startMarker.png"></img></a>');
 	startMarkerLeft = $("#measureBox-1").css("left").replace(/px/g, '');
 	startMarkerTop = $("#measureBox-1").css("top").replace(/px/g, '');
 	startMarkerWidth = Math.floor(measureBoxWidth * 0.4);
@@ -168,7 +168,7 @@ function drawMarkers()
 	adjustTag("startMarkerer", startMarkerLeft, startMarkerTop, startMarkerWidth, startMarkerHeight, "clear");
 	
 	/* RIGHT MARKER */
-	$("body").append('<img id="endMarkerer" src="./images/endMarker.png"></img>');
+	$("body").append('<a><img id="endMarkerer" src="./images/endMarker.png"></img></a>');
 	endMarkerLeft = $("#measureBox-"+endMeasure).css("left").replace(/px/g, '')  - startMarkerWidth + 1 + measureBoxWidth; // Add 1 because PowerPoint gives padding of 1;
 	endMarkerTop = startMarkerTop;
 	endMarkerWidth = startMarkerWidth;
