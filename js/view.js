@@ -160,20 +160,20 @@ function drawMarkers()
 	adjustTag("positionMarker", positionMarkerLeft, positionMarkerTop, positionMarkerWidth, positionMarkerHeight, "green");
 	
 	/* LEFT MARKER */
-	$("body").append('<img id="leftMarker" src="./images/leftMark.png"></img>');
-	leftMarkLeft = $("#measureBox-1").css("left").replace(/px/g, '');
-	leftMarkTop = $("#measureBox-1").css("top").replace(/px/g, '');
-	leftMarkWidth = Math.floor(measureBoxWidth * 0.4);
-	leftMarkHeight = measureBoxHeight;
-	adjustTag("leftMarker", leftMarkLeft, leftMarkTop, leftMarkWidth, leftMarkHeight, "clear");
+	$("body").append('<img id="startMarkerer" src="./images/startMarker.png"></img>');
+	startMarkerLeft = $("#measureBox-1").css("left").replace(/px/g, '');
+	startMarkerTop = $("#measureBox-1").css("top").replace(/px/g, '');
+	startMarkerWidth = Math.floor(measureBoxWidth * 0.4);
+	startMarkerHeight = measureBoxHeight;
+	adjustTag("startMarkerer", startMarkerLeft, startMarkerTop, startMarkerWidth, startMarkerHeight, "clear");
 	
 	/* RIGHT MARKER */
-	$("body").append('<img id="rightMarker" src="./images/rightMark.png"></img>');
-	rightMarkLeft = $("#measureBox-"+endMeasure).css("left").replace(/px/g, '')  - leftMarkWidth + 1 + measureBoxWidth; // Add 1 because PowerPoint gives padding of 1;
-	rightMarkTop = leftMarkTop;
-	rightMarkWidth = leftMarkWidth;
-	rightMarkHeight = measureBoxHeight;
-	adjustTag("rightMarker", rightMarkLeft, rightMarkTop, rightMarkWidth, rightMarkHeight, "clear");
+	$("body").append('<img id="endMarkerer" src="./images/endMarker.png"></img>');
+	endMarkerLeft = $("#measureBox-"+endMeasure).css("left").replace(/px/g, '')  - startMarkerWidth + 1 + measureBoxWidth; // Add 1 because PowerPoint gives padding of 1;
+	endMarkerTop = startMarkerTop;
+	endMarkerWidth = startMarkerWidth;
+	endMarkerHeight = measureBoxHeight;
+	adjustTag("endMarkerer", endMarkerLeft, endMarkerTop, endMarkerWidth, endMarkerHeight, "clear");
 
 	/* START MARKER INFO LABEL */
 	$("body").append('<div id="startMarkerInfoLabel" style="color:white">Drag to Start</div>');
@@ -473,19 +473,19 @@ function setEvents()
 {
 	$('img').on('dragstart', function(event) { event.preventDefault(); });
 
-	leftMarkerMouseDown = 0;
-	rightMarkerMouseDown = 0;	
-	$("#leftMarker").mousedown(function() {
-		leftMarkerMouseDown = 1;
+	startMarkererMouseDown = 0;
+	endMarkererMouseDown = 0;	
+	$("#startMarkerer").mousedown(function() {
+		startMarkererMouseDown = 1;
 	});
 
-	$("#rightMarker").mousedown(function() {
-		rightMarkerMouseDown = 1;
+	$("#endMarkerer").mousedown(function() {
+		endMarkererMouseDown = 1;
 	});
 	
 	$("body").mouseup(function() {
-		leftMarkerMouseDown = 0;
-		rightMarkerMouseDown = 0;
+		startMarkererMouseDown = 0;
+		endMarkererMouseDown = 0;
 		draggerMouseDown = 0;	
 	});
 
@@ -493,12 +493,12 @@ function setEvents()
 	$(".measureBox").hover(function() {
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
-		if (leftMarkerMouseDown && newMeasure != startMeasure)
+		if (startMarkererMouseDown && newMeasure != startMeasure)
 		{
 			setStartMeasure(newMeasure);
 			$('#startMarkerInfoLabel').css("display","none");
 		}
-		else if (rightMarkerMouseDown && newMeasure != endMeasure)
+		else if (endMarkererMouseDown && newMeasure != endMeasure)
 		{
 			setEndMeasure(newMeasure);
 			$('#endMarkerInfoLabel').css("display","none");
@@ -586,18 +586,18 @@ function setPositionMarker()
 
 function setStartMarker(measure)
 {
-	leftMarkLeft = $("#measureBox-"+measure).css("left").replace(/px/g, '');
-	leftMarkTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
-	$("#leftMarker").css("left", leftMarkLeft);
-	$("#leftMarker").css("top", leftMarkTop);	
+	startMarkerLeft = $("#measureBox-"+measure).css("left").replace(/px/g, '');
+	startMarkerTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
+	$("#startMarkerer").css("left", startMarkerLeft);
+	$("#startMarkerer").css("top", startMarkerTop);	
 }
 
 function setEndMarker(measure)
 {
-	rightMarkLeft =  $("#measureBox-"+measure).css("left").replace(/px/g, '') - leftMarkWidth + 1 + measureBoxWidth;
-	rightMarkTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
-	$("#rightMarker").css("left", rightMarkLeft);
-	$("#rightMarker").css("top", rightMarkTop);	
+	endMarkerLeft =  $("#measureBox-"+measure).css("left").replace(/px/g, '') - startMarkerWidth + 1 + measureBoxWidth;
+	endMarkerTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
+	$("#endMarkerer").css("left", endMarkerLeft);
+	$("#endMarkerer").css("top", endMarkerTop);	
 }
 
 function colorizeMeasures()
