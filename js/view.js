@@ -50,7 +50,7 @@ function drawHeader()
 	/* MEASURE GRID HEADER */
 	$("body").append('<div id="measureGridHeader"></div>');
 	measureGridHeaderWidth = Math.floor(screenWidth * 1) - 1; // Subtract one to account for border of measureBox
-	measureGridHeaderLeft = (screenWidth - measureGridHeaderWidth)/2;
+	measureGridHeaderLeft = 0//(screenWidth - measureGridHeaderWidth)/2;
 	measureGridHeaderTop = 0;
 	measureGridHeaderHeight = measureGridHeaderWidth * 0.065;
 	measureGridHeaderColor = "#919191";
@@ -90,7 +90,7 @@ function drawHeader()
 
 	/* MEASURE GRID Bar */
 	$("body").append('<div id="measureGridBar" style="border-style:solid;border-width:1px"></div>');
-	measureGridBarWidth = measureGridHeaderWidth - 2; // Subtract two because of the border width which adds one pixel on either side 
+	measureGridBarWidth = measureGridHeaderWidth - 1; // Subtract 1 because of the border width which adds one pixel on either side 
 	measureGridBarLeft = measureGridHeaderLeft;
 	measureGridBarTop = measureGridHeaderTop + measureGridHeaderHeight;
 	measureGridBarHeight = measureGridHeaderHeight * 0.4;
@@ -101,8 +101,8 @@ function drawHeader()
 function drawMeasureGrid()
 {
 	maxColumn = 23;
-	maxBoxes = Math.floor(tune.length/maxColumn);
-	maxBoxes = maxColumn * (maxBoxes+1);
+	maxRows = Math.floor(tune.length/maxColumn);
+	maxBoxes = maxColumn * (maxRows);
 	
 	/* MEASURE BOX */
 	measureBoxLeft = measureGridHeaderLeft;
@@ -143,7 +143,7 @@ function drawMeasureGrid()
 		measureBoxLeft += measureBoxWidth;
 		if (measureBoxLeft >= (measureGridHeaderLeft + measureGridHeaderWidth - measureBoxWidth/2)) // Need to subtract a little, don't know why
 		{
-			measureBoxLeft = (screenWidth - measureGridHeaderWidth)/2;
+			measureBoxLeft = 0;//(screenWidth - measureGridHeaderWidth)/2;
 			measureBoxTop += measureBoxHeight;
 		}
 	}	
@@ -199,7 +199,7 @@ function drawControls()
 	$("body").append('<img id="controlsBackground" src="./images/controlsBackground.png"></img>');
 	controlsBackgroundLeft =  measureGridHeaderLeft;
 	controlsBackgroundTop = Number($("#measureBox-68").css("top").replace(/px/g, '')) + measureBoxHeight;
-	controlsBackgroundWidth = measureGridHeaderWidth;
+	controlsBackgroundWidth = measureGridHeaderWidth + 2;
 	controlsBackgroundHeight = measureBoxHeight * 1.5;
 	adjustTag("controlsBackground", controlsBackgroundLeft, controlsBackgroundTop, controlsBackgroundWidth, controlsBackgroundHeight, "clear");
 
