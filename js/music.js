@@ -156,6 +156,7 @@ function didPressStopButton()
 	/* TOGGLE FROM PAUSE TO PLAY */
 	$("#playBtn").attr("src", "./images/playButton.png");
 	$("#playBtn").attr("onclick", "didPressPlayButton()");
+	$('#playLabel').text("Play");
 
 	resetNotes();
 	
