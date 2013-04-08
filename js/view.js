@@ -570,12 +570,10 @@ function setEvents()
 		if (startMarkerMouseDown && newMeasure != startMeasure)
 		{
 			setStartMeasure(newMeasure);
-			$('#startMarkerInfoLabel').css("display","none");
 		}
 		else if (endMarkerMouseDown && newMeasure != endMeasure)
 		{
 			setEndMeasure(newMeasure);
-			$('#endMarkerInfoLabel').css("display","none");
 		}
 	});
 

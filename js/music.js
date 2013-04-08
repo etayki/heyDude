@@ -263,6 +263,7 @@ function setStartMeasure(newMeasure)
 		setEndMeasure(startMeasure);
 
 	setStartMarker(startMeasure);
+	$('#startMarkerInfoLabel').css("display","none");
 	colorizeMeasures();
 }
 
@@ -295,6 +296,7 @@ function setEndMeasure(newMeasure)
 		setStartMeasure(endMeasure);
 
 	setEndMarker(endMeasure);
+	$('#endMarkerInfoLabel').css("display","none");
 	colorizeMeasures();
 }
 
