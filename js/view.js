@@ -207,7 +207,7 @@ function drawControls()
 	$("body").append('<img id="leftHand" src="./images/leftHandEnabled.png" onclick="didPressLeftHand()"></img>');
 	leftHandWidth = controlsBackgroundHeight * 0.6;
 	leftHandHeight = leftHandWidth;
-	leftHandLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.1;
+	leftHandLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.08;
 	leftHandTop = controlsBackgroundTop + (controlsBackgroundHeight - leftHandHeight) * 0.6;
 	adjustTag("leftHand", leftHandLeft, leftHandTop, leftHandWidth, leftHandHeight, "clear");
 
@@ -223,7 +223,7 @@ function drawControls()
 	$("body").append('<img id="rightHand" src="./images/rightHandEnabled.png" onclick="didPressRightHand()"></img>');
 	rightHandWidth = controlsBackgroundHeight * 0.6;
 	rightHandHeight = leftHandHeight;
-	rightHandLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.2;
+	rightHandLeft =  leftHandLeft + leftHandWidth * 2;
 	rightHandTop = leftHandTop;
 	adjustTag("rightHand", rightHandLeft, rightHandTop, rightHandWidth, rightHandHeight, "clear");
 
@@ -239,7 +239,7 @@ function drawControls()
 	$("body").append('<img id="infoButton" src="./images/info.png"></img>');
 	infoButtonWidth = controlsBackgroundHeight * 0.3;
 	infoButtonHeight = infoButtonWidth;
-	infoButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.27;
+	infoButtonLeft =  rightHandLeft + rightHandWidth * 1.5;
 	infoButtonTop = controlsBackgroundTop + controlsBackgroundHeight * 0.1;
 	adjustTag("infoButton", infoButtonLeft, infoButtonTop, infoButtonWidth, infoButtonHeight, "clear");
 
@@ -286,7 +286,7 @@ function drawControls()
 	
 	/* DIVIDER */
 	$("body").append('<img id="divider1" src="./images/divider.png"></img>');
-	dividerLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.35;
+	dividerLeft =  infoButtonLeft + leftHandWidth * 2.5;
 	dividerTop = controlsBackgroundTop;
 	dividerWidth = 20;
 	dividerHeight = controlsBackgroundHeight;
@@ -294,7 +294,7 @@ function drawControls()
 	
 	/* STOP BUTTON */
 	$("body").append('<img id="stopBtn" src="./images/stopButton.png" onclick="didPressStopButton()"></img>');
-	stopButtonLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.42;
+	stopButtonLeft =  dividerLeft + leftHandWidth * 2;
 	stopButtonTop = leftHandTop;
 	stopButtonWidth = controlsBackgroundHeight * 0.6;
 	stopButtonHeight = leftHandHeight;
@@ -347,19 +347,11 @@ function drawControls()
 	dividerWidth = 20;
 	dividerHeight = controlsBackgroundHeight;
 	adjustTag("divider2", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
-	
-	///* TEMPO LABEL */
-	//$("body").append('<div id="tempoLabel">Tempo</div>');
-	//tempoLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.65;
-	//tempoLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.1;
-	//tempoLabelWidth = controlsBackgroundWidth * 0.05;
-	//tempoLabelHeight = controlsBackgroundHeight * 0.2;
-	//adjustTag("tempoLabel", tempoLabelLeft, tempoLabelTop, tempoLabelWidth, tempoLabelHeight, "clear");
 
 	/* METRONOME IMAGE */
 	$("body").append('<img id="metronome" src="./images/metronome.png"></img>');
 	metronomeHeight = controlsBackgroundHeight * 0.6;
-	metronomeLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.7;
+	metronomeLeft =  dividerLeft + leftHandWidth * 1;
 	metronomeTop = controlsBackgroundTop + (controlsBackgroundHeight - metronomeHeight) * 0.7;
 	metronomeWidth = metronomeHeight * 0.6;
 	adjustTag("metronome", metronomeLeft, metronomeTop, metronomeWidth, metronomeHeight, "clear");
@@ -374,7 +366,7 @@ function drawControls()
 	
 	/* SLOW LABEL */
 	$("body").append('<div id="slowLabel">Slow</div>');
-	slowLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.75;
+	slowLabelLeft =  metronomeLeft + leftHandWidth;
 	slowLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.65;
 	slowLabelWidth = controlsBackgroundWidth * 0.05;
 	slowLabelHeight = controlsBackgroundHeight * 0.2;
@@ -382,7 +374,7 @@ function drawControls()
 	
 	/* FAST LABEL */
 	$("body").append('<div id="fastLabel">Fast</div>');
-	fastLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.9;
+	fastLabelLeft =  slowLabelLeft + leftHandWidth * 3.5;
 	fastLabelTop = slowLabelTop;
 	fastLabelWidth = controlsBackgroundWidth * 0.05;
 	fastLabelHeight = controlsBackgroundHeight * 0.2;
