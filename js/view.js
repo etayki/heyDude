@@ -634,7 +634,12 @@ function setPositionMarker()
 	$("#positionLabel").text(position);
 	
 	/* SET POSITION MARKER */
-	currentMeasure = Math.floor(position);
+	nowMeasure = Math.floor(position);
+	if (nowMeasure != currentMeasure)
+	{
+		currentMeasure = nowMeasure;
+		colorizeMeasures();
+	}
 	measureBoxLeft = Number($("#measureBox-"+currentMeasure).css("left").replace(/px/g, ''));
 	measureBoxTop = Number($("#measureBox-"+currentMeasure).css("top").replace(/px/g, ''));
 	positionMarkerLeft = measureBoxLeft + (position-currentMeasure) * measureBoxWidth;
@@ -677,13 +682,14 @@ function colorizeMeasures()
 	for (number = startMeasure; number <= endMeasure; number++)
 	{			
 		/* MEASURE BOX */
-		$("#measureBox-"+number).css("background-color","yellow");
+		$("#measureBox-"+number).css("background-color","#FFFF99");
 	}
 	for (number = endMeasure + 1; number <= maxBoxes; number++)
 	{			
 		/* MEASURE BOX */
 		$("#measureBox-"+number).css("background-color",measureBoxColor);
 	}
+	$("#measureBox-"+currentMeasure).css("background-color","#FFFF00");
 }
 
 function didPressLeftHand()

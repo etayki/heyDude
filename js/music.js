@@ -221,16 +221,17 @@ function setCurrentMeasure(newMeasure)
 	}
 
 	currentMeasure = newMeasure;
-	delay = (newMeasure - 1) * 4;
+	delay = (currentMeasure - 1) * 4;
 
-	if (newMeasure < startMeasure)
-		setStartMeasure(newMeasure);
+	if (currentMeasure < startMeasure)
+		setStartMeasure(currentMeasure);
 
-	if (newMeasure > endMeasure)
-		setEndMeasure(newMeasure);
+	if (currentMeasure > endMeasure)
+		setEndMeasure(currentMeasure);
 
 	resetNotes();
 	didPressPlayButton();
+	colorizeMeasures();
 }
 
 function setStartMeasure(newMeasure)
