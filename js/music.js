@@ -212,13 +212,13 @@ function setCurrentMeasure(newMeasure)
 	if (newMeasure == "-")
 	{
 		oldMeasure = Math.floor((delay/4 + 1));
-		newMeasure = oldMeasure - 1;
+		newMeasure = currentMeasure - 1;
 		if (newMeasure == 0) return;
 	}
 	else if (newMeasure == "+")
 	{
 		oldMeasure = Math.floor((delay/4 + 1));
-		newMeasure = oldMeasure + 1;
+		newMeasure = currentMeasure + 1;
 		if (newMeasure == tune.length) return;
 	}
 
@@ -240,13 +240,13 @@ function setStartMeasure(newMeasure)
 	if (newMeasure == "-")
 	{
 		oldMeasure = Math.floor((delay/4 + 1));
-		newMeasure = oldMeasure - 1;
+		newMeasure = currentMeasure - 1;
 		if (newMeasure == 0) return;
 	}
 	else if (newMeasure == "+")
 	{
 		oldMeasure = Math.floor((delay/4 + 1));
-		newMeasure = oldMeasure + 1;
+		newMeasure = currentMeasure + 1;
 		if (newMeasure == tune.length) return;
 	}
 	
@@ -274,13 +274,13 @@ function setEndMeasure(newMeasure)
 	if (newMeasure == "-")
 	{
 		oldMeasure = Math.floor((delay/4 + 1));
-		newMeasure = oldMeasure - 1;
+		newMeasure = currentMeasure - 1;
 		if (newMeasure == 0) return;
 	}
 	else if (newMeasure == "+")
 	{
 		oldMeasure = Math.floor((delay/4 + 1));
-		newMeasure = oldMeasure + 1;
+		newMeasure = currentMeasure + 1;
 		if (newMeasure == tune.length) return;
 	}
 	
