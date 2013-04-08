@@ -342,7 +342,7 @@ function drawControls()
 	
 	/* DIVIDER */
 	$("body").append('<img id="divider2" src="./images/divider.png"></img>');
-	dividerLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.6;
+	dividerLeft =  repeatButtonLeft + repeatButtonWidth * 2;
 	dividerTop = controlsBackgroundTop;
 	dividerWidth = 20;
 	dividerHeight = controlsBackgroundHeight;
@@ -351,7 +351,7 @@ function drawControls()
 	/* METRONOME IMAGE */
 	$("body").append('<img id="metronome" src="./images/metronome.png"></img>');
 	metronomeHeight = controlsBackgroundHeight * 0.6;
-	metronomeLeft =  dividerLeft + leftHandWidth * 1;
+	metronomeLeft =  dividerLeft + repeatButtonWidth * 1.3;
 	metronomeTop = controlsBackgroundTop + (controlsBackgroundHeight - metronomeHeight) * 0.7;
 	metronomeWidth = metronomeHeight * 0.6;
 	adjustTag("metronome", metronomeLeft, metronomeTop, metronomeWidth, metronomeHeight, "clear");
@@ -388,6 +388,30 @@ function drawControls()
 	positionLabelHeight = positionLabelWidth;
 	adjustTag("positionLabel", positionLabelLeft, positionLabelTop, positionLabelWidth, positionLabelHeight, "clear");
 	$('#positionLabel').css("display","none");
+
+	/* DIVIDER */
+	$("body").append('<img id="divider3" src="./images/divider.png"></img>');
+	dividerLeft =  fastLabelLeft + repeatButtonWidth * 2;
+	dividerTop = controlsBackgroundTop;
+	dividerWidth = 20;
+	dividerHeight = controlsBackgroundHeight;
+	adjustTag("divider3", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
+
+	/* FULL SCREEN BUTTON */
+	$("body").append('<img id="fullScreenButton" src="./images/fullScreen.png" onclick="didPressFullScreenButton()"></img>');
+	fullScreenButtonLeft =  dividerLeft + stopButtonWidth;
+	fullScreenButtonTop = leftHandTop;
+	fullScreenButtonWidth = controlsBackgroundHeight * 0.6;
+	fullScreenButtonHeight = leftHandHeight;
+	adjustTag("fullScreenButton", fullScreenButtonLeft, fullScreenButtonTop, fullScreenButtonWidth, fullScreenButtonHeight, "clear");
+
+	/* FULL SCREEN LABEL */
+	$("body").append('<div id="fullScreenLabel">Full Screen</div>');
+	fullScreenLabelLeft =  fullScreenButtonLeft - fullScreenButtonWidth;
+	fullScreenLabelTop = leftHandLabelTop;
+	fullScreenLabelWidth = leftHandLabelWidth;
+	fullScreenLabelHeight = leftHandLabelHeight;
+	adjustTag("fullScreenLabel", fullScreenLabelLeft, fullScreenLabelTop, fullScreenLabelWidth, fullScreenLabelHeight, "clear");
 }
 
 function drawMetronome()
@@ -582,6 +606,23 @@ function setEvents()
 	  });
 }
 
+function didPressFullScreenButton()
+{
+	element = document.body;
+	requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+        requestMethod.call(element);
+	$("#fullScreenButton").attr("src", "./images/cancelFullScreen.jpeg");
+	$("#fullScreenButton").attr("onclick", "didPressCancelFullScreenButton()");
+}
+
+function didPressCancelFullScreenButton()
+{
+	element = document;
+	requestMethod = element.cancelFullScreen || element.webkitCancelFullScreen || element.mozCancelFullScreen || element.exitFullscreen;
+        requestMethod.call(element);
+	$("#fullScreenButton").attr("src", "./images/fullScreen.png");
+	$("#fullScreenButton").attr("onclick", "didPressFullScreenButton()");
+}
 
 function setPositionMarker()
 {
