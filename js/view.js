@@ -26,14 +26,15 @@ function setSceenWidth()
 	//screenWidth = 1000;
 	screenWidth = screen.width;
 	userAgent = navigator.userAgent;
-	if(userAgent.indexOf("iPhone") !== -1)
-	{
+	
+	if(userAgent.indexOf("iPhone") !== -1 || userAgent.indexOf("iPad") !== -1)
 		screenWidth = 1000;
-	}
-	else if(userAgent.indexOf("iPad") !== -1)
-	{
-		screenWidth = 1000;
-	}
+	
+	/* SET BACKGROUND IMAGE */
+	$('body').css('background-image', 'url("./images/redCarpet.jpg")');
+	$("body").append('<img id="backgroundImg" src=""></img>'); // Hack to make background img work in full screen
+	$("#backgroundImg").css("width",screenWidth);
+	$("#backgroundImg").css("height","auto");
 }
 
 function display()
