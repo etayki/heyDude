@@ -407,9 +407,9 @@ function drawControls()
 
 	/* FULL SCREEN LABEL */
 	$("body").append('<div id="fullScreenLabel">Full Screen</div>');
-	fullScreenLabelLeft =  fullScreenButtonLeft - fullScreenButtonWidth;
+	fullScreenLabelWidth = leftHandLabelWidth * 0.6;
+	fullScreenLabelLeft =  fullScreenButtonLeft - (fullScreenLabelWidth - fullScreenButtonWidth)/2;
 	fullScreenLabelTop = leftHandLabelTop;
-	fullScreenLabelWidth = leftHandLabelWidth;
 	fullScreenLabelHeight = leftHandLabelHeight;
 	adjustTag("fullScreenLabel", fullScreenLabelLeft, fullScreenLabelTop, fullScreenLabelWidth, fullScreenLabelHeight, "clear");
 }
