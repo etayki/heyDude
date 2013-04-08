@@ -613,6 +613,7 @@ function didPressFullScreenButton()
         requestMethod.call(element);
 	$("#fullScreenButton").attr("src", "./images/cancelFullScreen.jpeg");
 	$("#fullScreenButton").attr("onclick", "didPressCancelFullScreenButton()");
+	$("#fullScreenLabel").text("Exit Full Screen");
 }
 
 function didPressCancelFullScreenButton()
@@ -622,6 +623,7 @@ function didPressCancelFullScreenButton()
         requestMethod.call(element);
 	$("#fullScreenButton").attr("src", "./images/fullScreen.png");
 	$("#fullScreenButton").attr("onclick", "didPressFullScreenButton()");
+	$("#fullScreenLabel").text("Full Screen");
 }
 
 function setPositionMarker()
