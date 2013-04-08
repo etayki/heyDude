@@ -3,7 +3,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="./app.js"></script>
 </head>
-<body style="background-image:url('./images/redCarpet.jpg');background-repeat:repeat">
+<body">
 <?php include_once("php/analyticstracking.php") ?>
 
 <!-- Loading Animation -->
