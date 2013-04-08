@@ -500,8 +500,8 @@ function drawPiano()
 	/* BLACK KEY */
 	blackKeyLeft =  controlsBackgroundLeft;
 	blackKeyTop = whiteKeyTop;
-	blackKeyWidth = Math.floor(whiteKeyWidth * 0.65);
-	blackKeyHeight = Math.floor(whiteKeyHeight * 0.58);
+	blackKeyWidth = Math.floor(whiteKeyWidth * 0.55);
+	blackKeyHeight = Math.floor(whiteKeyHeight * 0.57);
 	
 	/* BLACK KEY LABEL */
 	blackKeyLabelLeft = 0;
@@ -534,7 +534,7 @@ function drawPiano()
 		{
 			/* BLACK KEY */
 			blackKeyLeft =  whiteKeyLeft + Math.floor(whiteKeyWidth * 0.75);
-			$("body").append('<div id="key-'+key+'" class="key" style="z-index:3"></div>');
+			$("body").append('<div id="key-'+key+'" class="key" style="z-index:3; border-style:solid; border-width:1px"></div>');
 			adjustTag("key-"+key, blackKeyLeft, blackKeyTop, blackKeyWidth, blackKeyHeight, "black");
 			/* BLACK KEY LABEL */
 			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:#330099"></div></b>');			
