@@ -495,7 +495,7 @@ function drawPiano()
 	whiteKeyLabelLeft = 0;
 	whiteKeyLabelTop = whiteKeyHeight * 0.6;
 	whiteKeyLabelWidth = whiteKeyWidth;
-	whiteKeyLabelHeight = whiteKeyLabelWidth * 1.5;
+	whiteKeyLabelHeight = whiteKeyLabelWidth * 1.6;
 	
 	/* BLACK KEY */
 	blackKeyLeft =  controlsBackgroundLeft;
@@ -507,7 +507,7 @@ function drawPiano()
 	blackKeyLabelLeft = 0;
 	blackKeyLabelTop = blackKeyHeight * 0.5;
 	blackKeyLabelWidth = blackKeyWidth;
-	blackKeyLabelHeight = blackKeyLabelWidth * 1.5;
+	blackKeyLabelHeight = blackKeyLabelWidth * 2;
 
 	/* KEYBOARD BACKGROUND */
 	$("body").append('<div id="keyboardBgrd"></div>');
