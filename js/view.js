@@ -23,7 +23,7 @@ function drawScreen()
 
 function setSceenWidth()
 {
-	//screenWidth = 1000;
+	//screenWidth = 950;
 	screenWidth = screen.width;
 	userAgent = navigator.userAgent;
 
@@ -35,6 +35,12 @@ function setSceenWidth()
 	$("body").append('<img id="backgroundImg" src=""></img>'); // Hack to make background img work in full screen
 	$("#backgroundImg").css("width",screenWidth);
 	$("#backgroundImg").css("height","auto");
+	
+	/* RECORDING PURPOSES */
+	//$("body").append('<div id="adLabel">Learn The Moonlight Sonata Now!</div>');
+	//adjustTag("adLabel", 0, 580, screenWidth, 55, "transparent");
+	//$("body").append('<div id="websiteLabel">www.WatchAndRepeat.com</div>');
+	//adjustTag("websiteLabel", 0, 650, screenWidth, 70, "transparent");	
 }
 
 function display()
