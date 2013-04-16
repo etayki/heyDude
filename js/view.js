@@ -246,8 +246,8 @@ function drawControls()
 	$("body").append('<img id="infoButton" src="./images/info.png"></img>');
 	infoButtonWidth = controlsBackgroundHeight * 0.3;
 	infoButtonHeight = infoButtonWidth;
-	infoButtonLeft =  rightHandLeft + rightHandWidth * 1.5;
-	infoButtonTop = controlsBackgroundTop + controlsBackgroundHeight * 0.1;
+	infoButtonLeft =  leftHandLeft + leftHandWidth + ((rightHandLeft - (leftHandLeft + leftHandWidth)) - infoButtonWidth)/2;
+	infoButtonTop = rightHandTop + (rightHandHeight - infoButtonHeight)/2;
 	adjustTag("infoButton", infoButtonLeft, infoButtonTop, infoButtonWidth, infoButtonHeight, "clear");
 
 	$("#infoButton").click(function() {
