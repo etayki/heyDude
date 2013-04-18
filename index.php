@@ -14,7 +14,7 @@
     <script src="./js/view.js" type="text/javascript"></script>
     <script src="./js/keyboard.js" type="text/javascript"></script>
 </head>
-<body">
+<body>
 
 <!-- Loading Animation -->
 <div id="loading"  style="position:absolute;top:100px;left:500px;z-index:3;font-size:12px"><img src="./images/loading.gif"></img></div>
