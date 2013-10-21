@@ -413,7 +413,7 @@ function drawControls()
 	fullScreenButtonLeft =  dividerLeft + stopButtonWidth;
 	fullScreenButtonTop = leftHandTop;
 	fullScreenButtonWidth = controlsBackgroundHeight * 0.6;
-	fullScreenButtonHeight = leftHandHeight;
+	fullScreenButtonHeight = leftHandHeight * 1.07;
 	adjustTag("fullScreenButton", fullScreenButtonLeft, fullScreenButtonTop, fullScreenButtonWidth, fullScreenButtonHeight, "clear");
 
 	/* FULL SCREEN LABEL */
@@ -423,6 +423,22 @@ function drawControls()
 	fullScreenLabelTop = leftHandLabelTop;
 	fullScreenLabelHeight = leftHandLabelHeight;
 	adjustTag("fullScreenLabel", fullScreenLabelLeft, fullScreenLabelTop, fullScreenLabelWidth, fullScreenLabelHeight, "clear");
+
+	/* FEEDBACK BUTTON */
+	$("body").append('<img id="feedbackButton" src="./images/feedbackIcon.png" onclick="didPressFeedbackButton()"></img>');
+	feedbackButtonLeft =  fullScreenButtonLeft + 2 * fullScreenButtonWidth;
+	feedbackButtonTop = leftHandTop;
+	feedbackButtonWidth = controlsBackgroundHeight * 0.6;
+	feedbackButtonHeight = leftHandHeight;
+	adjustTag("feedbackButton", feedbackButtonLeft, feedbackButtonTop, feedbackButtonWidth, feedbackButtonHeight, "clear");
+
+	/* FEEDBACK LABEL */
+	$("body").append('<div id="feedbackLabel">Feedback</div>');
+	feedbackLabelWidth = leftHandLabelWidth * 0.6;
+	feedbackLabelLeft =  feedbackButtonLeft - (feedbackLabelWidth - feedbackButtonWidth)/2;
+	feedbackLabelTop = leftHandLabelTop;
+	feedbackLabelHeight = leftHandLabelHeight;
+	adjustTag("feedbackLabel", feedbackLabelLeft, feedbackLabelTop, feedbackLabelWidth, feedbackLabelHeight, "clear");
 }
 
 function drawMetronome()
@@ -627,6 +643,15 @@ function didPressFullScreenButton()
 	$("#fullScreenLabel").text("Exit Full Screen");
 }
 
+function didPressFeedbackButton()
+{
+	if ($("#playBtn").attr("src") ==  "./images/pauseButton.png")
+		didPressPauseButton();
+	feedbackFormDisplayed = 1;
+	$('#feedbackForm').css("display","");
+	//$("#feedbackFormTextArea").focus();	
+}
+
 function didPressCancelFullScreenButton()
 {
 	element = document;
@@ -770,8 +795,8 @@ function drawfeedback()
 	$("#feedbackTabLabel").css("left", -feedbackTabWidth/2 + 2);
 
 	/* FEEDBACK TAB 90 DEGREE ROTATION */
-        $('#feedbackTabLabel').css({"-webkit-transform" : "rotate(-90deg)"});
-        $('#feedbackTabLabel').css({"-moz-transform" : "rotate(-90deg)"});
+    $('#feedbackTabLabel').css({"-webkit-transform" : "rotate(-90deg)"});
+    $('#feedbackTabLabel').css({"-moz-transform" : "rotate(-90deg)"});
 	$("#feedbackTabLabel").css({"-o-transform" : "rotate(-90deg)"});
 	$("#feedbackTabLabel").css({"-ms-transform" : "rotate(-90deg)"});
 	$("#feedbackTabLabel").css({"-transform" : "rotate(-90deg)"});
