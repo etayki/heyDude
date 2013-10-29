@@ -59,7 +59,8 @@ $(document).ready(function() {
 
 function didPressPlayButton(option)
 {
-	_gaq.push(['_trackEvent', 'Videos', 'Play']);
+	if (document.location.hostname != "localhost")
+		_gaq.push(['_trackEvent', 'Videos', 'Play']);
 
 	/* TOGGLE FROM PLAY TO PAUSE */
 	$("#playBtn").attr("src", "./images/pauseButton.png");
@@ -146,7 +147,8 @@ function didPressPlayButton(option)
 function didPressPauseButton()
 {
 	/* TOGGLE FROM PAUSE TO PLAY */
-	_gaq.push(['_trackEvent', 'Videos', 'Pause']);
+	if (document.location.hostname != "localhost")
+		_gaq.push(['_trackEvent', 'Videos', 'Pause']);
 	$("#playBtn").attr("src", "./images/playButton.png");
 	$("#playBtn").attr("onclick", "didPressPlayButton()");
 	$('#playLabel').text("Play");
