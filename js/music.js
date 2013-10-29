@@ -59,9 +59,6 @@ $(document).ready(function() {
 
 function didPressPlayButton(option)
 {
-	if (document.location.hostname != "localhost")
-		_gaq.push(['_trackEvent', 'Videos', 'Play']);
-
 	/* TOGGLE FROM PLAY TO PAUSE */
 	$("#playBtn").attr("src", "./images/pauseButton.png");
 	$("#playBtn").attr("onclick", "didPressPauseButton()");
@@ -70,8 +67,12 @@ function didPressPlayButton(option)
 		
 	if (option != REPEAT)
 	{
+		// Fast forward to the next note upon resume;
 		oldTempo = tempo;
-		tempo = FAST_FORWARD; // Fast forward to the next note upon resume;
+		tempo = FAST_FORWARD; 
+		// Report Play Event to Google
+		if (document.location.hostname != "localhost")
+			_gaq.push(['_trackEvent', 'Videos', 'Play']);
 	}
 	
 	for (measure = startMeasure; measure <= endMeasure; measure++)
