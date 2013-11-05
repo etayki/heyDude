@@ -71,7 +71,7 @@ function didPressPlayButton(option)
 		oldTempo = tempo;
 		tempo = FAST_FORWARD; 
 		// Report Play Event to Google
-		if (document.location.hostname != "localhost")
+		//if (document.location.hostname != "localhost")
 			//_gaq.push(['_trackEvent', 'Videos', 'Play']);
 	}
 	
@@ -148,7 +148,7 @@ function didPressPlayButton(option)
 function didPressPauseButton()
 {
 	/* TOGGLE FROM PAUSE TO PLAY */
-	if (document.location.hostname != "localhost")
+	//if (document.location.hostname != "localhost")
 		//_gaq.push(['_trackEvent', 'Videos', 'Pause']);
 	$("#playBtn").attr("src", "./images/playButton.png");
 	$("#playBtn").attr("onclick", "didPressPlayButton()");
