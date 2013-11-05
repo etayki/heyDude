@@ -72,7 +72,7 @@ function didPressPlayButton(option)
 		tempo = FAST_FORWARD; 
 		// Report Play Event to Google
 		if (document.location.hostname != "localhost")
-			_gaq.push(['_trackEvent', 'Videos', 'Play']);
+			//_gaq.push(['_trackEvent', 'Videos', 'Play']);
 	}
 	
 	for (measure = startMeasure; measure <= endMeasure; measure++)
@@ -149,7 +149,7 @@ function didPressPauseButton()
 {
 	/* TOGGLE FROM PAUSE TO PLAY */
 	if (document.location.hostname != "localhost")
-		_gaq.push(['_trackEvent', 'Videos', 'Pause']);
+		//_gaq.push(['_trackEvent', 'Videos', 'Pause']);
 	$("#playBtn").attr("src", "./images/playButton.png");
 	$("#playBtn").attr("onclick", "didPressPlayButton()");
 	$('#playLabel').text("Play");
