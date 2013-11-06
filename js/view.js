@@ -54,8 +54,8 @@ function display()
 	}
 	else
 	{
-		visitsNum = Number(readCookie("Visits")) + 1;
-		createCookie("Visits", visitsNum, 300);
+		visitCount = Number(readCookie("Visits")) + 1;
+		createCookie("Visits", visitCount, 300);
 		console.log(readCookie("Visits"));
 	}
 
