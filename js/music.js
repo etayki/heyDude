@@ -60,7 +60,7 @@ $(document).ready(function() {
 function didPressPlayButton(option)
 {
 	/* TOGGLE FROM PLAY TO PAUSE */
-	$("#playBtn").attr("src", "./images/pauseButton.png");
+	$("#playBtn").attr("src", "http://watchandrepeat.com/images/pauseButton.png");
 	$("#playBtn").attr("onclick", "didPressPauseButton()");
 	$('#playLabel').text("Pause");
 
@@ -262,7 +262,7 @@ function setStartMeasure(newMeasure)
 		delay = startDelay;
 		setPositionMarker();
 		resetNotes();
-		if ($("#playBtn").attr("src") ==  "./images/pauseButton.png")
+		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
 			didPressPlayButton();
 	}
 	
@@ -295,7 +295,7 @@ function setEndMeasure(newMeasure)
 		delay = startDelay;
 		setPositionMarker();
 		resetNotes();
-		if ($("#playBtn").attr("src") ==  "./images/pauseButton.png" && repeatEnabled)
+		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png" && repeatEnabled)
 			didPressPlayButton();
 	}
 	

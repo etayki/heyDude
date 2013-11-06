@@ -251,7 +251,7 @@ function drawControls()
 	adjustTag("infoButton", infoButtonLeft, infoButtonTop, infoButtonWidth, infoButtonHeight, "clear");
 
 	$("#infoButton").click(function() {
-		if ($("#playBtn").attr("src") ==  "./images/pauseButton.png")
+		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
 			didPressPauseButton();
 		feedbackFormDisplayed = 1;
 		$('#handInfoPopup').css("display","");
@@ -645,7 +645,7 @@ function didPressFullScreenButton()
 
 function didPressFeedbackButton()
 {
-	if ($("#playBtn").attr("src") ==  "./images/pauseButton.png")
+	if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
 		didPressPauseButton();
 	feedbackFormDisplayed = 1;
 	$('#feedbackForm').css("display","");
@@ -804,7 +804,7 @@ function drawfeedback()
 	$("#feedbackTabLabel").css({"zoom" : "1"});
 
 	$("#feedbackTabLabel").click(function() {
-		if ($("#playBtn").attr("src") ==  "./images/pauseButton.png")
+		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
 			didPressPauseButton();
 		feedbackFormDisplayed = 1;
 		$('#feedbackForm').css("display","");
