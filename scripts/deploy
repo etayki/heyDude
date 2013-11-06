@@ -6,7 +6,7 @@ printf '2a\n<?php include_once("php/analyticstracking.php") ?>\n.\nw\n' | ed pro
 
 
 # Create app.js
-cat inc/base64binary.js js/Window/DOMLoader.XMLHttp.js   js/keyboard.js js/view.js js/MIDI/AudioDetect.js js/MIDI/LoadPlugin.js js/MIDI/Plugin.js js/MIDI/Player.js js/tune.js js/Window/DOMLoader.script.js js/music.js inc/Base64.js  > production/app.js
+cat inc/base64binary.js js/Window/DOMLoader.XMLHttp.js  js/utilities.js js/keyboard.js js/view.js js/MIDI/AudioDetect.js js/MIDI/LoadPlugin.js js/MIDI/Plugin.js js/MIDI/Player.js js/tune.js js/Window/DOMLoader.script.js js/music.js inc/Base64.js  > production/app.js
 
 # Uglify app.js
 java -jar production/compiler.jar --js=production/app.js > production/tmp

@@ -46,10 +46,19 @@ function setSceenWidth()
 function display()
 {
 	$("#loading").css("display","none");
-	//$("#controls").css("display","");
-	//$("#pianoWrapper").css("display","");
-	//$("#chair").css("display","");
-	//$("#feedback").css("display","");
+	/* Generate User ID */
+	if (readCookie("UserId") == null)
+	{
+		createCookie("UserId", Math.floor(Math.random()*1000000000), 300);
+		createCookie("Visits", "2", 300);
+	}
+	else
+	{
+		visitsNum = Number(readCookie("Visits")) + 1;
+		createCookie("Visits", visitsNum, 300);
+		console.log(readCookie("Visits"));
+	}
+
 }
 
 function drawHeader()
