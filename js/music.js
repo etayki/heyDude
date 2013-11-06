@@ -71,7 +71,8 @@ function didPressPlayButton(option)
 		oldTempo = tempo;
 		tempo = FAST_FORWARD; 
 		// Report Play Event to Google
-		//if (document.location.hostname != "localhost")
+		if (document.location.hostname != "localhost")
+			ga('send', 'event', 'button', 'click');
 			//_gaq.push(['_trackEvent', 'Videos', 'Play']);
 	}
 	
