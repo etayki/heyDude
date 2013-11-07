@@ -1,8 +1,9 @@
 # Create new html.index
-sed '/script/d' index.php > tmp && mv tmp production/index.php
-printf '2a\n<script src="./app.js"></script>\n.\nw\n' | ed production/index.php
-printf '2a\n<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>\n.\nw\n' | ed production/index.php
-printf '2a\n<?php include_once("php/analyticstracking.php") ?>\n.\nw\n' | ed production/index.php
+#sed '/script/d' index.php > tmp && mv tmp production/index.php
+cp index.php production/index.php
+#printf '2a\n<script src="./app.js"></script>\n.\nw\n' | ed production/index.php
+#printf '2a\n<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>\n.\nw\n' | ed production/index.php
+#printf '2a\n<?php include_once("php/analyticstracking.php") ?>\n.\nw\n' | ed production/index.php
 
 
 # Create app.js

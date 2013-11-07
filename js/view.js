@@ -47,18 +47,17 @@ function display()
 {
 	$("#loading").css("display","none");
 	/* Generate User ID */
-	if (readCookie("UserId") == null)
-	{
-		createCookie("UserId", Math.floor(Math.random()*1000000000), 300);
-		createCookie("Visits", "2", 300);
-	}
-	else
-	{
-		visitCount = Number(readCookie("Visits")) + 1;
-		createCookie("Visits", visitCount, 300);
-		console.log(readCookie("Visits"));
-	}
-
+	// if (readCookie("UserId") == null)
+	// {
+	// 	createCookie("UserId", Math.floor(Math.random()*1000000000), 300);
+	// 	createCookie("Visits", "2", 300);
+	// }
+	// else
+	// {
+	// 	visitCount = Number(readCookie("Visits")) + 1;
+	// 	createCookie("Visits", visitCount, 300);
+	// 	console.log(readCookie("Visits"));
+	// }
 }
 
 function drawHeader()
