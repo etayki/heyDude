@@ -1,7 +1,6 @@
 <?php
 if($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] == "localhost/PianoByHeart/index.php")
 {
-    error_log($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
     // Connect to database
     $con=mysqli_connect("localhost","root","Et4ever","Etay1");
     if (isset($_COOKIE["UserId"]))
