@@ -40,6 +40,7 @@ $(document).ready(function() {
 			// MIDI Player has loaded, so now allow user interaction
 			//debug("Draw screen START: "+(new Date()).getMilliseconds());
 			//debug("Draw screen END: "+(new Date()).getMilliseconds());
+			$("#playBtn").attr("src", "./images/playButton.png");
 			MIDI.setVolume(0, 127);
 		}
 	});

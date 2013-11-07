@@ -327,7 +327,7 @@ function drawControls()
 	$('#stopLabel').css("display","none");
 
 	/* PLAY BUTTON */
-	$("body").append('<img id="playBtn" src="./images/playButton.png" onclick="didPressPlayButton()"></img>');
+	$("body").append('<img id="playBtn" src="./images/loading.gif" onclick="didPressPlayButton()"></img>');
 	playButtonLeft =  stopButtonLeft + stopButtonWidth * 1.5;
 	playButtonTop = leftHandTop;
 	playButtonWidth = controlsBackgroundHeight * 0.6;
