@@ -25,7 +25,7 @@ if (isset($_COOKIE["UserId"]))
 else
 {
     // First time user
-    $userID=rand(1, 1000000000);
+    $userID=rand(1000000000, 9999999999);
     setcookie("UserId", $userID, time()+24*60*60*365);
     mysqli_query($con, "INSERT INTO Users (UserID, VisitCount) VALUES ($userID, 1)");
 }
