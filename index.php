@@ -18,8 +18,8 @@ $con=mysqli_connect($host,$username,$password,$database);
 if (isset($_COOKIE["UserId"]))
 {
     // Returning user
-    //mysqli_query($con, "UPDATE Users SET VisitCount = VisitCount + 1 WHERE UserID = '".$_COOKIE["UserId"]."'");
-    mysqli_query($con, "INSERT INTO Users (UserID, VisitCount) VALUES ('".$_COOKIE["UserId"]."',1) 
+    $userID = $_COOKIE["UserId"];
+    mysqli_query($con, "INSERT INTO Users (UserID, VisitCount) VALUES ('".$userID."',1) 
                         ON DUPLICATE KEY UPDATE VisitCount=VisitCount+1");
 }
 else
@@ -29,6 +29,10 @@ else
     setcookie("UserId", $userID, time()+24*60*60*365);
     mysqli_query($con, "INSERT INTO Users (UserID, VisitCount) VALUES ($userID, 1)");
 }
+mysqli_query($con, "INSERT INTO Visits (UserID, Event) 
+                    VALUES ($userID, 'Load')");
+//mysqli_query($con, "INSERT INTO Visits (UserID) 
+//                    VALUES ($userID)");
 mysqli_close($con);
 ?>
 <html>
