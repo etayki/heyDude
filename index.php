@@ -29,10 +29,11 @@ else
     setcookie("UserId", $userID, time()+24*60*60*365);
     mysqli_query($con, "INSERT INTO Users (UserID, VisitCount) VALUES ($userID, 1)");
 }
-mysqli_query($con, "INSERT INTO Visits (UserID, Event) 
-                    VALUES ($userID, 'Load')");
-//mysqli_query($con, "INSERT INTO Visits (UserID) 
-//                    VALUES ($userID)");
+$ip = $_SERVER['REMOTE_ADDR'];
+
+
+mysqli_query($con, "INSERT INTO Visits (UserID, Event, IP) 
+                    VALUES ($userID, 'Load', '$ip')");
 mysqli_close($con);
 ?>
 <html>
