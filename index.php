@@ -1,42 +1,35 @@
 <?php
-if($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] == "localhost/PianoByHeart/index.php")
-{
-    // Connect to database
-    $con=mysqli_connect("localhost","root","Et4ever","Etay1");
-    if (isset($_COOKIE["UserId"]))
-    {
-        // Returning user
-        mysqli_query($con, "UPDATE Users SET VisitCount = VisitCount + 1 WHERE UserID = '".$_COOKIE["UserId"]."'");
-    }
-    else
-    {
-        // First time user
-        $userID=rand(1, 1000000000);
-        setcookie("UserId", $userID, time()+24*60*60*365);
-        mysqli_query($con, "INSERT INTO Users (UserID, VisitCount) VALUES ($userID, 1)");
-    }
-    mysqli_close($con);
-}
 if($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] == "watchandrepeat.com/index.php")
 {
-    // Connect to database
-    $con=mysqli_connect("mysql1301.ixwebhosting.com","yudaluz_etayluz","Et4ever","yudaluz_watchandrepeat");
-    if (isset($_COOKIE["UserId"]))
-    {
-        // Returning user
-        //mysqli_query($con, "UPDATE Users SET VisitCount = VisitCount + 1 WHERE UserID = '".$_COOKIE["UserId"]."'");
-        mysqli_query($con, "INSERT INTO Users (UserID, VisitCount) VALUES ('".$_COOKIE["UserId"]."',1) 
-                            ON DUPLICATE KEY UPDATE VisitCount=VisitCount+1");
-    }
-    else
-    {
-        // First time user
-        $userID=rand(1, 1000000000);
-        setcookie("UserId", $userID, time()+24*60*60*365);
-        mysqli_query($con, "INSERT INTO Users (UserID, VisitCount) VALUES ($userID, 1)");
-    }
-    mysqli_close($con);
+    $host = "mysql1301.ixwebhosting.com";
+    $username = "yudaluz_etayluz";
+    $password = "Et4ever";
+    $database = "yudaluz_watchandrepeat";
 }
+else
+{
+    $host = "localhost";
+    $username = "root";
+    $password = "Et4ever";
+    $database = "Etay1";
+}
+// Connect to database
+$con=mysqli_connect($host,$username,$password,$database);
+if (isset($_COOKIE["UserId"]))
+{
+    // Returning user
+    //mysqli_query($con, "UPDATE Users SET VisitCount = VisitCount + 1 WHERE UserID = '".$_COOKIE["UserId"]."'");
+    mysqli_query($con, "INSERT INTO Users (UserID, VisitCount) VALUES ('".$_COOKIE["UserId"]."',1) 
+                        ON DUPLICATE KEY UPDATE VisitCount=VisitCount+1");
+}
+else
+{
+    // First time user
+    $userID=rand(1, 1000000000);
+    setcookie("UserId", $userID, time()+24*60*60*365);
+    mysqli_query($con, "INSERT INTO Users (UserID, VisitCount) VALUES ($userID, 1)");
+}
+mysqli_close($con);
 ?>
 <html>
 <head>
