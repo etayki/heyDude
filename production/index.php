@@ -19,6 +19,7 @@ if (isset($_COOKIE["UserId"]))
 {
     // Returning user
     $userID = $_COOKIE["UserId"];
+    error_log($userID);
     mysqli_query($con, "INSERT INTO Users (UserID, VisitCount) VALUES ('".$userID."',1) 
                         ON DUPLICATE KEY UPDATE VisitCount=VisitCount+1");
 }
@@ -31,10 +32,14 @@ else
 }
 $ip = $_SERVER['REMOTE_ADDR'];
 
-mysqli_query($con, "INSERT INTO Visits (UserID, Event, IP) 
-                    VALUES ($userID, 'Load', '$ip')");
-//mysqli_query($con, "INSERT INTO Visits (UserID) 
-//                    VALUES ($userID)");
+$tags = get_meta_tags('http://www.geobytes.com/IpLocator.htm?GetLocation&template=php3.txt&IpAddress=66.65.103.106');
+$city = $tags['city'].", ".$tags['region'].", ".$tags['country'];
+//echo $tags['region'];
+//echo $tags['state'];
+//echo $tags['country'];
+
+mysqli_query($con, "INSERT INTO Visits (UserID, Event, IP, City) 
+                    VALUES ($userID, 'Load', '$ip', '$city')");
 mysqli_close($con);
 ?>
 <html>
