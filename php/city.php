@@ -15,9 +15,9 @@ else
 }
 
 $mysqli = new mysqli($host,$username,$password,$database);
-if ($result = $mysqli->query("SELECT IP FROM Users WHERE City='None', IP !='None'")) 
+if ($result = $mysqli->query("SELECT IP FROM Users WHERE City='None'")) 
 {
-    printf ("UPDATING USERS TABLE<br>");
+    printf ("UPDATING USERS TABLE<br><br>");
     while ($row = $result->fetch_row()) {
         printf ("%s ->", $row[0]);
         $ip = $row[0];
