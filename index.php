@@ -15,31 +15,26 @@ else
 }
 // Connect to database
 $con=mysqli_connect($host,$username,$password,$database);
+
 if (isset($_COOKIE["UserId"]))
 {
-    // Returning user
+    // Returning user, retrieve cookie
     $userID = $_COOKIE["UserId"];
-    error_log($userID);
-    mysqli_query($con, "INSERT INTO Users (UserID, VisitCount) VALUES ('".$userID."',1) 
-                        ON DUPLICATE KEY UPDATE VisitCount=VisitCount+1");
 }
 else
 {
-    // First time user
+    // First time user, give them a cookie
     $userID=rand(1000000000, 9999999999);
     setcookie("UserId", $userID, time()+24*60*60*365);
-    mysqli_query($con, "INSERT INTO Users (UserID, VisitCount) VALUES ($userID, 1)");
 }
-$ip = $_SERVER['REMOTE_ADDR'];
 
-$tags = get_meta_tags('http://www.geobytes.com/IpLocator.htm?GetLocation&template=php3.txt&IpAddress=66.65.103.106');
-$city = $tags['city'].", ".$tags['region'].", ".$tags['country'];
-//echo $tags['region'];
-//echo $tags['state'];
-//echo $tags['country'];
+// Update Users Table
+mysqli_query($con, "INSERT INTO Users (UserID, VisitCount) VALUES ($userID, 1) 
+                    ON DUPLICATE KEY UPDATE VisitCount=VisitCount+1");
 
-mysqli_query($con, "INSERT INTO Visits (UserID, Event, IP, City) 
-                    VALUES ($userID, 'Load', '$ip', '$city')");
+// Update Visits Table
+mysqli_query($con, "INSERT INTO Visits (UserID, Event, IP) 
+                    VALUES ($userID, 'Load', '$ip')");
 mysqli_close($con);
 ?>
 <html>
