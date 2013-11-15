@@ -24,7 +24,8 @@ if ($result = $mysqli->query("SELECT IP FROM Users WHERE City='None' AND IP !='N
         $tags = get_meta_tags('http://www.geobytes.com/IpLocator.htm?GetLocation&template=php3.txt&IpAddress='."$ip");
         $city = $tags['city'].", ".$tags['region'].", ".$tags['country'];
         printf ("%s<br>", $city);
-        $mysqli->query("UPDATE Users SET City='$city' WHERE IP='$ip'");
+        if ($city != "Limit Exceeded, Limit Exceeded, Limit Exceeded")
+          $mysqli->query("UPDATE Users SET City='$city' WHERE IP='$ip'");
     }
 
     /* free result set */
