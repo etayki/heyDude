@@ -28,9 +28,11 @@ else
     setcookie("UserId", $userID, time()+24*60*60*365);
 }
 
+$ip = $_SERVER['REMOTE_ADDR'];
+
 // Update Users Table
-mysqli_query($con, "INSERT INTO Users (UserID, VisitCount) VALUES ($userID, 1) 
-                    ON DUPLICATE KEY UPDATE VisitCount=VisitCount+1");
+mysqli_query($con, "INSERT INTO Users (UserID, VisitCount, IP) VALUES ($userID, 1, '$ip') 
+                    ON DUPLICATE KEY UPDATE VisitCount=VisitCount+1, IP='$ip'");
 
 // Update Visits Table
 mysqli_query($con, "INSERT INTO Visits (UserID, Event, IP) 
