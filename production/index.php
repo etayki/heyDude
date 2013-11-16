@@ -1,8 +1,4 @@
 <?php
-include("geoip/geoip.inc");
-include("geoip/geoipcity.inc");
-include('geoip/geoipregionvars.php');
-
 if($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] == "watchandrepeat.com/index.php")
 {
     $host = "mysql1301.ixwebhosting.com";
@@ -33,24 +29,14 @@ else
 }
 
 $ip = $_SERVER['REMOTE_ADDR'];
-if($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] != "watchandrepeat.com/index.php")
-    $ip = "66.65.103.106";
-
-$gi = geoip_open("http://watchandrepeat.com/GeoLiteCity.dat", GEOIP_STANDARD);
-$record = geoip_record_by_addr($gi, $ip);
-$city = $record->city.", ".$record->region.", ".$record->country_code;
-error_log($city);
-error_log($ip);
-geoip_close($gi);
-
 
 // Update Users Table
-mysqli_query($con, "INSERT INTO Users (UserID, VisitCount, IP, City) VALUES ($userID, 1, '$ip', '$city') 
-                    ON DUPLICATE KEY UPDATE VisitCount=VisitCount+1, IP='$ip', City='$city'");
+mysqli_query($con, "INSERT INTO Users (UserID, VisitCount, IP) VALUES ($userID, 1, '$ip') 
+                    ON DUPLICATE KEY UPDATE VisitCount=VisitCount+1, IP='$ip'");
 
 // Update Visits Table
-mysqli_query($con, "INSERT INTO Visits (UserID, Event, IP, City) 
-                    VALUES ($userID, 'Load', '$ip', '$city')");
+mysqli_query($con, "INSERT INTO Visits (UserID, Event, IP) 
+                    VALUES ($userID, 'Load', '$ip')");
 mysqli_close($con);
 ?>
 <html>
