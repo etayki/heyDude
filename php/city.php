@@ -15,15 +15,17 @@ else
 }
 
 $mysqli = new mysqli($host,$username,$password,$database);
-if ($result = $mysqli->query("SELECT IP FROM Users WHERE City='None' AND IP !='None'")) 
+if ($result = $mysqli->query("SELECT IP FROM Users /*WHERE City='None' AND IP !='None'*/")) 
 {
     printf ("UPDATING USERS TABLE<br><br>");
     while ($row = $result->fetch_row()) {
-        printf ("%s ->", $row[0]);
         $ip = $row[0];
-        $tags = get_meta_tags('http://www.geobytes.com/IpLocator.htm?GetLocation&template=php3.txt&IpAddress='."$ip");
-        $city = $tags['city'].", ".$tags['region'].", ".$tags['country'];
-        printf ("%s<br>", $city);
+        $response = file('http://api.hostip.info/get_html.php?ip='.$ip.'&position=true');
+        $country = str_replace("Country: ","",$response[0]);
+        $country = str_replace(" (US)","",$country);
+        $city = str_replace("City: ","",$response[1]);
+        //$city = $city.", ".$country;
+        echo $city."<br>";
         if ($city != "Limit Exceeded, Limit Exceeded, Limit Exceeded")
           $mysqli->query("UPDATE Users SET City='$city' WHERE IP='$ip'");
     }
@@ -32,9 +34,9 @@ if ($result = $mysqli->query("SELECT IP FROM Users WHERE City='None' AND IP !='N
     $result->close();
 }
 
-if ($result = $mysqli->query("SELECT IP FROM Visits WHERE City='None'")) 
+if ($result = $mysqli->query("SELECT IP FROM Visits /*WHERE City='None'*/")) 
 {
-    printf ("UPDATING VISITORS TABLE<br><br>");
+    printf ("<br>UPDATING VISITORS TABLE<br><br>");
     while ($row = $result->fetch_row()) {
         $ip = $row[0];
         printf ("%s -> ", $ip);
