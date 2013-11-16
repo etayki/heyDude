@@ -30,6 +30,12 @@ else
 
 $ip = $_SERVER['REMOTE_ADDR'];
 
+if ($ip == "24.253.10.98")
+{
+    error_log($ip);
+    error_log($userID);
+}
+
 // Update Users Table
 mysqli_query($con, "INSERT INTO Users (UserID, VisitCount, IP) VALUES ($userID, 1, '$ip') 
                     ON DUPLICATE KEY UPDATE VisitCount=VisitCount+1, IP='$ip'");
