@@ -50,6 +50,10 @@ if ($result = $mysqli->query("SELECT IP FROM Visits WHERE City='None'"))
     $result->close();
 }
 
+$gi = geoip_open("GeoLiteCity.dat", GEOIP_STANDARD);
+$record = geoip_record_by_addr($gi, $ip);
+geoip_close($gi);
+
 /* close connection */
 $mysqli->close();
 ?>
