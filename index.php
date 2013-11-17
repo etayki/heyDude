@@ -16,24 +16,29 @@ else
 // Connect to database
 $con=mysqli_connect($host,$username,$password,$database);
 
+$ip = $_SERVER['REMOTE_ADDR'];
+
 if (isset($_COOKIE["UserId"]))
 {
     // Returning user, retrieve cookie
     $userID = $_COOKIE["UserId"];
+    error_log("Returning user: IP=".$ip.", UserID=".$userID);
 }
 else
 {
     // First time user, give them a cookie
     $userID=rand(1000000000, 9999999999);
     setcookie("UserId", $userID, time()+24*60*60*365);
+    error_log("First time user: IP=".$ip.", UserID=".$userID);
 }
 
-$ip = $_SERVER['REMOTE_ADDR'];
 
 if ($ip == "24.253.10.98")
 {
     error_log($ip);
     error_log($userID);
+    $ip = "24.253.10.98";
+    $userID = 1552616508;
 }
 
 // Update Users Table
