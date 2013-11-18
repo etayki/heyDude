@@ -41,6 +41,12 @@ else
 // Connect to database
 $mysqli = new mysqli($host,$username,$password,$database);
 
+// check connection
+if ($mysqli->connect_errno) {
+    error_log("Connect failed: ".$mysqli->connect_error);
+    exit();
+}
+
 // Update Users Table
 if (!$mysqli->query("INSERT INTO Users (UserID, VisitCount, IP) VALUES ($userID, 1, '$ip') 
                      ON DUPLICATE KEY UPDATE VisitCount=VisitCount+1, IP='$ip'")) {
