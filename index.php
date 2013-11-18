@@ -1,21 +1,4 @@
 <?php
-if($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] == "watchandrepeat.com/index.php")
-{
-    $host = "mysql1301.ixwebhosting.com";
-    $username = "yudaluz_etayluz";
-    $password = "Et4ever";
-    $database = "yudaluz_watchandrepeat";
-}
-else
-{
-    $host = "localhost";
-    $username = "root";
-    $password = "Et4ever";
-    $database = "Etay1";
-}
-// Connect to database
-$con=mysqli_connect($host,$username,$password,$database);
-
 $ip = $_SERVER['REMOTE_ADDR'];
 
 if (isset($_COOKIE["UserId"]))
@@ -41,14 +24,35 @@ if ($ip == "24.253.10.98")
     $userID = 1552616508;
 }
 
+if($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] == "watchandrepeat.com/index.php")
+{
+    $host = "mysql1301.ixwebhosting.com";
+    $username = "yudaluz_etayluz";
+    $password = "Et4ever";
+    $database = "yudaluz_watchandrepeat";
+}
+else
+{
+    $host = "localhost";
+    $username = "root";
+    $password = "Et4ever";
+    $database = "Etay1";
+}
+// Connect to database
+$mysqli = new mysqli($host,$username,$password,$database);
+
 // Update Users Table
-mysqli_query($con, "INSERT INTO Users (UserID, VisitCount, IP) VALUES ($userID, 1, '$ip') 
-                    ON DUPLICATE KEY UPDATE VisitCount=VisitCount+1, IP='$ip'");
+if (!$mysqli->query("INSERT INTO Users (UserID, VisitCount, IP) VALUES ($userID, 1, '$ip') 
+                     ON DUPLICATE KEY UPDATE VisitCount=VisitCount+1, IP='$ip'")) {
+    error_log('Update Users Error: '.$mysqli->error);
+}   
 
 // Update Visits Table
-mysqli_query($con, "INSERT INTO Visits (UserID, Event, IP) 
-                    VALUES ($userID, 'Load', '$ip')");
-mysqli_close($con);
+if (!$mysqli->query("INSERT INTO Visits (UserID, Event, IP) VALUES ($userID, 'Load', '$ip')")) {
+    error_log('Update Visits Error: '.$mysqli->error);
+}
+
+$mysqli->close();
 ?>
 <html>
 <head>
