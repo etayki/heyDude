@@ -58,25 +58,21 @@ $(document).ready(function() {
 
 /* --- ================ CONTROLS ================== */
 
-function didPressPlayButton(option)
+function didPressPlayButton()
 {
 	/* TOGGLE FROM PLAY TO PAUSE */
 	$("#playBtn").attr("src", "http://watchandrepeat.com/images/pauseButton.png");
 	$("#playBtn").attr("onclick", "didPressPauseButton()");
 	$('#playLabel').text("Pause");
 
-		
-	if (option != REPEAT)
-	{
-		// Fast forward to the next note upon resume;
-		oldTempo = tempo;
-		tempo = FAST_FORWARD; 
-		// Report Play Event to Google
-		if (document.location.hostname != "localhost")
-			ga('send', 'event', 'button', 'click');
-			//_gaq.push(['_trackEvent', 'Videos', 'Play']);
-	}
-	
+	// Fast forward to the next note upon resume;
+	oldTempo = tempo;
+	tempo = FAST_FORWARD; 
+	playMusic();
+}
+
+function playMusic()
+{	
 	for (measure = startMeasure; measure <= endMeasure; measure++)
 	{
 		for (var noteIdx = 0; noteIdx < tune[measure].length; noteIdx++)
@@ -127,13 +123,6 @@ function didPressPlayButton(option)
 		}
 	}
 	
-	if (!repeatEnabled && delay >= endDelay - 0.01)
-	{
-		/* REACHED END OF SELECTION. DON'T REPEAT. */
-		didPressStopButton();
-		return;
-	}
-	
 	timers.push(setTimeout(function() {
 		delay += 0.01;
 		if (delay >= endDelay)
@@ -142,9 +131,8 @@ function didPressPlayButton(option)
 		}
 		
 		setPositionMarker();
-		didPressPlayButton(REPEAT);
+		playMusic();
 	}, tempo));	
-	
 }
 
 function didPressPauseButton()
@@ -171,6 +159,7 @@ function didPressStopButton()
 	delay = startDelay;
 	setPositionMarker();
 }
+
 
 function clearHand(hand)
 {
