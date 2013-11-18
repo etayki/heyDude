@@ -5,14 +5,14 @@ if (isset($_COOKIE["UserId"]))
 {
     // Returning user, retrieve cookie
     $userID = $_COOKIE["UserId"];
-    error_log("Returning user: IP=".$ip.", UserID=".$userID);
+    error_log(date('Y-m-d H:i:s')." Returning user: IP=".$ip.", UserID=".$userID);
 }
 else
 {
     // First time user, give them a cookie
     $userID=rand(1000000000, 9999999999);
     setcookie("UserId", $userID, time()+24*60*60*365);
-    error_log("First time user: IP=".$ip.", UserID=".$userID);
+    error_log(date('Y-m-d H:i:s')." First time user: IP=".$ip.", UserID=".$userID);
 }
 
 
@@ -43,19 +43,19 @@ $mysqli = new mysqli($host,$username,$password,$database);
 
 // check connection
 if ($mysqli->connect_errno) {
-    error_log("Connect failed: ".$mysqli->connect_error);
+    error_log(date('Y-m-d H:i:s')." Connect failed: ".$mysqli->connect_error);
     exit();
 }
 
 // Update Users Table
 if (!$mysqli->query("INSERT INTO Users (UserID, VisitCount, IP) VALUES ($userID, 1, '$ip') 
                      ON DUPLICATE KEY UPDATE VisitCount=VisitCount+1, IP='$ip'")) {
-    error_log('Update Users Error: '.$mysqli->error);
+    error_log(date('Y-m-d H:i:s')." Update Users Error: ".$mysqli->error);
 }   
 
 // Update Visits Table
 if (!$mysqli->query("INSERT INTO Visits (UserID, Event, IP) VALUES ($userID, 'Load', '$ip')")) {
-    error_log('Update Visits Error: '.$mysqli->error);
+    error_log(date('Y-m-d H:i:s')." Update Visits Error: ".$mysqli->error);
 }
 
 $mysqli->close();
