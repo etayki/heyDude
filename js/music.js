@@ -72,7 +72,7 @@ function didPressPlayButton()
 
 	// Report Play Action
 	xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","action.php?action=Play&startMeasure="+startMeasure+"&endMeasure="+endMeasure,true);
+	xmlhttp.open("GET","action.php?action=Play&start="+startMeasure+"&end="+endMeasure,true);
 	xmlhttp.send();
 }
 
@@ -151,7 +151,7 @@ function didPressPauseButton()
 
 	// Report Pause Action
 	xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","action.php?action=Pause&startMeasure="+startMeasure+"&endMeasure="+endMeasure,true);
+	xmlhttp.open("GET","action.php?action=Pause&start="+startMeasure+"&end="+endMeasure,true);
 	xmlhttp.send();
 }
 

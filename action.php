@@ -1,9 +1,12 @@
 <?php
 parse_str($_SERVER['QUERY_STRING']);
 
-error_log("action.php: action=".$action);
-//error_log("action.php: startMeasure=".$_GET["startmeasure"]);
-//error_log("action.php: endMeasure=".$endmeasure);
+// error_log($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
+// error_log(date('Y-m-d H:i:s')." ".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
+
+// error_log(date('Y-m-d H:i:s')." "."action.php: action=".$action);
+// error_log(date('Y-m-d H:i:s')." "."action.php: startMeasure=".$start); //- doesn't retrieve for some reason
+// error_log(date('Y-m-d H:i:s')." "."action.php: endMeasure=".$end); //- doesn't retrieve for some reason
 
 if($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] == "watchandrepeat.com/action.php")
 {
@@ -31,8 +34,8 @@ if ($mysqli->connect_errno) {
 $ip = $_SERVER['REMOTE_ADDR'];
 
 // Update Visits Table
-if (!$mysqli->query("INSERT INTO Visits (IP, Event)
-                     VALUES ('$ip', '$action')")) {
+if (!$mysqli->query("INSERT INTO Visits (IP, Event, StartMeasure, EndMeasure)
+                     VALUES ('$ip', '$action', $start, $end)")) {
     error_log(date('Y-m-d H:i:s')." action.php Update Visits Error: ".$mysqli->error);
 }
 
