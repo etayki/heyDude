@@ -36,7 +36,7 @@ $mysqli = new mysqli($host,$username,$password,$database);
 if ($mysqli->connect_errno) {
     error_log(date('Y-m-d H:i:s')." Connect failed: ".$mysqli->connect_error);
     error_log(date('Y-m-d H:i:s')." ".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
-    error_log(date('Y-m-d H:i:s')." ".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+    error_log(date('Y-m-d H:i:s')." ".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
     exit();
 }
 
