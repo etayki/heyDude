@@ -15,14 +15,17 @@ else
 }
 
 $mysqli = new mysqli($host,$username,$password,$database);
+
 if ($result = $mysqli->query("SELECT IP FROM Users WHERE City='None' AND IP !='None'")) 
 {
     printf ("UPDATING USERS TABLE<br><br>");
     while ($row = $result->fetch_row()) {
         printf ("%s ->", $row[0]);
         $ip = $row[0];
-        $tags = get_meta_tags('http://www.geobytes.com/IpLocator.htm?GetLocation&template=php3.txt&IpAddress='."$ip");
-        $city = $tags['city'].", ".$tags['region'].", ".$tags['country'];
+        $json = file_get_contents("http://ipinfo.io/{$ip}");
+        $details = json_decode($json);
+        $city = $details->city.", ".$details->country;
+        error_log("City=".$details->city.", Country=".$details->country);
         printf ("%s<br>", $city);
         if ($city != "Limit Exceeded, Limit Exceeded, Limit Exceeded")
           $mysqli->query("UPDATE Users SET City='$city' WHERE IP='$ip'");
