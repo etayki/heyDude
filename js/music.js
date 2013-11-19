@@ -69,6 +69,11 @@ function didPressPlayButton()
 	oldTempo = tempo;
 	tempo = FAST_FORWARD; 
 	playMusic();
+
+	// Report Play Action
+	xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET","action.php?action=Play&startMeasure="+startMeasure+"&endMeasure="+endMeasure,true);
+	xmlhttp.send();
 }
 
 function playMusic()
@@ -138,13 +143,16 @@ function playMusic()
 function didPressPauseButton()
 {
 	/* TOGGLE FROM PAUSE TO PLAY */
-	//if (document.location.hostname != "localhost")
-		//_gaq.push(['_trackEvent', 'Videos', 'Pause']);
 	$("#playBtn").attr("src", "./images/playButton.png");
 	$("#playBtn").attr("onclick", "didPressPlayButton()");
 	$('#playLabel').text("Play");
 
 	resetNotes(RETAIN_VISUAL);
+
+	// Report Pause Action
+	xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET","action.php?action=Pause&startMeasure="+startMeasure+"&endMeasure="+endMeasure,true);
+	xmlhttp.send();
 }
 
 function didPressStopButton()
