@@ -15,15 +15,6 @@ else
     error_log(date('Y-m-d H:i:s')." First time user: IP=".$ip.", UserID=".$userID);
 }
 
-
-if ($ip == "24.253.10.98")
-{
-    error_log($ip);
-    error_log($userID);
-    $ip = "24.253.10.98";
-    $userID = 1552616508;
-}
-
 if($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] == "watchandrepeat.com/index.php")
 {
     $host = "mysql1301.ixwebhosting.com";
@@ -45,6 +36,7 @@ $mysqli = new mysqli($host,$username,$password,$database);
 if ($mysqli->connect_errno) {
     error_log(date('Y-m-d H:i:s')." Connect failed: ".$mysqli->connect_error);
     error_log(date('Y-m-d H:i:s')." ".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
+    error_log(date('Y-m-d H:i:s')." ".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
     exit();
 }
 
