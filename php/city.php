@@ -1,5 +1,5 @@
 <?php
-if(strpos($host, "watchandrepeat") !== FALSE)
+if(strpos(strtolower($_SERVER['HTTP_HOST']), "watchandrepeat") !== FALSE)
 {
     $host = "mysql1301.ixwebhosting.com";
     $username = "yudaluz_etayluz";

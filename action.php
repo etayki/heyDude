@@ -1,14 +1,10 @@
 <?php
 parse_str($_SERVER['QUERY_STRING']);
 
-// error_log($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
-// error_log(date('Y-m-d H:i:s')." ".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
 $ip = $_SERVER['REMOTE_ADDR'];
-error_log(date('Y-m-d H:i:s')." IP=".$ip.", action=".$action.", start=".$start." ".", end=".$end);
-//error_log(date('Y-m-d H:i:s')); //- doesn't retrieve for some reason
-//error_log(date('Y-m-d H:i:s')); //- doesn't retrieve for some reason
+error_log(date('Y-m-d H:i:s')." IP=".$ip.", action=".$action.", start=".$start.", end=".$end);
 
-if(strpos($host, "watchandrepeat") !== FALSE)
+if(strpos(strtolower($_SERVER['HTTP_HOST']), "watchandrepeat") !== FALSE)
 {
     $host = "mysql1301.ixwebhosting.com";
     $username = "yudaluz_etayluz";

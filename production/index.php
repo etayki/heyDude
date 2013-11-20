@@ -1,6 +1,11 @@
 <?php
 $ip = $_SERVER['REMOTE_ADDR'];
 
+if(isset($_SERVER['HTTP_REFERER']))
+    error_log(date('Y-m-d H:i:s')." IP=".$ip.", action=Load, Referer=".$_SERVER['HTTP_REFERER']);
+else
+    error_log(date('Y-m-d H:i:s')." IP=".$ip.", action=Load");
+
 if (isset($_COOKIE["UserId"]))
 {
     // Returning user, retrieve cookie
@@ -15,8 +20,7 @@ else
     error_log(date('Y-m-d H:i:s')." First time user: IP=".$ip.", UserID=".$userID);
 }
 
-$host = strtolower($_SERVER['HTTP_HOST']);
-if(strpos($host, "watchandrepeat") !== FALSE)
+if(strpos(strtolower($_SERVER['HTTP_HOST']), "watchandrepeat") !== FALSE)
 {
     $host = "mysql1301.ixwebhosting.com";
     $username = "yudaluz_etayluz";
