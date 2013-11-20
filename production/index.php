@@ -3,12 +3,12 @@ $ip = $_SERVER['REMOTE_ADDR'];
 
 if(isset($_SERVER['HTTP_REFERER']))
 {
-    error_log(date('Y-m-d H:i:s')." IP=".$ip.", action=Load, Referer=".$_SERVER['HTTP_REFERER']);
+    error_log(date('Y-m-d H:i:s')." IP=".$ip.", event=Load, Referer=".$_SERVER['HTTP_REFERER']);
     $referer = $_SERVER['HTTP_REFERER'];
 }
 else
 {
-    error_log(date('Y-m-d H:i:s')." IP=".$ip.", action=Load");
+    error_log(date('Y-m-d H:i:s')." IP=".$ip.", event=Load");
     $referer = "None";
 }
 if(strpos(strtolower($_SERVER['HTTP_HOST']), "watchandrepeat") !== FALSE)

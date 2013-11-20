@@ -70,9 +70,9 @@ function didPressPlayButton()
 	tempo = FAST_FORWARD; 
 	playMusic();
 
-	// Report Play Action
+	// Report Play Event
 	xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","event.php?action=Play&start="+startMeasure+"&end="+endMeasure,true);
+	xmlhttp.open("GET","event.php?event=Play&start="+startMeasure+"&end="+endMeasure,true);
 	xmlhttp.send();
 }
 
@@ -149,9 +149,9 @@ function didPressPauseButton()
 
 	resetNotes(RETAIN_VISUAL);
 
-	// Report Pause Action
+	// Report Pause Event
 	xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","event.php?action=Pause&start="+startMeasure+"&end="+endMeasure,true);
+	xmlhttp.open("GET","event.php?event=Pause&start="+startMeasure+"&end="+endMeasure,true);
 	xmlhttp.send();
 }
 

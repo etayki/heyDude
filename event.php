@@ -2,7 +2,7 @@
 parse_str($_SERVER['QUERY_STRING']);
 
 $ip = $_SERVER['REMOTE_ADDR'];
-error_log(date('Y-m-d H:i:s')." IP=".$ip.", action=".$action.", start=".$start.", end=".$end);
+error_log(date('Y-m-d H:i:s')." IP=".$ip.", event=".$event.", start=".$start.", end=".$end);
 
 if(strpos(strtolower($_SERVER['HTTP_HOST']), "watchandrepeat") !== FALSE)
 {
@@ -33,8 +33,8 @@ $ip = $_SERVER['REMOTE_ADDR'];
 
 // Update Visits Table
 if (!$mysqli->query("INSERT INTO Visits (IP, Event, StartMeasure, EndMeasure)
-                     VALUES ('$ip', '$action', $start, $end)")) {
-    error_log(date('Y-m-d H:i:s')." action.php Update Visits Error: ".$mysqli->error);
+                     VALUES ('$ip', '$event', $start, $end)")) {
+    error_log(date('Y-m-d H:i:s')." event.php Update Visits Error: ".$mysqli->error);
 }
 
 $mysqli->close();
