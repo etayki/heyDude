@@ -16,7 +16,6 @@ else
 }
 
 $host = strtolower($_SERVER['HTTP_HOST']);
-error_log($host);
 if(strpos($host, "watchandrepeat") !== FALSE)
 {
     $host = "mysql1301.ixwebhosting.com";
