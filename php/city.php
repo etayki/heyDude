@@ -1,5 +1,5 @@
 <?php
-if($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] == "watchandrepeat.com/city.php")
+if(strpos($host, "watchandrepeat") !== FALSE)
 {
     $host = "mysql1301.ixwebhosting.com";
     $username = "yudaluz_etayluz";
@@ -24,7 +24,7 @@ if ($result = $mysqli->query("SELECT IP FROM Users WHERE City='None' AND IP !='N
         $ip = $row[0];
         $json = file_get_contents("http://ipinfo.io/{$ip}");
         $details = json_decode($json);
-        $city = $details->city.", ".$details->country;
+        $city = $details->city.", ".$details->region.", ".$details->country;
         error_log("City=".$details->city.", Country=".$details->country);
         printf ("%s<br>", $city);
         if ($city != "Limit Exceeded, Limit Exceeded, Limit Exceeded")
