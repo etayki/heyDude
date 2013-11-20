@@ -11,6 +11,10 @@ else
     error_log(date('Y-m-d H:i:s')." IP=".$ip.", event=Load");
     $referer = "None";
 }
+
+if(isset($_SERVER['HTTP_USER_AGENT']))
+    error_log(date('Y-m-d H:i:s')." User Agent=".$_SERVER['HTTP_USER_AGENT']);
+
 if(strpos(strtolower($_SERVER['HTTP_HOST']), "watchandrepeat") !== FALSE)
 {
     $host = "mysql1301.ixwebhosting.com";
