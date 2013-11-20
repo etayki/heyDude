@@ -15,7 +15,9 @@ else
     error_log(date('Y-m-d H:i:s')." First time user: IP=".$ip.", UserID=".$userID);
 }
 
-if($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] == "watchandrepeat.com/index.php")
+$host = strtolower($_SERVER['HTTP_HOST']);
+error_log($host);
+if(strpos($host, "watchandrepeat") !== FALSE)
 {
     $host = "mysql1301.ixwebhosting.com";
     $username = "yudaluz_etayluz";
