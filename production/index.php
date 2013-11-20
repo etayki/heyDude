@@ -2,24 +2,15 @@
 $ip = $_SERVER['REMOTE_ADDR'];
 
 if(isset($_SERVER['HTTP_REFERER']))
+{
     error_log(date('Y-m-d H:i:s')." IP=".$ip.", action=Load, Referer=".$_SERVER['HTTP_REFERER']);
+    $referer = $_SERVER['HTTP_REFERER'];
+}
 else
+{
     error_log(date('Y-m-d H:i:s')." IP=".$ip.", action=Load");
-
-if (isset($_COOKIE["UserId"]))
-{
-    // Returning user, retrieve cookie
-    $userID = $_COOKIE["UserId"];
-    error_log(date('Y-m-d H:i:s')." Returning user: IP=".$ip.", UserID=".$userID);
+    $referer = "None";
 }
-else
-{
-    // First time user, give them a cookie
-    $userID=rand(1000000000, 9999999999);
-    setcookie("UserId", $userID, time()+24*60*60*365);
-    error_log(date('Y-m-d H:i:s')." First time user: IP=".$ip.", UserID=".$userID);
-}
-
 if(strpos(strtolower($_SERVER['HTTP_HOST']), "watchandrepeat") !== FALSE)
 {
     $host = "mysql1301.ixwebhosting.com";
@@ -43,16 +34,10 @@ if ($mysqli->connect_errno) {
     error_log(date('Y-m-d H:i:s')." ".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
     error_log(date('Y-m-d H:i:s')." ".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
     exit();
-}
-
-// Update Users Table
-if (!$mysqli->query("INSERT INTO Users (UserID, VisitCount, IP) VALUES ($userID, 1, '$ip') 
-                     ON DUPLICATE KEY UPDATE VisitCount=VisitCount+1, IP='$ip'")) {
-    error_log(date('Y-m-d H:i:s')." Update Users Error: ".$mysqli->error);
-}   
+} 
 
 // Update Visits Table
-if (!$mysqli->query("INSERT INTO Visits (UserID, Event, IP) VALUES ($userID, 'Load', '$ip')")) {
+if (!$mysqli->query("INSERT INTO Visits (Event, IP, Referer) VALUES ('Load', '$ip', '$referer')")) {
     error_log(date('Y-m-d H:i:s')." Update Visits Error: ".$mysqli->error);
 }
 
