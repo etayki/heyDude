@@ -9,8 +9,6 @@ if(strpos(strtolower($_SERVER['HTTP_HOST']), "watchandrepeat") !== FALSE)
     $password = "Et4ever";
     $database = "yudaluz_watchandrepeat";
     $ip = $_SERVER['REMOTE_ADDR'];
-    $ip = "66.65.103.106";
-
 }
 else
 {
