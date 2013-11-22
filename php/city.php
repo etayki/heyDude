@@ -24,6 +24,7 @@ if ($result = $mysqli->query("SELECT IP FROM Users WHERE City='None' AND IP !='N
         printf ("%s ->", $row[0]);
         $ip = $row[0];
         $json = file_get_contents("http://ipinfo.io/{$ip}");
+        error_log("$json");
         $details = json_decode($json);
         $city = $details->city.", ".$details->region.", ".$details->country;
         error_log("City=".$details->city.", Country=".$details->country);
