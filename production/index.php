@@ -1,5 +1,6 @@
 <?php
 $ip = $_SERVER['REMOTE_ADDR'];
+date_default_timezone_set('America/New_York');
 
 if(isset($_SERVER['HTTP_REFERER']))
 {

@@ -1,8 +1,7 @@
 <?php
-parse_str($_SERVER['QUERY_STRING']);
+//phpinfo();
 
-$ip = $_SERVER['REMOTE_ADDR'];
-error_log(date('Y-m-d H:i:s')." IP=".$ip.", event=".$event.", start=".$start.", end=".$end);
+parse_str($_SERVER['QUERY_STRING']);
 
 if(strpos(strtolower($_SERVER['HTTP_HOST']), "watchandrepeat") !== FALSE)
 {
@@ -10,6 +9,9 @@ if(strpos(strtolower($_SERVER['HTTP_HOST']), "watchandrepeat") !== FALSE)
     $username = "yudaluz_etayluz";
     $password = "Et4ever";
     $database = "yudaluz_watchandrepeat";
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $ip = "66.65.103.106";
+
 }
 else
 {
@@ -17,7 +19,9 @@ else
     $username = "root";
     $password = "Et4ever";
     $database = "Etay1";
+    $ip = "66.65.103.106";
 }
+
 // Connect to database
 $mysqli = new mysqli($host,$username,$password,$database);
 
@@ -29,11 +33,16 @@ if ($mysqli->connect_errno) {
     exit();
 }
 
-$ip = $_SERVER['REMOTE_ADDR'];
+$json = file_get_contents("http://ipinfo.io/{$ip}");
+//error_log($json);
+$details = json_decode($json);
+error_log($details);
+$city = $details->city.", ".$details->region.", ".$details->country;
+error_log(date('Y-m-d H:i:s')." IP=".$ip.", event=".$event.", start=".$start.", end=".$end.", city=".$city);
 
 // Update Visits Table
-if (!$mysqli->query("INSERT INTO Visits (IP, Event, StartMeasure, EndMeasure)
-                     VALUES ('$ip', '$event', $start, $end)")) {
+if (!$mysqli->query("INSERT INTO Visits (IP, Event, StartMeasure, EndMeasure, City)
+                     VALUES ('$ip', '$event', $start, $end, '$city')")) {
     error_log(date('Y-m-d H:i:s')." event.php Update Visits Error: ".$mysqli->error);
 }
 
