@@ -1,6 +1,5 @@
 <?php
-//phpinfo();
-
+date_default_timezone_set('America/New_York');
 parse_str($_SERVER['QUERY_STRING']);
 
 if(strpos(strtolower($_SERVER['HTTP_HOST']), "watchandrepeat") !== FALSE)
