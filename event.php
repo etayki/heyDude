@@ -32,10 +32,8 @@ if ($mysqli->connect_errno) {
     exit();
 }
 
-$json = file_get_contents("http://ipinfo.io/{$ip}");
-error_log($json);
+$json = file_get_contents("http://ipinfo.io/{$ip}/json");
 $details = json_decode($json);
-//error_log($details);
 $city = $details->city.", ".$details->region.", ".$details->country;
 error_log(date('Y-m-d H:i:s')." IP=".$ip.", event=".$event.", start=".$start.", end=".$end.", city=".$city);
 
