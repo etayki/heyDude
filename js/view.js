@@ -66,7 +66,7 @@ function reportBrowser()
 
  	// Report Browser
 	xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","city.php?browser="+browser,true);
+	xmlhttp.open("GET","city.php?brsr="+browser,true);
 	xmlhttp.send();
 }
 

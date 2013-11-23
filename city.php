@@ -1,11 +1,14 @@
 <?php
 date_default_timezone_set('America/New_York');
+parse_str($_SERVER['QUERY_STRING']);
+
 if(strpos(strtolower($_SERVER['HTTP_HOST']), "watchandrepeat") !== FALSE)
 {
     $host = "mysql1301.ixwebhosting.com";
     $username = "yudaluz_etayluz";
     $password = "Et4ever";
     $database = "yudaluz_watchandrepeat";
+    $ip = $_SERVER['REMOTE_ADDR'];
 }
 else
 {
@@ -13,47 +16,22 @@ else
     $username = "root";
     $password = "Et4ever";
     $database = "Etay1";
+    $ip = "66.65.103.106";
 }
 
 $mysqli = new mysqli($host,$username,$password,$database);
 
-if ($result = $mysqli->query("SELECT IP FROM Users WHERE City='None' AND IP !='None'")) 
-{
-    printf ("UPDATING USERS TABLE<br><br>");
-    while ($row = $result->fetch_row()) {
-        printf ("%s ->", $row[0]);
-        $ip = $row[0];
-        $json = file_get_contents("http://ipinfo.io/{$ip}");
-        error_log("$json");
-        $details = json_decode($json);
-        $city = $details->city.", ".$details->region.", ".$details->country;
-        error_log("City=".$details->city.", Country=".$details->country);
-        printf ("%s<br>", $city);
-        if ($city != "Limit Exceeded, Limit Exceeded, Limit Exceeded")
-          $mysqli->query("UPDATE Users SET City='$city' WHERE IP='$ip'");
-    }
+$json = file_get_contents("http://ipinfo.io/{$ip}/json");
+$details = json_decode($json);
+$city = $details->city.", ".$details->region.", ".$details->country;
 
-    /* free result set */
-    $result->close();
-}
+error_log(date('Y-m-d H:i:s')." IP=".$ip.", city=".$city.", browser=".$brsr);
 
-if ($result = $mysqli->query("SELECT IP FROM Visits WHERE City='None'")) 
-{
-    printf ("UPDATING VISITORS TABLE<br><br>");
-    while ($row = $result->fetch_row()) {
-        $ip = $row[0];
-        printf ("%s -> ", $ip);
+if (!$mysqli->query("UPDATE Visits SET Browser='$brsr' WHERE IP='$ip'"))
+    error_log(date('Y-m-d H:i:s')." city.php Update Visits Error: ".$mysqli->error);
 
-        $city = $mysqli->query("SELECT City FROM Users WHERE IP='$ip'");
-        $city = $city->fetch_row();
-        $city = $city[0];
-        printf ("%s<br>", $city);
-        $mysqli->query("UPDATE Visits SET City='$city' WHERE IP='$ip'");
-    }
-
-    /* free result set */
-    $result->close();
-}
+if (!$mysqli->query("UPDATE Visits SET City='$city' WHERE IP='$ip'"))
+    error_log(date('Y-m-d H:i:s')." city.php Update Visits Error: ".$mysqli->error);
 
 /* close connection */
 $mysqli->close();
