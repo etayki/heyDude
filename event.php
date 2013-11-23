@@ -33,11 +33,11 @@ if ($mysqli->connect_errno) {
 $json = file_get_contents("http://ipinfo.io/{$ip}/json");
 $details = json_decode($json);
 $city = $details->city.", ".$details->region.", ".$details->country;
-error_log(date('Y-m-d H:i:s')." IP=".$ip.", event=".$event.", start=".$start.", end=".$end.", city=".$city);
+error_log(date('Y-m-d H:i:s')." IP=".$ip.", event=".$event.", start=".$start.", end=".$end.", city=".$city.", browser=".$brsr);
 
 // Update Visits Table
-if (!$mysqli->query("INSERT INTO Visits (IP, Event, StartMeasure, EndMeasure, City)
-                     VALUES ('$ip', '$event', $start, $end, '$city')")) {
+if (!$mysqli->query("INSERT INTO Visits (IP, Event, StartMeasure, EndMeasure, City, Browser)
+                     VALUES ('$ip', '$event', $start, $end, '$city', '$brsr')")) {
     error_log(date('Y-m-d H:i:s')." event.php Update Visits Error: ".$mysqli->error);
 }
 

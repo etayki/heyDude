@@ -72,8 +72,36 @@ function didPressPlayButton()
 
 	// Report Play Event
 	xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","event.php?event=Play&start="+startMeasure+"&end="+endMeasure,true);
+	xmlhttp.open("GET","event.php?event=Play&start="+startMeasure+"&end="+endMeasure+"&brsr="+browser,true);
 	xmlhttp.send();
+}
+
+function didPressPauseButton()
+{
+	/* TOGGLE FROM PAUSE TO PLAY */
+	$("#playBtn").attr("src", "./images/playButton.png");
+	$("#playBtn").attr("onclick", "didPressPlayButton()");
+	$('#playLabel').text("Play");
+
+	resetNotes(RETAIN_VISUAL);
+
+	// Report Pause Event
+	xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET","event.php?event=Pause&start="+startMeasure+"&end="+endMeasure+"&brsr="+browser,true);
+	xmlhttp.send();
+}
+
+function didPressStopButton()
+{
+	/* TOGGLE FROM PAUSE TO PLAY */
+	$("#playBtn").attr("src", "./images/playButton.png");
+	$("#playBtn").attr("onclick", "didPressPlayButton()");
+	$('#playLabel').text("Play");
+
+	resetNotes();
+	
+	delay = startDelay;
+	setPositionMarker();
 }
 
 function playMusic()
@@ -139,35 +167,6 @@ function playMusic()
 		playMusic();
 	}, tempo));	
 }
-
-function didPressPauseButton()
-{
-	/* TOGGLE FROM PAUSE TO PLAY */
-	$("#playBtn").attr("src", "./images/playButton.png");
-	$("#playBtn").attr("onclick", "didPressPlayButton()");
-	$('#playLabel').text("Play");
-
-	resetNotes(RETAIN_VISUAL);
-
-	// Report Pause Event
-	xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","event.php?event=Pause&start="+startMeasure+"&end="+endMeasure,true);
-	xmlhttp.send();
-}
-
-function didPressStopButton()
-{
-	/* TOGGLE FROM PAUSE TO PLAY */
-	$("#playBtn").attr("src", "./images/playButton.png");
-	$("#playBtn").attr("onclick", "didPressPlayButton()");
-	$('#playLabel').text("Play");
-
-	resetNotes();
-	
-	delay = startDelay;
-	setPositionMarker();
-}
-
 
 function clearHand(hand)
 {

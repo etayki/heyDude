@@ -67,6 +67,7 @@ sed -i "" 's/Measure/abt/g' production/app.js
 curl -T production/index.php -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/watchandrepeat.com/
 curl -T production/app.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/watchandrepeat.com/
 curl -T event.php -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/watchandrepeat.com/
+curl -T php/city.php -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/watchandrepeat.com/php
 
 # PRODUCTION IMAGES
 cp images/* production/images/

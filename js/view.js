@@ -6,6 +6,8 @@ var info = {
 	'repeatControl'  : "<br>Press 1 to repeat one measure.<br>Press 2 to repeat two measures."
 };
 
+var browser;
+
 function drawScreen()
 {
 	setSceenWidth();
@@ -19,6 +21,7 @@ function drawScreen()
 	setEvents();
 	drawfeedback();
 	display();
+	reportBrowser();
 }
 
 function setSceenWidth()
@@ -46,18 +49,25 @@ function setSceenWidth()
 function display()
 {
 	$("#loading").css("display","none");
-	/* Generate User ID */
-	// if (readCookie("UserId") == null)
-	// {
-	// 	createCookie("UserId", Math.floor(Math.random()*1000000000), 300);
-	// 	createCookie("Visits", "2", 300);
-	// }
-	// else
-	// {
-	// 	visitCount = Number(readCookie("Visits")) + 1;
-	// 	createCookie("Visits", visitCount, 300);
-	// 	console.log(readCookie("Visits"));
-	// }
+}
+
+function reportBrowser()
+{
+    var N=navigator.appName, ua=navigator.userAgent, tem;
+    var M=ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);
+    if(M && (tem= ua.match(/version\/([\.\d]+)/i))!= null) M[2]= tem[1];
+    M=M? [M[1], M[2]]: [N, navigator.appVersion, '-?'];
+    browser = M[0];
+  	var N=navigator.appName, ua=navigator.userAgent, tem;
+    var M=ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);
+    if(M && (tem= ua.match(/version\/([\.\d]+)/i))!= null) M[2]= tem[1];
+    M=M? [M[1], M[2]]: [N, navigator.appVersion, '-?'];
+    browser = browser + " " + M[1];
+
+ 	// Report Browser
+	xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET","city.php?browser="+browser,true);
+	xmlhttp.send();
 }
 
 function drawHeader()
