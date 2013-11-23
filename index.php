@@ -1,6 +1,22 @@
 <?php
-$ip = $_SERVER['REMOTE_ADDR'];
 date_default_timezone_set('America/New_York');
+
+if(strpos(strtolower($_SERVER['HTTP_HOST']), "watchandrepeat") !== FALSE)
+{
+    $host = "mysql1301.ixwebhosting.com";
+    $username = "yudaluz_etayluz";
+    $password = "Et4ever";
+    $database = "yudaluz_watchandrepeat";
+    $ip = $_SERVER['REMOTE_ADDR'];
+}
+else
+{
+    $host = "localhost";
+    $username = "root";
+    $password = "Et4ever";
+    $database = "Etay1";
+    $ip = "66.65.103.106";
+}
 
 if(isset($_SERVER['HTTP_REFERER']))
 {
@@ -16,20 +32,7 @@ else
 if(isset($_SERVER['HTTP_USER_AGENT']))
     error_log(date('Y-m-d H:i:s')." User Agent=".$_SERVER['HTTP_USER_AGENT']);
 
-if(strpos(strtolower($_SERVER['HTTP_HOST']), "watchandrepeat") !== FALSE)
-{
-    $host = "mysql1301.ixwebhosting.com";
-    $username = "yudaluz_etayluz";
-    $password = "Et4ever";
-    $database = "yudaluz_watchandrepeat";
-}
-else
-{
-    $host = "localhost";
-    $username = "root";
-    $password = "Et4ever";
-    $database = "Etay1";
-}
+
 // Connect to database
 $mysqli = new mysqli($host,$username,$password,$database);
 
