@@ -30,7 +30,20 @@ else
 }
 
 if(isset($_SERVER['HTTP_USER_AGENT']))
+{
     error_log(date('Y-m-d H:i:s')." User Agent=".$_SERVER['HTTP_USER_AGENT']);
+    if(strpos(strtolower($_SERVER['HTTP_USER_AGENT']), "googlebot") !== FALSE)
+    {
+        $browser = "Googlebot";
+        $city = "Mountain View, CA, US";
+    }
+    else
+    {
+        $browser = "None";
+        $city = "None";       
+    }
+}
+
 
 
 // Connect to database
@@ -45,7 +58,7 @@ if ($mysqli->connect_errno) {
 } 
 
 // Update Visits Table
-if (!$mysqli->query("INSERT INTO Visits (Event, IP, Referer) VALUES ('Load', '$ip', '$referer')")) {
+if (!$mysqli->query("INSERT INTO Visits (Event, IP, Referer, Browser, City) VALUES ('Load', '$ip', '$referer', '$browser', '$city')")) {
     error_log(date('Y-m-d H:i:s')." Update Visits Error: ".$mysqli->error);
 }
 
