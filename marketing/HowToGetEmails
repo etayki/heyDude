@@ -1,1 +1,4 @@
+Use http://www.sitesucker.us/mac/mac.html to get website
+Move the relevant files to a new folder and navigate there
+Use following command to get emails:
 grep -Eiorh '([[:alnum:]_.-]+@[[:alnum:]_.-]+?\.[[:alpha:].]{2,6})' "$@" * | sort | uniq > log
