@@ -34,9 +34,26 @@ if ($results = $mysqli->query("SELECT * FROM Visits ORDER BY Timestamp DESC"))
     echo '<table border="1">';
     while ($row = $results->fetch_row())
     {
-        echo '<tr>';
         foreach($row as $field) {
-            //echo "1";
+            if(strpos(strtolower(htmlspecialchars($field)), "load") !== FALSE)
+            {
+                $color = "grey";
+                break;
+            }
+            elseif(strpos(strtolower(htmlspecialchars($field)), "play") !== FALSE)
+            {
+                $color = "orange";
+                break;
+            }
+            elseif(strpos(strtolower(htmlspecialchars($field)), "pause") !== FALSE)
+            {
+                $color = "pink";
+                break;
+            }
+        }
+        
+        echo '<tr style="background-color:' . $color . '">';        
+        foreach($row as $field) {
             echo '<td>' . htmlspecialchars($field) . '</td>';
         }
         echo '</tr>';
