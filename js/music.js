@@ -98,19 +98,6 @@ function didPressPauseButton()
 	pauseIdx++;
 }
 
-function didPressStopButton()
-{
-	/* TOGGLE FROM PAUSE TO PLAY */
-	$("#playBtn").attr("src", "./images/playButton.png");
-	$("#playBtn").attr("onclick", "didPressPlayButton()");
-	$('#playLabel').text("Play");
-
-	resetNotes();
-	
-	delay = startDelay;
-	setPositionMarker();
-}
-
 function playMusic()
 {	
 	for (measure = startMeasure; measure <= endMeasure; measure++)
@@ -241,7 +228,7 @@ function setCurrentMeasure(newMeasure)
 		setEndMeasure(currentMeasure);
 
 	resetNotes();
-	didPressPlayButton();
+	playMusic();
 	colorizeMeasures();
 }
 
@@ -267,7 +254,7 @@ function setStartMeasure(newMeasure)
 		setPositionMarker();
 		resetNotes();
 		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
-			didPressPlayButton();
+			playMusic();
 	}
 	
 	if (startMeasure > endMeasure)
@@ -300,7 +287,7 @@ function setEndMeasure(newMeasure)
 		setPositionMarker();
 		resetNotes();
 		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png" && repeatEnabled)
-			didPressPlayButton();
+			playMusic();
 	}
 	
 	if (startMeasure > endMeasure)
