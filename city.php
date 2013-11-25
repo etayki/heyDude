@@ -25,6 +25,11 @@ $json = file_get_contents("http://ipinfo.io/{$ip}/json");
 $details = json_decode($json);
 $city = $details->city.", ".$details->region.", ".$details->country;
 
+if(strpos(strtolower($_SERVER['HTTP_HOST']), "ipad") !== FALSE)
+{
+    $brsr = "iPad";
+}
+
 error_log(date('Y-m-d H:i:s')." IP=".$ip.", city=".$city.", browser=".$brsr);
 
 if (!$mysqli->query("UPDATE Visits SET Browser='$brsr' WHERE IP='$ip'"))

@@ -68,7 +68,8 @@ if ($mysqli->connect_errno) {
 } 
 
 // Update Visits Table
-if (!$mysqli->query("INSERT INTO Visits (Event, IP, Referer, Browser, City) VALUES ('Load', '$ip', '$referer', '$browser', '$city')")) {
+if (!$mysqli->query("INSERT INTO Visits (Event, IP, Referer, Browser, City)
+                     VALUES ('Load', '$ip', '$referer', '$browser', '$city')")) {
     error_log(date('Y-m-d H:i:s')." Update Visits Error: ".$mysqli->error);
 }
 

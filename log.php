@@ -29,7 +29,7 @@ if ($mysqli->connect_errno) {
 } 
 
 // Fetch Visits Table
-if ($results = $mysqli->query("SELECT * FROM Visits"))
+if ($results = $mysqli->query("SELECT * FROM Visits ORDER BY Timestamp DESC"))
 {
     echo '<table border="1">';
     while ($row = $results->fetch_row())
