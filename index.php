@@ -115,9 +115,8 @@ END;
 ?>
 </head>
 <body>
-
+<title>Learn Moonlight Sonata</title>
 <!-- Loading Animation -->
 <div id="loading"  style="position:absolute;top:100px;left:500px;z-index:8;font-size:12px"><img src="./images/loading.gif"></img></div>
-
 </body>
 </html>
