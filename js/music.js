@@ -29,6 +29,12 @@ var feedbackFormDisplayed = 0;
 var notePress = 21;
 var repeatEnabled = 1;
 
+/* EVENT REPORTING */
+playIdx = 0;
+pauseIdx = 0;
+xmlHttpPlay = new Array();
+xmlHttpPause = new Array();
+
 $(document).ready(function() {
 	/* Load the MIDI Player*/
 	//debug("MIDI Player Load START: "+(new Date()).getMilliseconds());
@@ -57,7 +63,6 @@ $(document).ready(function() {
 });
 
 /* --- ================ CONTROLS ================== */
-
 function didPressPlayButton()
 {
 	/* TOGGLE FROM PLAY TO PAUSE */
@@ -71,9 +76,10 @@ function didPressPlayButton()
 	playMusic();
 
 	// Report Play Event
-	xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","event.php?event=Play&start="+startMeasure+"&end="+endMeasure+"&brsr="+browser,true);
-	xmlhttp.send();
+	xmlHttpPlay[playIdx] = new XMLHttpRequest();
+	xmlHttpPlay[playIdx].open("GET","event.php?event=Play&start="+startMeasure+"&end="+endMeasure+"&brsr="+browser,true);
+	xmlHttpPlay[playIdx].send();
+	playIdx++;
 }
 
 function didPressPauseButton()
@@ -86,9 +92,10 @@ function didPressPauseButton()
 	resetNotes(RETAIN_VISUAL);
 
 	// Report Pause Event
-	xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","event.php?event=Pause&start="+startMeasure+"&end="+endMeasure+"&brsr="+browser,true);
-	xmlhttp.send();
+	xmlHttpPause[pauseIdx] = new XMLHttpRequest();
+	xmlHttpPause[pauseIdx].open("GET","event.php?event=Pause&start="+startMeasure+"&end="+endMeasure+"&brsr="+browser,true);
+	xmlHttpPause[pauseIdx].send();
+	pauseIdx++;
 }
 
 function didPressStopButton()
