@@ -30,6 +30,11 @@ if(strpos(strtolower($_SERVER['HTTP_HOST']), "ipad") !== FALSE)
     $brsr = "iPad";
 }
 
+if(strpos(strtolower($_SERVER['HTTP_HOST']), "iphone") !== FALSE)
+{
+    $brsr = "iPhone";
+}
+
 error_log(date('Y-m-d H:i:s')." IP=".$ip.", city=".$city.", browser=".$brsr);
 
 if (!$mysqli->query("UPDATE Visits SET Browser='$brsr' WHERE IP='$ip'"))

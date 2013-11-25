@@ -30,8 +30,8 @@ var notePress = 21;
 var repeatEnabled = 1;
 
 /* EVENT REPORTING */
-playIdx = 0;
-pauseIdx = 0;
+playIdx = 1;
+pauseIdx = 1;
 xmlHttpPlay = new Array();
 xmlHttpPause = new Array();
 
@@ -77,7 +77,7 @@ function didPressPlayButton()
 
 	// Report Play Event
 	xmlHttpPlay[playIdx] = new XMLHttpRequest();
-	xmlHttpPlay[playIdx].open("GET","event.php?event=Play&start="+startMeasure+"&end="+endMeasure+"&brsr="+browser,true);
+	xmlHttpPlay[playIdx].open("GET","event.php?event=Play"+playIdx+"&start="+startMeasure+"&end="+endMeasure+"&brsr="+browser,true);
 	xmlHttpPlay[playIdx].send();
 	playIdx++;
 }
@@ -93,7 +93,7 @@ function didPressPauseButton()
 
 	// Report Pause Event
 	xmlHttpPause[pauseIdx] = new XMLHttpRequest();
-	xmlHttpPause[pauseIdx].open("GET","event.php?event=Pause&start="+startMeasure+"&end="+endMeasure+"&brsr="+browser,true);
+	xmlHttpPause[pauseIdx].open("GET","event.php?event=Pause"+pauseIdx+"&start="+startMeasure+"&end="+endMeasure+"&brsr="+browser,true);
 	xmlHttpPause[pauseIdx].send();
 	pauseIdx++;
 }
