@@ -37,6 +37,8 @@ elseif(isset($pause))
     $query = "SELECT * FROM Visits WHERE Event LIKE '%Pause%' ORDER BY Timestamp DESC";
 elseif(isset($play))
     $query = "SELECT * FROM Visits WHERE Event LIKE '%Play%' ORDER BY Timestamp DESC";
+elseif(isset($i))
+    $query = "SELECT * FROM Visits WHERE IP='$i' ORDER BY Timestamp DESC";
 else
     $query = "SELECT * FROM Visits ORDER BY Timestamp DESC";
 
@@ -45,22 +47,26 @@ if ($results = $mysqli->query($query))
     echo '<table border="1">';
     while ($row = $results->fetch_row())
     {
-        foreach($row as $field) {
-            if(strpos(strtolower(htmlspecialchars($field)), "load") !== FALSE)
-            {
-                $color = "grey";
-                break;
-            }
-            elseif(strpos(strtolower(htmlspecialchars($field)), "play") !== FALSE)
-            {
-                $color = "orange";
-                break;
-            }
-            elseif(strpos(strtolower(htmlspecialchars($field)), "pause") !== FALSE)
-            {
-                $color = "pink";
-                break;
-            }
+        $timeStamp = $row[0];
+        $IP = $row[1];
+        $event = $row[2];
+        $start = $row[3];
+        $end = $row[4];
+        $brsr = $row[5];
+        $city = $row[6];
+        $referer = $row[7];
+
+        if(strpos(strtolower($event), "load") !== FALSE)
+        {
+            $color = "grey";
+        }
+        elseif(strpos(strtolower($event), "play") !== FALSE)
+        {
+            $color = "orange";
+        }
+        elseif(strpos(strtolower($event), "pause") !== FALSE)
+        {
+            $color = "pink";
         }
 
         echo '<tr style="background-color:' . $color . '">';        
