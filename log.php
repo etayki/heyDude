@@ -39,6 +39,8 @@ elseif(isset($play))
     $query = "SELECT * FROM Visits WHERE Event LIKE '%Play%' ORDER BY Timestamp DESC";
 elseif(isset($i))
     $query = "SELECT * FROM Visits WHERE IP='$i' ORDER BY Timestamp DESC";
+elseif(isset($d))
+    $query = "SELECT * FROM Visits WHERE Timestamp LIKE '%-".$d."%' ORDER BY IP, Timestamp DESC";
 else
     $query = "SELECT * FROM Visits ORDER BY Timestamp DESC";
 
