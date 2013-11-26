@@ -33,6 +33,10 @@ if ($mysqli->connect_errno) {
 // Fetch Visits Table
 if(isset($load))
     $query = "SELECT * FROM Visits WHERE Event='Load' ORDER BY Timestamp DESC";
+elseif(isset($pause))
+    $query = "SELECT * FROM Visits WHERE Event LIKE '%Pause%' ORDER BY Timestamp DESC";
+elseif(isset($play))
+    $query = "SELECT * FROM Visits WHERE Event LIKE '%Play%' ORDER BY Timestamp DESC";
 else
     $query = "SELECT * FROM Visits ORDER BY Timestamp DESC";
 
