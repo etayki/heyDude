@@ -1,5 +1,7 @@
 <?php
 date_default_timezone_set('America/New_York');
+parse_str($_SERVER['QUERY_STRING']);
+
 if(strpos(strtolower($_SERVER['HTTP_HOST']), "watchandrepeat") !== FALSE)
 {
     $host = "mysql1301.ixwebhosting.com";
@@ -29,7 +31,12 @@ if ($mysqli->connect_errno) {
 } 
 
 // Fetch Visits Table
-if ($results = $mysqli->query("SELECT * FROM Visits ORDER BY Timestamp DESC"))
+if(isset($load))
+    $query = "SELECT * FROM Visits WHERE Event='Load' ORDER BY Timestamp DESC";
+else
+    $query = "SELECT * FROM Visits ORDER BY Timestamp DESC";
+
+if ($results = $mysqli->query($query))
 {
     echo '<table border="1">';
     while ($row = $results->fetch_row())
@@ -51,7 +58,7 @@ if ($results = $mysqli->query("SELECT * FROM Visits ORDER BY Timestamp DESC"))
                 break;
             }
         }
-        
+
         echo '<tr style="background-color:' . $color . '">';        
         foreach($row as $field) {
             echo '<td>' . htmlspecialchars($field) . '</td>';
