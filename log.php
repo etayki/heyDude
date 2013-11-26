@@ -45,6 +45,7 @@ else
 if ($results = $mysqli->query($query))
 {
     echo '<table border="1">';
+    $visitTime = 0;
     while ($row = $results->fetch_row())
     {
         $timeStamp = $row[0];
@@ -56,17 +57,45 @@ if ($results = $mysqli->query($query))
         $city = $row[6];
         $referer = $row[7];
 
+        $format = '@^(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2}) (?P<hour>\d{2}):(?P<minute>\d{2}):(?P<second>\d{2})$@';
+        preg_match($format, $timeStamp, $dateInfo);
+        $timeStamp = mktime($dateInfo['hour'], $dateInfo['minute'], $dateInfo['second'],
+                            date('n', strtotime($dateInfo['month'])), $dateInfo['day'], $dateInfo['year']//,
+        );
+
         if(strpos(strtolower($event), "load") !== FALSE)
         {
             $color = "grey";
+            //echo '<tr><td>'.gmdate("i:s", $visitTime). '</td></tr>';
+            $row[3] = gmdate("i:s", $visitTime);
+            $visitTime = 0;
+            $playTimeStamp = $pauseTimeStamp = NULL;
         }
         elseif(strpos(strtolower($event), "play") !== FALSE)
         {
             $color = "orange";
+            $playTimeStamp = $timeStamp;
+            if(isset($pauseTimeStamp))
+            {
+                $lapse = abs($pauseTimeStamp - $playTimeStamp);
+                if ($lapse > 5 * 60)
+                    $lapse = 300;
+                $visitTime += $lapse;
+                //echo '<tr><td>'.gmdate("i:s", $lapse). '</td></tr>';
+            }
         }
         elseif(strpos(strtolower($event), "pause") !== FALSE)
         {
             $color = "pink";
+            $pauseTimeStamp = $timeStamp;
+            if(isset($playTimeStamp))
+            {
+                $lapse = abs($playTimeStamp - $pauseTimeStamp);
+                if ($lapse > 5 * 60)
+                    $lapse = 300;
+                $visitTime += $lapse;
+                //echo '<tr><td>'.gmdate("i:s", $lapse) . '</td></tr>';
+            }
         }
 
         echo '<tr style="background-color:' . $color . '">';        
