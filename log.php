@@ -69,7 +69,18 @@ if ($results = $mysqli->query($query))
         {
             $color = "grey";
             //echo '<tr><td>'.gmdate("i:s", $visitTime). '</td></tr>';
+            $loadTimeStamp = $timeStamp;
+            if(isset($playTimeStamp))
+            {
+                $lapse = abs($playTimeStamp - $loadTimeStamp);
+                if ($lapse > 15)
+                    $lapse = 15;
+                $visitTime += $lapse;
+                //echo '<tr><td>'.gmdate("i:s", $lapse) . '</td></tr>';
+            }            
             $row[3] = gmdate("i:s", $visitTime);
+            if ($visitTime == 0 && isset($d))
+                continue;
             $visitTime = 0;
             $playTimeStamp = $pauseTimeStamp = NULL;
         }
@@ -85,6 +96,7 @@ if ($results = $mysqli->query($query))
                 $visitTime += $lapse;
                 //echo '<tr><td>'.gmdate("i:s", $lapse). '</td></tr>';
             }
+            if(isset($l)) continue;
         }
         elseif(strpos(strtolower($event), "pause") !== FALSE)
         {
@@ -98,6 +110,7 @@ if ($results = $mysqli->query($query))
                 $visitTime += $lapse;
                 //echo '<tr><td>'.gmdate("i:s", $lapse) . '</td></tr>';
             }
+            if(isset($l)) continue;
         }
 
         echo '<tr style="background-color:' . $color . '">';        
@@ -107,7 +120,6 @@ if ($results = $mysqli->query($query))
         echo '</tr>';
     }
     echo '</table>';
-
 }
 else
 {
