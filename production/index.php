@@ -47,6 +47,11 @@ if(isset($_SERVER['HTTP_USER_AGENT']))
         $browser = "YandexBot";
         $city = "Palo Alto, CA, US";
     }
+    elseif (strpos(strtolower($_SERVER['HTTP_USER_AGENT']), "blexbot") !== FALSE) 
+    {
+        $browser = "BLEXBot";
+        $city = "Chicago, Illinois, US";
+    }
     else
     {
         $browser = "None";
