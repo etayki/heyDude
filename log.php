@@ -39,6 +39,8 @@ elseif(isset($play))
     $query = "SELECT * FROM Visits WHERE Event LIKE '%Play%' ORDER BY Timestamp DESC";
 elseif(isset($i))
     $query = "SELECT * FROM Visits WHERE IP='$i' ORDER BY Timestamp DESC";
+elseif(isset($r))
+    $query = "SELECT * FROM Visits WHERE Referer<>'None' ORDER BY Timestamp DESC";
 elseif(isset($d))
     $query = "SELECT * FROM Visits WHERE Timestamp LIKE '%-".$d."%' ORDER BY IP, Timestamp DESC";
 else
@@ -110,7 +112,7 @@ if ($results = $mysqli->query($query))
                 $visitTime += $lapse;
                 //echo '<tr><td>'.gmdate("i:s", $lapse) . '</td></tr>';
             }
-            if(isset($l)) continue;
+            if(isset($lapse)) continue;
         }
 
         echo '<tr style="background-color:' . $color . '">';        
