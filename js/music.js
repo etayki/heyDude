@@ -100,7 +100,7 @@ function playMusic()
 	// Fast forward to the next note upon resume;
 	oldTempo = tempo;
 	tempo = FAST_FORWARD;
-	
+
 	for (measure = startMeasure; measure <= endMeasure; measure++)
 	{
 		for (var noteIdx = 0; noteIdx < tune[measure].length; noteIdx++)
@@ -310,7 +310,7 @@ function debug(param)
 {
 	try { param = param.replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 	catch(err){}
-	param = '<div id="debug" style="position:absolute;z-index:6;top:'+debugTop+'px;left:10px;color:white;font-size:15px">' + param + "<br></div>";
-	$("#debug").append(param);
+	param = '<div id="debug" style="position:absolute;z-index:6;top:'+debugTop+'px;left:10px;color:black;font-size:15px;background-color:green">' + param + "<br></div>";
+	$("body").append(param);
 	debugTop += 40;
 }

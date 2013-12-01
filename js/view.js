@@ -591,19 +591,35 @@ function drawPiano()
 
 function setEvents()
 {
+	isiPad = navigator.userAgent.match(/iPad/i) != null;
 	$('img').on('dragstart', function(event) { event.preventDefault(); });
 
 	startMarkerMouseDown = 0;
 	endMarkerMouseDown = 0;	
+	$('#startMarker').bind('touchstart', function(e){
+		debug("touchstart");
+		startMarkerMouseDown = 1;
+	});
+
 	$("#startMarker").mousedown(function() {
+		if (isiPad)
+			return;
 		startMarkerMouseDown = 1;
 	});
 
 	$("#endMarker").mousedown(function() {
+		//debug("mousedown");
 		endMarkerMouseDown = 1;
 	});
-	
+
 	$("body").mouseup(function() {
+		startMarkerMouseDown = 0;
+		endMarkerMouseDown = 0;
+		draggerMouseDown = 0;	
+	});
+
+	$("body").bind('touchend', function(e){
+		debug("touchend");
 		startMarkerMouseDown = 0;
 		endMarkerMouseDown = 0;
 		draggerMouseDown = 0;	
@@ -611,6 +627,7 @@ function setEvents()
 
 	/* SET START/END MARKERS */
 	$(".measureBox").hover(function() {
+		//debug("hover");
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
 		if (startMarkerMouseDown && newMeasure != startMeasure)
