@@ -48,7 +48,8 @@ function setSceenWidth()
 	else if(userAgent.indexOf("iPhone") !== -1)
 	{
 		clickEvent = "ontouchstart";
-	}	
+	}
+	onClickEvent = clickEvent.replace("on","");
 }
 
 function display()
@@ -242,7 +243,7 @@ function drawControls()
 	adjustTag("controlsBackground", controlsBackgroundLeft, controlsBackgroundTop, controlsBackgroundWidth, controlsBackgroundHeight, "clear");
 	
 	/* LEFT HAND */
-	$("body").append('<img id="leftHand" src="./images/leftHandEnabled.png" onclick="didPressLeftHand()"></img>');
+	$("body").append('<img id="leftHand" src="./images/leftHandEnabled.png "'+clickEvent+'="didPressLeftHand()"></img>');
 	leftHandWidth = controlsBackgroundHeight * 0.6;
 	leftHandHeight = leftHandWidth;
 	leftHandLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.08;
@@ -258,7 +259,7 @@ function drawControls()
 	adjustTag("leftHandLabel", leftHandLabelLeft, leftHandLabelTop, leftHandLabelWidth, leftHandLabelHeight, "clear");
 	
 	/* RIGHT HAND */
-	$("body").append('<img id="rightHand" src="./images/rightHandEnabled.png" onclick="didPressRightHand()"></img>');
+	$("body").append('<img id="rightHand" src="./images/rightHandEnabled.png "'+clickEvent+'="didPressRightHand()"></img>');
 	rightHandWidth = controlsBackgroundHeight * 0.6;
 	rightHandHeight = leftHandHeight;
 	rightHandLeft =  leftHandLeft + leftHandWidth * 2;
@@ -281,8 +282,8 @@ function drawControls()
 	infoButtonTop = rightHandTop + (rightHandHeight - infoButtonHeight)/2;
 	adjustTag("infoButton", infoButtonLeft, infoButtonTop, infoButtonWidth, infoButtonHeight, "clear");
 
-	$("#infoButton").click(function() {
-		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
+	$('#infoButton').bind(onClickEvent, function (e) {
+ 		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
 			didPressPauseButton();
 		feedbackFormDisplayed = 1;
 		$('#handInfoPopup').css("display","");
@@ -300,11 +301,12 @@ function drawControls()
 	$('#handInfoPopup').css("z-index","6");
 	$('#handInfoPopup').css("display","none");
 
-	$("#handInfoPopup").click(function() {
+	$("#handInfoPopup").bind(onClickEvent, function (e) {
 		feedbackFormDisplayed = 0;
 		$('#handInfoPopup').css("display","none");
 		//$('#handInfoPopupCloseButton').css("display","none");
 	});
+
 	
 	/* HAND INFO POPUP CLOSE BUTTON */
 	//$("body").append('<div id="handInfoPopupCloseButton"></div>');
@@ -350,7 +352,6 @@ function drawControls()
 
 	/* PLAY BUTTON */
 	$("body").append('<img id="playBtn" src="./images/loading.gif "'+clickEvent+'="didPressPlayButton()"></img>');
-
 	playButtonLeft =  stopButtonLeft + stopButtonWidth * 1.5;
 	playButtonTop = leftHandTop;
 	playButtonWidth = controlsBackgroundHeight * 0.6;
@@ -675,7 +676,6 @@ function setEvents()
 	});
 
 	/* SET CURRENT MEASURE */
-	onClickEvent = clickEvent.replace("on","");
 	$(".measureBox").bind(onClickEvent, function(e){
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
