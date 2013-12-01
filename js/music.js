@@ -64,15 +64,7 @@ $(document).ready(function() {
 
 /* --- ================ CONTROLS ================== */
 function didPressPlayButton()
-{
-	/* TOGGLE FROM PLAY TO PAUSE */
-	$("#playBtn").attr("src", "http://watchandrepeat.com/images/pauseButton.png");
-	$("#playBtn").attr("onclick", "didPressPauseButton()");
-	$('#playLabel').text("Pause");
-
-	// Fast forward to the next note upon resume;
-	oldTempo = tempo;
-	tempo = FAST_FORWARD; 
+{ 
 	playMusic();
 
 	// Report Play Event
@@ -100,6 +92,15 @@ function didPressPauseButton()
 
 function playMusic()
 {	
+	/* TOGGLE FROM PLAY TO PAUSE */
+	$("#playBtn").attr("src", "http://watchandrepeat.com/images/pauseButton.png");
+	$("#playBtn").attr("onclick", "didPressPauseButton()");
+	$('#playLabel').text("Pause");
+
+	// Fast forward to the next note upon resume;
+	oldTempo = tempo;
+	tempo = FAST_FORWARD;
+	
 	for (measure = startMeasure; measure <= endMeasure; measure++)
 	{
 		for (var noteIdx = 0; noteIdx < tune[measure].length; noteIdx++)

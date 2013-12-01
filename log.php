@@ -98,7 +98,7 @@ if ($results = $mysqli->query($query))
                 $visitTime += $lapse;
                 //echo '<tr><td>'.gmdate("i:s", $lapse). '</td></tr>';
             }
-            if(isset($l)) continue;
+            //if(isset($l)) continue;
         }
         elseif(strpos(strtolower($event), "pause") !== FALSE)
         {
@@ -112,7 +112,7 @@ if ($results = $mysqli->query($query))
                 $visitTime += $lapse;
                 //echo '<tr><td>'.gmdate("i:s", $lapse) . '</td></tr>';
             }
-            if(isset($lapse)) continue;
+            //if(isset($lapse)) continue;
         }
 
         echo '<tr style="background-color:' . $color . '">';        
