@@ -675,21 +675,15 @@ function setEvents()
 	});
 
 	/* SET CURRENT MEASURE */
-	$(".measureBox").bind('touchstart', function(e){
+	onClickEvent = clickEvent.replace("on","");
+	$(".measureBox").bind(onClickEvent, function(e){
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
 		setCurrentMeasure(newMeasure);
 	});		
 
-	$(".measureBox").click(function() {
-		if (isiPad) return;
-		measureBoxId = $(this).attr('id');
-		newMeasure = measureBoxId.replace(/measureBox-/g, '');
-		setCurrentMeasure(newMeasure);
-	});
-
 	doubleTouchmMsrBoxStartTimestamp = 0;
-	$('.measureBox').bind("touchstart", function (event) {
+	$('.measureBox').bind("touchstart", function (e) {
 	    var now = +(new Date());
 	    if (doubleTouchmMsrBoxStartTimestamp + 500 > now) {
 	        event.preventDefault();
@@ -699,7 +693,7 @@ function setEvents()
 
 	keyPressTimer = 0;
 	/* KEY TAP */
-	$(".key").click(function(){
+	$(".key").bind(onClickEvent, function (e) {
 		/* RELEASE PREVIOUS NOTE */
 		clearTimeout(keyPressTimer);
 		resetNote(notePress);
@@ -713,7 +707,7 @@ function setEvents()
 
 		keyPressTimer = setTimeout(function() {
 			resetNote(notePress);
-		}, 400);
+		}, 300);
 			
 	  });
 }
