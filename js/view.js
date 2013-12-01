@@ -31,7 +31,7 @@ function setSceenWidth()
 	userAgent = navigator.userAgent;
 
 	if(userAgent.indexOf("iPhone") !== -1 || userAgent.indexOf("iPad") !== -1)
-		screenWidth = 1000;
+		screenWidth = 981;
 
 	/* SET BACKGROUND IMAGE */
 	$('body').css('background-image', 'url("./images/redCarpet.jpg")');
