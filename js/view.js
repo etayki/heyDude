@@ -7,6 +7,7 @@ var info = {
 };
 
 var browser;
+var clickEvent;
 
 function drawScreen()
 {
@@ -39,11 +40,15 @@ function setSceenWidth()
 	$("#backgroundImg").css("width",screenWidth);
 	$("#backgroundImg").css("height","auto");
 	
-	/* RECORDING PURPOSES */
-	//$("body").append('<div id="adLabel">Learn The Moonlight Sonata Now!</div>');
-	//adjustTag("adLabel", 0, 580, screenWidth, 55, "transparent");
-	//$("body").append('<div id="websiteLabel">www.WatchAndRepeat.com</div>');
-	//adjustTag("websiteLabel", 0, 650, screenWidth, 70, "transparent");	
+   	clickEvent = "onclick";
+    if(userAgent.indexOf("iPad") !== -1)
+    {
+		clickEvent = "ontouchstart";
+	}
+	else if(userAgent.indexOf("iPhone") !== -1)
+	{
+		clickEvent = "ontouchstart";
+	}	
 }
 
 function display()
@@ -64,9 +69,13 @@ function reportBrowser()
     M=M? [M[1], M[2]]: [N, navigator.appVersion, '-?'];
     browser = browser + " " + M[1];
     if(userAgent.indexOf("iPad") !== -1)
+    {
 		browser = "iPad " + browser;
+	}
 	else if(userAgent.indexOf("iPhone") !== -1)
+	{
 		browser = "iPhone " + browser;
+	}
 
  	// Report Browser
 	xmlhttp = new XMLHttpRequest();
@@ -340,12 +349,8 @@ function drawControls()
 	$('#stopLabel').css("display","none");
 
 	/* PLAY BUTTON */
-	if(navigator.platform.indexOf("iPad") != -1)
-	{
-		$("body").append('<img id="playBtn" src="./images/loading.gif" ontouchstart="didPressPlayButton()"></img>');
-	}
-	else
-		$("body").append('<img id="playBtn" src="./images/loading.gif" onclick="didPressPlayButton()"></img>');
+	$("body").append('<img id="playBtn" src="./images/loading.gif "'+clickEvent+'="didPressPlayButton()"></img>');
+
 	playButtonLeft =  stopButtonLeft + stopButtonWidth * 1.5;
 	playButtonTop = leftHandTop;
 	playButtonWidth = controlsBackgroundHeight * 0.6;
@@ -639,14 +644,12 @@ function setEvents()
 	
 	// PC
 	$("#startMarker").mousedown(function() {
-		if (isiPad)
-			return;
+		if (isiPad) return;
 		startMarkerMouseDown = 1;
 	});
 
 	$("#endMarker").mousedown(function() {
-		if (isiPad)
-			return;		
+		if (isiPad) return;		
 		endMarkerMouseDown = 1;
 	});
 
@@ -655,8 +658,6 @@ function setEvents()
 		endMarkerMouseDown = 0;
 		draggerMouseDown = 0;	
 	});
-
-
 
 	/* SET START/END MARKERS */
 	$(".measureBox").mouseover(function() {
@@ -674,7 +675,6 @@ function setEvents()
 	});
 
 	/* SET CURRENT MEASURE */
-	
 	$(".measureBox").bind('touchstart', function(e){
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');

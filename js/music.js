@@ -83,11 +83,7 @@ function didPressPauseButton()
 	/* TOGGLE FROM PAUSE TO PLAY */
 	//debug("pause");
 	$("#playBtn").attr("src", "./images/playButton.png");
-	if(navigator.platform.indexOf("iPad") != -1)
-		$("#playBtn").attr("ontouchstart", "didPressPlayButton()");
-	else
-		$("#playBtn").attr("onclick", "didPressPlayButton()");
-
+	$("#playBtn").attr(clickEvent, "didPressPlayButton()");
 	$('#playLabel').text("Play");
 
 	resetNotes(RETAIN_VISUAL);
