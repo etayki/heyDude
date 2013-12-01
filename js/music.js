@@ -81,8 +81,13 @@ function didPressPlayButton()
 function didPressPauseButton()
 {
 	/* TOGGLE FROM PAUSE TO PLAY */
+	debug("pause");
 	$("#playBtn").attr("src", "./images/playButton.png");
-	$("#playBtn").attr("onclick", "didPressPlayButton()");
+	if(navigator.platform.indexOf("iPad") != -1)
+		$("#playBtn").attr("ontouchstart", "didPressPlayButton()");
+	else
+		$("#playBtn").attr("onclick", "didPressPlayButton()");
+
 	$('#playLabel').text("Play");
 
 	resetNotes(RETAIN_VISUAL);
@@ -98,7 +103,10 @@ function playMusic()
 {	
 	/* TOGGLE FROM PLAY TO PAUSE */
 	$("#playBtn").attr("src", "http://watchandrepeat.com/images/pauseButton.png");
-	$("#playBtn").attr("onclick", "didPressPauseButton()");
+	if(navigator.platform.indexOf("iPad") != -1)
+		$("#playBtn").attr("ontouchstart", "didPressPauseButton()");
+	else
+		$("#playBtn").attr("onclick", "didPressPauseButton()");
 	$('#playLabel').text("Pause");
 
 	for (measure = startMeasure; measure <= endMeasure; measure++)

@@ -336,7 +336,12 @@ function drawControls()
 	$('#stopLabel').css("display","none");
 
 	/* PLAY BUTTON */
-	$("body").append('<img id="playBtn" src="./images/loading.gif" onclick="didPressPlayButton()"></img>');
+	if(navigator.platform.indexOf("iPad") != -1)
+	{
+		$("body").append('<img id="playBtn" src="./images/loading.gif" ontouchstart="didPressPlayButton()"></img>');
+	}
+	else
+		$("body").append('<img id="playBtn" src="./images/loading.gif" onclick="didPressPlayButton()"></img>');
 	playButtonLeft =  stopButtonLeft + stopButtonWidth * 1.5;
 	playButtonTop = leftHandTop;
 	playButtonWidth = controlsBackgroundHeight * 0.6;
@@ -599,8 +604,17 @@ function setEvents()
 
  	// iPad
  	document.body.addEventListener('touchmove',function(e){
-	      e.preventDefault();
+	      //e.preventDefault();
 	  });
+
+	doubleTouchStartTimestamp = 0;
+	$('#playBtn').bind("touchstart", function (event) {
+	    var now = +(new Date());
+	    if (doubleTouchStartTimestamp + 500 > now) {
+	        event.preventDefault();
+	    }
+	    doubleTouchStartTimestamp = now;
+	});
 
 	$('#startMarker').bind('touchstart', function(e){
 		debug("touchstart");
