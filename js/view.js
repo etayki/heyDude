@@ -642,7 +642,7 @@ function setEvents()
 
 	/* SET START/END MARKERS */
 	$(".measureBox").mouseover(function() {
-		debug("mouseover");
+		//debug("mouseover");
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
 		if (startMarkerMouseDown && newMeasure != startMeasure)

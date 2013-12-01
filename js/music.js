@@ -65,6 +65,10 @@ $(document).ready(function() {
 /* --- ================ CONTROLS ================== */
 function didPressPlayButton()
 { 
+	// Fast forward to the next note upon resume;
+	oldTempo = tempo;
+	tempo = FAST_FORWARD;
+
 	playMusic();
 
 	// Report Play Event
@@ -96,10 +100,6 @@ function playMusic()
 	$("#playBtn").attr("src", "http://watchandrepeat.com/images/pauseButton.png");
 	$("#playBtn").attr("onclick", "didPressPauseButton()");
 	$('#playLabel').text("Pause");
-
-	// Fast forward to the next note upon resume;
-	oldTempo = tempo;
-	tempo = FAST_FORWARD;
 
 	for (measure = startMeasure; measure <= endMeasure; measure++)
 	{
