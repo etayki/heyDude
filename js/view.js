@@ -63,6 +63,10 @@ function reportBrowser()
     if(M && (tem= ua.match(/version\/([\.\d]+)/i))!= null) M[2]= tem[1];
     M=M? [M[1], M[2]]: [N, navigator.appVersion, '-?'];
     browser = browser + " " + M[1];
+    if(userAgent.indexOf("iPad") !== -1)
+		browser = "iPad " + browser;
+	else if(userAgent.indexOf("iPhone") !== -1)
+		browser = "iPhone " + browser;
 
  	// Report Browser
 	xmlhttp = new XMLHttpRequest();

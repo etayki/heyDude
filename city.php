@@ -25,7 +25,7 @@ $json = file_get_contents("http://ipinfo.io/{$ip}/json");
 $details = json_decode($json);
 $city = $details->city.", ".$details->region.", ".$details->country;
 
-if(strpos(strtolower($_SERVER['HTTP_HOST']), "ipad") !== FALSE)
+if(strpos(strtolower($_SERVER['HTTP_HOST']), "iPad") !== FALSE)
 {
     $brsr = "iPad";
 }
@@ -37,7 +37,7 @@ if(strpos(strtolower($_SERVER['HTTP_HOST']), "iphone") !== FALSE)
 
 error_log(date('Y-m-d H:i:s')." IP=".$ip.", city=".$city.", browser=".$brsr);
 
-if (!$mysqli->query("UPDATE Visits SET Browser='$brsr' WHERE IP='$ip'"))
+if (!$mysqli->query("UPDATE Visits SET Browser='$brsr' WHERE IP='$ip' AND City='None'"))
     error_log(date('Y-m-d H:i:s')." city.php Update Visits Error: ".$mysqli->error);
 
 if (!$mysqli->query("UPDATE Visits SET City='$city' WHERE IP='$ip'"))
