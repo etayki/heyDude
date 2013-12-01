@@ -595,12 +595,31 @@ function setEvents()
 	$('img').on('dragstart', function(event) { event.preventDefault(); });
 
 	startMarkerMouseDown = 0;
-	endMarkerMouseDown = 0;	
+	endMarkerMouseDown = 0;
+
+ 	// iPad
+ 	document.body.addEventListener('touchmove',function(e){
+	      e.preventDefault();
+	  });
+
 	$('#startMarker').bind('touchstart', function(e){
 		debug("touchstart");
 		startMarkerMouseDown = 1;
 	});
 
+	$('#endMarker').bind('touchstart', function(e){
+		debug("touchstart");
+		startMarkerMouseDown = 1;
+	});
+
+	$("body").bind('touchend', function(e){
+		debug("touchend");
+		startMarkerMouseDown = 0;
+		endMarkerMouseDown = 0;
+		draggerMouseDown = 0;	
+	});
+	
+	// PC
 	$("#startMarker").mousedown(function() {
 		if (isiPad)
 			return;
@@ -608,7 +627,8 @@ function setEvents()
 	});
 
 	$("#endMarker").mousedown(function() {
-		//debug("mousedown");
+		if (isiPad)
+			return;		
 		endMarkerMouseDown = 1;
 	});
 
@@ -618,16 +638,11 @@ function setEvents()
 		draggerMouseDown = 0;	
 	});
 
-	$("body").bind('touchend', function(e){
-		debug("touchend");
-		startMarkerMouseDown = 0;
-		endMarkerMouseDown = 0;
-		draggerMouseDown = 0;	
-	});
+
 
 	/* SET START/END MARKERS */
-	$(".measureBox").hover(function() {
-		//debug("hover");
+	$(".measureBox").mouseover(function() {
+		debug("mouseover");
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
 		if (startMarkerMouseDown && newMeasure != startMeasure)
