@@ -617,17 +617,17 @@ function setEvents()
 	});
 
 	$('#startMarker').bind('touchstart', function(e){
-		debug("touchstart");
+		//debug("touchstart");
 		startMarkerMouseDown = 1;
 	});
 
 	$('#endMarker').bind('touchstart', function(e){
-		debug("touchstart");
+		//debug("touchstart");
 		startMarkerMouseDown = 1;
 	});
 
 	$("body").bind('touchend', function(e){
-		debug("touchend");
+		//debug("touchend");
 		startMarkerMouseDown = 0;
 		endMarkerMouseDown = 0;
 		draggerMouseDown = 0;	
@@ -670,12 +670,29 @@ function setEvents()
 	});
 
 	/* SET CURRENT MEASURE */
+	
+	$(".measureBox").bind('touchstart', function(e){
+		measureBoxId = $(this).attr('id');
+		newMeasure = measureBoxId.replace(/measureBox-/g, '');
+		setCurrentMeasure(newMeasure);
+	});		
+
 	$(".measureBox").click(function() {
+		if (isiPad) return;
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
 		setCurrentMeasure(newMeasure);
 	});
-	
+
+	doubleTouchmMsrBoxStartTimestamp = 0;
+	$('.measureBox').bind("touchstart", function (event) {
+	    var now = +(new Date());
+	    if (doubleTouchmMsrBoxStartTimestamp + 500 > now) {
+	        event.preventDefault();
+	    }
+	    doubleTouchmMsrBoxStartTimestamp = now;
+	});
+
 	keyPressTimer = 0;
 	/* KEY TAP */
 	$(".key").click(function(){
