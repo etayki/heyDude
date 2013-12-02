@@ -30,6 +30,7 @@ function setSceenWidth()
 	//screenWidth = 950;
 	screenWidth = screen.width;
 	userAgent = navigator.userAgent;
+	isiPad = navigator.userAgent.match(/iPad/i) != null;
 
 	if(userAgent.indexOf("iPhone") !== -1 || userAgent.indexOf("iPad") !== -1)
 		screenWidth = 981;
@@ -448,6 +449,9 @@ function drawControls()
 	fullScreenButtonWidth = controlsBackgroundHeight * 0.6;
 	fullScreenButtonHeight = leftHandHeight * 1.07;
 	adjustTag("fullScreenButton", fullScreenButtonLeft, fullScreenButtonTop, fullScreenButtonWidth, fullScreenButtonHeight, "clear");
+	if (isiPad)
+		$('#fullScreenButton').css("display","none");
+
 
 	/* FULL SCREEN LABEL */
 	$("body").append('<div id="fullScreenLabel">Full Screen</div>');
@@ -456,6 +460,8 @@ function drawControls()
 	fullScreenLabelTop = leftHandLabelTop;
 	fullScreenLabelHeight = leftHandLabelHeight;
 	adjustTag("fullScreenLabel", fullScreenLabelLeft, fullScreenLabelTop, fullScreenLabelWidth, fullScreenLabelHeight, "clear");
+	if (isiPad)
+		$('#fullScreenLabel').css("display","none");
 
 	/* FEEDBACK BUTTON */
 	$("body").append('<img id="feedbackButton" src="./images/feedbackIcon.png "'+clickEvent+'="didPressFeedbackButton()"></img>');
@@ -606,7 +612,6 @@ function drawPiano()
 
 function setEvents()
 {
-	isiPad = navigator.userAgent.match(/iPad/i) != null;
 	$('img').on('dragstart', function(event) { event.preventDefault(); });
 
 	startMarkerMouseDown = 0;
