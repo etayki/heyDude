@@ -546,6 +546,28 @@ function drawMetronome()
 	$("body").mouseup(function() {
 		$("#dragger").css("z-index", 2);
 	});
+
+	// $('#dragger').bind('touchstart', function(e){
+	// 	e.preventDefault();
+	// });
+
+	$('#dragger').bind('touchmove', function(e){
+		e.preventDefault();
+		for (number = 1; number <= metronomeMaxBox; number++)
+		{
+			metronomeBoxLeft = Number($("#metronomeBox-"+number).css('left').replace(/px/g, ''));
+			//debug (number + " " + metronomeBoxLeft + " " + metronomeBoxTop + " " + metronomeBoxWidth);
+			//debug (number + " " + event.touches[0].pageY + ">" + (measureBoxTop + measureBoxWidth));
+			//debug (number + " " + event.touches[0].pageX + " " + metronomeBoxLeft)
+			if (event.touches[0].pageX == metronomeBoxLeft)
+			{
+					//debug(number);
+					draggerBoxLeft = $("#metronomeBox-"+number).css("left").replace(/px/g, '') - 12;
+					$("#dragger").css("left", draggerBoxLeft);
+					setTempo(number);
+			}
+		}
+	});
 }
 
 function drawPiano()
@@ -717,17 +739,6 @@ function setEvents()
 			}
 		}
 	});
-
-	$(".measureBox").bind('touchend', function(e){
-		//debug("msrStart");
-	});
-
-	$("body").bind('touchend', function(e){
-		//debug("touchend");
-		startMarkerMouseDown = 0;
-		endMarkerMouseDown = 0;
-		draggerMouseDown = 0;	
-	});
 	
 	// PC
 	$("#startMarker").mousedown(function() {
@@ -768,6 +779,7 @@ function setEvents()
 		setCurrentMeasure(newMeasure);
 	});		
 
+	// iPad
 	doubleTouchmMsrBoxStartTimestamp = 0;
 	$('.measureBox').bind("touchstart", function (e) {
 	    var now = +(new Date());
