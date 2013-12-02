@@ -644,6 +644,15 @@ function setEvents()
 	    doubleTouchLHandStartTimestamp = now;
 	});
 
+	doubleTouchInfoBtnStartTimestamp = 0;
+	$('#infoButton').bind("touchstart", function (event) {
+	    var now = +(new Date());
+	    if (doubleTouchInfoBtnStartTimestamp + 500 > now) {
+	        event.preventDefault();
+	    }
+	    doubleTouchInfoBtnStartTimestamp = now;
+	});
+
 	$('#startMarker').bind('touchstart', function(e){
 		//debug("touchstart");
 		startMarkerMouseDown = 1;
