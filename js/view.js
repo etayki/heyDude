@@ -626,6 +626,24 @@ function setEvents()
 	    doubleTouchStartTimestamp = now;
 	});
 
+	doubleTouchRHandStartTimestamp = 0;
+	$('#rightHand').bind("touchstart", function (event) {
+	    var now = +(new Date());
+	    if (doubleTouchRHandStartTimestamp + 500 > now) {
+	        event.preventDefault();
+	    }
+	    doubleTouchRHandStartTimestamp = now;
+	});
+
+	doubleTouchLHandStartTimestamp = 0;
+	$('#leftHand').bind("touchstart", function (event) {
+	    var now = +(new Date());
+	    if (doubleTouchLHandStartTimestamp + 500 > now) {
+	        event.preventDefault();
+	    }
+	    doubleTouchLHandStartTimestamp = now;
+	});
+
 	$('#startMarker').bind('touchstart', function(e){
 		//debug("touchstart");
 		startMarkerMouseDown = 1;
