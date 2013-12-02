@@ -305,7 +305,9 @@ function setEndMeasure(newMeasure)
 
 function setTempo(newMetronomeBox)
 {
-	tempo = (11 - newMetronomeBox) * 4;
+	tempo = Math.ceil((101-newMetronomeBox)/100 * 40);
+	console.log(tempo);
+
 }
 
 /* --- ================ DEBUG ================== */

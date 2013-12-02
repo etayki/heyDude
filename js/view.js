@@ -497,28 +497,31 @@ function drawMetronome()
 	draggerTrackColor = "5884F1";
 	$("body").append('<div id="draggerTrack"></div>');
 	adjustTag("draggerTrack", draggerTrackLeft, draggerTrackTop, draggerTrackWidth, draggerTrackHeight, draggerTrackColor);
+	//$("#draggerTrack").css("z-index", 20);
 	
-	for (number = 1; number <= 13; number = number + 2)
+	metronomeBoxLeft += 8;
+	metronomeMaxBox = 100;
+	for (number = 1; number <= metronomeMaxBox; number++)
 	{	
 		/* METRONOME BOX */
-		$("body").append('<div id="metronomeBox-'+number+'" class="metronomeBox" style="border-style:solid; border-width:0px"></div>');
-		adjustTag("metronomeBox-"+number, metronomeBoxLeft, metronomeBoxTop, metronomeBoxWidth, metronomeBoxHeight, metronomeBoxColor);
-		metronomeBoxLeft += metronomeBoxWidth;
+		$("body").append('<div id="metronomeBox-'+number+'" class="metronomeBox" style="border-style:solid; border-width:0px; z-index:1"></div>');
+		adjustTag("metronomeBox-"+number, metronomeBoxLeft, metronomeBoxTop, metronomeBoxWidth/16, metronomeBoxHeight, metronomeBoxColor);
+		metronomeBoxLeft += metronomeBoxWidth/16;
 	}
 	
 	/* DRAGGER */
-	draggerBoxLeft = $("#metronomeBox-7").css("left").replace(/px/g, '');
+	draggerBoxLeft = $("#metronomeBox-"+45).css("left").replace(/px/g, '');
 	draggerBoxWidth = metronomeBoxWidth;
 	draggerBoxHeight = draggerBoxWidth;
 	draggerBoxTop = metronomeBoxTop - (draggerBoxHeight-metronomeBoxHeight)/2;
-	$("body").append('<img id="dragger" src="./images/dragger.png"></img>');
+	$("body").append('<img id="dragger" src="./images/dragger.png" style="z-index:2"></img>');
 	adjustTag("dragger", draggerBoxLeft, draggerBoxTop, draggerBoxWidth, draggerBoxHeight, "clear");
 
 	/* EVENTS */
 	$(".metronomeBox").bind(onClickEvent, function (e) {
 		newMetronomeBox = $(this).attr('id');
 		newMetronomeBox = Number(newMetronomeBox.replace(/metronomeBox-/g,''));
-		draggerBoxLeft = $("#metronomeBox-"+newMetronomeBox).css("left").replace(/px/g, '');
+		draggerBoxLeft = $("#metronomeBox-"+newMetronomeBox).css("left").replace(/px/g, '') - 12;
 		$("#dragger").css("left", draggerBoxLeft);
 		setTempo(newMetronomeBox);	
 	  });
@@ -528,7 +531,7 @@ function drawMetronome()
 		newTempo = metronomeBoxId.replace(/metronomeBox-/g, '');
 		if (draggerMouseDown)
 		{
-			draggerBoxLeft = $("#metronomeBox-"+newTempo).css("left").replace(/px/g, '');
+			draggerBoxLeft = $("#metronomeBox-"+newTempo).css("left").replace(/px/g, '') - 12;
 			$("#dragger").css("left", draggerBoxLeft);
 			setTempo(newTempo);
 		}
@@ -536,7 +539,12 @@ function drawMetronome()
 	
 	draggerMouseDown = 0;	
 	$("#dragger").mousedown(function() {
+		$("#dragger").css("z-index", 0);
 		draggerMouseDown = 1;
+	});
+
+	$("body").mouseup(function() {
+		$("#dragger").css("z-index", 2);
 	});
 }
 
