@@ -659,27 +659,37 @@ function setEvents()
 	});
 
 	$('#startMarker').bind('touchstart', function(e){
-		//debug("touchstart");
-		startMarkerMouseDown = 1;
+		e.preventDefault();
 	});
 
-	$('#startMarker').bind('touchstart', function(e){
-		//debug("touchstart");
-		startMarkerMouseDown = 1;
+	$('#startMarker').bind('touchmove', function(e){
+		e.preventDefault();
+		for (number = 1; number <= maxBoxes; number++)
+		{
+			measureBoxLeft = Number($("#measureBox-"+number).css('left').replace(/px/g, ''));
+			measureBoxTop = Number($("#measureBox-"+number).css('top').replace(/px/g, ''));
+			measureBoxWidth = Number($("#measureBox-"+number).css('width').replace(/px/g, ''));
+			//debug (number + " " + event.touches[0].pageY + ">" + (measureBoxTop + measureBoxWidth));
+			if (event.touches[0].pageX > measureBoxLeft &&
+				event.touches[0].pageX < (measureBoxLeft + measureBoxWidth) &&
+				event.touches[0].pageY > measureBoxTop && 
+				event.touches[0].pageY < (measureBoxTop + measureBoxWidth))
+			{
+				if (number != endMeasure)
+				{				
+					//debug(number);
+					setStartMeasure(number);
+				}
+			}
+		}
 	});
 
 	$('#endMarker').bind('touchstart', function(e){
-		//debug("endStart");
-		//debug(e.targetTouches[0].pageX);
 		e.preventDefault();
 	});
 
-	//var msr[] = new Array();
 	$('#endMarker').bind('touchmove', function(e){
 		e.preventDefault();
-
-		//if (endMeasure != maxBoxes)
-
 		for (number = 1; number <= maxBoxes; number++)
 		{
 			measureBoxLeft = Number($("#measureBox-"+number).css('left').replace(/px/g, ''));
