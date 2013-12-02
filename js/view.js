@@ -442,7 +442,7 @@ function drawControls()
 	adjustTag("divider3", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
 
 	/* FULL SCREEN BUTTON */
-	$("body").append('<img id="fullScreenButton" src="./images/fullScreen.png" onclick="didPressFullScreenButton()"></img>');
+	$("body").append('<img id="fullScreenButton" src="./images/fullScreen.png "'+clickEvent+'="didPressFullScreenButton()"></img>');
 	fullScreenButtonLeft =  dividerLeft + stopButtonWidth;
 	fullScreenButtonTop = leftHandTop;
 	fullScreenButtonWidth = controlsBackgroundHeight * 0.6;
@@ -458,7 +458,7 @@ function drawControls()
 	adjustTag("fullScreenLabel", fullScreenLabelLeft, fullScreenLabelTop, fullScreenLabelWidth, fullScreenLabelHeight, "clear");
 
 	/* FEEDBACK BUTTON */
-	$("body").append('<img id="feedbackButton" src="./images/feedbackIcon.png" onclick="didPressFeedbackButton()"></img>');
+	$("body").append('<img id="feedbackButton" src="./images/feedbackIcon.png "'+clickEvent+'="didPressFeedbackButton()"></img>');
 	feedbackButtonLeft =  fullScreenButtonLeft + 2 * fullScreenButtonWidth;
 	feedbackButtonTop = leftHandTop;
 	feedbackButtonWidth = controlsBackgroundHeight * 0.6;
@@ -509,7 +509,7 @@ function drawMetronome()
 	adjustTag("dragger", draggerBoxLeft, draggerBoxTop, draggerBoxWidth, draggerBoxHeight, "clear");
 
 	/* EVENTS */
-	$(".metronomeBox").click(function(){
+	$(".metronomeBox").bind(onClickEvent, function (e) {
 		newMetronomeBox = $(this).attr('id');
 		newMetronomeBox = Number(newMetronomeBox.replace(/metronomeBox-/g,''));
 		draggerBoxLeft = $("#metronomeBox-"+newMetronomeBox).css("left").replace(/px/g, '');
@@ -745,7 +745,7 @@ function didPressFullScreenButton()
 	requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
         requestMethod.call(element);
 	$("#fullScreenButton").attr("src", "./images/cancelFullScreen.jpeg");
-	$("#fullScreenButton").attr("onclick", "didPressCancelFullScreenButton()");
+	$("#fullScreenButton").attr(clickEvent, "didPressCancelFullScreenButton()");
 	$("#fullScreenLabel").text("Exit Full Screen");
 }
 
@@ -909,7 +909,7 @@ function drawfeedback()
 	$("#feedbackTabLabel").css({"filter" : "progid:DXImageTransform.Microsoft.Matrix(M11=0.9396926207859084,M12=-0.3420201433256687,M21=0.3420201433256687,M22=0.9396926207859084,sizingMethod='auto expand')"});
 	$("#feedbackTabLabel").css({"zoom" : "1"});
 
-	$("#feedbackTabLabel").click(function() {
+	$("#feedbackTabLabel").bind(onClickEvent, function (e) {
 		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
 			didPressPauseButton();
 		feedbackFormDisplayed = 1;
@@ -947,7 +947,7 @@ function drawfeedback()
 	$("#feedbackFormEmailTa").css("text-align","left");
 	$("#feedbackFormEmailTa").css("font-size",$("#feedbackFormLabel").css("font-size").replace(/px/g, '') - 4);
 
-	$('#feedbackFormEmailTa').click(function() {	
+	$('#feedbackFormEmailTa').bind(onClickEvent, function (e) {
 			$("#feedbackFormEmailTa").val('');
 		});
 		
@@ -961,7 +961,7 @@ function drawfeedback()
 	$("#feedbackFormTextArea").css("text-align","left");
 	$("#feedbackFormTextArea").css("font-size",$("#feedbackFormLabel").css("font-size").replace(/px/g, '') - 4);
 
-	$('#feedbackFormTextArea').click(function() {	
+	$('#feedbackFormTextArea').bind(onClickEvent, function (e) {
 			$("#feedbackFormTextArea").val('');
 		});
 	
@@ -973,7 +973,7 @@ function drawfeedback()
 	$("#feedbackForm").append('<input id="sendButton" type="button" name="send" value="Send" style="border:none">');
 	adjustTag("sendButton", sendButtonLeft, sendButtonTop, sendButtonWidth, sendButtonHeight, "clear");
 
-	$('#sendButton').click(function() {	
+	$('#sendButton').bind(onClickEvent, function (e) {
 		var message = $("textarea#feedbackFormTextArea").val();
 		if (message == "") {
 			$("#feedbackFormTextArea").focus();
@@ -1011,7 +1011,7 @@ function drawfeedback()
 	$("#feedbackForm").append('<input id="cancelButton" type="button" name="cancel" value="Cancel" style="border:none">');
 	adjustTag("cancelButton", cancelButtonLeft, cancelButtonTop, cancelButtonWidth, cancelButtonHeight, "clear");
 
-	$("#cancelButton").click(function() {	
+	$("#cancelButton").bind(onClickEvent, function (e) {
 		$('#feedbackForm').css("display","none");
 		feedbackFormDisplayed = 0;
 	});
