@@ -690,9 +690,13 @@ function setEvents()
 				event.touches[0].pageX < (measureBoxLeft + measureBoxWidth) &&
 				event.touches[0].pageY > measureBoxTop && 
 				event.touches[0].pageY < (measureBoxTop + measureBoxWidth))
+			{
 				if (number != endMeasure)
+				{				
+					//debug(number);
 					setEndMeasure(number);
-				debug(number);
+				}
+			}
 		}
 	});
 
