@@ -101,6 +101,7 @@ $mysqli->close();
 if($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] == "localhost/PianoByHeart/index.php")
 {
 echo <<<END
+    <script src="http://localhost:1337/livereload.js"></script>
     <script src="./js/MIDI/AudioDetect.js" type="text/javascript"></script>
     <script src="./js/MIDI/LoadPlugin.js" type="text/javascript"></script>
     <script src="./js/MIDI/Plugin.js" type="text/javascript"></script>

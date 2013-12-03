@@ -1,0 +1,10 @@
+{
+  "name": "project-name",
+  "title": "Project title",
+  "version": "0.1.0",
+  "homepage": "http://localhost/PianoByHeart/index.php",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+  "grunt-contrib-watch": "~0.4.4"
+  }
+}
