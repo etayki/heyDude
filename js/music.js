@@ -155,6 +155,8 @@ function playMusic()
 					finger *= -1;
 				}
 				$("#key-"+key).css("background-color",color);
+				if (notesEnabled)
+				 	$("#keyNoteLabel-"+key).css("display","");
 				if (finger != 0)
 					$("#keyLabel-"+key).text(finger);
 			}
@@ -224,6 +226,7 @@ function resetNote(note)
 	}
 	$("#key-"+key).css("background-color",color);
 	$("#keyLabel-"+key).text("");
+	$("#keyNoteLabel-"+key).css("display","none");
 }
 
 /* SET THE CURRENT MEASURE EITHER WITH ARROW KEYS OR BY CLICKING ON MEASURE BOX */
