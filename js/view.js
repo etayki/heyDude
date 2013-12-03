@@ -11,19 +11,34 @@ var clickEvent;
 
 function drawScreen()
 {
+	startTime = new Date().getTime();
+	console.log("setSceenWidth: " + (new Date().getTime() - startTime));
 	setSceenWidth();
+	console.log("drawHeader: " + (new Date().getTime() - startTime));
 	drawHeader();
+	console.log("drawMeasureGrid: " + (new Date().getTime() - startTime));
 	drawMeasureGrid();
+	console.log("drawMarkers: " + (new Date().getTime() - startTime));
 	drawMarkers();
+	console.log("colorizeMeasures: " + (new Date().getTime() - startTime));
 	colorizeMeasures();
+	console.log("drawControls: " + (new Date().getTime() - startTime));
 	drawControls();
+	console.log("drawTransposition: " + (new Date().getTime() - startTime));
 	drawTransposition();
+	console.log("drawMetronome: " + (new Date().getTime() - startTime));
 	drawMetronome();
+	console.log("drawPiano: " + (new Date().getTime() - startTime));
 	drawPiano();
+	console.log("setEvents: " + (new Date().getTime() - startTime));
 	setEvents();
+	console.log("drawfeedback: " + (new Date().getTime() - startTime));
 	drawfeedback();
+	console.log("display: " + (new Date().getTime() - startTime));
 	display();
+	console.log("reportBrowser: " + (new Date().getTime() - startTime));
 	reportBrowser();
+	console.log("done: " + (new Date().getTime() - startTime));
 }
 
 function setSceenWidth()
@@ -144,7 +159,7 @@ function drawMeasureGrid()
 	maxColumn = 23;
 	maxRows = Math.floor(tune.length/maxColumn);
 	maxBoxes = maxColumn * (maxRows);
-	
+
 	/* MEASURE BOX */
 	measureBoxLeft = measureGridHeaderLeft;
 	measureBoxWidth = measureGridHeaderWidth/maxColumn;
@@ -157,7 +172,7 @@ function drawMeasureGrid()
 	measureBoxLabelLeft = (measureBoxWidth - measureBoxLabelWidth)/2;
 	measureBoxLabelTop = measureBoxLabelLeft;
 	measureBoxLabelHeight = measureBoxLabelWidth;
-	
+	fontSize = getFontSize(measureBoxLabelHeight);
 
 	/* MEASURE GRID */
 	for (number = 1; number <= maxBoxes; number++)
@@ -172,7 +187,7 @@ function drawMeasureGrid()
 			measureBoxLabel = '<div id="measureBoxLabel-'+number+'">'+number+'</div>';
 			$("#measureBox-"+number).append(measureBoxLabel);
 			adjustTag("measureBoxLabel-"+number, measureBoxLabelLeft, measureBoxLabelTop, measureBoxLabelWidth, measureBoxLabelHeight, "clear");
-			$("#measureBoxLabel-"+number).css("position", "absolute");
+			//$("#measureBoxLabel-"+number).css("position", "absolute");
 
 		}
 		else
@@ -1184,7 +1199,9 @@ function adjustTag(tag, left, top, width, height, backgroundColor)
 	
 	if (tag.indexOf("Label") !== -1 || tag.indexOf("Button") !== -1)
 	{
-		fontSize = getFontSize(height);
+		if (tag.indexOf("measureBoxLabel") == -1) // Save 400ms by doing this once earlier
+			fontSize = getFontSize(height); 
+
 		if (tag.indexOf("feedbackTabLabel") !== -1)
 		    fontSize -= 2;
 		    
@@ -1203,6 +1220,7 @@ function adjustTag(tag, left, top, width, height, backgroundColor)
 
 function getFontSize(labelHeight)
 {
+	//console.log("getFontSizeStart: " + (new Date().getTime() - startTime));
 	$("body").append('<div id="textLabel"><span id="textSpan">Feedback</span></div>');
 
 	fontSize = 0;
@@ -1213,6 +1231,7 @@ function getFontSize(labelHeight)
 	    feedbackTabWidth = Number($("#textSpan").css('width').replace(/px/g, ''));
 	} while (spanHeight < labelHeight)
 	
-	$('#textLabel').remove();	
+	$('#textLabel').remove();
+	//console.log("getFontSizeEnd: " + (new Date().getTime() - startTime));	
 	return fontSize;
 }

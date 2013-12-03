@@ -59,7 +59,6 @@ $(document).ready(function() {
 		}
 	});
 	
-	/* This will increase loading time. The user won't hear anything until MIDI loaded, that's all */
 	drawScreen();
 	
 	/* DISABLE SELECTION */
