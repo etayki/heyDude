@@ -426,11 +426,11 @@ function drawTransposition()
 	transpositionBoxWidth = (fastLabelLeft - slowLabelLeft)/7;
 	transpositionBoxHeight = controlsBackgroundHeight;
 	transpositionBoxTop = controlsBackgroundTop + (controlsBackgroundHeight - transpositionBoxHeight)/2;
-	transpositionBoxColor = "red";
+	transpositionBoxColor = "clear";
 	
 	/* TRANSPOSITION DRAGGER TRACK */
 	draggerTrackLeft = transpositionBoxLeft;
-	draggerTrackWidth = (fastLabelLeft - slowLabelLeft);
+	draggerTrackWidth = (fastLabelLeft - slowLabelLeft)*0.955;
 	draggerTrackHeight = transpositionBoxWidth * 0.4;
 	draggerTrackTop = controlsBackgroundTop + (controlsBackgroundHeight - draggerTrackHeight)/2;
 	draggerTrackColor = "5884F1";
@@ -450,27 +450,27 @@ function drawTransposition()
 	for (number = 1; number <= transpositionBoxMax; number++)
 	{	
 		/* transposition BOX */
-		$("body").append('<div id="transpositionBox-'+number+'" class="transpositionBox" style="border-style:solid; border-width:1px; z-index:1"></div>');
+		$("body").append('<div id="transpositionBox-'+number+'" class="transpositionBox" style="border-style:solid; border-width:0px; z-index:1"></div>');
 		adjustTag("transpositionBox-"+number, transpositionBoxLeft, transpositionBoxTop, transpositionBoxWidth/2, transpositionBoxHeight, transpositionBoxColor);
 		transpositionBoxLeft += transpositionBoxWidth/2;
 	}
 	
-	// /* DRAGGER */
-	// draggerBoxLeft = $("#transpositionBox-"+45).css("left").replace(/px/g, '');
-	// draggerBoxWidth = transpositionBoxWidth;
-	// draggerBoxHeight = draggerBoxWidth;
-	// draggerBoxTop = transpositionBoxTop - (draggerBoxHeight-transpositionBoxHeight)/2;
-	// $("body").append('<img id="dragger" src="./images/dragger.png" style="z-index:2"></img>');
-	// adjustTag("dragger", draggerBoxLeft, draggerBoxTop, draggerBoxWidth, draggerBoxHeight, "clear");
+	/* TRANSPOSITION DRAGGER */
+	draggerTransBoxLeft = $("#transpositionBox-"+7).css("left").replace(/px/g, '');
+	draggerTransBoxWidth = transpositionBoxWidth;
+	draggerTransBoxHeight = draggerTransBoxWidth;
+	draggerTransBoxTop = transpositionBoxTop - (draggerTransBoxHeight-transpositionBoxHeight)/2;
+	$("body").append('<img id="draggerTrans" src="./images/dragger.png" style="z-index:2"></img>');
+	adjustTag("draggerTrans", draggerTransBoxLeft, draggerTransBoxTop, draggerTransBoxWidth, draggerTransBoxHeight, "clear");
 
-	// /* EVENTS */
-	// $(".transpositionBox").bind(onClickEvent, function (e) {
-	// 	newtranspositionBox = $(this).attr('id');
-	// 	newtranspositionBox = Number(newtranspositionBox.replace(/transpositionBox-/g,''));
-	// 	draggerBoxLeft = $("#transpositionBox-"+newtranspositionBox).css("left").replace(/px/g, '') - 12;
-	// 	$("#dragger").css("left", draggerBoxLeft);
-	// 	setTempo(newtranspositionBox);	
-	//   });
+	/* EVENTS */
+	$(".transpositionBox").bind(onClickEvent, function (e) {
+		newtranspositionBox = $(this).attr('id');
+		newtranspositionBox = Number(newtranspositionBox.replace(/transpositionBox-/g,''));
+		draggerBoxLeft = $("#transpositionBox-"+newtranspositionBox).css("left").replace(/px/g, '') - 12;
+		$("#draggerTrans").css("left", draggerBoxLeft);
+		//transpose(newtranspositionBox);	
+	  });
 	
 	// $(".transpositionBox").hover(function() {
 	// 	transpositionBoxId = $(this).attr('id');
