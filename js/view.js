@@ -318,6 +318,14 @@ function drawControls()
 	dividerHeight = controlsBackgroundHeight;
 	adjustTag("divider1", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
 
+	/* DIVIDER */
+	$("body").append('<img id="divider4" src="./images/divider.png"></img>');
+	dividerLeft =  controlsBackgroundWidth * 0.38;
+	dividerTop = controlsBackgroundTop;
+	dividerWidth = 20;
+	dividerHeight = controlsBackgroundHeight;
+	adjustTag("divider4", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
+
 	/* PLAY BUTTON */
 	$("body").append('<img id="playBtn" src="./images/loading.gif "'+clickEvent+'="didPressPlayButton()"></img>');
 	playButtonLeft =  controlsBackgroundWidth * 0.43;
@@ -493,27 +501,27 @@ function drawTransposition()
 		$("#draggerTrans").css("z-index", 2);
 	});
 
-	// // $('#dragger').bind('touchstart', function(e){
-	// // 	e.preventDefault();
-	// // });
+	$('#draggerTrans').bind('touchstart', function(e){
+		e.preventDefault();
+	});
 
-	// $('#dragger').bind('touchmove', function(e){
-	// 	e.preventDefault();
-	// 	for (number = 1; number <= transpositionMaxBox; number++)
-	// 	{
-	// 		transpositionBoxLeft = Number($("#transpositionBox-"+number).css('left').replace(/px/g, ''));
-	// 		//debug (number + " " + transpositionBoxLeft + " " + transpositionBoxTop + " " + transpositionBoxWidth);
-	// 		//debug (number + " " + event.touches[0].pageY + ">" + (measureBoxTop + measureBoxWidth));
-	// 		//debug (number + " " + event.touches[0].pageX + " " + transpositionBoxLeft)
-	// 		if (event.touches[0].pageX == transpositionBoxLeft)
-	// 		{
-	// 				//debug(number);
-	// 				draggerBoxLeft = $("#transpositionBox-"+number).css("left").replace(/px/g, '') - 12;
-	// 				$("#dragger").css("left", draggerBoxLeft);
-	// 				setTempo(number);
-	// 		}
-	// 	}
-	// });
+	$('#draggerTrans').bind('touchmove', function(e){
+		e.preventDefault();
+		for (number = 1; number <= transpositionBoxMax; number++)
+		{
+			transpositionBoxLeft = Number($("#transpositionBox-"+number).css('left').replace(/px/g, ''));
+			//debug (number + " " + transpositionBoxLeft + " " + transpositionBoxTop + " " + transpositionBoxWidth);
+			//debug (number + " " + event.touches[0].pageY + ">" + (measureBoxTop + measureBoxWidth));
+			//debug (number + " " + event.touches[0].pageX + " " + transpositionBoxLeft)
+			if (event.touches[0].pageX == transpositionBoxLeft)
+			{
+					//debug(number);
+					draggerBoxLeft = $("#transpositionBox-"+number).css("left").replace(/px/g, '') - 12;
+					$("#draggerTrans").css("left", draggerBoxLeft);
+					//transpose(number);
+			}
+		}
+	});
 }
 
 function drawMetronome()
