@@ -122,12 +122,12 @@ function drawHeader()
 	adjustTag("tuneLabel", tuneLabelLeft, tuneLabelTop, tuneLabelWidth, tuneLabelHeight, "clear");
 	
 	/* ARTIST LABEL */
-	$("body").append('<div id="artisitLabel">L.V. Beethoven</div>');
+	$("body").append('<div id="artistLabel">L.V. Beethoven</div>');
 	artisitLabelLeft =  measureGridHeaderLeft;
 	artisitLabelTop = measureGridHeaderTop + measureGridHeaderHeight * 0.55;
 	artisitLabelWidth = measureGridHeaderWidth;
 	artisitLabelHeight = measureGridHeaderHeight * 0.25;
-	adjustTag("artisitLabel", artisitLabelLeft, artisitLabelTop, artisitLabelWidth, artisitLabelHeight, "clear");
+	adjustTag("artistLabel", artisitLabelLeft, artisitLabelTop, artisitLabelWidth, artisitLabelHeight, "clear");
 
 	/* MEASURE GRID Bar */
 	$("body").append('<div id="measureGridBar" style="border-style:solid;border-width:1px"></div>');
@@ -719,8 +719,16 @@ function setEvents()
 	      //e.preventDefault();
 	  });
 
+ 	// var tagList=[".measureBox","#playBtn","#metronome","#rightHand","#leftHand","#infoButton","#startMarker",
+ 	//              "#startMarker","#notesButton","#measureGridHeader","#logo","#composerPic","#tuneLabel",
+ 	//              "#artistLabel","#measureGridBar","#positionMarker","#startMarkerInfoLabel","#endMarkerInfoLabel",
+ 	//              "#leftHand","#rightHand","#leftHandLabel","#rightHandLabel","#infoButton","#handInfoPopup","#metronome",
+ 	//              "#fullScreenButton","#feedbackButton","#draggerTransTrack",".transpositionBox","#draggerTrack","#dragger",
+ 	//              "#keyboardBgrd", ".key", "#controlsBackground", "#divider1", "#divider2", "#divider3", "#divider4"];
+
+ 	// Disable double tap zoom
 	doubleTouchStartTimestamp = 0;
-	$('#playBtn').bind("touchstart", function (event) {
+	$("body").bind("touchstart", function (e) {
 	    var now = +(new Date());
 	    if (doubleTouchStartTimestamp + 500 > now) {
 	        event.preventDefault();
@@ -728,42 +736,8 @@ function setEvents()
 	    doubleTouchStartTimestamp = now;
 	});
 
-	doubleTouchStartTimestamp = 0;
-	$('#metronome').bind("touchstart", function (event) {
-	    var now = +(new Date());
-	    if (doubleTouchStartTimestamp + 500 > now) {
-	        event.preventDefault();
-	    }
-	    doubleTouchStartTimestamp = now;
-	});
 
-	doubleTouchRHandStartTimestamp = 0;
-	$('#rightHand').bind("touchstart", function (event) {
-	    var now = +(new Date());
-	    if (doubleTouchRHandStartTimestamp + 500 > now) {
-	        event.preventDefault();
-	    }
-	    doubleTouchRHandStartTimestamp = now;
-	});
-
-	doubleTouchLHandStartTimestamp = 0;
-	$('#leftHand').bind("touchstart", function (event) {
-	    var now = +(new Date());
-	    if (doubleTouchLHandStartTimestamp + 500 > now) {
-	        event.preventDefault();
-	    }
-	    doubleTouchLHandStartTimestamp = now;
-	});
-
-	doubleTouchInfoBtnStartTimestamp = 0;
-	$('#infoButton').bind("touchstart", function (event) {
-	    var now = +(new Date());
-	    if (doubleTouchInfoBtnStartTimestamp + 500 > now) {
-	        event.preventDefault();
-	    }
-	    doubleTouchInfoBtnStartTimestamp = now;
-	});
-
+	// Don't allow to save image
 	$('#startMarker').bind('touchstart', function(e){
 		e.preventDefault();
 	});
@@ -854,16 +828,6 @@ function setEvents()
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
 		setCurrentMeasure(newMeasure);
 	});		
-
-	// iPad
-	doubleTouchmMsrBoxStartTimestamp = 0;
-	$('.measureBox').bind("touchstart", function (e) {
-	    var now = +(new Date());
-	    if (doubleTouchmMsrBoxStartTimestamp + 500 > now) {
-	        event.preventDefault();
-	    }
-	    doubleTouchmMsrBoxStartTimestamp = now;
-	});
 
 	keyPressTimer = 0;
 	/* KEY TAP */
