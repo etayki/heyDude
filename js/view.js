@@ -17,6 +17,7 @@ function drawScreen()
 	drawMarkers();
 	colorizeMeasures();
 	drawControls();
+	drawTransposition();
 	drawMetronome();
 	drawPiano();
 	setEvents();
@@ -308,53 +309,18 @@ function drawControls()
 		$('#handInfoPopup').css("display","none");
 		//$('#handInfoPopupCloseButton').css("display","none");
 	});
-
-	
-	/* HAND INFO POPUP CLOSE BUTTON */
-	//$("body").append('<div id="handInfoPopupCloseButton"></div>');
-	//handInfoPopupCloseButtonWidth = handInfoPopupWidth * 0.15;
-	//handInfoPopupCloseButtonLeft = handInfoPopupLeft + handInfoPopupWidth - handInfoPopupCloseButtonWidth;
-	//handInfoPopupCloseButtonHeight = handInfoPopupCloseButtonWidth;
-	//handInfoPopupCloseButtonTop = handInfoPopupTop
-	//$('#handInfoPopupCloseButton').css("z-index","6");
-	//$('#handInfoPopupCloseButton').css("display","none");
-	//adjustTag("handInfoPopupCloseButton", handInfoPopupCloseButtonLeft, handInfoPopupCloseButtonTop, handInfoPopupCloseButtonWidth, handInfoPopupCloseButtonHeight, "clear");
-	//
-	//$("#handInfoPopupCloseButton").click(function() {
-	//	feedbackFormDisplayed = 0;
-	//	$('#handInfoPopup').css("display","none");
-	//	$('#handInfoPopupCloseButton').css("display","none");
-	//});
 	
 	/* DIVIDER */
 	$("body").append('<img id="divider1" src="./images/divider.png"></img>');
-	dividerLeft =  infoButtonLeft + leftHandWidth * 2.5;
+	dividerLeft =  infoButtonLeft + leftHandWidth * 2.2;
 	dividerTop = controlsBackgroundTop;
 	dividerWidth = 20;
 	dividerHeight = controlsBackgroundHeight;
 	adjustTag("divider1", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
-	
-	/* STOP BUTTON */
-	$("body").append('<img id="stopBtn" src="./images/stopButton.png" onclick="didPressStopButton()"></img>');
-	stopButtonLeft =  dividerLeft + leftHandWidth * 2;
-	stopButtonTop = leftHandTop;
-	stopButtonWidth = controlsBackgroundHeight * 0.6;
-	stopButtonHeight = leftHandHeight;
-	adjustTag("stopBtn", stopButtonLeft, stopButtonTop, stopButtonWidth, stopButtonHeight, "clear");
-	$('#stopBtn').css("display","none");
-
-	/* STOP LABEL */
-	$("body").append('<div id="stopLabel">Stop</div>');
-	stopLabelLeft =  stopButtonLeft - stopButtonWidth;
-	stopLabelTop = leftHandLabelTop;
-	stopLabelWidth = leftHandLabelWidth;
-	stopLabelHeight = leftHandLabelHeight;
-	adjustTag("stopLabel", stopLabelLeft, stopLabelTop, stopLabelWidth, stopLabelHeight, "clear");
-	$('#stopLabel').css("display","none");
 
 	/* PLAY BUTTON */
 	$("body").append('<img id="playBtn" src="./images/loading.gif "'+clickEvent+'="didPressPlayButton()"></img>');
-	playButtonLeft =  stopButtonLeft + stopButtonWidth * 1.5;
+	playButtonLeft =  controlsBackgroundWidth * 0.43;
 	playButtonTop = leftHandTop;
 	playButtonWidth = controlsBackgroundHeight * 0.6;
 	playButtonHeight = leftHandHeight;
@@ -367,28 +333,10 @@ function drawControls()
 	playLabelWidth = leftHandLabelWidth;
 	playLabelHeight = controlsBackgroundHeight * 0.145;
 	adjustTag("playLabel", playLabelLeft, playLabelTop, playLabelWidth, playLabelHeight, "clear");
-
-	/* REPEAT BUTTON */
-	$("body").append('<img id="repeatButton" src="./images/repeatEnabled.png" onclick="didPressRepeatButton()"></img>');
-	repeatButtonLeft =  stopButtonLeft + stopButtonWidth * 3;
-	repeatButtonTop = leftHandTop;
-	repeatButtonWidth = controlsBackgroundHeight * 0.6;
-	repeatButtonHeight = leftHandHeight;
-	adjustTag("repeatButton", repeatButtonLeft, repeatButtonTop, repeatButtonWidth, repeatButtonHeight, "clear");
-	$('#repeatButton').css("display","none");
-
-	/* REPEAT LABEL */
-	$("body").append('<div id="repeatLabel">Repeat On</div>');
-	repeatLabelLeft =  repeatButtonLeft - repeatButtonWidth;
-	repeatLabelTop = leftHandLabelTop;
-	repeatLabelWidth = leftHandLabelWidth;
-	repeatLabelHeight = leftHandLabelHeight;
-	adjustTag("repeatLabel", repeatLabelLeft, repeatLabelTop, repeatLabelWidth, repeatLabelHeight, "clear");
-	$('#repeatLabel').css("display","none");
 	
 	/* DIVIDER */
 	$("body").append('<img id="divider2" src="./images/divider.png"></img>');
-	dividerLeft =  repeatButtonLeft + repeatButtonWidth * 2;
+	dividerLeft =  controlsBackgroundWidth * 0.5;
 	dividerTop = controlsBackgroundTop;
 	dividerWidth = 20;
 	dividerHeight = controlsBackgroundHeight;
@@ -396,19 +344,19 @@ function drawControls()
 
 	/* METRONOME IMAGE */
 	$("body").append('<img id="metronome" src="./images/metronome.png"></img>');
+	metronomeLeft =  controlsBackgroundWidth * 0.53;
 	metronomeHeight = controlsBackgroundHeight * 0.6;
-	metronomeLeft =  dividerLeft + repeatButtonWidth * 1.3;
 	metronomeTop = controlsBackgroundTop + (controlsBackgroundHeight - metronomeHeight) * 0.7;
 	metronomeWidth = metronomeHeight * 0.6;
 	adjustTag("metronome", metronomeLeft, metronomeTop, metronomeWidth, metronomeHeight, "clear");
 	
 	/* TEMPO LABEL */
-	$("body").append('<div id="tempoLabel">Tempo</div>');
+	$("body").append('<div id="metroLabel">Metro Off</div>');
 	tempoLabelLeft =  metronomeLeft - metronomeWidth;
 	tempoLabelTop = leftHandLabelTop;
 	tempoLabelWidth = metronomeWidth * 3;
 	tempoLabelHeight = leftHandLabelHeight;
-	adjustTag("tempoLabel", tempoLabelLeft, tempoLabelTop, tempoLabelWidth, tempoLabelHeight, "clear");
+	adjustTag("metroLabel", tempoLabelLeft, tempoLabelTop, tempoLabelWidth, tempoLabelHeight, "clear");
 	
 	/* SLOW LABEL */
 	$("body").append('<div id="slowLabel">Slow</div>');
@@ -426,18 +374,9 @@ function drawControls()
 	fastLabelHeight = controlsBackgroundHeight * 0.2;
 	adjustTag("fastLabel", fastLabelLeft, fastLabelTop, fastLabelWidth, fastLabelHeight, "clear");
 
-	/* POSITION LABEL */
-	$("body").append('<div id="positionLabel">1.00</div>');
-	positionLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.37;
-	positionLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.38;
-	positionLabelWidth = controlsBackgroundWidth * 0.03;
-	positionLabelHeight = positionLabelWidth;
-	adjustTag("positionLabel", positionLabelLeft, positionLabelTop, positionLabelWidth, positionLabelHeight, "clear");
-	$('#positionLabel').css("display","none");
-
 	/* DIVIDER */
 	$("body").append('<img id="divider3" src="./images/divider.png"></img>');
-	dividerLeft =  fastLabelLeft + repeatButtonWidth * 2;
+	dividerLeft =  controlsBackgroundWidth * 0.78;
 	dividerTop = controlsBackgroundTop;
 	dividerWidth = 20;
 	dividerHeight = controlsBackgroundHeight;
@@ -445,14 +384,13 @@ function drawControls()
 
 	/* FULL SCREEN BUTTON */
 	$("body").append('<img id="fullScreenButton" src="./images/fullScreen.png "'+clickEvent+'="didPressFullScreenButton()"></img>');
-	fullScreenButtonLeft =  dividerLeft + stopButtonWidth;
+	fullScreenButtonLeft =  controlsBackgroundWidth * 0.85;
 	fullScreenButtonTop = leftHandTop;
 	fullScreenButtonWidth = controlsBackgroundHeight * 0.6;
 	fullScreenButtonHeight = leftHandHeight * 1.07;
 	adjustTag("fullScreenButton", fullScreenButtonLeft, fullScreenButtonTop, fullScreenButtonWidth, fullScreenButtonHeight, "clear");
 	if (isiPad)
 		$('#fullScreenButton').css("display","none");
-
 
 	/* FULL SCREEN LABEL */
 	$("body").append('<div id="fullScreenLabel">Full Screen</div>');
@@ -481,6 +419,103 @@ function drawControls()
 	adjustTag("feedbackLabel", feedbackLabelLeft, feedbackLabelTop, feedbackLabelWidth, feedbackLabelHeight, "clear");
 }
 
+function drawTransposition()
+{
+	/* TRANSPOSITION BOX */
+	transpositionBoxLeft = controlsBackgroundWidth * 0.21;
+	transpositionBoxWidth = (fastLabelLeft - slowLabelLeft)/7;
+	transpositionBoxHeight = controlsBackgroundHeight;
+	transpositionBoxTop = controlsBackgroundTop + (controlsBackgroundHeight - transpositionBoxHeight)/2;
+	transpositionBoxColor = "red";
+	
+	/* TRANSPOSITION DRAGGER TRACK */
+	draggerTrackLeft = transpositionBoxLeft;
+	draggerTrackWidth = (fastLabelLeft - slowLabelLeft);
+	draggerTrackHeight = transpositionBoxWidth * 0.4;
+	draggerTrackTop = controlsBackgroundTop + (controlsBackgroundHeight - draggerTrackHeight)/2;
+	draggerTrackColor = "5884F1";
+	$("body").append('<div id="draggerTransTrack"></div>');
+	adjustTag("draggerTransTrack", draggerTrackLeft, draggerTrackTop, draggerTrackWidth, draggerTrackHeight, draggerTrackColor);
+
+	/* TRANSPOSITION LABEL */
+	$("body").append('<div id="transpositionLabel">Transposition</div>');
+	speedLabelLeft =  draggerTrackLeft;
+	speedLabelTop = leftHandLabelTop;
+	speedLabelWidth = draggerTrackWidth;
+	speedLabelHeight = leftHandLabelHeight;
+	adjustTag("transpositionLabel", speedLabelLeft, speedLabelTop, speedLabelWidth, speedLabelHeight, "clear");
+
+	transpositionBoxLeft += 5;
+	transpositionBoxMax = 13;
+	for (number = 1; number <= transpositionBoxMax; number++)
+	{	
+		/* transposition BOX */
+		$("body").append('<div id="transpositionBox-'+number+'" class="transpositionBox" style="border-style:solid; border-width:1px; z-index:1"></div>');
+		adjustTag("transpositionBox-"+number, transpositionBoxLeft, transpositionBoxTop, transpositionBoxWidth/2, transpositionBoxHeight, transpositionBoxColor);
+		transpositionBoxLeft += transpositionBoxWidth/2;
+	}
+	
+	// /* DRAGGER */
+	// draggerBoxLeft = $("#transpositionBox-"+45).css("left").replace(/px/g, '');
+	// draggerBoxWidth = transpositionBoxWidth;
+	// draggerBoxHeight = draggerBoxWidth;
+	// draggerBoxTop = transpositionBoxTop - (draggerBoxHeight-transpositionBoxHeight)/2;
+	// $("body").append('<img id="dragger" src="./images/dragger.png" style="z-index:2"></img>');
+	// adjustTag("dragger", draggerBoxLeft, draggerBoxTop, draggerBoxWidth, draggerBoxHeight, "clear");
+
+	// /* EVENTS */
+	// $(".transpositionBox").bind(onClickEvent, function (e) {
+	// 	newtranspositionBox = $(this).attr('id');
+	// 	newtranspositionBox = Number(newtranspositionBox.replace(/transpositionBox-/g,''));
+	// 	draggerBoxLeft = $("#transpositionBox-"+newtranspositionBox).css("left").replace(/px/g, '') - 12;
+	// 	$("#dragger").css("left", draggerBoxLeft);
+	// 	setTempo(newtranspositionBox);	
+	//   });
+	
+	// $(".transpositionBox").hover(function() {
+	// 	transpositionBoxId = $(this).attr('id');
+	// 	newTempo = transpositionBoxId.replace(/transpositionBox-/g, '');
+	// 	if (draggerMouseDown)
+	// 	{
+	// 		draggerBoxLeft = $("#transpositionBox-"+newTempo).css("left").replace(/px/g, '') - 12;
+	// 		$("#dragger").css("left", draggerBoxLeft);
+	// 		setTempo(newTempo);
+	// 	}
+	// });
+	
+	// draggerMouseDown = 0;	
+	// $("#dragger").mousedown(function() {
+	// 	$("#dragger").css("z-index", 0);
+	// 	draggerMouseDown = 1;
+	// });
+
+	// $("body").mouseup(function() {
+	// 	$("#dragger").css("z-index", 2);
+	// });
+
+	// // $('#dragger').bind('touchstart', function(e){
+	// // 	e.preventDefault();
+	// // });
+
+	// $('#dragger').bind('touchmove', function(e){
+	// 	e.preventDefault();
+	// 	for (number = 1; number <= transpositionMaxBox; number++)
+	// 	{
+	// 		transpositionBoxLeft = Number($("#transpositionBox-"+number).css('left').replace(/px/g, ''));
+	// 		//debug (number + " " + transpositionBoxLeft + " " + transpositionBoxTop + " " + transpositionBoxWidth);
+	// 		//debug (number + " " + event.touches[0].pageY + ">" + (measureBoxTop + measureBoxWidth));
+	// 		//debug (number + " " + event.touches[0].pageX + " " + transpositionBoxLeft)
+	// 		if (event.touches[0].pageX == transpositionBoxLeft)
+	// 		{
+	// 				//debug(number);
+	// 				draggerBoxLeft = $("#transpositionBox-"+number).css("left").replace(/px/g, '') - 12;
+	// 				$("#dragger").css("left", draggerBoxLeft);
+	// 				setTempo(number);
+	// 		}
+	// 	}
+	// });
+}
+
 function drawMetronome()
 {
 	/* METRONOME BOX */
@@ -498,8 +533,15 @@ function drawMetronome()
 	draggerTrackColor = "5884F1";
 	$("body").append('<div id="draggerTrack"></div>');
 	adjustTag("draggerTrack", draggerTrackLeft, draggerTrackTop, draggerTrackWidth, draggerTrackHeight, draggerTrackColor);
-	//$("#draggerTrack").css("z-index", 20);
-	
+
+	/* SPEED LABEL */
+	$("body").append('<div id="speedLabel">Speed</div>');
+	speedLabelLeft =  draggerTrackLeft;
+	speedLabelTop = leftHandLabelTop;
+	speedLabelWidth = draggerTrackWidth;
+	speedLabelHeight = leftHandLabelHeight;
+	adjustTag("speedLabel", speedLabelLeft, speedLabelTop, speedLabelWidth, speedLabelHeight, "clear");
+
 	metronomeBoxLeft += 8;
 	metronomeMaxBox = 100;
 	for (number = 1; number <= metronomeMaxBox; number++)
