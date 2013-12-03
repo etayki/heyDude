@@ -18,6 +18,9 @@ var rightHandEnabled = 1;
 /* METRONOME */
 var metronomeEnabled = 0;
 
+/* NOTES */
+var notesEnabled = 0;
+
 /* TIMER */
 var timers = new Array();
 

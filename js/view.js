@@ -326,6 +326,22 @@ function drawControls()
 	dividerHeight = controlsBackgroundHeight;
 	adjustTag("divider4", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
 
+	/* NOTE BUTTON */
+	$("body").append('<img id="notesButton" src="./images/notesDisabled.png "'+clickEvent+'="didPressNotes()"></img>');
+	noteButtonLeft =  controlsBackgroundWidth * 0.33;
+	noteButtonHeight = rightHandHeight * 0.97;
+	noteButtonTop = leftHandTop;
+	noteButtonWidth = noteButtonHeight;
+	adjustTag("notesButton", noteButtonLeft, noteButtonTop, noteButtonWidth, noteButtonHeight, "clear");
+	
+	/* NOTE BUTTON LABEL */
+	$("body").append('<div id="notesLabel">Notes Off</div>');
+	noteButtonLabelLeft =  noteButtonLeft - noteButtonWidth;
+	noteButtonLabelTop = leftHandLabelTop;
+	noteButtonLabelWidth = noteButtonWidth * 3;
+	noteButtonLabelHeight = controlsBackgroundHeight * 0.145;
+	adjustTag("notesLabel", noteButtonLabelLeft, noteButtonLabelTop, noteButtonLabelWidth, noteButtonLabelHeight, "clear");
+
 	/* PLAY BUTTON */
 	$("body").append('<img id="playBtn" src="./images/loading.gif "'+clickEvent+'="didPressPlayButton()"></img>');
 	playButtonLeft =  controlsBackgroundWidth * 0.43;
@@ -430,7 +446,7 @@ function drawControls()
 function drawTransposition()
 {
 	/* TRANSPOSITION BOX */
-	transpositionBoxLeft = controlsBackgroundWidth * 0.21;
+	transpositionBoxLeft = controlsBackgroundWidth * 0.18;
 	transpositionBoxWidth = (fastLabelLeft - slowLabelLeft)/7;
 	transpositionBoxHeight = controlsBackgroundHeight;
 	transpositionBoxTop = controlsBackgroundTop + (controlsBackgroundHeight - transpositionBoxHeight)/2;
@@ -1017,6 +1033,23 @@ function didPressMetronome()
 		$("#metronome").attr("src", "./images/metronomeEnabled.png");
 		$('#metroLabel').text("Metro On");
 		metronomeEnabled = 1;
+	}
+}
+
+function didPressNotes()
+{
+	/* TOGGLE FROM ENABLED TO DISABLED */
+	if (notesEnabled)
+	{
+		$("#notesButton").attr("src", "./images/notesDisabled.png");
+		$('#notesLabel').text("Notes Off");
+		notesEnabled = 0;
+	}
+	else
+	{
+		$("#notesButton").attr("src", "./images/notesEnabled.png");
+		$('#notesLabel').text("Notes On");
+		notesEnabled = 1;
 	}
 }
 
