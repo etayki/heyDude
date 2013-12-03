@@ -172,7 +172,7 @@ function drawMeasureGrid()
 	measureBoxLabelLeft = (measureBoxWidth - measureBoxLabelWidth)/2;
 	measureBoxLabelTop = measureBoxLabelLeft;
 	measureBoxLabelHeight = measureBoxLabelWidth;
-	fontSize = getFontSize(measureBoxLabelHeight);
+	measureBoxFontSize = getFontSize(measureBoxLabelHeight);
 
 	/* MEASURE GRID */
 	for (number = 1; number <= maxBoxes; number++)
@@ -652,6 +652,7 @@ function drawMetronome()
 	});
 }
 
+var whiteKeyLabelHeight, blackKeyFingerLabelHeight, blackKeyNoteLabelHeight;
 function drawPiano()
 {
 	/* RED LINE */
@@ -673,7 +674,8 @@ function drawPiano()
 	whiteKeyLabelTop = whiteKeyHeight * 0.76;
 	whiteKeyLabelWidth = whiteKeyWidth;
 	whiteKeyLabelHeight = whiteKeyLabelWidth * 1;
-	
+	whiteKeyLabelFontSize = getFontSize(whiteKeyLabelHeight); 
+
 	/* BLACK KEY */
 	blackKeyLeft =  controlsBackgroundLeft;
 	blackKeyTop = whiteKeyTop;
@@ -685,6 +687,8 @@ function drawPiano()
 	blackKeyLabelTop = blackKeyHeight * 0.5;
 	blackKeyLabelWidth = blackKeyWidth;
 	blackKeyLabelHeight = blackKeyLabelWidth * 2;
+	blackKeyFingerLabelHeight = getFontSize(blackKeyLabelHeight);
+	blackKeyNoteLabelHeight = getFontSize(blackKeyLabelHeight*0.5);
 
 	/* KEYBOARD BACKGROUND */
 	$("body").append('<div id="keyboardBgrd"></div>');
@@ -1199,7 +1203,15 @@ function adjustTag(tag, left, top, width, height, backgroundColor)
 	
 	if (tag.indexOf("Label") !== -1 || tag.indexOf("Button") !== -1)
 	{
-		if (tag.indexOf("measureBoxLabel") == -1) // Save 400ms by doing this once earlier
+		if (tag.indexOf("measureBoxLabel") !== -1) // Save 400ms by doing this once earlier
+			fontSize = measureBoxFontSize;
+		else if (height == whiteKeyLabelHeight) 
+			fontSize = whiteKeyLabelFontSize; 
+		else if (height == blackKeyFingerLabelHeight) 
+			fontSize = blackKeyFingerLabelFontSize; 
+		else if (height == blackKeyNoteLabelHeight) 
+			fontSize = blackKeyNoteLabelFontSize; 
+		else
 			fontSize = getFontSize(height); 
 
 		if (tag.indexOf("feedbackTabLabel") !== -1)
