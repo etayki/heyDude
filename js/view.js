@@ -248,7 +248,7 @@ function drawControls()
 	$("body").append('<img id="leftHand" src="./images/leftHandEnabled.png "'+clickEvent+'="didPressLeftHand()"></img>');
 	leftHandWidth = controlsBackgroundHeight * 0.6;
 	leftHandHeight = leftHandWidth;
-	leftHandLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.05;
+	leftHandLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.02;
 	leftHandTop = controlsBackgroundTop + (controlsBackgroundHeight - leftHandHeight) * 0.6;
 	adjustTag("leftHand", leftHandLeft, leftHandTop, leftHandWidth, leftHandHeight, "clear");
 
