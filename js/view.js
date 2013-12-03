@@ -354,7 +354,7 @@ function drawControls()
 	$("body").append('<img id="metronome" src="./images/metronomeDisabled.png "'+clickEvent+'="didPressMetronome()"></img>');
 	metronomeLeft =  controlsBackgroundWidth * 0.53;
 	metronomeHeight = playButtonHeight * 0.95;
-	metronomeTop = leftHandTop * 1.01;
+	metronomeTop = leftHandTop;
 	metronomeWidth = metronomeHeight;
 	adjustTag("metronome", metronomeLeft, metronomeTop, metronomeWidth, metronomeHeight, "clear");
 	

@@ -110,6 +110,13 @@ function playMusic()
 		$("#playBtn").attr("onclick", "didPressPauseButton()");
 	$('#playLabel').text("Pause");
 
+	// Metronome
+	if ((Math.floor(delay * 100) % 100 == 0) && metronomeEnabled)
+	{
+		MIDI.noteOn(0, 100, 90, 0);
+		MIDI.noteOff(0, 100, 0);
+	}	
+
 	for (measure = startMeasure; measure <= endMeasure; measure++)
 	{
 		for (var noteIdx = 0; noteIdx < tune[measure].length; noteIdx++)
@@ -123,21 +130,23 @@ function playMusic()
 			
 			if (noteEnd > endMeasure * 4)
 				noteEnd = endMeasure * 4 - 0.01;
-			
+
 			if ( (delay - 0.01) <= noteStart && noteStart < delay )
 			{
 				// Turn note on (sound + visual)
-				//debug("ON " + note + " " + noteStart + " " + noteEnd);
-				
 				if (tempo == FAST_FORWARD) // End fastfoward
 					tempo = oldTempo;
 				
 				var finger = tune[measure][noteIdx][FINGER];
 				if (( finger < 0 && !leftHandEnabled) || (finger > 0 && !rightHandEnabled))
 					continue;
-	
+
+				//debug(note + " " + tune[measure][noteIdx][VELOCITY]);	
 				MIDI.noteOn(0, note, tune[measure][noteIdx][VELOCITY], 0);
-				if (finger < 0)
+
+			
+
+			if (finger < 0)
 				{
 					color = "red";
 					finger *= -1;
@@ -311,7 +320,6 @@ function setEndMeasure(newMeasure)
 function setTempo(newMetronomeBox)
 {
 	tempo = Math.ceil((101-newMetronomeBox)/100 * 40);
-	console.log(tempo);
 }
 
 function setTransposition(newTranspositionBox)
