@@ -15,6 +15,9 @@ var FAST_FORWARD = 0.01;
 var leftHandEnabled = 1;
 var rightHandEnabled = 1;
 
+/* METRONOME */
+var metronomeEnabled = 0;
+
 /* TIMER */
 var timers = new Array();
 
@@ -30,7 +33,6 @@ var RETAIN_VISUAL = 1;
 /* FEEDBACK */
 var feedbackFormDisplayed = 0;
 var notePress = 21;
-var repeatEnabled = 1;
 
 /* EVENT REPORTING */
 playIdx = 1;

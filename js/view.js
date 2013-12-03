@@ -350,15 +350,15 @@ function drawControls()
 	dividerHeight = controlsBackgroundHeight;
 	adjustTag("divider2", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
 
-	/* METRONOME IMAGE */
-	$("body").append('<img id="metronome" src="./images/metronome.png"></img>');
+	/* METRONOME BUTTON */
+	$("body").append('<img id="metronome" src="./images/metronomeDisabled.png "'+clickEvent+'="didPressMetronome()"></img>');
 	metronomeLeft =  controlsBackgroundWidth * 0.53;
-	metronomeHeight = controlsBackgroundHeight * 0.6;
-	metronomeTop = controlsBackgroundTop + (controlsBackgroundHeight - metronomeHeight) * 0.7;
-	metronomeWidth = metronomeHeight * 0.6;
+	metronomeHeight = playButtonHeight * 0.95;
+	metronomeTop = leftHandTop * 1.01;
+	metronomeWidth = metronomeHeight;
 	adjustTag("metronome", metronomeLeft, metronomeTop, metronomeWidth, metronomeHeight, "clear");
 	
-	/* TEMPO LABEL */
+	/* METRONOME LABEL */
 	$("body").append('<div id="metroLabel">Metro Off</div>');
 	tempoLabelLeft =  metronomeLeft - metronomeWidth;
 	tempoLabelTop = leftHandLabelTop;
@@ -712,6 +712,15 @@ function setEvents()
 	    doubleTouchStartTimestamp = now;
 	});
 
+	doubleTouchStartTimestamp = 0;
+	$('#metronome').bind("touchstart", function (event) {
+	    var now = +(new Date());
+	    if (doubleTouchStartTimestamp + 500 > now) {
+	        event.preventDefault();
+	    }
+	    doubleTouchStartTimestamp = now;
+	});
+
 	doubleTouchRHandStartTimestamp = 0;
 	$('#rightHand').bind("touchstart", function (event) {
 	    var now = +(new Date());
@@ -994,20 +1003,20 @@ function didPressRightHand()
 	}
 }
 
-function didPressRepeatButton()
+function didPressMetronome()
 {
 	/* TOGGLE FROM ENABLED TO DISABLED */
-	if (repeatEnabled)
+	if (metronomeEnabled)
 	{
-		$("#repeatButton").attr("src", "./images/repeatDisabled.png");
-		$('#repeatLabel').text("Repeat Off");
-		repeatEnabled = 0;
+		$("#metronome").attr("src", "./images/metronomeDisabled.png");
+		$('#metroLabel').text("Metro Off");
+		metronomeEnabled = 0;
 	}
 	else
 	{
-		$("#repeatButton").attr("src", "./images/repeatEnabled.png");
-		$('#repeatLabel').text("Repeat On");
-		repeatEnabled = 1;
+		$("#metronome").attr("src", "./images/metronomeEnabled.png");
+		$('#metroLabel').text("Metro On");
+		metronomeEnabled = 1;
 	}
 }
 
