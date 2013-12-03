@@ -91,7 +91,7 @@ function drawHeader()
 	/* MEASURE GRID HEADER */
 	$("body").append('<div id="measureGridHeader"></div>');
 	measureGridHeaderWidth = Math.floor(screenWidth * 1) - 1; // Subtract one to account for border of measureBox
-	measureGridHeaderLeft = 0//(screenWidth - measureGridHeaderWidth)/2;
+	measureGridHeaderLeft = 0
 	measureGridHeaderTop = 0;
 	measureGridHeaderHeight = measureGridHeaderWidth * 0.065;
 	measureGridHeaderColor = "#919191";
@@ -679,6 +679,8 @@ function drawPiano()
 	keyboardBgrdHeight = whiteKeyHeight * 1.07;
 	adjustTag("keyboardBgrd", keyboardBgrdLeft, keyboardBgrdTop, keyboardBgrdWidth, keyboardBgrdHeight, "black");
 	
+	blackNotes = ["Bb","C#","Eb","F#","Ab"]
+	blackNoteIdx = 0;
 	for (var key = 0; key < 88; key++)
 	{
 		var keyIdx = key % 12;
@@ -703,6 +705,11 @@ function drawPiano()
 			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
 			adjustTag("keyLabel-"+key, blackKeyLabelLeft, blackKeyLabelTop, blackKeyLabelWidth, blackKeyLabelHeight, "clear");
 			$("#keyLabel-"+key).css("font-family", "arial");
+			/* BLACK KEY NOTE LABEL */
+			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyLabel" style="color:black">'+blackNotes[blackNoteIdx++]+'</div></b>');			
+			adjustTag("keyNoteLabel-"+key, blackKeyLabelLeft-10, blackKeyLabelTop*0.15, blackKeyLabelWidth+20, blackKeyLabelHeight*0.50, "clear");
+			$("#keyNoteLabel-"+key).css("font-family", "arial");
+			if(blackNoteIdx == 5) blackNoteIdx = 0; 
 		}
 	}
 }
