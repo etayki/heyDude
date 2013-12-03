@@ -472,26 +472,26 @@ function drawTransposition()
 		//transpose(newtranspositionBox);	
 	  });
 	
-	// $(".transpositionBox").hover(function() {
-	// 	transpositionBoxId = $(this).attr('id');
-	// 	newTempo = transpositionBoxId.replace(/transpositionBox-/g, '');
-	// 	if (draggerMouseDown)
-	// 	{
-	// 		draggerBoxLeft = $("#transpositionBox-"+newTempo).css("left").replace(/px/g, '') - 12;
-	// 		$("#dragger").css("left", draggerBoxLeft);
-	// 		setTempo(newTempo);
-	// 	}
-	// });
+	$(".transpositionBox").hover(function() {
+		transpositionBoxId = $(this).attr('id');
+		newTransposition = transpositionBoxId.replace(/transpositionBox-/g, '');
+		if (draggerMouseDown)
+		{
+			draggerBoxLeft = $("#transpositionBox-"+newTransposition).css("left").replace(/px/g, '') - 12;
+			$("#draggerTrans").css("left", draggerBoxLeft);
+			//transpose(newTransposition);
+		}
+	});
 	
-	// draggerMouseDown = 0;	
-	// $("#dragger").mousedown(function() {
-	// 	$("#dragger").css("z-index", 0);
-	// 	draggerMouseDown = 1;
-	// });
+	draggerMouseDown = 0;
+	$("#draggerTrans").mousedown(function() {
+		$("#draggerTrans").css("z-index", 0);
+		draggerMouseDown = 1;
+	});
 
-	// $("body").mouseup(function() {
-	// 	$("#dragger").css("z-index", 2);
-	// });
+	$("body").mouseup(function() {
+		$("#draggerTrans").css("z-index", 2);
+	});
 
 	// // $('#dragger').bind('touchstart', function(e){
 	// // 	e.preventDefault();
