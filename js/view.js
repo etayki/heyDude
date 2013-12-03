@@ -477,17 +477,17 @@ function drawTransposition()
 		newtranspositionBox = Number(newtranspositionBox.replace(/transpositionBox-/g,''));
 		draggerBoxLeft = $("#transpositionBox-"+newtranspositionBox).css("left").replace(/px/g, '') - 12;
 		$("#draggerTrans").css("left", draggerBoxLeft);
-		//transpose(newtranspositionBox);	
+		setTransposition(newtranspositionBox);	
 	  });
 	
 	$(".transpositionBox").hover(function() {
 		transpositionBoxId = $(this).attr('id');
-		newTransposition = transpositionBoxId.replace(/transpositionBox-/g, '');
+		newTransposition = Number(transpositionBoxId.replace(/transpositionBox-/g, ''));
 		if (draggerMouseDown)
 		{
 			draggerBoxLeft = $("#transpositionBox-"+newTransposition).css("left").replace(/px/g, '') - 12;
 			$("#draggerTrans").css("left", draggerBoxLeft);
-			//transpose(newTransposition);
+			setTransposition(newTransposition);
 		}
 	});
 	
@@ -518,7 +518,7 @@ function drawTransposition()
 					//debug(number);
 					draggerBoxLeft = $("#transpositionBox-"+number).css("left").replace(/px/g, '') - 12;
 					$("#draggerTrans").css("left", draggerBoxLeft);
-					//transpose(number);
+					setTransposition(number);
 			}
 		}
 	});

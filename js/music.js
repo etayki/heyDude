@@ -1,6 +1,9 @@
 /* TEMPO */
 var tempo = 20;
 
+/* TRANSPOSITION */
+var transposeValue = 0;
+
 /* MEASURE/DELAY */
 var startMeasure = currentMeasure = 1;
 var endMeasure = 8;
@@ -109,7 +112,7 @@ function playMusic()
 	{
 		for (var noteIdx = 0; noteIdx < tune[measure].length; noteIdx++)
 		{
-			var note = tune[measure][noteIdx][NOTE];
+			var note = tune[measure][noteIdx][NOTE] + transposeValue;
 			var key = note - 21;
 			var color = "#00FF00";
 			var noteStart = tune[measure][noteIdx][DELAY];
@@ -307,7 +310,14 @@ function setTempo(newMetronomeBox)
 {
 	tempo = Math.ceil((101-newMetronomeBox)/100 * 40);
 	console.log(tempo);
+}
 
+function setTransposition(newTranspositionBox)
+{
+	resetNotes(0);
+	transposeValue = newTranspositionBox - 7;
+	playMusic();
+	$('#transpositionLabel').text("Transposition ("+transposeValue+")");
 }
 
 /* --- ================ DEBUG ================== */
