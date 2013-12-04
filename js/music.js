@@ -33,6 +33,9 @@ var FINGER = 4;
 var REPEAT = 1;
 var RETAIN_VISUAL = 1;
 
+/* ZOOM */
+zoomEnabled = 0;
+
 /* FEEDBACK */
 var feedbackFormDisplayed = 0;
 var notePress = 21;

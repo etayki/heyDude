@@ -415,11 +415,27 @@ function drawControls()
 
 	/* DIVIDER */
 	$("body").append('<img id="divider3" src="./images/divider.png"></img>');
-	dividerLeft =  controlsBackgroundWidth * 0.78;
+	dividerLeft =  controlsBackgroundWidth * 0.75;
 	dividerTop = controlsBackgroundTop;
 	dividerWidth = 20;
 	dividerHeight = controlsBackgroundHeight;
 	adjustTag("divider3", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
+
+	/* ZOOM BUTTON */
+	$("body").append('<img id="zoom" src="./images/zoomIn.png "'+clickEvent+'="didPressZoom()"></img>');
+	zoomLeft =  controlsBackgroundWidth * 0.78;
+	zoomHeight = playButtonHeight * 0.99;
+	zoomTop = leftHandTop*1.005;
+	zoomWidth = zoomHeight;
+	adjustTag("zoom", zoomLeft, zoomTop, zoomWidth, zoomHeight, "clear");
+	
+	/* ZOOM LABEL */
+	$("body").append('<div id="zoomLabel">Zoom In</div>');
+	zoomLabelLeft =  zoomLeft - zoomWidth;
+	zoomLabelTop = leftHandLabelTop;
+	zoomLabelWidth = zoomWidth * 3;
+	zoomLabelHeight = leftHandLabelHeight;
+	adjustTag("zoomLabel", zoomLabelLeft, zoomLabelTop, zoomLabelWidth, zoomLabelHeight, "clear");
 
 	/* FULL SCREEN BUTTON */
 	$("body").append('<img id="fullScreenButton" src="./images/fullScreen.png "'+clickEvent+'="didPressFullScreenButton()"></img>');
@@ -1038,6 +1054,23 @@ function didPressMetronome()
 		$("#metronome").attr("src", "./images/metronomeEnabled.png");
 		$('#metroLabel').text("Metro On");
 		metronomeEnabled = 1;
+	}
+}
+
+function didPressZoom()
+{
+	/* TOGGLE FROM ENABLED TO DISABLED */
+	if (zoomEnabled)
+	{
+		$("#zoom").attr("src", "./images/zoomIn.png");
+		$('#zoomLabel').text("Zoom In");
+		zoomEnabled = 0;
+	}
+	else
+	{
+		$("#zoom").attr("src", "./images/zoomOut.png");
+		$('#zoomLabel').text("Zoom Out");
+		zoomEnabled = 1;
 	}
 }
 
