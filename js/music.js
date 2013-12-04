@@ -154,11 +154,11 @@ function playMusic()
 					color = "red";
 					finger *= -1;
 				}
-				$("#key-"+key).css("background-color",color);
+				$("#"+zoom+"key-"+key).css("background-color",color);
 				if (notesEnabled)
-				 	$("#keyNoteLabel-"+key).css("display","");
+				 	$("#"+zoom+"keyNoteLabel-"+key).css("display","");
 				if (finger != 0)
-					$("#keyLabel-"+key).text(finger);
+					$("#"+zoom+"keyLabel-"+key).text(finger);
 			}
 			else if ((delay - 0.01) < (noteEnd - 0.01) && (noteEnd - 0.01) <= delay)
 			{
@@ -191,7 +191,7 @@ function clearHand(hand)
 	for(var key = 0; key < 88; key++)
 	{
 		note = key + 21
-		keyColor =  $("#key-"+key).css("background-color");
+		keyColor =  $("#"+zoom+"key-"+key).css("background-color");
 		if ((keyColor == "rgb(0, 255, 0)" && hand == "right") || (keyColor == "rgb(255, 0, 0)" && hand == "left"))
 		{
 			resetNote(note);
@@ -224,9 +224,9 @@ function resetNote(note)
 	{
 		color = "black";
 	}
-	$("#key-"+key).css("background-color",color);
-	$("#keyLabel-"+key).text("");
-	$("#keyNoteLabel-"+key).css("display","none");
+	$("#"+zoom+"key-"+key).css("background-color",color);
+	$("#"+zoom+"keyLabel-"+key).text("");
+	$("#"+zoom+"keyNoteLabel-"+key).css("display","none");
 }
 
 /* SET THE CURRENT MEASURE EITHER WITH ARROW KEYS OR BY CLICKING ON MEASURE BOX */

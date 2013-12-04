@@ -12,33 +12,33 @@ var clickEvent;
 function drawScreen()
 {
 	startTime = new Date().getTime();
-	console.log("setSceenWidth: " + (new Date().getTime() - startTime));
+	//console.log("setSceenWidth: " + (new Date().getTime() - startTime));
 	setSceenWidth();
-	console.log("drawHeader: " + (new Date().getTime() - startTime));
+	//console.log("drawHeader: " + (new Date().getTime() - startTime));
 	drawHeader();
-	console.log("drawMeasureGrid: " + (new Date().getTime() - startTime));
+	//console.log("drawMeasureGrid: " + (new Date().getTime() - startTime));
 	drawMeasureGrid();
-	console.log("drawMarkers: " + (new Date().getTime() - startTime));
+	//console.log("drawMarkers: " + (new Date().getTime() - startTime));
 	drawMarkers();
-	console.log("colorizeMeasures: " + (new Date().getTime() - startTime));
+	//console.log("colorizeMeasures: " + (new Date().getTime() - startTime));
 	colorizeMeasures();
-	console.log("drawControls: " + (new Date().getTime() - startTime));
+	//console.log("drawControls: " + (new Date().getTime() - startTime));
 	drawControls();
-	console.log("drawTransposition: " + (new Date().getTime() - startTime));
+	//console.log("drawTransposition: " + (new Date().getTime() - startTime));
 	drawTransposition();
-	console.log("drawMetronome: " + (new Date().getTime() - startTime));
+	//console.log("drawMetronome: " + (new Date().getTime() - startTime));
 	drawMetronome();
-	console.log("drawPiano: " + (new Date().getTime() - startTime));
-	drawPiano();
-	console.log("setEvents: " + (new Date().getTime() - startTime));
+	//console.log("drawPiano: " + (new Date().getTime() - startTime));
+	drawPiano(0,88);
+	//console.log("setEvents: " + (new Date().getTime() - startTime));
 	setEvents();
-	console.log("drawfeedback: " + (new Date().getTime() - startTime));
+	//console.log("drawfeedback: " + (new Date().getTime() - startTime));
 	drawfeedback();
-	console.log("display: " + (new Date().getTime() - startTime));
+	//console.log("display: " + (new Date().getTime() - startTime));
 	display();
-	console.log("reportBrowser: " + (new Date().getTime() - startTime));
+	//console.log("reportBrowser: " + (new Date().getTime() - startTime));
 	reportBrowser();
-	console.log("done: " + (new Date().getTime() - startTime));
+	//console.log("done: " + (new Date().getTime() - startTime));
 }
 
 function setSceenWidth()
@@ -668,9 +668,15 @@ function drawMetronome()
 	});
 }
 
-var whiteKeyLabelHeight, blackKeyFingerLabelHeight, blackKeyNoteLabelHeight;
-function drawPiano()
+var whiteKeyLabelHeight, blackKeyFingerLabelHeight, blackKeyNoteLabelHeight, zoom;
+function drawPiano(startKey, endKey)
 {
+	if (startKey == 0 && endKey == 88)
+		zoom = "";
+	else
+		zoom = "zoom";
+
+	console.log(zoom);
 	/* RED LINE */
 	$("body").append('<img id="redVelvet" src="./images/redLine.png" style="z-index:5"></img>');
 	redLineLeft =  controlsBackgroundLeft;
@@ -681,8 +687,6 @@ function drawPiano()
 	
 	/* WHITE KEY */
 	whiteKeyCount = 0;
-	startKey = 8;
-	endKey = 68;
 	for (var key = startKey; key < endKey; key++)
 	{
 		var keyIdx = key % 12;
@@ -725,7 +729,6 @@ function drawPiano()
 	adjustTag("keyboardBgrd", keyboardBgrdLeft, keyboardBgrdTop, keyboardBgrdWidth, keyboardBgrdHeight, "black");
 
 	noteNames = ["A","Bb","B","C","C#","D","Eb","E","F","F#","G","Ab"];
-	noteIdx = 0;	
 	for (var key = startKey; key < endKey; key++)
 	{
 		keyIdx = key % 12;
@@ -733,31 +736,31 @@ function drawPiano()
 		{
 			if (key!=startKey) whiteKeyLeft += whiteKeyWidth;
 			/* WHITE KEY */
-			$("body").append('<div id="key-'+key+'" class="key" style="border-style:solid; border-width:2px; z-index:2"></div>');
-			adjustTag("key-"+key, whiteKeyLeft, whiteKeyTop, whiteKeyWidth, whiteKeyHeight, "white");
+			$("body").append('<div id="'+zoom+'key-'+key+'" class="key" style="border-style:solid; border-width:2px; z-index:2"></div>');
+			adjustTag(zoom+"key-"+key, whiteKeyLeft, whiteKeyTop, whiteKeyWidth, whiteKeyHeight, "white");
 			/* WHITE KEY LABEL */
-			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
-			adjustTag("keyLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop, whiteKeyLabelWidth, whiteKeyLabelHeight, "clear");
-			$("#keyLabel-"+key).css("font-family", "arial");
+			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
+			adjustTag(zoom+"keyLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop, whiteKeyLabelWidth, whiteKeyLabelHeight, "clear");
+			$("#"+zoom+"keyLabel-"+key).css("font-family", "arial");
 			/* WHITE KEY NOTE LABEL */
-			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');			
-			adjustTag("keyNoteLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop*0.7, whiteKeyLabelWidth, whiteKeyLabelHeight, "clear");
-			$("#keyNoteLabel-"+key).css("font-family", "arial");
+			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');			
+			adjustTag(zoom+"keyNoteLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop*0.7, whiteKeyLabelWidth, whiteKeyLabelHeight, "clear");
+			$("#"+zoom+"keyNoteLabel-"+key).css("font-family", "arial");
 		}
 		else
 		{
 			/* BLACK KEY */
 			blackKeyLeft =  whiteKeyLeft + Math.floor(whiteKeyWidth * 0.75);
-			$("body").append('<div id="key-'+key+'" class="key" style="z-index:3; border-style:solid; border-width:1px"></div>');
-			adjustTag("key-"+key, blackKeyLeft, blackKeyTop, blackKeyWidth, blackKeyHeight, "black");
+			$("body").append('<div id="'+zoom+'key-'+key+'" class="key" style="z-index:3; border-style:solid; border-width:1px"></div>');
+			adjustTag(zoom+"key-"+key, blackKeyLeft, blackKeyTop, blackKeyWidth, blackKeyHeight, "black");
 			/* BLACK KEY LABEL */
-			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
-			adjustTag("keyLabel-"+key, blackKeyLabelLeft, blackKeyLabelTop, blackKeyLabelWidth, blackKeyLabelHeight, "clear");
-			$("#keyLabel-"+key).css("font-family", "arial");
+			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
+			adjustTag(zoom+"keyLabel-"+key, blackKeyLabelLeft, blackKeyLabelTop, blackKeyLabelWidth, blackKeyLabelHeight, "clear");
+			$("#"+zoom+"keyLabel-"+key).css("font-family", "arial");
 			/* BLACK KEY NOTE LABEL */
-			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');			
-			adjustTag("keyNoteLabel-"+key, blackKeyLabelLeft-10, blackKeyLabelTop*0.15, blackKeyLabelWidth+20, blackKeyLabelHeight*0.50, "clear");
-			$("#keyNoteLabel-"+key).css("font-family", "arial");
+			$("#key-"+key).append('<b><div id="'+zoom+'keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');			
+			adjustTag(zoom+"keyNoteLabel-"+key, blackKeyLabelLeft-10, blackKeyLabelTop*0.15, blackKeyLabelWidth+20, blackKeyLabelHeight*0.50, "clear");
+			$("#"+zoom+"keyNoteLabel-"+key).css("font-family", "arial");
 		}
 	}
 	$('.keyNoteLabel').css("display","none");
@@ -894,11 +897,12 @@ function setEvents()
 		resetNote(notePress);
 		
 		/* TURN ON NOTE */
-		keyPress = ($(this).attr('id')).replace(/key-/g,'');
+		keyPress = ($(this).attr('id')).replace(new RegExp(zoom+'key-','g'),'');
+		console.log(keyPress);
 		notePress = Number(keyPress) + 21;
 		MIDI.noteOn(0,notePress,90,0);
 		MIDI.noteOff(0,notePress,0.4);
-		$("#key-"+keyPress).css("background-color","yellow");
+		$("#"+zoom+"key-"+keyPress).css("background-color","yellow");
 
 		keyPressTimer = setTimeout(function() {
 			resetNote(notePress);
@@ -1233,6 +1237,7 @@ function drawfeedback()
 /* HELPER FUNCTIONS */
 function adjustTag(tag, left, top, width, height, backgroundColor)
 {
+	console.log(tag);
 	$("#"+tag).css("position", "absolute");
 	$("#"+tag).css("left", left);
 	$("#"+tag).css("top", top);
