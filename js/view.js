@@ -664,8 +664,18 @@ function drawPiano()
 	adjustTag("redVelvet", redLineLeft, redLineTop, redLineWidth, redLineHeight, "clear");
 	
 	/* WHITE KEY */
-	whiteKeyWidth = controlsBackgroundWidth/52.5; // 52 white keys on keyboard, but we need room for margins
-	whiteKeyLeft = controlsBackgroundLeft + (controlsBackgroundWidth - whiteKeyWidth * 52) * 0.4;
+	whiteKeyCount = 0;
+	startKey = 8;
+	endKey = 68;
+	for (var key = startKey; key < endKey; key++)
+	{
+		var keyIdx = key % 12;
+		if (!(keyIdx==1 || keyIdx==4 || keyIdx==6 || keyIdx == 9 || keyIdx==11))
+			whiteKeyCount++;
+	}
+
+	whiteKeyWidth = controlsBackgroundWidth/(whiteKeyCount*1.015); // 52 white keys on keyboard, but we need room for margins
+	whiteKeyLeft = controlsBackgroundLeft + controlsBackgroundWidth * 0.005;
 	whiteKeyTop = redLineTop + redLineHeight;
 	whiteKeyHeight = whiteKeyWidth * 4.3;
 	
@@ -702,12 +712,14 @@ function drawPiano()
 	blackNoteIdx = 0;	
 	whiteNotes = ["A","B","C","D","E","F","G"]
 	whiteNoteIdx = 0;
-	for (var key = 0; key < 88; key++)
+	console.log(whiteKeyLeft);
+	for (var key = startKey; key < endKey; key++)
 	{
 		var keyIdx = key % 12;
+		console.log(keyIdx+" "+whiteKeyLeft);
 		if (!(keyIdx==1 || keyIdx==4 || keyIdx==6 || keyIdx == 9 || keyIdx==11))
 		{
-			if (key !=0) whiteKeyLeft += whiteKeyWidth;
+			if (key!=startKey) whiteKeyLeft += whiteKeyWidth;
 			/* WHITE KEY */
 			$("body").append('<div id="key-'+key+'" class="key" style="border-style:solid; border-width:2px; z-index:2"></div>');
 			adjustTag("key-"+key, whiteKeyLeft, whiteKeyTop, whiteKeyWidth, whiteKeyHeight, "white");
