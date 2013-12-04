@@ -29,7 +29,7 @@ function drawScreen()
 	//console.log("drawMetronome: " + (new Date().getTime() - startTime));
 	drawMetronome();
 	//console.log("drawPiano: " + (new Date().getTime() - startTime));
-	//drawPiano(0,88);
+	drawPiano(0,88);
 	drawPiano(8,68);
 	//console.log("setEvents: " + (new Date().getTime() - startTime));
 	setEvents();
@@ -673,9 +673,9 @@ var whiteKeyLabelHeight, blackKeyFingerLabelHeight, blackKeyNoteLabelHeight, zoo
 function drawPiano(startKey, endKey)
 {
 	if (startKey == 0 && endKey == 88)
-		zoom = "";
+		zoom = "zoomOff";
 	else
-		zoom = "zoom";
+		zoom = "zoomOn";
 
 	console.log(zoom);
 	/* RED LINE */
@@ -722,12 +722,12 @@ function drawPiano(startKey, endKey)
 	blackKeyNoteLabelHeight = getFontSize(blackKeyLabelHeight*0.5);
 
 	/* KEYBOARD BACKGROUND */
-	$("body").append('<div id="keyboardBgrd"></div>');
+	$("body").append('<div id="'+zoom+'keyboardBgrd" class="'+zoom+'"></div>');
 	keyboardBgrdLeft =  controlsBackgroundLeft;
 	keyboardBgrdTop = redLineTop + redLineHeight;
 	keyboardBgrdWidth = controlsBackgroundWidth;
 	keyboardBgrdHeight = whiteKeyHeight * 1.07;
-	adjustTag("keyboardBgrd", keyboardBgrdLeft, keyboardBgrdTop, keyboardBgrdWidth, keyboardBgrdHeight, "black");
+	adjustTag(zoom+"keyboardBgrd", keyboardBgrdLeft, keyboardBgrdTop, keyboardBgrdWidth, keyboardBgrdHeight, "black");
 
 	noteNames = ["A","Bb","B","C","C#","D","Eb","E","F","F#","G","Ab"];
 	for (var key = startKey; key < endKey; key++)
@@ -737,7 +737,7 @@ function drawPiano(startKey, endKey)
 		{
 			if (key!=startKey) whiteKeyLeft += whiteKeyWidth;
 			/* WHITE KEY */
-			$("body").append('<div id="'+zoom+'key-'+key+'" class="key" style="border-style:solid; border-width:2px; z-index:2"></div>');
+			$("body").append('<div id="'+zoom+'key-'+key+'" class="key '+zoom+'" style="border-style:solid; border-width:2px; z-index:2"></div>');
 			adjustTag(zoom+"key-"+key, whiteKeyLeft, whiteKeyTop, whiteKeyWidth, whiteKeyHeight, "white");
 			/* WHITE KEY LABEL */
 			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
@@ -752,7 +752,7 @@ function drawPiano(startKey, endKey)
 		{
 			/* BLACK KEY */
 			blackKeyLeft =  whiteKeyLeft + Math.floor(whiteKeyWidth * 0.75);
-			$("body").append('<div id="'+zoom+'key-'+key+'" class="key" style="z-index:3; border-style:solid; border-width:1px"></div>');
+			$("body").append('<div id="'+zoom+'key-'+key+'" class="key '+zoom+'" style="z-index:3; border-style:solid; border-width:1px"></div>');
 			adjustTag(zoom+"key-"+key, blackKeyLeft, blackKeyTop, blackKeyWidth, blackKeyHeight, "black");
 			/* BLACK KEY LABEL */
 			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
@@ -765,6 +765,7 @@ function drawPiano(startKey, endKey)
 		}
 	}
 	$('.keyNoteLabel').css("display","none");
+	$('.zoomOn').css("display","none");
 }
 
 
@@ -1069,12 +1070,18 @@ function didPressZoom()
 	{
 		$("#zoom").attr("src", "./images/zoomIn.png");
 		$('#zoomLabel').text("Zoom In");
+		$('.zoomOff').css("display","");
+		$('.zoomOn').css("display","none");
+		zoom = "zoomOff";
 		zoomEnabled = 0;
 	}
 	else
 	{
 		$("#zoom").attr("src", "./images/zoomOut.png");
 		$('#zoomLabel').text("Zoom Out");
+		$('.zoomOff').css("display","none");
+		$('.zoomOn').css("display","");
+		zoom = "zoomOn";
 		zoomEnabled = 1;
 	}
 }
