@@ -678,13 +678,16 @@ function drawPiano(startKey, endKey)
 		zoom = "zoomOn";
 
 	/* RED LINE */
-	$("body").append('<img id="redVelvet" src="./images/redLine.png" style="z-index:5"></img>');
-	redLineLeft =  controlsBackgroundLeft;
-	redLineTop = controlsBackgroundTop + controlsBackgroundHeight;
-	redLineWidth = controlsBackgroundWidth;
-	redLineHeight = 5;
-	adjustTag("redVelvet", redLineLeft, redLineTop, redLineWidth, redLineHeight, "clear");
-	
+	if (startKey == 0) // Draw only once
+	{
+		$("body").append('<img id="redVelvet" src="./images/redLine.png" style="z-index:5"></img>');
+		redLineLeft =  controlsBackgroundLeft;
+		redLineTop = controlsBackgroundTop + controlsBackgroundHeight;
+		redLineWidth = controlsBackgroundWidth;
+		redLineHeight = 5;
+		adjustTag("redVelvet", redLineLeft, redLineTop, redLineWidth, redLineHeight, "clear");
+	}
+
 	/* WHITE KEY */
 	whiteKeyCount = 0;
 	for (var key = startKey; key < endKey; key++)
