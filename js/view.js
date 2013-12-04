@@ -33,7 +33,7 @@ function drawScreen()
 	drawMetronome();
 	//console.log("drawPiano: " + (new Date().getTime() - startTime));
 	drawPiano(0,88);
-	drawPiano(8,68);
+	//drawPiano(8,68);
 	//console.log("setEvents: " + (new Date().getTime() - startTime));
 	setEvents();
 	//console.log("drawfeedback: " + (new Date().getTime() - startTime));
@@ -581,9 +581,10 @@ function drawTranspositionTablet()
 
 function drawMetronome()
 {
+	metronomeMaxBox = 70;
 	/* METRONOME BOX */
 	metronomeBoxLeft = slowLabelLeft + slowLabelWidth/2;
-	metronomeBoxWidth = (fastLabelLeft - slowLabelLeft)/7;
+	metronomeBoxWidth = (fastLabelLeft - slowLabelLeft)/metronomeMaxBox;
 	metronomeBoxHeight = controlsBackgroundHeight;
 	metronomeBoxTop = controlsBackgroundTop + (controlsBackgroundHeight - metronomeBoxHeight)/2;
 	metronomeBoxColor = "clear";
@@ -591,7 +592,7 @@ function drawMetronome()
 	/* DRAGGER TRACK */
 	draggerTrackLeft = metronomeBoxLeft;
 	draggerTrackWidth = (fastLabelLeft - slowLabelLeft);
-	draggerTrackHeight = metronomeBoxWidth * 0.4;
+	draggerTrackHeight = draggerTrackHeight;
 	draggerTrackTop = controlsBackgroundTop + (controlsBackgroundHeight - draggerTrackHeight)/2;
 	draggerTrackColor = "5884F1";
 	$("body").append('<div id="draggerTrack"></div>');
@@ -605,20 +606,19 @@ function drawMetronome()
 	speedLabelHeight = leftHandLabelHeight;
 	adjustTag("speedLabel", speedLabelLeft, speedLabelTop, speedLabelWidth, speedLabelHeight, "clear");
 
-	metronomeBoxLeft += 8;
-	metronomeMaxBox = 100;
+	metronomeBoxLeft += 0;
 	for (number = 1; number <= metronomeMaxBox; number++)
 	{	
 		/* METRONOME BOX */
-		$("body").append('<div id="metronomeBox-'+number+'" class="metronomeBox" style="border-style:solid; border-width:0px; z-index:1"></div>');
-		adjustTag("metronomeBox-"+number, metronomeBoxLeft, metronomeBoxTop, metronomeBoxWidth/16, metronomeBoxHeight, metronomeBoxColor);
-		metronomeBoxLeft += metronomeBoxWidth/16;
+		$("body").append('<div id="metronomeBox-'+number+'" class="metronomeBox" style="border-style:solid; border-width:0px;z-index:1;background-color:clear"></div>');
+		adjustTag("metronomeBox-"+number, metronomeBoxLeft, metronomeBoxTop, metronomeBoxWidth, metronomeBoxHeight, metronomeBoxColor);
+		metronomeBoxLeft += metronomeBoxWidth;
 	}
 	
 	/* DRAGGER */
-	draggerBoxLeft = $("#metronomeBox-"+45).css("left").replace(/px/g, '');
-	draggerBoxWidth = metronomeBoxWidth;
-	draggerBoxHeight = draggerBoxWidth;
+	draggerBoxLeft = $("#metronomeBox-"+Math.ceil(metronomeMaxBox * 0.4)).css("left").replace(/px/g, '');
+	draggerBoxWidth = draggerTransBoxHeight;
+	draggerBoxHeight = draggerTransBoxHeight;
 	draggerBoxTop = metronomeBoxTop - (draggerBoxHeight-metronomeBoxHeight)/2;
 	$("body").append('<img id="dragger" src="./images/dragger.png" style="z-index:2"></img>');
 	adjustTag("dragger", draggerBoxLeft, draggerBoxTop, draggerBoxWidth, draggerBoxHeight, "clear");
