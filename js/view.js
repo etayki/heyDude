@@ -44,12 +44,11 @@ function drawScreen()
 
 function setSceenWidth()
 {
-	//screenWidth = 950;
 	screenWidth = screen.width;
 	userAgent = navigator.userAgent;
 	isiPad = navigator.userAgent.match(/iPad/i) != null;
 
-	if(userAgent.indexOf("iPhone") !== -1 || userAgent.indexOf("iPad") !== -1)
+	if(userAgent.indexOf("iPhone") !== -1 || isiPad)
 		screenWidth = 981;
 
 	/* SET BACKGROUND IMAGE */
@@ -548,28 +547,10 @@ function drawTransposition()
 	$("body").mouseup(function() {
 		$("#draggerTrans").css("z-index", 2);
 	});
+}
 
-	$('#draggerTrans').bind('touchstart', function(e){
-		e.preventDefault();
-	});
-
-	$('#draggerTrans').bind('touchmove', function(e){
-		e.preventDefault();
-		for (number = 1; number <= transpositionBoxMax; number++)
-		{
-			transpositionBoxLeft = Number($("#transpositionBox-"+number).css('left').replace(/px/g, ''));
-			//debug (number + " " + transpositionBoxLeft + " " + transpositionBoxTop + " " + transpositionBoxWidth);
-			//debug (number + " " + event.touches[0].pageY + ">" + (measureBoxTop + measureBoxWidth));
-			//debug (number + " " + event.touches[0].pageX + " " + transpositionBoxLeft)
-			if (event.touches[0].pageX == transpositionBoxLeft)
-			{
-					//debug(number);
-					draggerBoxLeft = $("#transpositionBox-"+number).css("left").replace(/px/g, '') - 12;
-					$("#draggerTrans").css("left", draggerBoxLeft);
-					setTransposition(number);
-			}
-		}
-	});
+function drawTranspositionTablet()
+{
 }
 
 function drawMetronome()
