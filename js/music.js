@@ -339,7 +339,6 @@ function setEndMeasure(newMeasure)
 function setTempo(newMetronomeBox)
 {
 	tempo = Math.ceil((101-newMetronomeBox)/100 * 40);
-	console.log(newMetronomeBox + " " +tempo);
 }
 
 function setTransposition(newTransposition)
