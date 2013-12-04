@@ -345,7 +345,8 @@ function setTransposition(newTransposition)
 {
 	resetNotes(0);
 	transposeValue = newTransposition
-	playMusic();
+	if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
+		playMusic();
 	$('#transpositionLabel').text("Transposition ("+transposeValue+")");
 }
 
