@@ -114,6 +114,10 @@ function didPressPauseButton()
 
 function playMusic()
 {	
+	thisTime = new Date().getTime();
+	//debug(tempo + " " + (thisTime-previousTime));
+	console.log(tempo + " " + (thisTime-previousTime));
+	previousTime = thisTime;
 	/* TOGGLE FROM PLAY TO PAUSE */
 	$("#playBtn").attr("src", "http://watchandrepeat.com/images/pauseButton.png");
 	if(navigator.platform.indexOf("iPad") != -1)
@@ -188,8 +192,6 @@ function playMusic()
 	//adjustedTempo = tempo
 	//if (isiPad) adjustedTempo = tempo/1.6;
 	timers.push(setTimeout(function() {
-		thisTime = new Date().getTime();
-		console.log(tempo + " " + (thisTime-previousTime));
 		delay += 0.01;
 		if (delay >= endDelay)
 		{
@@ -198,7 +200,6 @@ function playMusic()
 		
 		setPositionMarker();
 		playMusic();
-		previousTime = thisTime;
 
 	}, tempo));	
 }
