@@ -26,14 +26,20 @@ function drawScreen()
 	drawControls();
 	//console.log("drawTransposition: " + (new Date().getTime() - startTime));
 	if (isiPad)
+	//if (1)
+	{
 		drawTranspositionTablet();
+		drawSpeedTablet();
+	}
 	else
+	{
+		drawMetronome();
 		drawTransposition();
+	}
 	//console.log("drawMetronome: " + (new Date().getTime() - startTime));
-	drawMetronome();
 	//console.log("drawPiano: " + (new Date().getTime() - startTime));
-	drawPiano(0,88);
 	drawPiano(8,68);
+	drawPiano(0,88);
 	//console.log("setEvents: " + (new Date().getTime() - startTime));
 	setEvents();
 	//console.log("drawfeedback: " + (new Date().getTime() - startTime));
@@ -573,12 +579,39 @@ function drawTranspositionTablet()
 	adjustTag("transPlusButton", transPlusButtonLeft, transPlusButtonTop, transPlusButtonWidth, transPlusButtonHeight, "clear");
 
 	/* TRANSPOSITION LABEL */
-	$("body").append('<div id="transpositionLabel">Transposition</div>');
+	$("body").append('<div id="transpositionLabel">Transposition (0)</div>');
 	transLabelLeft =  transMinusButtonLeft;
 	transLabelTop = leftHandLabelTop;
 	transLabelWidth = transPlusButtonLeft + transPlusButtonWidth - transMinusButtonLeft;
 	transLabelHeight = leftHandLabelHeight;
 	adjustTag("transpositionLabel", transLabelLeft, transLabelTop, transLabelWidth, transLabelHeight, "clear");
+}
+
+function drawSpeedTablet()
+{
+	/* SPEED MINUS BUTTON */
+	$("body").append('<img id="speedMinusButton" src="./images/minusButtonEnabled.png"'+clickEvent+'="didPressSpeedMinusButton()"></img>');
+	speedMinusButtonLeft =  controlsBackgroundWidth * 0.6;
+	speedMinusButtonTop = leftHandTop;
+	speedMinusButtonWidth = controlsBackgroundHeight * 0.6;
+	speedMinusButtonHeight = leftHandHeight;
+	adjustTag("speedMinusButton", speedMinusButtonLeft, speedMinusButtonTop, speedMinusButtonWidth, speedMinusButtonHeight, "clear");
+
+	/* SPEED PLUS BUTTON */
+	$("body").append('<img id="speedPlusButton" src="./images/PlusButtonDisabled.png"'+clickEvent+'="didPressSpeedPlusButton()"></img>');
+	speedPlusButtonLeft =  controlsBackgroundWidth * 0.65;
+	speedPlusButtonTop = leftHandTop;
+	speedPlusButtonWidth = controlsBackgroundHeight * 0.6;
+	speedPlusButtonHeight = leftHandHeight;
+	adjustTag("speedPlusButton", speedPlusButtonLeft, speedPlusButtonTop, speedPlusButtonWidth, speedPlusButtonHeight, "clear");
+
+	/* SPEED LABEL */
+	$("body").append('<div id="speedLabel">Speed: (100%)</div>');
+	speedLabelLeft =  speedMinusButtonLeft;
+	speedLabelTop = leftHandLabelTop;
+	speedLabelWidth = speedPlusButtonLeft + speedPlusButtonWidth - speedMinusButtonLeft;
+	speedLabelHeight = leftHandLabelHeight;
+	adjustTag("speedLabel", speedLabelLeft, speedLabelTop, speedLabelWidth, speedLabelHeight, "clear");
 }
 
 function drawMetronome()
@@ -687,13 +720,13 @@ function drawPiano(startKey, endKey)
 		zoom = "zoomOn";
 
 	/* RED LINE */
+	redLineLeft =  controlsBackgroundLeft;
+	redLineTop = controlsBackgroundTop + controlsBackgroundHeight;
+	redLineWidth = controlsBackgroundWidth;
+	redLineHeight = 5;
 	if (startKey == 0) // Draw only once
 	{
 		$("body").append('<img id="redVelvet" src="./images/redLine.png" style="z-index:5"></img>');
-		redLineLeft =  controlsBackgroundLeft;
-		redLineTop = controlsBackgroundTop + controlsBackgroundHeight;
-		redLineWidth = controlsBackgroundWidth;
-		redLineHeight = 5;
 		adjustTag("redVelvet", redLineLeft, redLineTop, redLineWidth, redLineHeight, "clear");
 	}
 
@@ -911,7 +944,6 @@ function setEvents()
 		
 		/* TURN ON NOTE */
 		keyPress = ($(this).attr('id')).replace(new RegExp(zoom+'key-','g'),'');
-		console.log(keyPress);
 		notePress = Number(keyPress) + 21;
 		MIDI.noteOn(0,notePress,90,0);
 		MIDI.noteOff(0,notePress,0.4);
@@ -1086,6 +1118,38 @@ function didPressTransPlusButton()
 		{
 			$("#transPlusButton").attr("src", "./images/plusButtonDisabled.png");
 			transPlusButtonEnabled = 0;
+		}		
+	}
+}
+
+function didPressSpeedMinusButton()
+{
+	/* TOGGLE FROM ENABLED TO DISABLED */
+	if (speedMinusButtonEnabled)
+	{
+		$("#speedPlusButton").attr("src", "./images/plusButtonEnabled.png");
+		speedPlusButtonEnabled = 1;
+		setTempo(currentMetronomeBox - 10);
+		if (currentMetronomeBox == 10)
+		{
+			$("#speedMinusButton").attr("src", "./images/minusButtonDisabled.png");
+			speedMinusButtonEnabled = 0;
+		}		
+	}
+}
+
+function didPressSpeedPlusButton()
+{
+	/* TOGGLE FROM ENABLED TO DISABLED */
+	if (speedPlusButtonEnabled)
+	{
+		$("#speedMinusButton").attr("src", "./images/minusButtonEnabled.png");
+		speedMinusButtonEnabled = 1;
+		setTempo(currentMetronomeBox + 10);
+		if (currentMetronomeBox == 100)
+		{
+			$("#speedPlusButton").attr("src", "./images/plusButtonDisabled.png");
+			speedPlusButtonEnabled = 0;
 		}		
 	}
 }
@@ -1327,7 +1391,6 @@ function adjustTag(tag, left, top, width, height, backgroundColor)
 
 function getFontSize(labelHeight)
 {
-	//console.log("getFontSizeStart: " + (new Date().getTime() - startTime));
 	$("body").append('<div id="textLabel"><span id="textSpan">Feedback</span></div>');
 
 	fontSize = 0;
@@ -1339,6 +1402,5 @@ function getFontSize(labelHeight)
 	} while (spanHeight < labelHeight)
 	
 	$('#textLabel').remove();
-	//console.log("getFontSizeEnd: " + (new Date().getTime() - startTime));	
 	return fontSize;
 }

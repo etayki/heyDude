@@ -6,6 +6,10 @@ var transposeValue = 0;
 var transMinusButtonEnabled = 1;
 var transPlusButtonEnabled = 1;
 
+/* SPEED */
+var speedMinusButtonEnabled = 1;
+var speedPlusButtonEnabled = 0;
+
 /* MEASURE/DELAY */
 var startMeasure = currentMeasure = 1;
 var endMeasure = 8;
@@ -19,6 +23,7 @@ var rightHandEnabled = 1;
 
 /* METRONOME */
 var metronomeEnabled = 0;
+var currentMetronomeBox = 100;
 
 /* NOTES */
 var notesEnabled = 0;
@@ -338,6 +343,7 @@ function setEndMeasure(newMeasure)
 
 function setTempo(newMetronomeBox)
 {
+	currentMetronomeBox = newMetronomeBox;
 	$('#speedLabel').text("Speed: "+newMetronomeBox+"%");
 	newMetronomeBox = newMetronomeBox * 0.75;
 	tempo = Math.ceil((101-newMetronomeBox)/100 * 40);
