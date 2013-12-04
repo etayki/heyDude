@@ -29,7 +29,8 @@ function drawScreen()
 	//console.log("drawMetronome: " + (new Date().getTime() - startTime));
 	drawMetronome();
 	//console.log("drawPiano: " + (new Date().getTime() - startTime));
-	drawPiano(0,88);
+	//drawPiano(0,88);
+	drawPiano(8,68);
 	//console.log("setEvents: " + (new Date().getTime() - startTime));
 	setEvents();
 	//console.log("drawfeedback: " + (new Date().getTime() - startTime));
@@ -744,7 +745,7 @@ function drawPiano(startKey, endKey)
 			$("#"+zoom+"keyLabel-"+key).css("font-family", "arial");
 			/* WHITE KEY NOTE LABEL */
 			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');			
-			adjustTag(zoom+"keyNoteLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop*0.7, whiteKeyLabelWidth, whiteKeyLabelHeight, "clear");
+			adjustTag(zoom+"keyNoteLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop*0.73, whiteKeyLabelWidth, whiteKeyLabelHeight, "clear");
 			$("#"+zoom+"keyNoteLabel-"+key).css("font-family", "arial");
 		}
 		else
@@ -758,8 +759,8 @@ function drawPiano(startKey, endKey)
 			adjustTag(zoom+"keyLabel-"+key, blackKeyLabelLeft, blackKeyLabelTop, blackKeyLabelWidth, blackKeyLabelHeight, "clear");
 			$("#"+zoom+"keyLabel-"+key).css("font-family", "arial");
 			/* BLACK KEY NOTE LABEL */
-			$("#key-"+key).append('<b><div id="'+zoom+'keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');			
-			adjustTag(zoom+"keyNoteLabel-"+key, blackKeyLabelLeft-10, blackKeyLabelTop*0.15, blackKeyLabelWidth+20, blackKeyLabelHeight*0.50, "clear");
+			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');
+			adjustTag(zoom+"keyNoteLabel-"+key, blackKeyLabelLeft-10, blackKeyLabelTop*0.15, blackKeyLabelWidth+20, blackKeyLabelHeight*0.4, "clear");
 			$("#"+zoom+"keyNoteLabel-"+key).css("font-family", "arial");
 		}
 	}
