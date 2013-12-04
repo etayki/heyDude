@@ -1,5 +1,5 @@
 /* TEMPO */
-var tempo = 20;
+var tempo = 10;
 
 /* TRANSPOSITION */
 var transposeValue = 0;
@@ -338,6 +338,8 @@ function setEndMeasure(newMeasure)
 
 function setTempo(newMetronomeBox)
 {
+	$('#speedLabel').text("Speed: "+newMetronomeBox+"%");
+	newMetronomeBox = newMetronomeBox * 0.75;
 	tempo = Math.ceil((101-newMetronomeBox)/100 * 40);
 }
 

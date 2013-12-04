@@ -407,6 +407,7 @@ function drawControls()
 	slowLabelWidth = controlsBackgroundWidth * 0.05;
 	slowLabelHeight = controlsBackgroundHeight * 0.2;
 	adjustTag("slowLabel", slowLabelLeft, slowLabelTop, slowLabelWidth, slowLabelHeight, "clear");
+	$('#slowLabel').css("display","none");
 	
 	/* FAST LABEL */
 	$("body").append('<div id="fastLabel">Fast</div>');
@@ -415,6 +416,7 @@ function drawControls()
 	fastLabelWidth = controlsBackgroundWidth * 0.05;
 	fastLabelHeight = controlsBackgroundHeight * 0.2;
 	adjustTag("fastLabel", fastLabelLeft, fastLabelTop, fastLabelWidth, fastLabelHeight, "clear");
+	$('#fastLabel').css("display","none");
 
 	/* DIVIDER */
 	$("body").append('<img id="divider3" src="./images/divider.png"></img>');
@@ -496,12 +498,12 @@ function drawTransposition()
 	adjustTag("draggerTransTrack", draggerTrackLeft, draggerTrackTop, draggerTrackWidth, draggerTrackHeight, draggerTrackColor);
 
 	/* TRANSPOSITION LABEL */
-	$("body").append('<div id="transpositionLabel">Transposition</div>');
-	speedLabelLeft =  draggerTrackLeft;
-	speedLabelTop = leftHandLabelTop;
-	speedLabelWidth = draggerTrackWidth;
-	speedLabelHeight = leftHandLabelHeight;
-	adjustTag("transpositionLabel", speedLabelLeft, speedLabelTop, speedLabelWidth, speedLabelHeight, "clear");
+	$("body").append('<div id="transpositionLabel">Transposition (0)</div>');
+	transpositionLabelLeft =  draggerTrackLeft;
+	transpositionLabelTop = leftHandLabelTop;
+	transpositionLabelWidth = draggerTrackWidth;
+	transpositionLabelHeight = leftHandLabelHeight;
+	adjustTag("transpositionLabel", transpositionLabelLeft, transpositionLabelTop, transpositionLabelWidth, transpositionLabelHeight, "clear");
 
 	transpositionBoxLeft += 5;
 	transpositionBoxMax = 13;
@@ -598,7 +600,7 @@ function drawMetronome()
 	adjustTag("draggerTrack", draggerTrackLeft, draggerTrackTop, draggerTrackWidth, draggerTrackHeight, draggerTrackColor);
 
 	/* SPEED LABEL */
-	$("body").append('<div id="speedLabel">Speed</div>');
+	$("body").append('<div id="speedLabel">Speed (100%)</div>');
 	speedLabelLeft =  draggerTrackLeft;
 	speedLabelTop = leftHandLabelTop;
 	speedLabelWidth = draggerTrackWidth;
@@ -616,7 +618,7 @@ function drawMetronome()
 	}
 	
 	/* DRAGGER */
-	draggerBoxLeft = $("#metronomeBox-"+45).css("left").replace(/px/g, '');
+	draggerBoxLeft = $("#metronomeBox-"+92).css("left").replace(/px/g, '');
 	draggerBoxWidth = metronomeBoxWidth;
 	draggerBoxHeight = draggerBoxWidth;
 	draggerBoxTop = metronomeBoxTop - (draggerBoxHeight-metronomeBoxHeight)/2;
