@@ -25,12 +25,13 @@ function drawScreen()
 	//console.log("drawControls: " + (new Date().getTime() - startTime));
 	drawControls();
 	//console.log("drawTransposition: " + (new Date().getTime() - startTime));
-	drawTransposition();
+	//drawTransposition();
+	drawTranspositionTablet();
 	//console.log("drawMetronome: " + (new Date().getTime() - startTime));
 	drawMetronome();
 	//console.log("drawPiano: " + (new Date().getTime() - startTime));
 	drawPiano(0,88);
-	drawPiano(8,68);
+	//drawPiano(8,68);
 	//console.log("setEvents: " + (new Date().getTime() - startTime));
 	setEvents();
 	//console.log("drawfeedback: " + (new Date().getTime() - startTime));
@@ -524,7 +525,7 @@ function drawTransposition()
 		newtranspositionBox = Number(newtranspositionBox.replace(/transpositionBox-/g,''));
 		draggerBoxLeft = $("#transpositionBox-"+newtranspositionBox).css("left").replace(/px/g, '') - 12;
 		$("#draggerTrans").css("left", draggerBoxLeft);
-		setTransposition(newtranspositionBox);	
+		setTransposition(newtranspositionBox-7);	
 	  });
 	
 	$(".transpositionBox").hover(function() {
@@ -534,7 +535,7 @@ function drawTransposition()
 		{
 			draggerBoxLeft = $("#transpositionBox-"+newTransposition).css("left").replace(/px/g, '') - 12;
 			$("#draggerTrans").css("left", draggerBoxLeft);
-			setTransposition(newTransposition);
+			setTransposition(newTransposition-7);
 		}
 	});
 	
@@ -551,6 +552,29 @@ function drawTransposition()
 
 function drawTranspositionTablet()
 {
+	/* TRANSPOSITION MINUS BUTTON */
+	$("body").append('<img id="transMinusButton" src="./images/minusButtonEnabled.png"'+clickEvent+'="didPressTransMinusButton()"></img>');
+	transMinusButtonLeft =  controlsBackgroundWidth * 0.2;
+	transMinusButtonTop = leftHandTop;
+	transMinusButtonWidth = controlsBackgroundHeight * 0.6;
+	transMinusButtonHeight = leftHandHeight;
+	adjustTag("transMinusButton", transMinusButtonLeft, transMinusButtonTop, transMinusButtonWidth, transMinusButtonHeight, "clear");
+
+	/* TRANSPOSITION MINUS BUTTON */
+	$("body").append('<img id="transPlusButton" src="./images/PlusButtonEnabled.png"'+clickEvent+'="didPressTransPlusButton()"></img>');
+	transPlusButtonLeft =  controlsBackgroundWidth * 0.25;
+	transPlusButtonTop = leftHandTop;
+	transPlusButtonWidth = controlsBackgroundHeight * 0.6;
+	transPlusButtonHeight = leftHandHeight;
+	adjustTag("transPlusButton", transPlusButtonLeft, transPlusButtonTop, transPlusButtonWidth, transPlusButtonHeight, "clear");
+
+	/* TRANSPOSITION LABEL */
+	$("body").append('<div id="transpositionLabel">Transposition</div>');
+	transLabelLeft =  transMinusButtonLeft;
+	transLabelTop = leftHandLabelTop;
+	transLabelWidth = transPlusButtonLeft + transPlusButtonWidth - transMinusButtonLeft;
+	transLabelHeight = leftHandLabelHeight;
+	adjustTag("transpositionLabel", transLabelLeft, transLabelTop, transLabelWidth, transLabelHeight, "clear");
 }
 
 function drawMetronome()

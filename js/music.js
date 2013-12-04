@@ -339,10 +339,10 @@ function setTempo(newMetronomeBox)
 	tempo = Math.ceil((101-newMetronomeBox)/100 * 40);
 }
 
-function setTransposition(newTranspositionBox)
+function setTransposition(newTransposition)
 {
 	resetNotes(0);
-	transposeValue = newTranspositionBox - 7;
+	transposeValue = newTransposition
 	playMusic();
 	$('#transpositionLabel').text("Transposition ("+transposeValue+")");
 }
