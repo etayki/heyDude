@@ -571,7 +571,7 @@ function drawTranspositionTablet()
 	adjustTag("transMinusButton", transMinusButtonLeft, transMinusButtonTop, transMinusButtonWidth, transMinusButtonHeight, "clear");
 
 	/* TRANSPOSITION MINUS BUTTON */
-	$("body").append('<img id="transPlusButton" src="./images/PlusButtonEnabled.png"'+clickEvent+'="didPressTransPlusButton()"></img>');
+	$("body").append('<img id="transPlusButton" src="./images/plusButtonEnabled.png"'+clickEvent+'="didPressTransPlusButton()"></img>');
 	transPlusButtonLeft =  controlsBackgroundWidth * 0.25;
 	transPlusButtonTop = leftHandTop;
 	transPlusButtonWidth = controlsBackgroundHeight * 0.6;
@@ -598,7 +598,7 @@ function drawSpeedTablet()
 	adjustTag("speedMinusButton", speedMinusButtonLeft, speedMinusButtonTop, speedMinusButtonWidth, speedMinusButtonHeight, "clear");
 
 	/* SPEED PLUS BUTTON */
-	$("body").append('<img id="speedPlusButton" src="./images/PlusButtonDisabled.png"'+clickEvent+'="didPressSpeedPlusButton()"></img>');
+	$("body").append('<img id="speedPlusButton" src="./images/plusButtonDisabled.png"'+clickEvent+'="didPressSpeedPlusButton()"></img>');
 	speedPlusButtonLeft =  controlsBackgroundWidth * 0.65;
 	speedPlusButtonTop = leftHandTop;
 	speedPlusButtonWidth = controlsBackgroundHeight * 0.6;
