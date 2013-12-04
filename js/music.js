@@ -3,6 +3,8 @@ var tempo = 20;
 
 /* TRANSPOSITION */
 var transposeValue = 0;
+var transMinusButtonEnabled = 1;
+var transPlusButtonEnabled = 1;
 
 /* MEASURE/DELAY */
 var startMeasure = currentMeasure = 1;
@@ -313,7 +315,7 @@ function setEndMeasure(newMeasure)
 		newMeasure = currentMeasure + 1;
 		if (newMeasure == tune.length) return;
 	}
-	
+
 	endMeasure = Number(newMeasure);
 	endDelay = endMeasure * 4;
 
@@ -322,10 +324,10 @@ function setEndMeasure(newMeasure)
 		delay = startDelay;
 		setPositionMarker();
 		resetNotes();
-		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png" && repeatEnabled)
+		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
 			playMusic();
 	}
-	
+
 	if (startMeasure > endMeasure)
 		setStartMeasure(endMeasure);
 

@@ -25,13 +25,15 @@ function drawScreen()
 	//console.log("drawControls: " + (new Date().getTime() - startTime));
 	drawControls();
 	//console.log("drawTransposition: " + (new Date().getTime() - startTime));
-	//drawTransposition();
-	drawTranspositionTablet();
+	if (isiPad)
+		drawTranspositionTablet();
+	else
+		drawTransposition();
 	//console.log("drawMetronome: " + (new Date().getTime() - startTime));
 	drawMetronome();
 	//console.log("drawPiano: " + (new Date().getTime() - startTime));
 	drawPiano(0,88);
-	//drawPiano(8,68);
+	drawPiano(8,68);
 	//console.log("setEvents: " + (new Date().getTime() - startTime));
 	setEvents();
 	//console.log("drawfeedback: " + (new Date().getTime() - startTime));
@@ -1051,6 +1053,38 @@ function didPressRightHand()
 		$("#rightHand").attr("src", "./images/rightHandEnabled.png");
 		$('#rightHandLabel').text("Right On");
 		rightHandEnabled = 1;
+	}
+}
+
+function didPressTransMinusButton()
+{
+	/* TOGGLE FROM ENABLED TO DISABLED */
+	if (transMinusButtonEnabled)
+	{
+		$("#transPlusButton").attr("src", "./images/plusButtonEnabled.png");
+		transPlusButtonEnabled = 1;
+		setTransposition(transposeValue-1);
+		if (transposeValue == -6)
+		{
+			$("#transMinusButton").attr("src", "./images/minusButtonDisabled.png");
+			transMinusButtonEnabled = 0;
+		}		
+	}
+}
+
+function didPressTransPlusButton()
+{
+	/* TOGGLE FROM ENABLED TO DISABLED */
+	if (transPlusButtonEnabled)
+	{
+		$("#transMinusButton").attr("src", "./images/minusButtonEnabled.png");
+		transMinusButtonEnabled = 1;
+		setTransposition(transposeValue+1);
+		if (transposeValue == 6)
+		{
+			$("#transPlusButton").attr("src", "./images/plusButtonDisabled.png");
+			transPlusButtonEnabled = 0;
+		}		
 	}
 }
 
