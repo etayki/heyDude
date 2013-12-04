@@ -708,15 +708,11 @@ function drawPiano()
 	keyboardBgrdHeight = whiteKeyHeight * 1.07;
 	adjustTag("keyboardBgrd", keyboardBgrdLeft, keyboardBgrdTop, keyboardBgrdWidth, keyboardBgrdHeight, "black");
 
-	blackNotes = ["Bb","C#","Eb","F#","Ab"]
-	blackNoteIdx = 0;	
-	whiteNotes = ["A","B","C","D","E","F","G"]
-	whiteNoteIdx = 0;
-	console.log(whiteKeyLeft);
+	noteNames = ["A","Bb","B","C","C#","D","Eb","E","F","F#","G","Ab"];
+	noteIdx = 0;	
 	for (var key = startKey; key < endKey; key++)
 	{
-		var keyIdx = key % 12;
-		console.log(keyIdx+" "+whiteKeyLeft);
+		keyIdx = key % 12;
 		if (!(keyIdx==1 || keyIdx==4 || keyIdx==6 || keyIdx == 9 || keyIdx==11))
 		{
 			if (key!=startKey) whiteKeyLeft += whiteKeyWidth;
@@ -728,10 +724,9 @@ function drawPiano()
 			adjustTag("keyLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop, whiteKeyLabelWidth, whiteKeyLabelHeight, "clear");
 			$("#keyLabel-"+key).css("font-family", "arial");
 			/* WHITE KEY NOTE LABEL */
-			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+whiteNotes[whiteNoteIdx++]+'</div></b>');			
+			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');			
 			adjustTag("keyNoteLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop*0.7, whiteKeyLabelWidth, whiteKeyLabelHeight, "clear");
 			$("#keyNoteLabel-"+key).css("font-family", "arial");
-			if(whiteNoteIdx == 7) whiteNoteIdx = 0; 
 		}
 		else
 		{
@@ -744,10 +739,9 @@ function drawPiano()
 			adjustTag("keyLabel-"+key, blackKeyLabelLeft, blackKeyLabelTop, blackKeyLabelWidth, blackKeyLabelHeight, "clear");
 			$("#keyLabel-"+key).css("font-family", "arial");
 			/* BLACK KEY NOTE LABEL */
-			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+blackNotes[blackNoteIdx++]+'</div></b>');			
+			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');			
 			adjustTag("keyNoteLabel-"+key, blackKeyLabelLeft-10, blackKeyLabelTop*0.15, blackKeyLabelWidth+20, blackKeyLabelHeight*0.50, "clear");
 			$("#keyNoteLabel-"+key).css("font-family", "arial");
-			if(blackNoteIdx == 5) blackNoteIdx = 0; 
 		}
 	}
 	$('.keyNoteLabel').css("display","none");
