@@ -146,8 +146,6 @@ function playMusic()
 				//debug(note + " " + tune[measure][noteIdx][VELOCITY]);	
 				MIDI.noteOn(0, note, tune[measure][noteIdx][VELOCITY], 0);
 
-			
-
 			if (finger < 0)
 				{
 					color = "red";
