@@ -677,7 +677,6 @@ function drawPiano(startKey, endKey)
 	else
 		zoom = "zoomOn";
 
-	console.log(zoom);
 	/* RED LINE */
 	$("body").append('<img id="redVelvet" src="./images/redLine.png" style="z-index:5"></img>');
 	redLineLeft =  controlsBackgroundLeft;
@@ -718,8 +717,8 @@ function drawPiano(startKey, endKey)
 	blackKeyLabelTop = blackKeyHeight * 0.5;
 	blackKeyLabelWidth = blackKeyWidth;
 	blackKeyLabelHeight = blackKeyLabelWidth * 2;
-	blackKeyFingerLabelHeight = getFontSize(blackKeyLabelHeight);
-	blackKeyNoteLabelHeight = getFontSize(blackKeyLabelHeight*0.5);
+	blackKeyFingerLabelFontSize = getFontSize(blackKeyLabelHeight);
+	blackKeyNoteLabelFontSize = getFontSize(blackKeyLabelHeight*0.5);
 
 	/* KEYBOARD BACKGROUND */
 	$("body").append('<div id="'+zoom+'keyboardBgrd" class="'+zoom+'"></div>');
@@ -1246,7 +1245,6 @@ function drawfeedback()
 /* HELPER FUNCTIONS */
 function adjustTag(tag, left, top, width, height, backgroundColor)
 {
-	console.log(tag);
 	$("#"+tag).css("position", "absolute");
 	$("#"+tag).css("left", left);
 	$("#"+tag).css("top", top);
