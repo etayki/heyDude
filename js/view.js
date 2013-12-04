@@ -904,7 +904,8 @@ function setEvents()
 		notePress = Number(keyPress) + 21;
 		MIDI.noteOn(0,notePress,90,0);
 		MIDI.noteOff(0,notePress,0.4);
-		$("#"+zoom+"key-"+keyPress).css("background-color","yellow");
+		$("#zoomOnkey-"+keyPress).css("background-color","yellow");
+		$("#zoomOffkey-"+keyPress).css("background-color","yellow");
 
 		keyPressTimer = setTimeout(function() {
 			resetNote(notePress);
