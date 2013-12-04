@@ -127,68 +127,69 @@ function playMusic()
 	{
 		MIDI.noteOn(0, 100, 90, 0);
 		MIDI.noteOff(0, 100, 0);
-	}	
+	}
 
-	for (measure = startMeasure; measure <= endMeasure; measure++)
+	for (var noteIdx = 0; noteIdx < tune[currentMeasure].length; noteIdx++)
 	{
-		for (var noteIdx = 0; noteIdx < tune[measure].length; noteIdx++)
+		var note = tune[currentMeasure][noteIdx][NOTE] + transposeValue;
+		var key = note - 21;
+		var color = "#00FF00";
+		var noteStart = tune[currentMeasure][noteIdx][DELAY];
+		var noteDuration = tune[currentMeasure][noteIdx][DURATION];
+		var noteEnd = noteStart + noteDuration;
+		
+		if (noteEnd > endMeasure * 4)
+			noteEnd = endMeasure * 4 - 0.01;
+
+		if ( (delay - 0.01) <= noteStart && noteStart < delay )
 		{
-			var note = tune[measure][noteIdx][NOTE] + transposeValue;
-			var key = note - 21;
-			var color = "#00FF00";
-			var noteStart = tune[measure][noteIdx][DELAY];
-			var noteDuration = tune[measure][noteIdx][DURATION];
-			var noteEnd = noteStart + noteDuration;
+			// Turn note on (sound + visual)
+			if (tempo == FAST_FORWARD) // End fastfoward
+				tempo = oldTempo;
 			
-			if (noteEnd > endMeasure * 4)
-				noteEnd = endMeasure * 4 - 0.01;
+			var finger = tune[currentMeasure][noteIdx][FINGER];
+			if (( finger < 0 && !leftHandEnabled) || (finger > 0 && !rightHandEnabled))
+				continue;
 
-			if ( (delay - 0.01) <= noteStart && noteStart < delay )
+			//debug(note + " " + tune[measure][noteIdx][VELOCITY]);	
+			MIDI.noteOn(0, note, tune[currentMeasure][noteIdx][VELOCITY], 0);
+
+		if (finger < 0)
 			{
-				// Turn note on (sound + visual)
-				if (tempo == FAST_FORWARD) // End fastfoward
-					tempo = oldTempo;
-				
-				var finger = tune[measure][noteIdx][FINGER];
-				if (( finger < 0 && !leftHandEnabled) || (finger > 0 && !rightHandEnabled))
-					continue;
-
-				//debug(note + " " + tune[measure][noteIdx][VELOCITY]);	
-				MIDI.noteOn(0, note, tune[measure][noteIdx][VELOCITY], 0);
-
-			if (finger < 0)
-				{
-					color = "red";
-					finger *= -1;
-				}
-				$("#zoomOnkey-"+key).css("background-color",color);
-				$("#zoomOffkey-"+key).css("background-color",color);
-				if (notesEnabled)
-				{	
-				 	$("#zoomOnkeyNoteLabel-"+key).css("display","");
-				 	$("#zoomOffkeyNoteLabel-"+key).css("display","");
-				 }
-				if (finger != 0)
-				{
-					$("#zoomOnkeyLabel-"+key).text(finger);
-					$("#zoomOffkeyLabel-"+key).text(finger);
-				}
+				color = "red";
+				finger *= -1;
 			}
-			else if ((delay - 0.01) < (noteEnd - 0.01) && (noteEnd - 0.01) <= delay)
+			$("#zoomOnkey-"+key).css("background-color",color);
+			$("#zoomOffkey-"+key).css("background-color",color);
+			if (notesEnabled)
+			{	
+			 	$("#zoomOnkeyNoteLabel-"+key).css("display","");
+			 	$("#zoomOffkeyNoteLabel-"+key).css("display","");
+			 }
+			if (finger != 0)
 			{
-				// Hide note (visualy)
-				resetNote(note);
+				$("#zoomOnkeyLabel-"+key).text(finger);
+				$("#zoomOffkeyLabel-"+key).text(finger);
 			}
-			else if ((delay - 0.01) < noteEnd && noteEnd <= delay)
-			{
-				// Turn note off (sound)
-				MIDI.noteOff(0, note, 0);
-	
-			}		
 		}
+		else if ((delay - 0.01) < (noteEnd - 0.01) && (noteEnd - 0.01) <= delay)
+		{
+			// Hide note (visualy)
+			resetNote(note);
+		}
+		else if ((delay - 0.01) < noteEnd && noteEnd <= delay)
+		{
+			// Turn note off (sound)
+			MIDI.noteOff(0, note, 0);
+
+		}		
 	}
 	
+	//adjustedTempo = tempo
+	//if (isiPad) adjustedTempo = tempo/1.6;
 	timers.push(setTimeout(function() {
+		thisTime = new Date().getTime();
+		console.log(tempo + " " + (thisTime-previousTime));
 		delay += 0.01;
 		if (delay >= endDelay)
 		{
@@ -197,8 +198,11 @@ function playMusic()
 		
 		setPositionMarker();
 		playMusic();
+		previousTime = thisTime;
+
 	}, tempo));	
 }
+var previousTime = 0;
 
 function clearHand(hand)
 {
