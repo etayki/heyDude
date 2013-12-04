@@ -86,6 +86,14 @@ function didPressPlayButton()
 	oldTempo = tempo;
 	tempo = FAST_FORWARD;
 
+	/* TOGGLE FROM PLAY TO PAUSE */
+	$("#playBtn").attr("src", "http://watchandrepeat.com/images/pauseButton.png");
+	if(navigator.platform.indexOf("iPad") != -1)
+		$("#playBtn").attr("ontouchstart", "didPressPauseButton()");
+	else
+		$("#playBtn").attr("onclick", "didPressPauseButton()");
+	$('#playLabel').text("Pause");
+
 	playMusic();
 
 	// Report Play Event
@@ -115,16 +123,9 @@ function didPressPauseButton()
 function playMusic()
 {	
 	thisTime = new Date().getTime();
-	//debug(tempo + " " + (thisTime-previousTime));
+	debug(tempo + " " + (thisTime-previousTime));
 	console.log(tempo + " " + (thisTime-previousTime));
 	previousTime = thisTime;
-	/* TOGGLE FROM PLAY TO PAUSE */
-	$("#playBtn").attr("src", "http://watchandrepeat.com/images/pauseButton.png");
-	if(navigator.platform.indexOf("iPad") != -1)
-		$("#playBtn").attr("ontouchstart", "didPressPauseButton()");
-	else
-		$("#playBtn").attr("onclick", "didPressPauseButton()");
-	$('#playLabel').text("Pause");
 
 	// Metronome
 	if ((Math.floor(delay * 100) % 100 == 0) && metronomeEnabled)
@@ -203,6 +204,7 @@ function playMusic()
 
 	}, tempo));	
 }
+
 var previousTime = 0;
 
 function clearHand(hand)
