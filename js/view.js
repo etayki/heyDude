@@ -945,6 +945,7 @@ function setEvents()
 		/* TURN ON NOTE */
 		keyPress = ($(this).attr('id')).replace(new RegExp(zoom+'key-','g'),'');
 		notePress = Number(keyPress) + 21;
+		console.log("tap: "+notePress);
 		MIDI.noteOn(0,notePress,90,0);
 		MIDI.noteOff(0,notePress,0.4);
 		$("#zoomOnkey-"+keyPress).css("background-color","yellow");
