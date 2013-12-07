@@ -84,7 +84,7 @@ if ($results = $mysqli->query($query))
             if ($visitTime == 0 && isset($d))
                 continue;
             $visitTime = 0;
-            $playTimeStamp = $pauseTimeStamp = NULL;
+            $lastTimeStamp = NULL;
         }
         elseif(strpos(strtolower($event), "play") !== FALSE)
         {
@@ -93,12 +93,13 @@ if ($results = $mysqli->query($query))
             if(isset($lastTimeStamp))
             {
                 $lapse = abs($thisTimeStamp - $lastTimeStamp);
-                if ($lapse > 5 * 60)
+                if ($lapse > 5 * 60 * 1000)
                     $lapse = 300;
                 $visitTime += $lapse;
                 //echo '<tr><td>'.gmdate("i:s", $lapse). '</td></tr>';
             }
-            $lastTimeStamp = thisTimeStamp;
+            $lastTimeStamp = $thisTimeStamp;
+            if(isset($s)) continue;
         }
         elseif(strpos(strtolower($event), "pause") !== FALSE)
         {
@@ -107,12 +108,13 @@ if ($results = $mysqli->query($query))
             if(isset($lastTimeStamp))
             {
                 $lapse = abs($thisTimeStamp - $lastTimeStamp);
-                if ($lapse > 5 * 60)
+                if ($lapse > 5 * 60 * 1000)
                     $lapse = 300;
                 $visitTime += $lapse;
                 //echo '<tr><td>'.gmdate("i:s", $lapse). '</td></tr>';
             }
-            $lastTimeStamp = thisTimeStamp;
+            $lastTimeStamp = $thisTimeStamp;
+            if(isset($s)) continue;
         }
 
         echo '<tr style="background-color:' . $color . '">';        
