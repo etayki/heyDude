@@ -72,9 +72,9 @@ if ($results = $mysqli->query($query))
             $color = "grey";
             //echo '<tr><td>'.gmdate("i:s", $visitTime). '</td></tr>';
             $loadTimeStamp = $timeStamp;
-            if(isset($playTimeStamp))
+            if(isset($lastTimeStamp))
             {
-                $lapse = abs($playTimeStamp - $loadTimeStamp);
+                $lapse = abs($lastTimeStamp - $loadTimeStamp);
                 if ($lapse > 15)
                     $lapse = 15;
                 $visitTime += $lapse;
@@ -89,30 +89,30 @@ if ($results = $mysqli->query($query))
         elseif(strpos(strtolower($event), "play") !== FALSE)
         {
             $color = "orange";
-            $playTimeStamp = $timeStamp;
-            if(isset($pauseTimeStamp))
+            $thisTimeStamp = $timeStamp;
+            if(isset($lastTimeStamp))
             {
-                $lapse = abs($pauseTimeStamp - $playTimeStamp);
+                $lapse = abs($thisTimeStamp - $lastTimeStamp);
                 if ($lapse > 5 * 60)
                     $lapse = 300;
                 $visitTime += $lapse;
                 //echo '<tr><td>'.gmdate("i:s", $lapse). '</td></tr>';
             }
-            //if(isset($l)) continue;
+            $lastTimeStamp = thisTimeStamp;
         }
         elseif(strpos(strtolower($event), "pause") !== FALSE)
         {
             $color = "pink";
-            $pauseTimeStamp = $timeStamp;
-            if(isset($playTimeStamp))
+            $thisTimeStamp = $timeStamp;
+            if(isset($lastTimeStamp))
             {
-                $lapse = abs($playTimeStamp - $pauseTimeStamp);
+                $lapse = abs($thisTimeStamp - $lastTimeStamp);
                 if ($lapse > 5 * 60)
                     $lapse = 300;
                 $visitTime += $lapse;
-                //echo '<tr><td>'.gmdate("i:s", $lapse) . '</td></tr>';
+                //echo '<tr><td>'.gmdate("i:s", $lapse). '</td></tr>';
             }
-            //if(isset($lapse)) continue;
+            $lastTimeStamp = thisTimeStamp;
         }
 
         echo '<tr style="background-color:' . $color . '">';        
