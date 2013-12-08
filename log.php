@@ -96,7 +96,7 @@ if ($results = $mysqli->query($query))
                 if ($lapse > 5 * 60 )
                     $lapse = 300;
                 $visitTime += $lapse;
-                echo '<tr><td>'.gmdate("i:s", $lapse). '</td></tr>';
+                //echo '<tr><td>'.gmdate("i:s", $lapse). '</td></tr>';
             }
             $lastTimeStamp = $thisTimeStamp;
             if(isset($s)) continue;
@@ -111,7 +111,7 @@ if ($results = $mysqli->query($query))
                 if ($lapse > 5 * 60)
                     $lapse = 300;
                 $visitTime += $lapse;
-                echo '<tr><td>'.gmdate("i:s", $lapse). '</td></tr>';
+                //echo '<tr><td>'.gmdate("i:s", $lapse). '</td></tr>';
             }
             $lastTimeStamp = $thisTimeStamp;
             if(isset($s)) continue;
