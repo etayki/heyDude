@@ -67,6 +67,11 @@ if(isset($_SERVER['HTTP_USER_AGENT']))
         $browser = "iPad";
         $city = "None";
     }
+    elseif (strpos(strtolower($_SERVER['HTTP_USER_AGENT']), "android") !== FALSE) 
+    {
+        $browser = "Android";
+        $city = "None";
+    }
     else
     {
         $browser = "None";

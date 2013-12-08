@@ -103,6 +103,19 @@ function reportBrowser()
 	{
 		browser = "iPhone " + browser;
 	}
+	else if(userAgent.indexOf("Nexus") !== -1)
+	{
+		browser = "Nexus " + browser;
+	}
+	else if(userAgent.indexOf("SM-T210R") !== -1)
+	{
+		browser = "SamsungTab3 " + browser;
+	}
+	else if(userAgent.indexOf("Android") !== -1)
+	{
+		browser = "Android " + browser;
+	}
+	//debug(userAgent);
 
  	// Report Browser
 	xmlhttp = new XMLHttpRequest();
