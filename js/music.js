@@ -357,7 +357,6 @@ function setTempo(newMetronomeBox)
 	$('#speedLabel').text("Speed: "+newMetronomeBox+"%");
 	newMetronomeBox = newMetronomeBox * 0.75;
 	tempo = Math.floor((101-newMetronomeBox)/100 * 40);
-	console.log(tempo);
 }
 
 function setTransposition(newTransposition)
