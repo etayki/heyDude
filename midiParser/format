@@ -9,6 +9,7 @@ o.write('[[]')
 newBeat = -1
 appendMeasure = 0
 measure = 1
+delayPerMeasureBox = 3 # Fur Elise is 1.5 delay per measure, but I'm trying to limit measureBoxes so I'm doing 2x measure/Box
 
 while True:
 	line = f.readline()
@@ -16,7 +17,7 @@ while True:
 	line = [float(x) for x in line.split()]
 	if not line: break
 
-	if (line[0] % 1.5 == 0 or line[0]==1) and line[0] != newBeat: # Fur Elise is 1.5 delay per measure
+	if (line[0] % delayPerMeasureBox == 0 or line[0]==1) and line[0] != newBeat: 
 		newBeat = line[0]
 		o.write('],\n[[')
 		appendMeasure = 1

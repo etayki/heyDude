@@ -179,9 +179,8 @@ function drawHeader()
 function drawMeasureGrid()
 {
 	maxColumn = 23;
-	maxRows = Math.floor(tune.length/maxColumn);
-	maxBoxes = tune.length - 1;//maxColumn * (maxRows);
-	console.log(maxBoxes);
+	//maxRows = Math.ceil(tune.length/maxColumn);
+	maxBoxes = 69;
 	/* MEASURE BOX */
 	measureBoxLeft = measureGridHeaderLeft;
 	measureBoxWidth = measureGridHeaderWidth/maxColumn;
