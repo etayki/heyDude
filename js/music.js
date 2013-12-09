@@ -16,7 +16,6 @@ var endMeasure = 8;
 var startDelay = delay = 0;
 var endDelay = endMeasure * delayPerMeasure;
 var FAST_FORWARD = 0.01;
-var delayPerMeasure = 4;
 
 /* HAND SELECTION */
 var leftHandEnabled = 1;
@@ -199,6 +198,7 @@ function playMusic()
 		delay += 0.01;
 		if (delay >= endDelay)
 		{
+			resetNotes(0);
 			delay = startDelay;
 		}
 		

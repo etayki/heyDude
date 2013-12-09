@@ -117,8 +117,8 @@ echo <<<END
     <script src="./inc/base64binary.js" type="text/javascript"></script>
     <script src="./js/jquery.min.js" type="text/javascript"></script>
     <script src="./js/utilities.js" type="text/javascript"></script>
-    <script src="./js/music.js" type="text/javascript"></script>
     <script src="./js/tune.js" type="text/javascript"></script>
+    <script src="./js/music.js" type="text/javascript"></script>
     <script src="./js/view.js" type="text/javascript"></script>
     <script src="./js/keyboard.js" type="text/javascript"></script>     
 END;
