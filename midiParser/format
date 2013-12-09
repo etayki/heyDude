@@ -1,6 +1,30 @@
 import re
+import numpy as np
+import scipy as sci
 f = open('moonlightSonata.txt', 'r')
-line = f.readline()
-line = line.split()
-print line
+o = open('out','w')
+o.write('var tune =[' + '\n')
+o.write('[[]')
 
+newBeat = -1
+
+while True:
+	line = f.readline()
+	#line = line.split()
+	line = [float(x) for x in line.split()]
+	if not line: break
+
+	if line[0] % 4 == 0 and line[0] != newBeat:
+		newBeat = line[0]
+		o.write('],\n[[')
+	else:
+		o.write(',\n [')
+
+	for i in xrange(0, 4):
+		if line[i] % 1 == 0:
+			o.write(repr(int(line[i])) + ', ')
+		else:
+			o.write(repr(float(line[i])) + ', ')
+	o.write('0]')
+o.write(']]')
+o.close()
