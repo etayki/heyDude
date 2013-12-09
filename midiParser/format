@@ -1,0 +1,6 @@
+import re
+f = open('moonlightSonata.txt', 'r')
+line = f.readline()
+line = line.split()
+print line
+
