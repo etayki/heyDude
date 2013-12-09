@@ -1,3 +1,4 @@
+var delayPerMeasure = 4;
 var tune =[			//DELAY,		DURATION,		NOTE,	VELOCITY,	Finger		,		,			Measure
 	[		[								]	]	,			
 	[	[	0	,	3.98958	,	37,	37,	-5	]	,				//	1

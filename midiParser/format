@@ -1,7 +1,7 @@
 import re
 import numpy as np
 import scipy as sci
-f = open('moonlightSonata.txt', 'r')
+f = open('tune.txt', 'r')
 o = open('out','w')
 o.write('var tune =[' + '\n')
 o.write('[[]')
@@ -14,7 +14,7 @@ while True:
 	line = [float(x) for x in line.split()]
 	if not line: break
 
-	if line[0] % 4 == 0 and line[0] != newBeat:
+	if line[0] % 1.5 == 0 and line[0] != newBeat: # Fur Elise is 1.5 delay per measure
 		newBeat = line[0]
 		o.write('],\n[[')
 	else:

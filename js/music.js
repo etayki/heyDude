@@ -14,8 +14,9 @@ var speedPlusButtonEnabled = 0;
 var startMeasure = currentMeasure = 1;
 var endMeasure = 8;
 var startDelay = delay = 0;
-var endDelay = endMeasure * 4;
+var endDelay = endMeasure * delayPerMeasure;
 var FAST_FORWARD = 0.01;
+var delayPerMeasure = 4;
 
 /* HAND SELECTION */
 var leftHandEnabled = 1;
@@ -145,8 +146,8 @@ function playMusic()
 			var noteDuration = tune[measure][noteIdx][DURATION];
 			var noteEnd = noteStart + noteDuration;
 			
-			if (noteEnd > endMeasure * 4)
-				noteEnd = endMeasure * 4 - 0.01;
+			if (noteEnd > endMeasure * delayPerMeasure)
+				noteEnd = endMeasure * delayPerMeasure - 0.01;
 
 			if ( (delay - 0.01) <= noteStart && noteStart < delay )
 			{
@@ -271,7 +272,7 @@ function setCurrentMeasure(newMeasure)
 	}
 
 	currentMeasure = newMeasure;
-	delay = (currentMeasure - 1) * 4;
+	delay = (currentMeasure - 1) * delayPerMeasure;
 
 	if (currentMeasure < startMeasure)
 		setStartMeasure(currentMeasure);
@@ -299,7 +300,7 @@ function setStartMeasure(newMeasure)
 	}
 	
 	startMeasure = Number(newMeasure);
-	startDelay = (startMeasure - 1) * 4;
+	startDelay = (startMeasure - 1) * delayPerMeasure;
 	
 	if (startDelay > delay)
 	{
@@ -332,7 +333,7 @@ function setEndMeasure(newMeasure)
 	}
 
 	endMeasure = Number(newMeasure);
-	endDelay = endMeasure * 4;
+	endDelay = endMeasure * delayPerMeasure;
 
 	if (endDelay <= delay)
 	{

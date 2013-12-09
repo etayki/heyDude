@@ -276,7 +276,7 @@ function drawControls()
 	/* CONTROLS BACKGROUND */
 	$("body").append('<img id="controlsBackground" src="./images/controlsBackground.png"></img>');
 	controlsBackgroundLeft =  measureGridHeaderLeft;
-	controlsBackgroundTop = Number($("#measureBox-68").css("top").replace(/px/g, '')) + measureBoxHeight;
+	controlsBackgroundTop = Number($("#measureBox-"+maxBoxes).css("top").replace(/px/g, '')) + measureBoxHeight;
 	controlsBackgroundWidth = measureGridHeaderWidth + 2;
 	controlsBackgroundHeight = measureBoxHeight * 1.5;
 	adjustTag("controlsBackground", controlsBackgroundLeft, controlsBackgroundTop, controlsBackgroundWidth, controlsBackgroundHeight, "clear");
@@ -418,7 +418,16 @@ function drawControls()
 	tempoLabelWidth = metronomeWidth * 3;
 	tempoLabelHeight = leftHandLabelHeight;
 	adjustTag("metroLabel", tempoLabelLeft, tempoLabelTop, tempoLabelWidth, tempoLabelHeight, "clear");
-	
+
+	/* POSITION LABEL */
+	$("body").append('<div id="positionLabel">1.00</div>');
+	positionLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.37;
+	positionLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.38;
+	positionLabelWidth = controlsBackgroundWidth * 0.03;
+	positionLabelHeight = positionLabelWidth;
+	adjustTag("positionLabel", positionLabelLeft, positionLabelTop, positionLabelWidth, positionLabelHeight, "clear");
+	$('#positionLabel').css("display","none");
+
 	/* SLOW LABEL */
 	$("body").append('<div id="slowLabel">Slow</div>');
 	slowLabelLeft =  metronomeLeft + leftHandWidth;
@@ -1003,8 +1012,9 @@ function didPressCancelFullScreenButton()
 function setPositionMarker()
 {
 	/* SET POSITION LABEL */
-	position = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
-	$("#positionLabel").text(position);
+	//position = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
+	position = (Math.floor((delay/delayPerMeasure + 1)*100)/100).toFixed(2);
+	$("#positionLabel").text(delay);
 	
 	/* SET POSITION MARKER */
 	nowMeasure = Math.floor(position);
