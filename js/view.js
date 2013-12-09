@@ -954,6 +954,7 @@ function setEvents()
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
 		setCurrentMeasure(newMeasure);
+		setPositionMarker();
 	});		
 
 	keyPressTimer = 0;
