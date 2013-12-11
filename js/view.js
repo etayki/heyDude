@@ -256,6 +256,7 @@ function drawMarkers()
 		}
 
 		newMeasure -= startMarkerOffset;
+		if (newMeasure < -3 || newMeasure > 70) return;
 		if (startMarkerMouseDown && newMeasure != startMeasure)
 		{
 			setStartMeasure(newMeasure);
@@ -299,6 +300,7 @@ function drawMarkers()
 		}
 
 		newMeasure -= endMarkerOffset;
+		if (newMeasure < -3 || newMeasure > 70) return;
 		if (endMarkerMouseDown && newMeasure != endMeasure)
 		{
 			setEndMeasure(newMeasure);
