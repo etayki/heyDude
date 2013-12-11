@@ -1,11 +1,3 @@
-var info = {
-	'measureControl' : "Press LEFT and RIGHT keys to change the Start Measure.<br>Press UP and DOWN keys to change the End Measure.<br>Press T to toggle between repeat and NO repeat.",
-	'playControl'    : "Press SPACE key to toggle between Play and Pause.<br>Press S to stop.",
-	'tempoControl'   : "Press < to decrease tempo.<br>Press > to increase tempo.",
-	'handControl'    : "Press L for left hand only.<br>Press R for right hand only.<br>Press B to display both leftHand.",
-	'repeatControl'  : "<br>Press 1 to repeat one measure.<br>Press 2 to repeat two measures."
-};
-
 var browser;
 var clickEvent;
 
@@ -127,7 +119,7 @@ function drawHeader()
 {
 	/* MEASURE GRID HEADER */
 	$("body").append('<div id="measureGridHeader"></div>');
-	measureGridHeaderWidth = Math.floor(screenWidth * 1) - 1; // Subtract one to account for border of measureBox
+	measureGridHeaderWidth = screenWidth;
 	measureGridHeaderLeft = 0
 	measureGridHeaderTop = 0;
 	measureGridHeaderHeight = measureGridHeaderWidth * 0.065;
@@ -178,13 +170,10 @@ function drawHeader()
 
 function drawMeasureGrid()
 {
-	maxColumn = 23;
-	//maxRows = Math.ceil(tune.length/maxColumn);
-	maxBoxes = 69;
 	/* MEASURE BOX */
-	measureBoxLeft = measureGridHeaderLeft;
-	measureBoxWidth = measureGridHeaderWidth/maxColumn;
-	measureBoxHeight = measureBoxWidth;
+	measureBoxWidth = screenWidth/(tune.length+7); // 8 more boxes than measures to give room for markers
+	measureBoxLeft = 0;
+	measureBoxHeight = 50;
 	measureBoxTop = measureGridBarTop + measureGridBarHeight;
 	measureBoxColor = "#cbcbcb";
 
@@ -196,28 +185,23 @@ function drawMeasureGrid()
 	measureBoxFontSize = getFontSize(measureBoxLabelHeight);
 
 	/* MEASURE GRID */
-	for (number = 1; number <= maxBoxes; number++)
+	for (number = -3; number <= tune.length + 4; number++)
 	{			
 		/* MEASURE BOX */
 		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:1px;cursor:pointer"></div>');
 		adjustTag("measureBox-"+number, measureBoxLeft, measureBoxTop, measureBoxWidth, measureBoxHeight, measureBoxColor);
-		
-		if (number < tune.length)
-		{
-			/* MEASURE BOX LABEL */
-			measureBoxLabel = '<div id="measureBoxLabel-'+number+'">'+number+'</div>';
-			$("#measureBox-"+number).append(measureBoxLabel);
-			adjustTag("measureBoxLabel-"+number, measureBoxLabelLeft, measureBoxLabelTop, measureBoxLabelWidth, measureBoxLabelHeight, "clear");
-			//$("#measureBoxLabel-"+number).css("position", "absolute");
 
-		}
-		else
+       //if (number < tune.length)
 		{
-			/* ROW FILL MEASURE BOXES SHOULD NOT RESPOND TO EVENTS */
-			$("#measureBox-"+number).attr("class", "");
+        	/* MEASURE BOX LABEL */
+        	measureBoxLabel = '<div id="measureBoxLabel-'+number+'">'+number+'</div>';
+        	$("#measureBox-"+number).append(measureBoxLabel);
+        	adjustTag("measureBoxLabel-"+number, measureBoxLabelLeft, measureBoxLabelTop, measureBoxLabelWidth, measureBoxLabelHeight, "clear");
+        	//$("#measureBoxLabel-"+number).css("position", "absolute");
 		}
-	
+
 		measureBoxLeft += measureBoxWidth;
+		//console.log(measureBoxWidth);
 		if (measureBoxLeft >= (measureGridHeaderLeft + measureGridHeaderWidth - measureBoxWidth/2)) // Need to subtract a little, don't know why
 		{
 			measureBoxLeft = 0;//(screenWidth - measureGridHeaderWidth)/2;
@@ -238,36 +222,36 @@ function drawMarkers()
 	
 	/* START MARKER */
 	$("body").append('<img id="startMarker" src="./images/startMarker.png"></img>');
-	startMarkerLeft = $("#measureBox-1").css("left").replace(/px/g, '');
-	startMarkerTop = $("#measureBox-1").css("top").replace(/px/g, '');
-	startMarkerWidth = Math.floor(measureBoxWidth * 0.4);
+	startMarkerWidth = measureBoxWidth*4;
+	startMarkerLeft = $("#measureBox--3").css("left").replace(/px/g, '');
+	startMarkerTop = $("#measureBox--3").css("top").replace(/px/g, '');
 	startMarkerHeight = measureBoxHeight;
 	adjustTag("startMarker", startMarkerLeft, startMarkerTop, startMarkerWidth, startMarkerHeight, "clear");
 	
 	/* END MARKER */
 	$("body").append('<img id="endMarker" src="./images/endMarker.png"></img>');
+	endMarkerWidth = startMarkerWidth;
 	endMarkerLeft = $("#measureBox-"+endMeasure).css("left").replace(/px/g, '')  - startMarkerWidth + 1 + measureBoxWidth; // Add 1 because PowerPoint gives padding of 1;
 	endMarkerTop = startMarkerTop;
-	endMarkerWidth = startMarkerWidth;
 	endMarkerHeight = measureBoxHeight;
 	adjustTag("endMarker", endMarkerLeft, endMarkerTop, endMarkerWidth, endMarkerHeight, "clear");
 
 	/* START MARKER INFO LABEL */
-	$("body").append('<div id="startMarkerInfoLabel" style="color:white">Drag to Start</div>');
-	startMarkerInfoLabelLeft =  measureGridHeaderLeft + measureBoxWidth * 0.1;
-	startMarkerInfoLabelHeight = measureGridBarHeight * 0.5;
-	startMarkerInfoLabelTop = measureGridBarTop + (measureGridBarHeight - startMarkerInfoLabelHeight)/2;
-	startMarkerInfoLabelWidth = measureBoxWidth * 2;
-	adjustTag("startMarkerInfoLabel", startMarkerInfoLabelLeft, startMarkerInfoLabelTop, startMarkerInfoLabelWidth, startMarkerInfoLabelHeight, "clear");
-	$("#startMarkerInfoLabel").css("text-align", "left");
+	// $("body").append('<div id="startMarkerInfoLabel" style="color:white">Drag to Start</div>');
+	// startMarkerInfoLabelLeft =  measureGridHeaderLeft + measureBoxWidth * 0.1;
+	// startMarkerInfoLabelHeight = measureGridBarHeight * 0.5;
+	// startMarkerInfoLabelTop = measureGridBarTop + (measureGridBarHeight - startMarkerInfoLabelHeight)/2;
+	// startMarkerInfoLabelWidth = measureBoxWidth * 2;
+	// adjustTag("startMarkerInfoLabel", startMarkerInfoLabelLeft, startMarkerInfoLabelTop, startMarkerInfoLabelWidth, startMarkerInfoLabelHeight, "clear");
+	// $("#startMarkerInfoLabel").css("text-align", "left");
 	
-	/* END MARKER INFO LABEL */
-	$("body").append('<div id="endMarkerInfoLabel" style="color:white">Drag to End</div>');
-	endMarkerInfoLabelLeft =  measureGridHeaderLeft + measureBoxWidth * (endMeasure-2);
-	endMarkerInfoLabelHeight = measureGridBarHeight * 0.5;
-	endMarkerInfoLabelTop = measureGridBarTop + (measureGridBarHeight - endMarkerInfoLabelHeight)/2;
-	endMarkerInfoLabelWidth = measureBoxWidth * 4;
-	adjustTag("endMarkerInfoLabel", endMarkerInfoLabelLeft, endMarkerInfoLabelTop, endMarkerInfoLabelWidth, endMarkerInfoLabelHeight, "clear");
+	// /* END MARKER INFO LABEL */
+	// $("body").append('<div id="endMarkerInfoLabel" style="color:white">Drag to End</div>');
+	// endMarkerInfoLabelLeft =  measureGridHeaderLeft + measureBoxWidth * (endMeasure-2);
+	// endMarkerInfoLabelHeight = measureGridBarHeight * 0.5;
+	// endMarkerInfoLabelTop = measureGridBarTop + (measureGridBarHeight - endMarkerInfoLabelHeight)/2;
+	// endMarkerInfoLabelWidth = measureBoxWidth * 4;
+	// adjustTag("endMarkerInfoLabel", endMarkerInfoLabelLeft, endMarkerInfoLabelTop, endMarkerInfoLabelWidth, endMarkerInfoLabelHeight, "clear");
 }
 
 function drawControls()
@@ -275,7 +259,7 @@ function drawControls()
 	/* CONTROLS BACKGROUND */
 	$("body").append('<img id="controlsBackground" src="./images/controlsBackground.png"></img>');
 	controlsBackgroundLeft =  measureGridHeaderLeft;
-	controlsBackgroundTop = Number($("#measureBox-"+maxBoxes).css("top").replace(/px/g, '')) + measureBoxHeight;
+	controlsBackgroundTop = Number($("#measureBox-"+1).css("top").replace(/px/g, '')) + measureBoxHeight;
 	controlsBackgroundWidth = measureGridHeaderWidth + 2;
 	controlsBackgroundHeight = measureBoxHeight * 1.5;
 	adjustTag("controlsBackground", controlsBackgroundLeft, controlsBackgroundTop, controlsBackgroundWidth, controlsBackgroundHeight, "clear");
@@ -967,6 +951,7 @@ function setEvents()
 		/* TURN ON NOTE */
 		keyPress = ($(this).attr('id')).replace(new RegExp(zoom+'key-','g'),'');
 		notePress = Number(keyPress) + 21;
+		console.log(notePress);
 		MIDI.noteOn(0,notePress,90,0);
 		MIDI.noteOff(0,notePress,0.4);
 		$("#zoomOnkey-"+keyPress).css("background-color","yellow");
@@ -1066,7 +1051,7 @@ function colorizeMeasures()
 		/* MEASURE BOX */
 		$("#measureBox-"+number).css("background-color","#FFFF99");
 	}
-	for (number = endMeasure + 1; number <= maxBoxes; number++)
+	for (number = endMeasure + 1; number <= (tune.length-1); number++)
 	{			
 		/* MEASURE BOX */
 		$("#measureBox-"+number).css("background-color",measureBoxColor);

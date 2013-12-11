@@ -12,7 +12,7 @@ var speedPlusButtonEnabled = 0;
 
 /* MEASURE/DELAY */
 var startMeasure = currentMeasure = 1;
-var endMeasure = 8;
+var endMeasure = 69;
 var startDelay = delay = 0;
 var endDelay = endMeasure * delayPerMeasure;
 var FAST_FORWARD = 0.01;
