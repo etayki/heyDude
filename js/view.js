@@ -223,16 +223,22 @@ function drawMarkers()
 	adjustTag("positionMarker", positionMarkerLeft, positionMarkerTop, positionMarkerWidth, positionMarkerHeight, "green");
 	
 	/* START MARKER */
-	$("body").append('<img id="startMarker" src="./images/startMarker.png" style="z-index:1">');
+	$("body").append('<div id="startMarker" src="./images/startMarker.png" style="z-index:1"><div>');
 	startMarkerWidth = measureBoxWidth*1;
 	startMarkerLeft = $("#measureBox--3").css("left").replace(/px/g, '');
 	startMarkerTop = $("#measureBox--3").css("top").replace(/px/g, '');
 	startMarkerHeight = measureBoxHeight;
 	adjustTag("startMarker", startMarkerLeft, startMarkerTop, startMarkerWidth, startMarkerHeight, "clear");
 
-    // startMarkerLabel = '<div id="startMarkerLabel" style="z-index:0">'+startMeasure+'</div>';
-    // $("#measureBox--3").append(startMarkerLabel);
-    // adjustTag("startMarkerLabel", startMarkerLeft, startMarkerHeight*0.25, startMarkerWidth*0.5, startMarkerHeight*0.5, "clear");
+	$("#startMarker").append('<img id="startMarkerImg" src="./images/startMarker.png" style="z-index:1">');
+	startMarkerWidth = measureBoxWidth*1;
+	startMarkerLeft = $("#measureBox--3").css("left").replace(/px/g, '');
+	startMarkerTop = $("#measureBox--3").css("top").replace(/px/g, '');
+	startMarkerHeight = measureBoxHeight;
+	adjustTag("startMarkerImg", startMarkerLeft, 0, startMarkerWidth, startMarkerHeight, "clear");
+
+	$("#startMarker").append('<div id="startMarkerLabel" style="z-index:2">'+startMeasure+'</div>');
+    adjustTag("startMarkerLabel", startMarkerLeft, startMarkerHeight*0.25, startMarkerWidth*0.5, startMarkerHeight*0.5, "clear");
 
 	/* END MARKER */
 	$("body").append('<img id="endMarker" src="./images/endMarker.png" style="z-index:3">');
@@ -258,7 +264,7 @@ function drawMarkers()
 	$("body").mouseup(function() {
 		startMarkerMouseDown = 0;
 		endMarkerMouseDown = 0;
-		$("#startMarker").css("z-index", 0);
+		$("#startMarker").css("z-index", 1);
 		$("#endMarker").css("z-index", 0);
 		//console.log($("#startMarker").css("z-index") + " " + $("#startMarkerLabel").css("z-index"));
 	});
@@ -357,7 +363,8 @@ function setStartMarker(measure)
 	startMarkerTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
 	$("#startMarker").css("left", startMarkerLeft);
 	$("#startMarker").css("top", startMarkerTop);
-	console.log("setStartMarker: "+startMarkerLeft+", "+startMarkerTop);
+	$("#startMarkerLabel").text(measure);
+	//console.log("setStartMarker: "+startMarkerLeft+", "+startMarkerTop);
 }
 
 function setEndMarker(measure)
