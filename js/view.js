@@ -252,14 +252,13 @@ function drawMarkers()
 			startMarkerOffset = newMeasure - startMeasure;
 			if (startMarkerOffset < 0) // Hack to compensate for fact that initially startMeasure is 1
 				startMarkerOffset += 4;
-			console.log("startMarkerOffset= "+startMarkerOffset);
 		}
 
 		newMeasure -= startMarkerOffset;
-		if (newMeasure < -3 || newMeasure > 70) return;
+		if (newMeasure < -3 || newMeasure > 65) return;
 		if (startMarkerMouseDown && newMeasure != startMeasure)
 		{
-			setStartMeasure(newMeasure);
+			setStartMeasure(newMeasure+4);
 		}
 	});
 
@@ -300,7 +299,7 @@ function drawMarkers()
 		}
 
 		newMeasure -= endMarkerOffset;
-		if (newMeasure < -3 || newMeasure > 70) return;
+		if (newMeasure < 1 || newMeasure > 69) return;
 		if (endMarkerMouseDown && newMeasure != endMeasure)
 		{
 			setEndMeasure(newMeasure);
@@ -370,18 +369,18 @@ function drawMarkers()
 
 function setStartMarker(measure)
 {
-	startMarkerLeft = $("#measureBox-"+measure).css("left").replace(/px/g, '');
+	startMarkerLeft = $("#measureBox-"+(measure-4)).css("left").replace(/px/g, '');
 	$("#startMarker").css("left", startMarkerLeft);
-	$("#startMarkerLabel").text(measure+4);
+	$("#startMarkerLabel").text(measure);
 	//console.log("setStartMarker: "+startMarkerLeft+", "+startMarkerTop);
 }
 
 function setEndMarker(measure)
 {
-	endMarkerLeft = $("#measureBox-"+measure).css("left").replace(/px/g, '');
+	endMarkerLeft = $("#measureBox-"+(measure+1)).css("left").replace(/px/g, '');
 	$("#endMarker").css("left", endMarkerLeft);
 	//console.log("measure: "+measure+" endMarkerLeft: " + endMarkerLeft);
-	$("#endMarkerLabel").text(measure-1);
+	$("#endMarkerLabel").text(measure);
 
 }
 
@@ -1006,7 +1005,7 @@ function setEvents()
 		/* TURN ON NOTE */
 		keyPress = ($(this).attr('id')).replace(new RegExp(zoom+'key-','g'),'');
 		notePress = Number(keyPress) + 21;
-		console.log(notePress);
+		//console.log(notePress);
 		MIDI.noteOn(0,notePress,90,0);
 		MIDI.noteOff(0,notePress,0.4);
 		$("#zoomOnkey-"+keyPress).css("background-color","yellow");
