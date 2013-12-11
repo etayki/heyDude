@@ -8,34 +8,34 @@ function drawScreen()
 	setSceenWidth();
 	//console.log("drawHeader: " + (new Date().getTime() - startTime));
 	drawHeader();
-	//console.log("drawMeasureGrid: " + (new Date().getTime() - startTime));
-	drawMeasureGrid();
+	//console.log("drawMeasureTrack: " + (new Date().getTime() - startTime));
+	drawMeasureTrack();
 	//console.log("drawMarkers: " + (new Date().getTime() - startTime));
 	drawMarkers();
 	//console.log("colorizeMeasures: " + (new Date().getTime() - startTime));
 	colorizeMeasures();
 	//console.log("drawControls: " + (new Date().getTime() - startTime));
-	drawControls();
+	//drawControls();
 	//console.log("drawTransposition: " + (new Date().getTime() - startTime));
-	if (isiPad)
-	//if (1)
-	{
-		drawTranspositionTablet();
-		drawSpeedTablet();
-	}
-	else
-	{
-		drawMetronome();
-		drawTransposition();
-	}
+	// if (isiPad)
+	// //if (1)
+	// {
+	// 	drawTranspositionTablet();
+	// 	drawSpeedTablet();
+	// }
+	// else
+	// {
+	// 	drawMetronome();
+	// 	drawTransposition();
+	// }
 	//console.log("drawMetronome: " + (new Date().getTime() - startTime));
 	//console.log("drawPiano: " + (new Date().getTime() - startTime));
 	//drawPiano(8,68);
 	//drawPiano(0,88);
 	//console.log("setEvents: " + (new Date().getTime() - startTime));
-	setEvents();
+	//setEvents();
 	//console.log("drawfeedback: " + (new Date().getTime() - startTime));
-	drawfeedback();
+	//drawfeedback();
 	//console.log("display: " + (new Date().getTime() - startTime));
 	display();
 	//console.log("reportBrowser: " + (new Date().getTime() - startTime));
@@ -168,7 +168,7 @@ function drawHeader()
 	adjustTag("measureGridBar", measureGridBarLeft, measureGridBarTop, measureGridBarWidth, measureGridBarHeight, measureGridBarColor);
 }
 
-function drawMeasureGrid()
+function drawMeasureTrack()
 {
 	/* MEASURE BOX */
 	measureBoxWidth = screenWidth/(tune.length+7); // 8 more boxes than measures to give room for markers
@@ -189,7 +189,7 @@ function drawMeasureGrid()
 	{			
 		/* MEASURE BOX */ // border-style:solid; border-width:0px; z-index:1
 		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:1px;cursor:pointer;z-index:1"></div>');
-		adjustTag("measureBox-"+number, measureBoxLeft, measureBoxTop, measureBoxWidth, measureBoxHeight, measureBoxColor);
+		adjustTag("measureBox-"+number, measureBoxLeft, measureBoxTop-40, measureBoxWidth, measureBoxHeight+80, measureBoxColor);
 
        //if (number < tune.length)
 		{
@@ -223,22 +223,16 @@ function drawMarkers()
 	adjustTag("positionMarker", positionMarkerLeft, positionMarkerTop, positionMarkerWidth, positionMarkerHeight, "green");
 	
 	/* START MARKER */
-	$("body").append('<div id="startMarker" src="./images/startMarker.png" style="z-index:1"><div>');
-	startMarkerWidth = measureBoxWidth*1;
+	$("body").append('<div id="startMarker" style="z-index:1"><div>');
+	startMarkerWidth = measureBoxWidth*4;
 	startMarkerLeft = $("#measureBox--3").css("left").replace(/px/g, '');
-	startMarkerTop = $("#measureBox--3").css("top").replace(/px/g, '');
+	startMarkerTop = measureGridBarTop+measureGridBarHeight;//$("#measureBox--3").css("top").replace(/px/g, '');
 	startMarkerHeight = measureBoxHeight;
 	adjustTag("startMarker", startMarkerLeft, startMarkerTop, startMarkerWidth, startMarkerHeight, "clear");
-
 	$("#startMarker").append('<img id="startMarkerImg" src="./images/startMarker.png" style="z-index:1">');
-	startMarkerWidth = measureBoxWidth*1;
-	startMarkerLeft = $("#measureBox--3").css("left").replace(/px/g, '');
-	startMarkerTop = $("#measureBox--3").css("top").replace(/px/g, '');
-	startMarkerHeight = measureBoxHeight;
 	adjustTag("startMarkerImg", startMarkerLeft, 0, startMarkerWidth, startMarkerHeight, "clear");
-
 	$("#startMarker").append('<div id="startMarkerLabel" style="z-index:2">'+startMeasure+'</div>');
-    adjustTag("startMarkerLabel", startMarkerLeft, startMarkerHeight*0.25, startMarkerWidth*0.5, startMarkerHeight*0.5, "clear");
+    adjustTag("startMarkerLabel", startMarkerLeft, -startMarkerHeight*0.5, startMarkerWidth, startMarkerHeight*0.5, "clear");
 
 	/* END MARKER */
 	$("body").append('<img id="endMarker" src="./images/endMarker.png" style="z-index:3">');
@@ -253,6 +247,8 @@ function drawMarkers()
 		startMarkerMouseDown = 1;
 		//console.log("startMarkerMouseDown = 1");
 		$("#startMarker").css("z-index", 0);
+		$(".measureBox").css("z-index", 10);
+
 	});
 
 	$("#endMarker").mousedown(function() {
@@ -266,6 +262,7 @@ function drawMarkers()
 		endMarkerMouseDown = 0;
 		$("#startMarker").css("z-index", 1);
 		$("#endMarker").css("z-index", 0);
+		$(".measureBox").css("z-index", 1);
 		//console.log($("#startMarker").css("z-index") + " " + $("#startMarkerLabel").css("z-index"));
 	});
 
@@ -360,9 +357,7 @@ function drawMarkers()
 function setStartMarker(measure)
 {
 	startMarkerLeft = $("#measureBox-"+measure).css("left").replace(/px/g, '');
-	startMarkerTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
 	$("#startMarker").css("left", startMarkerLeft);
-	$("#startMarker").css("top", startMarkerTop);
 	$("#startMarkerLabel").text(measure);
 	//console.log("setStartMarker: "+startMarkerLeft+", "+startMarkerTop);
 }
@@ -380,7 +375,7 @@ function drawControls()
 	/* CONTROLS BACKGROUND */
 	$("body").append('<img id="controlsBackground" src="./images/controlsBackground.png"></img>');
 	controlsBackgroundLeft =  measureGridHeaderLeft;
-	controlsBackgroundTop = Number($("#measureBox-"+1).css("top").replace(/px/g, '')) + measureBoxHeight;
+	controlsBackgroundTop = startMarkerTop+startMarkerHeight;
 	controlsBackgroundWidth = measureGridHeaderWidth + 2;
 	controlsBackgroundHeight = measureBoxHeight * 1.5;
 	adjustTag("controlsBackground", controlsBackgroundLeft, controlsBackgroundTop, controlsBackgroundWidth, controlsBackgroundHeight, "clear");
