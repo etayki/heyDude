@@ -11,7 +11,7 @@ var speedMinusButtonEnabled = 1;
 var speedPlusButtonEnabled = 0;
 
 /* MEASURE/DELAY */
-var startMeasure = currentMeasure = 1;
+var startMeasure = currentMeasure = -3;
 var endMeasure = 69;
 var startDelay = delay = 0;
 var endDelay = endMeasure * delayPerMeasure;

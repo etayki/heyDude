@@ -15,7 +15,7 @@ function drawScreen()
 	//console.log("colorizeMeasures: " + (new Date().getTime() - startTime));
 	colorizeMeasures();
 	//console.log("drawControls: " + (new Date().getTime() - startTime));
-	//drawControls();
+	drawControls();
 	//console.log("drawTransposition: " + (new Date().getTime() - startTime));
 	// if (isiPad)
 	// //if (1)
@@ -212,6 +212,8 @@ function drawMeasureTrack()
 
 var	startMarkerMouseDown = 0;
 var	endMarkerMouseDown = 0;
+var startMarkerOffset = -1;
+
 function drawMarkers()
 {
 	/* POSITION MARKER */
@@ -226,7 +228,7 @@ function drawMarkers()
 	$("body").append('<div id="startMarker" style="z-index:1"><div>');
 	startMarkerWidth = measureBoxWidth*4;
 	startMarkerLeft = $("#measureBox--3").css("left").replace(/px/g, '');
-	startMarkerTop = measureGridBarTop+measureGridBarHeight;//$("#measureBox--3").css("top").replace(/px/g, '');
+	startMarkerTop = measureGridBarTop+measureGridBarHeight;
 	startMarkerHeight = measureBoxHeight;
 	adjustTag("startMarker", startMarkerLeft, startMarkerTop, startMarkerWidth, startMarkerHeight, "clear");
 	$("#startMarker").append('<img id="startMarkerImg" src="./images/startMarker.png" style="z-index:1">');
@@ -263,6 +265,7 @@ function drawMarkers()
 		$("#startMarker").css("z-index", 1);
 		$("#endMarker").css("z-index", 0);
 		$(".measureBox").css("z-index", 1);
+		startMarkerOffset = -1;
 		//console.log($("#startMarker").css("z-index") + " " + $("#startMarkerLabel").css("z-index"));
 	});
 
@@ -270,7 +273,17 @@ function drawMarkers()
 	$(".measureBox").mouseover(function() {
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
+		//console.log("newMeasure= "+newMeasure);
 		//console.log(newMeasure);
+		if (startMarkerOffset == -1 && startMarkerMouseDown)
+		{
+			startMarkerOffset = newMeasure - startMeasure;
+			console.log("newMeasure= "+newMeasure+" startMeasure= "+startMeasure);
+		}
+
+		console.log(startMarkerOffset);
+		newMeasure -= startMarkerOffset;
+
 		if (startMarkerMouseDown && newMeasure != startMeasure)
 		{
 			setStartMeasure(newMeasure);
@@ -333,25 +346,6 @@ function drawMarkers()
 			}
 		}
 	});
-
-
-
-	/* START MARKER INFO LABEL */
-	// $("body").append('<div id="startMarkerInfoLabel" style="color:white">Drag to Start</div>');
-	// startMarkerInfoLabelLeft =  measureGridHeaderLeft + measureBoxWidth * 0.1;
-	// startMarkerInfoLabelHeight = measureGridBarHeight * 0.5;
-	// startMarkerInfoLabelTop = measureGridBarTop + (measureGridBarHeight - startMarkerInfoLabelHeight)/2;
-	// startMarkerInfoLabelWidth = measureBoxWidth * 2;
-	// adjustTag("startMarkerInfoLabel", startMarkerInfoLabelLeft, startMarkerInfoLabelTop, startMarkerInfoLabelWidth, startMarkerInfoLabelHeight, "clear");
-	// $("#startMarkerInfoLabel").css("text-align", "left");
-	
-	// /* END MARKER INFO LABEL */
-	// $("body").append('<div id="endMarkerInfoLabel" style="color:white">Drag to End</div>');
-	// endMarkerInfoLabelLeft =  measureGridHeaderLeft + measureBoxWidth * (endMeasure-2);
-	// endMarkerInfoLabelHeight = measureGridBarHeight * 0.5;
-	// endMarkerInfoLabelTop = measureGridBarTop + (measureGridBarHeight - endMarkerInfoLabelHeight)/2;
-	// endMarkerInfoLabelWidth = measureBoxWidth * 4;
-	// adjustTag("endMarkerInfoLabel", endMarkerInfoLabelLeft, endMarkerInfoLabelTop, endMarkerInfoLabelWidth, endMarkerInfoLabelHeight, "clear");
 }
 
 function setStartMarker(measure)
