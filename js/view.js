@@ -236,6 +236,37 @@ function drawMarkers()
 	$("#startMarker").append('<div id="startMarkerLabel" style="z-index:2">'+startMeasure+'</div>');
     adjustTag("startMarkerLabel", startMarkerLeft, -startMarkerHeight*0.5, startMarkerWidth, startMarkerHeight*0.5, "clear");
 
+	$("#startMarker").mousedown(function() {
+		if (isiPad) return;
+		startMarkerMouseDown = 1;
+		//console.log("startMarkerMouseDown = 1");
+		$("#startMarker").css("z-index", 0);
+		$(".measureBox").css("z-index", 10);
+	});
+
+	$(".measureBox").mouseover(function() {
+		measureBoxId = $(this).attr('id');
+		newMeasure = measureBoxId.replace(/measureBox-/g, '');
+		if (startMarkerOffset == -1 && startMarkerMouseDown)
+		{
+			startMarkerOffset = newMeasure - startMeasure;
+			//console.log("newMeasure= "+newMeasure+" startMeasure= "+startMeasure);
+		}
+
+		newMeasure -= startMarkerOffset;
+		if (startMarkerMouseDown && newMeasure != startMeasure)
+		{
+			setStartMeasure(newMeasure);
+		}
+	});
+
+	$("body").mouseup(function() {
+		startMarkerMouseDown = 0;
+		$("#startMarker").css("z-index", 1);
+		$(".measureBox").css("z-index", 1);
+		startMarkerOffset = -1;
+	});
+
 	/* END MARKER */
 	$("body").append('<img id="endMarker" src="./images/endMarker.png" style="z-index:3">');
 	endMarkerWidth = startMarkerWidth;
@@ -244,55 +275,13 @@ function drawMarkers()
 	endMarkerHeight = measureBoxHeight;
 	adjustTag("endMarker", endMarkerLeft, endMarkerTop, endMarkerWidth, endMarkerHeight, "clear");
 
-	$("#startMarker").mousedown(function() {
-		if (isiPad) return;
-		startMarkerMouseDown = 1;
-		//console.log("startMarkerMouseDown = 1");
-		$("#startMarker").css("z-index", 0);
-		$(".measureBox").css("z-index", 10);
-
-	});
-
 	$("#endMarker").mousedown(function() {
 		if (isiPad) return;		
 		endMarkerMouseDown = 1;
 		$("#endMarker").css("z-index", 0);
 	});
 
-	$("body").mouseup(function() {
-		startMarkerMouseDown = 0;
-		endMarkerMouseDown = 0;
-		$("#startMarker").css("z-index", 1);
-		$("#endMarker").css("z-index", 0);
-		$(".measureBox").css("z-index", 1);
-		startMarkerOffset = -1;
-		//console.log($("#startMarker").css("z-index") + " " + $("#startMarkerLabel").css("z-index"));
-	});
 
-	/* SET START/END MARKERS */
-	$(".measureBox").mouseover(function() {
-		measureBoxId = $(this).attr('id');
-		newMeasure = measureBoxId.replace(/measureBox-/g, '');
-		//console.log("newMeasure= "+newMeasure);
-		//console.log(newMeasure);
-		if (startMarkerOffset == -1 && startMarkerMouseDown)
-		{
-			startMarkerOffset = newMeasure - startMeasure;
-			console.log("newMeasure= "+newMeasure+" startMeasure= "+startMeasure);
-		}
-
-		console.log(startMarkerOffset);
-		newMeasure -= startMarkerOffset;
-
-		if (startMarkerMouseDown && newMeasure != startMeasure)
-		{
-			setStartMeasure(newMeasure);
-		}
-		else if (endMarkerMouseDown && newMeasure != endMeasure)
-		{
-			setEndMeasure(newMeasure);
-		}
-	});
 
 	// Don't allow to save image
 	$('#startMarker').bind('touchstart', function(e){
