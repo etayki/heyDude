@@ -171,11 +171,11 @@ function drawHeader()
 function drawMeasureGrid()
 {
 	/* MEASURE BOX */
-	measureBoxWidth = screenWidth/(tune.length+7); // 8 more boxes than measures to give room for markers
+	measureBoxWidth = screenWidth/(tune.length*10+7); // 8 more boxes than measures to give room for markers
 	measureBoxLeft = 0;
 	measureBoxHeight = 50;
 	measureBoxTop = measureGridBarTop + measureGridBarHeight;
-	measureBoxColor = "#cbcbcb";
+	measureBoxColor = "clear";//"#cbcbcb";
 
 	/* MEASURE LABEL */
 	measureBoxLabelWidth = measureBoxWidth * 0.4;
@@ -185,10 +185,10 @@ function drawMeasureGrid()
 	measureBoxFontSize = getFontSize(measureBoxLabelHeight);
 
 	/* MEASURE GRID */
-	for (number = -3; number <= tune.length + 4; number++)
+	for (number = -3; number < tune.length*10 + 4; number++)
 	{			
-		/* MEASURE BOX */
-		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:1px;cursor:pointer"></div>');
+		/* MEASURE BOX */ // border-style:solid; border-width:0px; z-index:1
+		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0px;cursor:pointer;z-index:1"></div>');
 		adjustTag("measureBox-"+number, measureBoxLeft, measureBoxTop, measureBoxWidth, measureBoxHeight, measureBoxColor);
 
        //if (number < tune.length)
@@ -221,20 +221,39 @@ function drawMarkers()
 	adjustTag("positionMarker", positionMarkerLeft, positionMarkerTop, positionMarkerWidth, positionMarkerHeight, "green");
 	
 	/* START MARKER */
-	$("body").append('<img id="startMarker" src="./images/startMarker.png"></img>');
-	startMarkerWidth = measureBoxWidth*4;
+	$("body").append('<img id="startMarker" src="./images/startMarker.png" style="z-index:3">');
+	startMarkerWidth = measureBoxWidth*4*10;
 	startMarkerLeft = $("#measureBox--3").css("left").replace(/px/g, '');
 	startMarkerTop = $("#measureBox--3").css("top").replace(/px/g, '');
 	startMarkerHeight = measureBoxHeight;
 	adjustTag("startMarker", startMarkerLeft, startMarkerTop, startMarkerWidth, startMarkerHeight, "clear");
 	
 	/* END MARKER */
-	$("body").append('<img id="endMarker" src="./images/endMarker.png"></img>');
+	$("body").append('<img id="endMarker" src="./images/endMarker.png" style="z-index:3">');
 	endMarkerWidth = startMarkerWidth;
-	endMarkerLeft = $("#measureBox-"+endMeasure).css("left").replace(/px/g, '')  - startMarkerWidth + 1 + measureBoxWidth; // Add 1 because PowerPoint gives padding of 1;
+	endMarkerLeft = $("#measureBox-"+(endMeasure+4)).css("left").replace(/px/g, '')  - startMarkerWidth + 1 + measureBoxWidth; // Add 1 because PowerPoint gives padding of 1;
 	endMarkerTop = startMarkerTop;
 	endMarkerHeight = measureBoxHeight;
 	adjustTag("endMarker", endMarkerLeft, endMarkerTop, endMarkerWidth, endMarkerHeight, "clear");
+
+	$("#startMarker").mousedown(function() {
+		if (isiPad) return;
+		startMarkerMouseDown = 1;
+		$("#startMarker").css("z-index", 0);
+	});
+
+	$("#endMarker").mousedown(function() {
+		if (isiPad) return;		
+		endMarkerMouseDown = 1;
+		$("#endMarker").css("z-index", 0);
+	});
+
+	$("body").mouseup(function() {
+		startMarkerMouseDown = 0;
+		endMarkerMouseDown = 0;
+		$("#startMarker").css("z-index", 5);
+		$("#endMarker").css("z-index", 5);
+	});
 
 	/* START MARKER INFO LABEL */
 	// $("body").append('<div id="startMarkerInfoLabel" style="color:white">Drag to Start</div>');
@@ -902,20 +921,9 @@ function setEvents()
 	});
 	
 	// PC
-	$("#startMarker").mousedown(function() {
-		if (isiPad) return;
-		startMarkerMouseDown = 1;
-	});
-
-	$("#endMarker").mousedown(function() {
-		if (isiPad) return;		
-		endMarkerMouseDown = 1;
-	});
 
 	$("body").mouseup(function() {
-		startMarkerMouseDown = 0;
-		endMarkerMouseDown = 0;
-		draggerMouseDown = 0;	
+		draggerMouseDown = 0;
 	});
 
 	/* SET START/END MARKERS */
@@ -1041,6 +1049,7 @@ function setEndMarker(measure)
 
 function colorizeMeasures()
 {
+	return;
 	for (number = 1; number <= startMeasure; number++)
 	{			
 		/* MEASURE BOX */
