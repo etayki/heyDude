@@ -30,8 +30,8 @@ function drawScreen()
 	}
 	//console.log("drawMetronome: " + (new Date().getTime() - startTime));
 	//console.log("drawPiano: " + (new Date().getTime() - startTime));
-	drawPiano(8,68);
-	drawPiano(0,88);
+	//drawPiano(8,68);
+	//drawPiano(0,88);
 	//console.log("setEvents: " + (new Date().getTime() - startTime));
 	setEvents();
 	//console.log("drawfeedback: " + (new Date().getTime() - startTime));
@@ -210,6 +210,8 @@ function drawMeasureGrid()
 	}	
 }
 
+var	startMarkerMouseDown = 0;
+var	endMarkerMouseDown = 0;
 function drawMarkers()
 {
 	/* POSITION MARKER */
@@ -221,13 +223,17 @@ function drawMarkers()
 	adjustTag("positionMarker", positionMarkerLeft, positionMarkerTop, positionMarkerWidth, positionMarkerHeight, "green");
 	
 	/* START MARKER */
-	$("body").append('<img id="startMarker" src="./images/startMarker.png" style="z-index:3">');
-	startMarkerWidth = measureBoxWidth*4;
+	$("body").append('<img id="startMarker" src="./images/startMarker.png" style="z-index:1">');
+	startMarkerWidth = measureBoxWidth*1;
 	startMarkerLeft = $("#measureBox--3").css("left").replace(/px/g, '');
 	startMarkerTop = $("#measureBox--3").css("top").replace(/px/g, '');
 	startMarkerHeight = measureBoxHeight;
 	adjustTag("startMarker", startMarkerLeft, startMarkerTop, startMarkerWidth, startMarkerHeight, "clear");
-	
+
+    // startMarkerLabel = '<div id="startMarkerLabel" style="z-index:0">'+startMeasure+'</div>';
+    // $("#measureBox--3").append(startMarkerLabel);
+    // adjustTag("startMarkerLabel", startMarkerLeft, startMarkerHeight*0.25, startMarkerWidth*0.5, startMarkerHeight*0.5, "clear");
+
 	/* END MARKER */
 	$("body").append('<img id="endMarker" src="./images/endMarker.png" style="z-index:3">');
 	endMarkerWidth = startMarkerWidth;
@@ -239,6 +245,7 @@ function drawMarkers()
 	$("#startMarker").mousedown(function() {
 		if (isiPad) return;
 		startMarkerMouseDown = 1;
+		//console.log("startMarkerMouseDown = 1");
 		$("#startMarker").css("z-index", 0);
 	});
 
@@ -251,9 +258,80 @@ function drawMarkers()
 	$("body").mouseup(function() {
 		startMarkerMouseDown = 0;
 		endMarkerMouseDown = 0;
-		$("#startMarker").css("z-index", 5);
-		$("#endMarker").css("z-index", 5);
+		$("#startMarker").css("z-index", 0);
+		$("#endMarker").css("z-index", 0);
+		//console.log($("#startMarker").css("z-index") + " " + $("#startMarkerLabel").css("z-index"));
 	});
+
+	/* SET START/END MARKERS */
+	$(".measureBox").mouseover(function() {
+		measureBoxId = $(this).attr('id');
+		newMeasure = measureBoxId.replace(/measureBox-/g, '');
+		//console.log(newMeasure);
+		if (startMarkerMouseDown && newMeasure != startMeasure)
+		{
+			setStartMeasure(newMeasure);
+		}
+		else if (endMarkerMouseDown && newMeasure != endMeasure)
+		{
+			setEndMeasure(newMeasure);
+		}
+	});
+
+	// Don't allow to save image
+	$('#startMarker').bind('touchstart', function(e){
+		e.preventDefault();
+	});
+
+	$('#startMarker').bind('touchmove', function(e){
+		e.preventDefault();
+		for (number = 1; number <= maxBoxes; number++)
+		{
+			measureBoxLeft = Number($("#measureBox-"+number).css('left').replace(/px/g, ''));
+			measureBoxTop = Number($("#measureBox-"+number).css('top').replace(/px/g, ''));
+			measureBoxWidth = Number($("#measureBox-"+number).css('width').replace(/px/g, ''));
+			//debug (number + " " + event.touches[0].pageY + ">" + (measureBoxTop + measureBoxWidth));
+			if (event.touches[0].pageX > measureBoxLeft &&
+				event.touches[0].pageX < (measureBoxLeft + measureBoxWidth) &&
+				event.touches[0].pageY > measureBoxTop && 
+				event.touches[0].pageY < (measureBoxTop + measureBoxWidth))
+			{
+				if (number != endMeasure)
+				{				
+					//debug(number);
+					setStartMeasure(number);
+				}
+			}
+		}
+	});
+
+	$('#endMarker').bind('touchstart', function(e){
+		e.preventDefault();
+	});
+
+	$('#endMarker').bind('touchmove', function(e){
+		e.preventDefault();
+		for (number = 1; number <= maxBoxes; number++)
+		{
+			measureBoxLeft = Number($("#measureBox-"+number).css('left').replace(/px/g, ''));
+			measureBoxTop = Number($("#measureBox-"+number).css('top').replace(/px/g, ''));
+			measureBoxWidth = Number($("#measureBox-"+number).css('width').replace(/px/g, ''));
+			//debug (number + " " + event.touches[0].pageY + ">" + (measureBoxTop + measureBoxWidth));
+			if (event.touches[0].pageX > measureBoxLeft &&
+				event.touches[0].pageX < (measureBoxLeft + measureBoxWidth) &&
+				event.touches[0].pageY > measureBoxTop && 
+				event.touches[0].pageY < (measureBoxTop + measureBoxWidth))
+			{
+				if (number != endMeasure)
+				{				
+					//debug(number);
+					setEndMeasure(number);
+				}
+			}
+		}
+	});
+
+
 
 	/* START MARKER INFO LABEL */
 	// $("body").append('<div id="startMarkerInfoLabel" style="color:white">Drag to Start</div>');
@@ -271,6 +349,23 @@ function drawMarkers()
 	// endMarkerInfoLabelTop = measureGridBarTop + (measureGridBarHeight - endMarkerInfoLabelHeight)/2;
 	// endMarkerInfoLabelWidth = measureBoxWidth * 4;
 	// adjustTag("endMarkerInfoLabel", endMarkerInfoLabelLeft, endMarkerInfoLabelTop, endMarkerInfoLabelWidth, endMarkerInfoLabelHeight, "clear");
+}
+
+function setStartMarker(measure)
+{
+	startMarkerLeft = $("#measureBox-"+measure).css("left").replace(/px/g, '');
+	startMarkerTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
+	$("#startMarker").css("left", startMarkerLeft);
+	$("#startMarker").css("top", startMarkerTop);
+	console.log("setStartMarker: "+startMarkerLeft+", "+startMarkerTop);
+}
+
+function setEndMarker(measure)
+{
+	endMarkerLeft =  $("#measureBox-"+measure).css("left").replace(/px/g, '') - startMarkerWidth + 1 + measureBoxWidth;
+	endMarkerTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
+	$("#endMarker").css("left", endMarkerLeft);
+	$("#endMarker").css("top", endMarkerTop);	
 }
 
 function drawControls()
@@ -841,8 +936,7 @@ function setEvents()
 {
 	$('img').on('dragstart', function(event) { event.preventDefault(); });
 
-	startMarkerMouseDown = 0;
-	endMarkerMouseDown = 0;
+
 
  	// iPad
  	document.body.addEventListener('touchmove',function(e){
@@ -867,58 +961,7 @@ function setEvents()
 	});
 
 
-	// Don't allow to save image
-	$('#startMarker').bind('touchstart', function(e){
-		e.preventDefault();
-	});
 
-	$('#startMarker').bind('touchmove', function(e){
-		e.preventDefault();
-		for (number = 1; number <= maxBoxes; number++)
-		{
-			measureBoxLeft = Number($("#measureBox-"+number).css('left').replace(/px/g, ''));
-			measureBoxTop = Number($("#measureBox-"+number).css('top').replace(/px/g, ''));
-			measureBoxWidth = Number($("#measureBox-"+number).css('width').replace(/px/g, ''));
-			//debug (number + " " + event.touches[0].pageY + ">" + (measureBoxTop + measureBoxWidth));
-			if (event.touches[0].pageX > measureBoxLeft &&
-				event.touches[0].pageX < (measureBoxLeft + measureBoxWidth) &&
-				event.touches[0].pageY > measureBoxTop && 
-				event.touches[0].pageY < (measureBoxTop + measureBoxWidth))
-			{
-				if (number != endMeasure)
-				{				
-					//debug(number);
-					setStartMeasure(number);
-				}
-			}
-		}
-	});
-
-	$('#endMarker').bind('touchstart', function(e){
-		e.preventDefault();
-	});
-
-	$('#endMarker').bind('touchmove', function(e){
-		e.preventDefault();
-		for (number = 1; number <= maxBoxes; number++)
-		{
-			measureBoxLeft = Number($("#measureBox-"+number).css('left').replace(/px/g, ''));
-			measureBoxTop = Number($("#measureBox-"+number).css('top').replace(/px/g, ''));
-			measureBoxWidth = Number($("#measureBox-"+number).css('width').replace(/px/g, ''));
-			//debug (number + " " + event.touches[0].pageY + ">" + (measureBoxTop + measureBoxWidth));
-			if (event.touches[0].pageX > measureBoxLeft &&
-				event.touches[0].pageX < (measureBoxLeft + measureBoxWidth) &&
-				event.touches[0].pageY > measureBoxTop && 
-				event.touches[0].pageY < (measureBoxTop + measureBoxWidth))
-			{
-				if (number != endMeasure)
-				{				
-					//debug(number);
-					setEndMeasure(number);
-				}
-			}
-		}
-	});
 	
 	// PC
 
@@ -926,20 +969,7 @@ function setEvents()
 		draggerMouseDown = 0;
 	});
 
-	/* SET START/END MARKERS */
-	$(".measureBox").mouseover(function() {
-		//debug("mouseover");
-		measureBoxId = $(this).attr('id');
-		newMeasure = measureBoxId.replace(/measureBox-/g, '');
-		if (startMarkerMouseDown && newMeasure != startMeasure)
-		{
-			setStartMeasure(newMeasure);
-		}
-		else if (endMarkerMouseDown && newMeasure != endMeasure)
-		{
-			setEndMeasure(newMeasure);
-		}
-	});
+
 
 	/* SET CURRENT MEASURE */
 	$(".measureBox").bind(onClickEvent, function(e){
@@ -1029,22 +1059,6 @@ function setPositionMarker()
 			$("#positionMarker").css("width", remainingMeasureWidth);
 	}
 
-}
-
-function setStartMarker(measure)
-{
-	startMarkerLeft = $("#measureBox-"+measure).css("left").replace(/px/g, '');
-	startMarkerTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
-	$("#startMarker").css("left", startMarkerLeft);
-	$("#startMarker").css("top", startMarkerTop);	
-}
-
-function setEndMarker(measure)
-{
-	endMarkerLeft =  $("#measureBox-"+measure).css("left").replace(/px/g, '') - startMarkerWidth + 1 + measureBoxWidth;
-	endMarkerTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
-	$("#endMarker").css("left", endMarkerLeft);
-	$("#endMarker").css("top", endMarkerTop);	
 }
 
 function colorizeMeasures()

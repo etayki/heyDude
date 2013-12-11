@@ -120,7 +120,6 @@ echo <<<END
     <script src="./js/tune.js" type="text/javascript"></script>
     <script src="./js/music.js" type="text/javascript"></script>
     <script src="./js/view.js" type="text/javascript"></script>
-    <script src="./js/keyboard.js" type="text/javascript"></script>     
 END;
 }
 else 
