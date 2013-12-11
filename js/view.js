@@ -178,11 +178,11 @@ function drawMeasureTrack()
 	measureBoxColor = "clear";//"#cbcbcb";
 
 	/* MEASURE LABEL */
-	measureBoxLabelWidth = measureBoxWidth * 0.4;
-	measureBoxLabelLeft = (measureBoxWidth - measureBoxLabelWidth)/2;
-	measureBoxLabelTop = measureBoxLabelLeft;
+	measureBoxLabelWidth = measureBoxWidth;
+	measureBoxLabelLeft = measureBoxLeft;
+	measureBoxLabelTop = measureBoxTop-78;
 	measureBoxLabelHeight = measureBoxLabelWidth;
-	measureBoxFontSize = getFontSize(measureBoxLabelHeight);
+	measureBoxFontSize = getFontSize(measureBoxLabelHeight)-4;
 
 	/* MEASURE GRID */
 	for (number = -3; number < tune.length + 4; number++)
@@ -272,7 +272,7 @@ function drawMarkers()
 	/* END MARKER */
 	$("body").append('<div id="endMarker" style="z-index:1"><div>');
 	endMarkerWidth = measureBoxWidth*4;
-	endMarkerLeft = $("#measureBox-"+endMeasure).css("left").replace(/px/g, '');
+	endMarkerLeft = $("#measureBox-"+(endMeasure+1)).css("left").replace(/px/g, '');
 	endMarkerTop = measureGridBarTop+measureGridBarHeight;
 	endMarkerHeight = measureBoxHeight;
 	adjustTag("endMarker", endMarkerLeft, endMarkerTop, endMarkerWidth, endMarkerHeight, "clear");
@@ -378,7 +378,7 @@ function setEndMarker(measure)
 {
 	endMarkerLeft = $("#measureBox-"+measure).css("left").replace(/px/g, '');
 	$("#endMarker").css("left", endMarkerLeft);
-	console.log("measure: "+measure+" endMarkerLeft: " + endMarkerLeft);
+	//console.log("measure: "+measure+" endMarkerLeft: " + endMarkerLeft);
 	$("#endMarkerLabel").text(measure-1);
 
 }
