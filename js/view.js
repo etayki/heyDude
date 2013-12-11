@@ -171,7 +171,7 @@ function drawHeader()
 function drawMeasureGrid()
 {
 	/* MEASURE BOX */
-	measureBoxWidth = screenWidth/(tune.length*10+7); // 8 more boxes than measures to give room for markers
+	measureBoxWidth = screenWidth/(tune.length+7); // 8 more boxes than measures to give room for markers
 	measureBoxLeft = 0;
 	measureBoxHeight = 50;
 	measureBoxTop = measureGridBarTop + measureGridBarHeight;
@@ -185,10 +185,10 @@ function drawMeasureGrid()
 	measureBoxFontSize = getFontSize(measureBoxLabelHeight);
 
 	/* MEASURE GRID */
-	for (number = -3; number < tune.length*10 + 4; number++)
+	for (number = -3; number < tune.length + 4; number++)
 	{			
 		/* MEASURE BOX */ // border-style:solid; border-width:0px; z-index:1
-		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0px;cursor:pointer;z-index:1"></div>');
+		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:1px;cursor:pointer;z-index:1"></div>');
 		adjustTag("measureBox-"+number, measureBoxLeft, measureBoxTop, measureBoxWidth, measureBoxHeight, measureBoxColor);
 
        //if (number < tune.length)
@@ -222,7 +222,7 @@ function drawMarkers()
 	
 	/* START MARKER */
 	$("body").append('<img id="startMarker" src="./images/startMarker.png" style="z-index:3">');
-	startMarkerWidth = measureBoxWidth*4*10;
+	startMarkerWidth = measureBoxWidth*4;
 	startMarkerLeft = $("#measureBox--3").css("left").replace(/px/g, '');
 	startMarkerTop = $("#measureBox--3").css("top").replace(/px/g, '');
 	startMarkerHeight = measureBoxHeight;
