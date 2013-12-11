@@ -250,7 +250,9 @@ function drawMarkers()
 		if (startMarkerOffset == -1 && startMarkerMouseDown)
 		{
 			startMarkerOffset = newMeasure - startMeasure;
-			//console.log("newMeasure= "+newMeasure+" startMeasure= "+startMeasure);
+			if (startMarkerOffset < 0) // Hack to compensate for fact that initially startMeasure is 1
+				startMarkerOffset += 4;
+			console.log("startMarkerOffset= "+startMarkerOffset);
 		}
 
 		newMeasure -= startMarkerOffset;
