@@ -232,9 +232,9 @@ function drawMarkers()
 	startMarkerHeight = measureBoxHeight;
 	adjustTag("startMarker", startMarkerLeft, startMarkerTop, startMarkerWidth, startMarkerHeight, "clear");
 	$("#startMarker").append('<img id="startMarkerImg" src="./images/startMarker.png" style="z-index:1">');
-	adjustTag("startMarkerImg", 0, 0, startMarkerWidth, startMarkerHeight, "clear");
+	adjustTag("startMarkerImg", startMarkerWidth*0.5, 0, startMarkerWidth*0.5, startMarkerHeight, "clear");
 	$("#startMarker").append('<div id="startMarkerLabel" style="z-index:2">'+startMeasure+'</div>');
-    adjustTag("startMarkerLabel", 0, -startMarkerHeight*0.5, startMarkerWidth, startMarkerHeight*0.5, "clear");
+    adjustTag("startMarkerLabel",0,startMarkerHeight*0.1,startMarkerWidth*0.5,startMarkerHeight*0.8, "green");
 
 	$("#startMarker").mousedown(function() {
 		if (isiPad) return;
