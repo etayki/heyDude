@@ -296,7 +296,7 @@ function drawMarkers()
 			//console.log("newMeasure= "+newMeasure+" endMeasure= "+endMeasure);
 		}
 
-		//newMeasure -= endMarkerOffset;
+		newMeasure -= endMarkerOffset;
 		if (endMarkerMouseDown && newMeasure != endMeasure)
 		{
 			setEndMeasure(newMeasure);
@@ -368,7 +368,7 @@ function setStartMarker(measure)
 {
 	startMarkerLeft = $("#measureBox-"+measure).css("left").replace(/px/g, '');
 	$("#startMarker").css("left", startMarkerLeft);
-	$("#startMarkerLabel").text(measure);
+	$("#startMarkerLabel").text(measure+4);
 	//console.log("setStartMarker: "+startMarkerLeft+", "+startMarkerTop);
 }
 
@@ -377,7 +377,7 @@ function setEndMarker(measure)
 	endMarkerLeft = $("#measureBox-"+measure).css("left").replace(/px/g, '');
 	$("#endMarker").css("left", endMarkerLeft);
 	console.log("measure: "+measure+" endMarkerLeft: " + endMarkerLeft);
-	$("#endMarkerLabel").text(measure);
+	$("#endMarkerLabel").text(measure-1);
 
 }
 
