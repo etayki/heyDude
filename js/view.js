@@ -212,7 +212,7 @@ function drawMeasureTrack()
 
 var	startMarkerMouseDown = 0;
 var	endMarkerMouseDown = 0;
-var startMarkerOffset = -1;
+var startMarkerOffset = endMarkerOffset = -1;
 
 function drawMarkers()
 {
@@ -232,9 +232,9 @@ function drawMarkers()
 	startMarkerHeight = measureBoxHeight;
 	adjustTag("startMarker", startMarkerLeft, startMarkerTop, startMarkerWidth, startMarkerHeight, "clear");
 	$("#startMarker").append('<img id="startMarkerImg" src="./images/startMarker.png" style="z-index:1">');
-	adjustTag("startMarkerImg", startMarkerLeft, 0, startMarkerWidth, startMarkerHeight, "clear");
+	adjustTag("startMarkerImg", 0, 0, startMarkerWidth, startMarkerHeight, "clear");
 	$("#startMarker").append('<div id="startMarkerLabel" style="z-index:2">'+startMeasure+'</div>');
-    adjustTag("startMarkerLabel", startMarkerLeft, -startMarkerHeight*0.5, startMarkerWidth, startMarkerHeight*0.5, "clear");
+    adjustTag("startMarkerLabel", 0, -startMarkerHeight*0.5, startMarkerWidth, startMarkerHeight*0.5, "clear");
 
 	$("#startMarker").mousedown(function() {
 		if (isiPad) return;
@@ -268,27 +268,54 @@ function drawMarkers()
 	});
 
 	/* END MARKER */
-	$("body").append('<img id="endMarker" src="./images/endMarker.png" style="z-index:3">');
-	endMarkerWidth = startMarkerWidth;
-	endMarkerLeft = $("#measureBox-"+(endMeasure+4)).css("left").replace(/px/g, '')  - startMarkerWidth + 1 + measureBoxWidth; // Add 1 because PowerPoint gives padding of 1;
-	endMarkerTop = startMarkerTop;
+	$("body").append('<div id="endMarker" style="z-index:1"><div>');
+	endMarkerWidth = measureBoxWidth*4;
+	endMarkerLeft = $("#measureBox-"+endMeasure).css("left").replace(/px/g, '');
+	endMarkerTop = measureGridBarTop+measureGridBarHeight;
 	endMarkerHeight = measureBoxHeight;
 	adjustTag("endMarker", endMarkerLeft, endMarkerTop, endMarkerWidth, endMarkerHeight, "clear");
+	$("#endMarker").append('<img id="endMarkerImg" src="./images/endMarker.png" style="z-index:1">');
+	adjustTag("endMarkerImg", 0, 0, endMarkerWidth, endMarkerHeight, "clear");
+	$("#endMarker").append('<div id="endMarkerLabel" style="z-index:2">'+endMeasure+'</div>');
+    adjustTag("endMarkerLabel", 0, -endMarkerHeight*0.5, endMarkerWidth, endMarkerHeight*0.5, "clear");
 
 	$("#endMarker").mousedown(function() {
-		if (isiPad) return;		
+		if (isiPad) return;
 		endMarkerMouseDown = 1;
+		//console.log("endMarkerMouseDown = 1");
 		$("#endMarker").css("z-index", 0);
+		$(".measureBox").css("z-index", 10);
 	});
 
+	$(".measureBox").mouseover(function() {
+		measureBoxId = $(this).attr('id');
+		newMeasure = measureBoxId.replace(/measureBox-/g, '');
+		if (endMarkerOffset == -1 && endMarkerMouseDown)
+		{
+			endMarkerOffset = newMeasure - endMeasure;
+			//console.log("newMeasure= "+newMeasure+" endMeasure= "+endMeasure);
+		}
 
+		//newMeasure -= endMarkerOffset;
+		if (endMarkerMouseDown && newMeasure != endMeasure)
+		{
+			setEndMeasure(newMeasure);
+		}
+	});
+
+	$("body").mouseup(function() {
+		endMarkerMouseDown = 0;
+		$("#endMarker").css("z-index", 1);
+		$(".measureBox").css("z-index", 1);
+		endMarkerOffset = -1;
+	});
 
 	// Don't allow to save image
-	$('#startMarker').bind('touchstart', function(e){
+	$('#endMarker').bind('touchend', function(e){
 		e.preventDefault();
 	});
 
-	$('#startMarker').bind('touchmove', function(e){
+	$('#endMarker').bind('touchmove', function(e){
 		e.preventDefault();
 		for (number = 1; number <= maxBoxes; number++)
 		{
@@ -304,7 +331,7 @@ function drawMarkers()
 				if (number != endMeasure)
 				{				
 					//debug(number);
-					setStartMeasure(number);
+					setendMeasure(number);
 				}
 			}
 		}
@@ -347,10 +374,11 @@ function setStartMarker(measure)
 
 function setEndMarker(measure)
 {
-	endMarkerLeft =  $("#measureBox-"+measure).css("left").replace(/px/g, '') - startMarkerWidth + 1 + measureBoxWidth;
-	endMarkerTop = $("#measureBox-"+measure).css("top").replace(/px/g, '');
+	endMarkerLeft = $("#measureBox-"+measure).css("left").replace(/px/g, '');
 	$("#endMarker").css("left", endMarkerLeft);
-	$("#endMarker").css("top", endMarkerTop);	
+	console.log("measure: "+measure+" endMarkerLeft: " + endMarkerLeft);
+	$("#endMarkerLabel").text(measure);
+
 }
 
 function drawControls()
