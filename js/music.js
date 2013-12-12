@@ -287,18 +287,7 @@ function setCurrentMeasure(newMeasure)
 }
 
 function setStartMeasure(newMeasure)
-{
-	if (newMeasure == "-")
-	{
-		newMeasure = currentMeasure - 1;
-		if (newMeasure == 0) return;
-	}
-	else if (newMeasure == "+")
-	{
-		newMeasure = currentMeasure + 1;
-		if (newMeasure == tune.length) return;
-	}
-	
+{	
 	startMeasure = Number(newMeasure);
 	startDelay = (startMeasure - 1) * delayPerMeasure;
 	
@@ -321,23 +310,13 @@ function setStartMeasure(newMeasure)
 
 function setEndMeasure(newMeasure)
 {
-	if (newMeasure == "-")
-	{
-		newMeasure = currentMeasure - 1;
-		if (newMeasure == 0) return;
-	}
-	else if (newMeasure == "+")
-	{
-		newMeasure = currentMeasure + 1;
-		if (newMeasure == tune.length) return;
-	}
-
 	endMeasure = Number(newMeasure);
 	endDelay = endMeasure * delayPerMeasure;
 
 	if (endDelay <= delay)
 	{
-		delay = startDelay;
+		delay = endDelay - delayPerMeasure;
+		currentMeasure = endMeasure - 1;
 		setPositionMarker();
 		resetNotes();
 		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")

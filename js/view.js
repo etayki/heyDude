@@ -30,7 +30,7 @@ function drawScreen()
 	}
 	//console.log("drawMetronome: " + (new Date().getTime() - startTime));
 	//console.log("drawPiano: " + (new Date().getTime() - startTime));
-	drawPiano(8,68);
+	//drawPiano(8,68);
 	drawPiano(0,88);
 	//console.log("setEvents: " + (new Date().getTime() - startTime));
 	setEvents();
@@ -177,12 +177,7 @@ function drawMeasureTrack()
 	measureBoxTop = barTop + barHeight;
 	measureBoxColor = "clear";//"#cbcbcb";
 
-	/* MEASURE LABEL */
-	measureBoxLabelWidth = measureBoxWidth;
-	measureBoxLabelLeft = measureBoxLeft;
-	measureBoxLabelTop = measureBoxTop-78;
-	measureBoxLabelHeight = measureBoxLabelWidth;
-	measureBoxFontSize = getFontSize(measureBoxLabelHeight)-4;
+	measureBoxFontSize = getFontSize(measureBoxHeight)-30;
 
 	/* MEASURE GRID */
 	for (number = -3; number < tune.length + 4; number++)
@@ -191,13 +186,11 @@ function drawMeasureTrack()
 		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0px;cursor:pointer;z-index:1"></div>');
 		adjustTag("measureBox-"+number, measureBoxLeft, measureBoxTop-40, measureBoxWidth, measureBoxHeight+80, measureBoxColor);
 
-       //if (number < tune.length)
+        if (number > 0 && number < tune.length)
 		{
         	/* MEASURE BOX LABEL */
-        	measureBoxLabel = '<div id="measureBoxLabel-'+number+'">'+number+'</div>';
-        	$("#measureBox-"+number).append(measureBoxLabel);
-        	adjustTag("measureBoxLabel-"+number, measureBoxLabelLeft, measureBoxLabelTop, measureBoxLabelWidth, measureBoxLabelHeight, "clear");
-        	//$("#measureBoxLabel-"+number).css("position", "absolute");
+        	$("#measureBox-"+number).append('<div class="measureBoxLabel" id="measureBoxLabel-'+number+'">'+number+'</div>');
+        	adjustTag("measureBoxLabel-"+number, 0, measureBoxHeight *1.1, measureBoxWidth, measureBoxWidth, "clear");
 		}
 
 		measureBoxLeft += measureBoxWidth;
@@ -208,6 +201,14 @@ function drawMeasureTrack()
 			measureBoxTop += measureBoxHeight;
 		}
 	}	
+
+    $('.measureBoxLabel').css({"-webkit-transform" : "rotate(90deg)"});
+    $('.measureBoxLabel').css({"-moz-transform" : "rotate(90deg)"});
+	$(".measureBoxLabel").css({"-o-transform" : "rotate(90deg)"});
+	$(".measureBoxLabel").css({"-ms-transform" : "rotate(90deg)"});
+	$(".measureBoxLabel").css({"-transform" : "rotate(90deg)"});
+	$(".measureBoxLabel").css({"filter" : "progid:DXImageTransform.Microsoft.Matrix(M11=0.9396926207859084,M12=-0.3420201433256687,M21=0.3420201433256687,M22=0.9396926207859084,sizingMethod='auto expand')"});
+	//$(".measureBoxLabel").css({"zoom" : "1"});
 }
 
 var	startMarkerMouseDown = 0;
