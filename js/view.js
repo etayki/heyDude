@@ -17,25 +17,25 @@ function drawScreen()
 	//console.log("drawControls: " + (new Date().getTime() - startTime));
 	drawControls();
 	//console.log("drawTransposition: " + (new Date().getTime() - startTime));
-	// if (isiPad)
-	// //if (1)
-	// {
-	// 	drawTranspositionTablet();
-	// 	drawSpeedTablet();
-	// }
-	// else
-	// {
-	// 	drawMetronome();
-	// 	drawTransposition();
-	// }
+	if (isiPad)
+	//if (1)
+	{
+		drawTranspositionTablet();
+		drawSpeedTablet();
+	}
+	else
+	{
+		drawMetronome();
+		drawTransposition();
+	}
 	//console.log("drawMetronome: " + (new Date().getTime() - startTime));
 	//console.log("drawPiano: " + (new Date().getTime() - startTime));
-	//drawPiano(8,68);
-	//drawPiano(0,88);
+	drawPiano(8,68);
+	drawPiano(0,88);
 	//console.log("setEvents: " + (new Date().getTime() - startTime));
-	//setEvents();
+	setEvents();
 	//console.log("drawfeedback: " + (new Date().getTime() - startTime));
-	//drawfeedback();
+	drawfeedback();
 	//console.log("display: " + (new Date().getTime() - startTime));
 	display();
 	//console.log("reportBrowser: " + (new Date().getTime() - startTime));
@@ -118,54 +118,54 @@ function reportBrowser()
 function drawHeader()
 {
 	/* MEASURE GRID HEADER */
-	$("body").append('<div id="measureGridHeader"></div>');
-	measureGridHeaderWidth = screenWidth;
-	measureGridHeaderLeft = 0
-	measureGridHeaderTop = 0;
-	measureGridHeaderHeight = measureGridHeaderWidth * 0.065;
-	measureGridHeaderColor = "#919191";
-	adjustTag("measureGridHeader", measureGridHeaderLeft, measureGridHeaderTop, measureGridHeaderWidth, measureGridHeaderHeight, measureGridHeaderColor);	
+	$("body").append('<div id="header"></div>');
+	headerWidth = screenWidth;
+	headerLeft = 0
+	headerTop = 0;
+	headerHeight = headerWidth * 0.065;
+	headerColor = "#919191";
+	adjustTag("header", headerLeft, headerTop, headerWidth, headerHeight, headerColor);	
 	
 	/* LOGO */
 	$("body").append('<img id="logo" src="./images/logo.png"></img>');
-	logoLeft = measureGridHeaderLeft + measureGridHeaderWidth * 0.03;
-	logoHeight = measureGridHeaderHeight * 0.8;
-	logoTop = measureGridHeaderTop + (measureGridHeaderHeight - logoHeight)/2;
-	logoWidth = measureGridHeaderHeight * 1.3;
+	logoLeft = headerLeft + headerWidth * 0.03;
+	logoHeight = headerHeight * 0.8;
+	logoTop = headerTop + (headerHeight - logoHeight)/2;
+	logoWidth = headerHeight * 1.3;
 	adjustTag("logo", logoLeft, logoTop, logoWidth, logoHeight, "clear");
 	
 	/* COMPOSER PIC */
 	$("body").append('<img id="composerPic" src="./images/beethoven.jpeg"></img>');
-	composerPicTop = measureGridHeaderTop;
-	composerPicHeight = measureGridHeaderHeight;
-	composerPicWidth = measureGridHeaderHeight * 1.2;
-	composerPicLeft = measureGridHeaderLeft + measureGridHeaderWidth - composerPicWidth + 1;
+	composerPicTop = headerTop;
+	composerPicHeight = headerHeight;
+	composerPicWidth = headerHeight * 1.2;
+	composerPicLeft = headerLeft + headerWidth - composerPicWidth + 1;
 	adjustTag("composerPic", composerPicLeft, composerPicTop, composerPicWidth, composerPicHeight, "clear");
 	
 	/* TUNE LABEL */
 	$("body").append('<div id="tuneLabel">Moonlight Sonata</div>');
-	tuneLabelLeft =  measureGridHeaderLeft;
-	tuneLabelTop = measureGridHeaderTop + measureGridHeaderHeight * 0.1;
-	tuneLabelWidth = measureGridHeaderWidth;
-	tuneLabelHeight = measureGridHeaderHeight * 0.4;
+	tuneLabelLeft =  headerLeft;
+	tuneLabelTop = headerTop + headerHeight * 0.1;
+	tuneLabelWidth = headerWidth;
+	tuneLabelHeight = headerHeight * 0.4;
 	adjustTag("tuneLabel", tuneLabelLeft, tuneLabelTop, tuneLabelWidth, tuneLabelHeight, "clear");
 	
 	/* ARTIST LABEL */
 	$("body").append('<div id="artistLabel">L.V. Beethoven</div>');
-	artisitLabelLeft =  measureGridHeaderLeft;
-	artisitLabelTop = measureGridHeaderTop + measureGridHeaderHeight * 0.55;
-	artisitLabelWidth = measureGridHeaderWidth;
-	artisitLabelHeight = measureGridHeaderHeight * 0.25;
+	artisitLabelLeft =  headerLeft;
+	artisitLabelTop = headerTop + headerHeight * 0.55;
+	artisitLabelWidth = headerWidth;
+	artisitLabelHeight = headerHeight * 0.25;
 	adjustTag("artistLabel", artisitLabelLeft, artisitLabelTop, artisitLabelWidth, artisitLabelHeight, "clear");
 
 	/* MEASURE GRID Bar */
-	$("body").append('<div id="measureGridBar" style="border-style:solid;border-width:1px"></div>');
-	measureGridBarWidth = measureGridHeaderWidth - 1; // Subtract 1 because of the border width which adds one pixel on either side 
-	measureGridBarLeft = measureGridHeaderLeft;
-	measureGridBarTop = measureGridHeaderTop + measureGridHeaderHeight;
-	measureGridBarHeight = measureGridHeaderHeight * 0.4;
-	measureGridBarColor = "#919191";
-	adjustTag("measureGridBar", measureGridBarLeft, measureGridBarTop, measureGridBarWidth, measureGridBarHeight, measureGridBarColor);
+	$("body").append('<div id="bar" style="border-style:solid;border-width:1px"></div>');
+	barWidth = headerWidth - 1; // Subtract 1 because of the border width which adds one pixel on either side 
+	barLeft = headerLeft;
+	barTop = headerTop + headerHeight;
+	barHeight = headerHeight * 0.4;
+	barColor = "#919191";
+	adjustTag("bar", barLeft, barTop, barWidth, barHeight, barColor);
 }
 
 function drawMeasureTrack()
@@ -174,7 +174,7 @@ function drawMeasureTrack()
 	measureBoxWidth = screenWidth/(tune.length+7); // 8 more boxes than measures to give room for markers
 	measureBoxLeft = 0;
 	measureBoxHeight = 50;
-	measureBoxTop = measureGridBarTop + measureGridBarHeight;
+	measureBoxTop = barTop + barHeight;
 	measureBoxColor = "clear";//"#cbcbcb";
 
 	/* MEASURE LABEL */
@@ -188,7 +188,7 @@ function drawMeasureTrack()
 	for (number = -3; number < tune.length + 4; number++)
 	{			
 		/* MEASURE BOX */ // border-style:solid; border-width:0px; z-index:1
-		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:1px;cursor:pointer;z-index:1"></div>');
+		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0px;cursor:pointer;z-index:1"></div>');
 		adjustTag("measureBox-"+number, measureBoxLeft, measureBoxTop-40, measureBoxWidth, measureBoxHeight+80, measureBoxColor);
 
        //if (number < tune.length)
@@ -202,9 +202,9 @@ function drawMeasureTrack()
 
 		measureBoxLeft += measureBoxWidth;
 		//console.log(measureBoxWidth);
-		if (measureBoxLeft >= (measureGridHeaderLeft + measureGridHeaderWidth - measureBoxWidth/2)) // Need to subtract a little, don't know why
+		if (measureBoxLeft >= (headerLeft + headerWidth - measureBoxWidth/2)) // Need to subtract a little, don't know why
 		{
-			measureBoxLeft = 0;//(screenWidth - measureGridHeaderWidth)/2;
+			measureBoxLeft = 0;//(screenWidth - headerWidth)/2;
 			measureBoxTop += measureBoxHeight;
 		}
 	}	
@@ -217,24 +217,28 @@ var startMarkerOffset = endMarkerOffset = -1;
 function drawMarkers()
 {
 	/* POSITION MARKER */
-	$("body").append('<div id="positionMarker" ></div>');
-	positionMarkerLeft = $("#measureBox-1").css("left").replace(/px/g, '');
-	positionMarkerTop = $("#measureBox-1").css("top").replace(/px/g, '');
-	positionMarkerWidth = Math.floor(measureBoxWidth * 0.1);
-	positionMarkerHeight = measureBoxHeight;
-	adjustTag("positionMarker", positionMarkerLeft, positionMarkerTop, positionMarkerWidth, positionMarkerHeight, "green");
-	
+	$("body").append('<div id="positionMarker" style="z-index:1"><div>');
+	adjustTag("positionMarker", measureBoxWidth*3+1, barTop, barHeight, measureBoxWidth*2.05, "clear");
+		$("#positionMarker").append('<div id="positionMarkerLabel" style="z-index:1">'+startMeasure+'</div>');
+		adjustTag("positionMarkerLabel", 0, 0, barHeight, measureBoxWidth*2.05, "green");
+		// $("#positionMarker").append('<img id="positionMarkerImg" src="./images/positionMarker.png" style="z-index:2">');
+		// adjustTag("positionMarkerImg", 0, barHeight, measureBoxWidth*4, measureBoxWidth*1.8, "clear");
+		$("#positionMarker").append('<div id="positionMarkerLine" style="z-index:1"></div>');
+		positionMarkerWidth = Math.floor(measureBoxWidth * 0.3);
+		positionMarkerHeight = measureBoxHeight;
+		adjustTag("positionMarkerLine", measureBoxWidth-1, barHeight, positionMarkerWidth, positionMarkerHeight, "green");
+
 	/* START MARKER */
 	$("body").append('<div id="startMarker" style="z-index:1"><div>');
 	startMarkerWidth = measureBoxWidth*4;
 	startMarkerLeft = $("#measureBox--3").css("left").replace(/px/g, '');
-	startMarkerTop = measureGridBarTop+measureGridBarHeight;
+	startMarkerTop = barTop+barHeight;
 	startMarkerHeight = measureBoxHeight;
 	adjustTag("startMarker", startMarkerLeft, startMarkerTop, startMarkerWidth, startMarkerHeight, "clear");
 	$("#startMarker").append('<img id="startMarkerImg" src="./images/startMarker.png" style="z-index:1">');
 	adjustTag("startMarkerImg", startMarkerWidth*0.5, 0, startMarkerWidth*0.5, startMarkerHeight, "clear");
 	$("#startMarker").append('<div id="startMarkerLabel" style="z-index:2">'+startMeasure+'</div>');
-    adjustTag("startMarkerLabel",0,startMarkerHeight*0.1,startMarkerWidth*0.5,startMarkerHeight*0.8, "green");
+    adjustTag("startMarkerLabel",0,startMarkerHeight*0.2,startMarkerWidth*0.5+1,startMarkerHeight*0.6, "green");
 
 	$("#startMarker").mousedown(function() {
 		if (isiPad) return;
@@ -273,14 +277,16 @@ function drawMarkers()
 	$("body").append('<div id="endMarker" style="z-index:1"><div>');
 	endMarkerWidth = measureBoxWidth*4;
 	endMarkerLeft = $("#measureBox-"+(endMeasure+1)).css("left").replace(/px/g, '');
-	endMarkerTop = measureGridBarTop+measureGridBarHeight;
+	endMarkerTop = barTop+barHeight;
 	endMarkerHeight = measureBoxHeight;
 	adjustTag("endMarker", endMarkerLeft, endMarkerTop, endMarkerWidth, endMarkerHeight, "clear");
 	$("#endMarker").append('<img id="endMarkerImg" src="./images/endMarker.png" style="z-index:1">');
-	adjustTag("endMarkerImg", 0, 0, endMarkerWidth, endMarkerHeight, "clear");
+	adjustTag("endMarkerImg", 0, 0, endMarkerWidth*0.5, endMarkerHeight, "clear");
 	$("#endMarker").append('<div id="endMarkerLabel" style="z-index:2">'+endMeasure+'</div>');
-    adjustTag("endMarkerLabel", 0, -endMarkerHeight*0.5, endMarkerWidth, endMarkerHeight*0.5, "clear");
-
+    adjustTag("endMarkerLabel", endMarkerWidth*0.5-1, endMarkerHeight*0.2, endMarkerWidth*0.5, endMarkerHeight*0.6, "red");
+	// adjustTag("startMarkerImg", startMarkerWidth*0.5, 0, startMarkerWidth*0.5, startMarkerHeight, "clear");
+	// $("#startMarker").append('<div id="startMarkerLabel" style="z-index:2">'+startMeasure+'</div>');
+ //    adjustTag("startMarkerLabel",0,startMarkerHeight*0.2,startMarkerWidth*0.5+1,startMarkerHeight*0.6, "green");
 	$("#endMarker").mousedown(function() {
 		if (isiPad) return;
 		endMarkerMouseDown = 1;
@@ -367,6 +373,35 @@ function drawMarkers()
 	});
 }
 
+function setPositionMarker()
+{
+	/* SET POSITION LABEL */
+	position = (Math.floor((delay/delayPerMeasure + 1)*100)/100).toFixed(2);
+	$("#positionLabel").text(delay);
+	
+	/* SET POSITION MARKER */
+	nowMeasure = Math.floor(position);
+	if (nowMeasure != currentMeasure)
+	{
+		currentMeasure = nowMeasure;
+		colorizeMeasures();
+	}
+	measureBoxLeft = Number($("#measureBox-"+currentMeasure).css("left").replace(/px/g, ''));
+	measureBoxTop = Number($("#measureBox-"+currentMeasure).css("top").replace(/px/g, ''));
+	positionMarkerLeft = measureBoxLeft + (position-currentMeasure - 1) * measureBoxWidth;
+	$("#positionMarker").css("left", positionMarkerLeft);
+	$("#positionMarker").css("width", positionMarkerWidth);
+	$("#positionMarkerLabel").text(currentMeasure);
+
+	if (currentMeasure == endMeasure)
+	{
+		remainingMeasureWidth = measureBoxWidth - (position-currentMeasure) * measureBoxWidth;
+		if (positionMarkerWidth > remainingMeasureWidth)
+			$("#positionMarker").css("width", remainingMeasureWidth);
+	}
+
+}
+
 function setStartMarker(measure)
 {
 	startMarkerLeft = $("#measureBox-"+(measure-4)).css("left").replace(/px/g, '');
@@ -388,9 +423,9 @@ function drawControls()
 {
 	/* CONTROLS BACKGROUND */
 	$("body").append('<img id="controlsBackground" src="./images/controlsBackground.png"></img>');
-	controlsBackgroundLeft =  measureGridHeaderLeft;
+	controlsBackgroundLeft =  headerLeft;
 	controlsBackgroundTop = startMarkerTop+startMarkerHeight;
-	controlsBackgroundWidth = measureGridHeaderWidth + 2;
+	controlsBackgroundWidth = headerWidth + 2;
 	controlsBackgroundHeight = measureBoxHeight * 1.5;
 	adjustTag("controlsBackground", controlsBackgroundLeft, controlsBackgroundTop, controlsBackgroundWidth, controlsBackgroundHeight, "clear");
 
@@ -952,16 +987,14 @@ function setEvents()
 {
 	$('img').on('dragstart', function(event) { event.preventDefault(); });
 
-
-
  	// iPad
  	document.body.addEventListener('touchmove',function(e){
 	      //e.preventDefault();
 	  });
 
  	// var tagList=[".measureBox","#playBtn","#metronome","#rightHand","#leftHand","#infoButton","#startMarker",
- 	//              "#startMarker","#notesButton","#measureGridHeader","#logo","#composerPic","#tuneLabel",
- 	//              "#artistLabel","#measureGridBar","#positionMarker","#startMarkerInfoLabel","#endMarkerInfoLabel",
+ 	//              "#startMarker","#notesButton","#header","#logo","#composerPic","#tuneLabel",
+ 	//              "#artistLabel","#bar","#positionMarker","#startMarkerInfoLabel","#endMarkerInfoLabel",
  	//              "#leftHand","#rightHand","#leftHandLabel","#rightHandLabel","#infoButton","#handInfoPopup","#metronome",
  	//              "#fullScreenButton","#feedbackButton","#draggerTransTrack",".transpositionBox","#draggerTrack","#dragger",
  	//              "#keyboardBgrd", ".key", "#controlsBackground", "#divider1", "#divider2", "#divider3", "#divider4"];
@@ -976,16 +1009,11 @@ function setEvents()
 	    doubleTouchStartTimestamp = now;
 	});
 
-
-
-	
 	// PC
 
 	$("body").mouseup(function() {
 		draggerMouseDown = 0;
 	});
-
-
 
 	/* SET CURRENT MEASURE */
 	$(".measureBox").bind(onClickEvent, function(e){
@@ -1045,36 +1073,6 @@ function didPressCancelFullScreenButton()
 	$("#fullScreenButton").attr("src", "./images/fullScreen.png");
 	$("#fullScreenButton").attr("onclick", "didPressFullScreenButton()");
 	$("#fullScreenLabel").text("Full Screen");
-}
-
-function setPositionMarker()
-{
-	/* SET POSITION LABEL */
-	//position = (Math.floor((delay/4 + 1)*100)/100).toFixed(2);
-	position = (Math.floor((delay/delayPerMeasure + 1)*100)/100).toFixed(2);
-	$("#positionLabel").text(delay);
-	
-	/* SET POSITION MARKER */
-	nowMeasure = Math.floor(position);
-	if (nowMeasure != currentMeasure)
-	{
-		currentMeasure = nowMeasure;
-		colorizeMeasures();
-	}
-	measureBoxLeft = Number($("#measureBox-"+currentMeasure).css("left").replace(/px/g, ''));
-	measureBoxTop = Number($("#measureBox-"+currentMeasure).css("top").replace(/px/g, ''));
-	positionMarkerLeft = measureBoxLeft + (position-currentMeasure) * measureBoxWidth;
-	$("#positionMarker").css("left", positionMarkerLeft);
-	$("#positionMarker").css("top", measureBoxTop);
-	$("#positionMarker").css("width", positionMarkerWidth);
-	
-	if (currentMeasure == endMeasure)
-	{
-		remainingMeasureWidth = measureBoxWidth - (position-currentMeasure) * measureBoxWidth;
-		if (positionMarkerWidth > remainingMeasureWidth)
-			$("#positionMarker").css("width", remainingMeasureWidth);
-	}
-
 }
 
 function colorizeMeasures()
