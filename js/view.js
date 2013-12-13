@@ -980,9 +980,9 @@ function drawPiano(startKey, endKey)
 	// $("body").append('<div id="testkey2" style="border-style:solid; border-width:2px; z-index:2"></div>');
 	// adjustTag("testkey2", whiteKeyLeft, whiteKeyTop+110, whiteKeyWidth, whiteKeyHeight, "white");
 	// $("#testkey2").css("width", whiteKeyWidthNew+"%");
-
+    // ;border-style:solid;border-width:2px;z-index:3
 	noteNames = ["A","Bb","B","C","C#","D","Eb","E","F","F#","G","Ab"];
-	keyWidth = 1/52.5*100;
+	keyWidth = 1/52.5*100; // 52 keys + 0.5% key for padding between keys
 	for (var key = startKey; key < endKey; key++)
 	{
 		keyIdx = key % 12;
@@ -995,17 +995,17 @@ function drawPiano(startKey, endKey)
 			//console.log(whiteKeyLeft);
 			/* WHITE KEY LABEL */
 			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
-			adjustTag(zoom+"keyLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop, keyWidth+"%", whiteKeyLabelHeight, "clear");
+			adjustTag(zoom+"keyLabel-"+key, 0, whiteKeyLabelTop, "100%", whiteKeyLabelHeight, "clear");
 			$("#"+zoom+"keyLabel-"+key).css("font-family", "arial");
 			/* WHITE KEY NOTE LABEL */
 			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');			
-			adjustTag(zoom+"keyNoteLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop*0.73, keyWidth+"%", whiteKeyLabelHeight, "clear");
+			adjustTag(zoom+"keyNoteLabel-"+key, 0, whiteKeyLabelTop*0.73, "100%", whiteKeyLabelHeight, "clear");
 			$("#"+zoom+"keyNoteLabel-"+key).css("font-family", "arial");
 		}
 		else
 		{
 			/* BLACK KEY */
-			blackKeyLeft =  whiteKeyLeft + keyWidth*0.74;
+			blackKeyLeft =  whiteKeyLeft + keyWidth*0.74	;
 			$("body").append('<div id="'+zoom+'key-'+key+'" class="key '+zoom+'" style="z-index:3; border-style:solid; border-width:1px"></div>');
 			adjustTag(zoom+"key-"+key, blackKeyLeft+"%", blackKeyTop, keyWidth*0.55+"%", blackKeyHeight, "black");
 			/* BLACK KEY LABEL */
