@@ -52,7 +52,7 @@ MIDI.audioDetect = function(callback) {
 	var interval = window.setInterval(function() {
 		for (var key in supports) {}
 		var now = (new Date()).getTime();
-		var maxExecution = now - time > 5000;
+		var maxExecution = now - time > 150;
 		if (key || maxExecution) {
 			window.clearInterval(interval);
 			callback(supports);
