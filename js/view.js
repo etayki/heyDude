@@ -31,7 +31,7 @@ function drawScreen()
 	//console.log("drawMetronome: " + (new Date().getTime() - startTime));
 	//console.log("drawPiano: " + (new Date().getTime() - startTime));
 	//drawPiano(8,68);
-	drawPiano(0,88);
+	//drawPiano(0,88);
 	//console.log("setEvents: " + (new Date().getTime() - startTime));
 	setEvents();
 	//console.log("drawfeedback: " + (new Date().getTime() - startTime));
@@ -73,46 +73,6 @@ function setSceenWidth()
 function display()
 {
 	$("#loading").css("display","none");
-}
-
-function reportBrowser()
-{
-    var N=navigator.appName, ua=navigator.userAgent, tem;
-    var M=ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);
-    if(M && (tem= ua.match(/version\/([\.\d]+)/i))!= null) M[2]= tem[1];
-    M=M? [M[1], M[2]]: [N, navigator.appVersion, '-?'];
-    browser = M[0];
-  	var N=navigator.appName, ua=navigator.userAgent, tem;
-    var M=ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);
-    if(M && (tem= ua.match(/version\/([\.\d]+)/i))!= null) M[2]= tem[1];
-    M=M? [M[1], M[2]]: [N, navigator.appVersion, '-?'];
-    browser = browser + " " + M[1];
-    if(userAgent.indexOf("iPad") !== -1)
-    {
-		browser = "iPad " + browser;
-	}
-	else if(userAgent.indexOf("iPhone") !== -1)
-	{
-		browser = "iPhone " + browser;
-	}
-	else if(userAgent.indexOf("Nexus") !== -1)
-	{
-		browser = "Nexus " + browser;
-	}
-	else if(userAgent.indexOf("SM-T210R") !== -1)
-	{
-		browser = "SamsungTab3 " + browser;
-	}
-	else if(userAgent.indexOf("Android") !== -1)
-	{
-		browser = "Android " + browser;
-	}
-	//debug(userAgent);
-
- 	// Report Browser
-	xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET","city.php?brsr="+browser,true);
-	xmlhttp.send();
 }
 
 function drawHeader()
@@ -189,17 +149,11 @@ function drawMeasureTrack()
         if (number > 0 && number < tune.length)
 		{
         	/* MEASURE BOX LABEL */
-        	$("#measureBox-"+number).append('<div class="measureBoxLabel" id="measureBoxLabel-'+number+'">'+number+'</div>');
-        	adjustTag("measureBoxLabel-"+number, 0, measureBoxHeight *1.1, measureBoxWidth, measureBoxWidth, "clear");
+        	$("#measureBox-"+number).append('<div class="measureBoxLabel" id="measureBoxLabel-'+number+'" style="z-index:0">'+number+'</div>');
+        	adjustTag("measureBoxLabel-"+number, measureBoxLeft, measureBoxHeight *1.1, measureBoxWidth, measureBoxWidth, "clear");
 		}
 
 		measureBoxLeft += measureBoxWidth;
-		//console.log(measureBoxWidth);
-		if (measureBoxLeft >= (headerLeft + headerWidth - measureBoxWidth/2)) // Need to subtract a little, don't know why
-		{
-			measureBoxLeft = 0;//(screenWidth - headerWidth)/2;
-			measureBoxTop += measureBoxHeight;
-		}
 	}	
 
     $('.measureBoxLabel').css({"-webkit-transform" : "rotate(90deg)"});
@@ -208,7 +162,6 @@ function drawMeasureTrack()
 	$(".measureBoxLabel").css({"-ms-transform" : "rotate(90deg)"});
 	$(".measureBoxLabel").css({"-transform" : "rotate(90deg)"});
 	$(".measureBoxLabel").css({"filter" : "progid:DXImageTransform.Microsoft.Matrix(M11=0.9396926207859084,M12=-0.3420201433256687,M21=0.3420201433256687,M22=0.9396926207859084,sizingMethod='auto expand')"});
-	//$(".measureBoxLabel").css({"zoom" : "1"});
 }
 
 var	startMarkerMouseDown = 0;
@@ -244,7 +197,6 @@ function drawMarkers()
 	$("#startMarker").mousedown(function() {
 		if (isiPad) return;
 		startMarkerMouseDown = 1;
-		//console.log("startMarkerMouseDown = 1");
 		$("#startMarker").css("z-index", 0);
 		$(".measureBox").css("z-index", 10);
 	});
@@ -1394,6 +1346,46 @@ function drawfeedback()
 	//$("#feedbackFormThanksLabel").css("text-align","left");
 	$('#feedbackFormThanksLabel').css("display","none");
 
+}
+
+function reportBrowser()
+{
+    var N=navigator.appName, ua=navigator.userAgent, tem;
+    var M=ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);
+    if(M && (tem= ua.match(/version\/([\.\d]+)/i))!= null) M[2]= tem[1];
+    M=M? [M[1], M[2]]: [N, navigator.appVersion, '-?'];
+    browser = M[0];
+  	var N=navigator.appName, ua=navigator.userAgent, tem;
+    var M=ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);
+    if(M && (tem= ua.match(/version\/([\.\d]+)/i))!= null) M[2]= tem[1];
+    M=M? [M[1], M[2]]: [N, navigator.appVersion, '-?'];
+    browser = browser + " " + M[1];
+    if(userAgent.indexOf("iPad") !== -1)
+    {
+		browser = "iPad " + browser;
+	}
+	else if(userAgent.indexOf("iPhone") !== -1)
+	{
+		browser = "iPhone " + browser;
+	}
+	else if(userAgent.indexOf("Nexus") !== -1)
+	{
+		browser = "Nexus " + browser;
+	}
+	else if(userAgent.indexOf("SM-T210R") !== -1)
+	{
+		browser = "SamsungTab3 " + browser;
+	}
+	else if(userAgent.indexOf("Android") !== -1)
+	{
+		browser = "Android " + browser;
+	}
+	//debug(userAgent);
+
+ 	// Report Browser
+	xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET","city.php?brsr="+browser,true);
+	xmlhttp.send();
 }
 
 /* HELPER FUNCTIONS */
