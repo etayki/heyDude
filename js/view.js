@@ -152,7 +152,7 @@ function drawMeasureTrack()
 			adjustTag("measureBoxDisplay-"+number, measureBoxLeft, barTop+barHeight, measureBoxWidth, measureBoxHeight, "#919191");
 			$("#measureBoxDisplay-"+(tune.length+3)).css("background-color","#919191");
 			$("#measureBoxDisplay-"+number).css("border-top-color","#919191");
-        	if (number!= 0 &&(number%5==0 || number==1) && number < tune.length)
+        	if (number != 0 &&(number%5==0 || number==1) && number < tune.length)
         	{
 	        	$("body").append('<div class="measureBoxLabel" id="measureBoxLabel-'+number+'" style="z-index:0">'+number+'</div>');
 	        	adjustTag("measureBoxLabel-"+number, measureBoxLeft, measureBoxDisplayTop, measureBoxWidth, measureBoxWidth, "clear");
@@ -205,7 +205,7 @@ var startMarkerOffset = endMarkerOffset = positionMarkerOffset = -1;
 function drawMarkers()
 {
 	/* POSITION MARKER */
-	$("body").append('<div id="positionMarker" style="z-index:1"><div>');
+	$("body").append('<div id="positionMarker" style="z-index:10"><div>');
 	adjustTag("positionMarker",measureBoxWidth*3+1,barTop,barHeight,measureBoxWidth*2.05,"clear");
 		$("#positionMarker").append('<div id="positionMarkerLabel" style="z-index:1">'+startMeasure+'</div>');
 		adjustTag("positionMarkerLabel", 0, 0, barHeight, measureBoxWidth*2.05, "green");
@@ -219,6 +219,7 @@ function drawMarkers()
 	$("#positionMarker").mousedown(function() {
 		if (isiPad) return;
 		positionMarkerMouseDown = 1;
+		//console.log(positionMarkerMouseDown);
 		$("#positionMarker").css("z-index", 0);
 		$(".measureBox").css("height",measureBoxHeight+180);
 	});
@@ -226,18 +227,21 @@ function drawMarkers()
 	$(".measureBox").mouseover(function() {
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
-		if (positionMarkerOffset == -1 && positionMarkerMouseDown)
-		{
-			positionMarkerOffset = newMeasure - 1;
-			if (positionMarkerOffset < 0) // Hack to compensate for fact that initially positionMeasure is 1
-				positionMarkerOffset += 4;
-		}
+		//console.log("positionMarkerOffset: "+positionMarkerOffset + " positionMarkerMouseDown: " + positionMarkerMouseDown+" "+newMeasure);
+		// if (positionMarkerOffset == -1 && positionMarkerMouseDown)
+		// {
 
-		newMeasure -= positionMarkerOffset;
-		if (newMeasure < -3 || newMeasure > 65) return;
-		if (positionMarkerMouseDown && newMeasure != currentMeasure)
+		// 	positionMarkerOffset = newMeasure - 1;
+		// 	if (positionMarkerOffset < 0) // Hack to compensate for fact that initially positionMeasure is 1
+		// 		positionMarkerOffset += -10;
+		// }
+
+		// newMeasure -= positionMarkerOffset;
+		if (newMeasure < -3 || newMeasure > tune.length-1) return;
+		if (positionMarkerMouseDown && newMeasure != currentMeasure && newMeasure>0)
 		{
-			setCurrentMeasure(newMeasure+4);
+			setCurrentMeasure(newMeasure);
+			setPositionMarker();
 		}
 	});
 
