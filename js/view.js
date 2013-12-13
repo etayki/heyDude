@@ -218,7 +218,7 @@ function drawMarkers()
 	});
 
 	/* START MARKER */
-	$("body").append('<div id="startMarker" style="z-index:1"><div>');
+	$("body").append('<div id="startMarker" style="z-index:10"><div>');
 	startMarkerWidth = measureBoxWidth*4;
 	startMarkerLeft = $("#measureBox--3").css("left").replace(/px/g, '');
 	startMarkerTop = barTop+barHeight;
@@ -239,6 +239,7 @@ function drawMarkers()
 	$(".measureBox").mouseover(function() {
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
+
 		if (startMarkerOffset == -1 && startMarkerMouseDown)
 		{
 			startMarkerOffset = newMeasure - startMeasure;
