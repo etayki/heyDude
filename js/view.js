@@ -142,29 +142,26 @@ function drawMeasureTrack()
 	/* MEASURE GRID */
 	for (number = -3; number < tune.length + 4; number++)
 	{			
-		/* MEASURE BOX */ // border-style:solid; border-width:0px; z-index:1
 		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0px;cursor:pointer;z-index:1"></div>');
-		adjustTag("measureBox-"+number, measureBoxLeft, barTop, measureBoxWidth, measureBoxHeight+32, "clear");
-
-		$("body").append('<div id="measureBoxDisplay-'+number+'" style="border-style:solid;border-width:1px;cursor:pointer;z-index:0"></div>');
-		adjustTag("measureBoxDisplay-"+number, measureBoxLeft, barTop+barHeight, measureBoxWidth, measureBoxHeight, "red");
-
-        if (number > 0 && number < tune.length && (number%5==0 || number==1))
+		adjustTag("measureBox-"+number, measureBoxLeft, barTop-50, measureBoxWidth, measureBoxHeight+83, "clear");
+		if (number > 0 || number < tune.length)
 		{
-        	/* MEASURE BOX LABEL */
-        	$("body").append('<div class="measureBoxLabel" id="measureBoxLabel-'+number+'" style="z-index:0">'+number+'</div>');
-        	adjustTag("measureBoxLabel-"+number, measureBoxLeft, barTop+barHeight+15, measureBoxWidth, measureBoxWidth, "clear");
+
+		}
+
+        if (number > 0 && number < tune.length)
+		{
+			$("body").append('<div id="measureBoxDisplay-'+number+'" style="border-style:solid;border-width:1px;cursor:pointer;z-index:0"></div>');
+			adjustTag("measureBoxDisplay-"+number, measureBoxLeft, barTop+barHeight, measureBoxWidth, measureBoxHeight, "red");
+        	if (number%5==0 || number==1)
+        	{
+	        	$("body").append('<div class="measureBoxLabel" id="measureBoxLabel-'+number+'" style="z-index:0">'+number+'</div>');
+	        	adjustTag("measureBoxLabel-"+number, measureBoxLeft, barTop+barHeight+15, measureBoxWidth, measureBoxWidth, "clear");
+	        }
 		}
 
 		measureBoxLeft += measureBoxWidth;
 	}	
-
- //    $('.measureBoxLabel').css({"-webkit-transform" : "rotate(90deg)"});
- //    $('.measureBoxLabel').css({"-moz-transform" : "rotate(90deg)"});
-	// $(".measureBoxLabel").css({"-o-transform" : "rotate(90deg)"});
-	// $(".measureBoxLabel").css({"-ms-transform" : "rotate(90deg)"});
-	// $(".measureBoxLabel").css({"-transform" : "rotate(90deg)"});
-	// $(".measureBoxLabel").css({"filter" : "progid:DXImageTransform.Microsoft.Matrix(M11=0.9396926207859084,M12=-0.3420201433256687,M21=0.3420201433256687,M22=0.9396926207859084,sizingMethod='auto expand')"});
 }
 
 var	startMarkerMouseDown = 0;
@@ -202,7 +199,7 @@ function drawMarkers()
 		startMarkerMouseDown = 1;
 		$("#startMarker").css("z-index", 0);
 		$(".measureBox").css("z-index", 10);
-		$(".measureBox").css("height",measureBoxHeight+80);
+		$(".measureBox").css("height",measureBoxHeight+180);
 	});
 
 	$(".measureBox").mouseover(function() {
@@ -227,7 +224,7 @@ function drawMarkers()
 		startMarkerMouseDown = 0;
 		$("#startMarker").css("z-index", 1);
 		$(".measureBox").css("z-index", 1);
-		$(".measureBox").css("height",measureBoxHeight+32);
+		$(".measureBox").css("height",measureBoxHeight+82);
 		startMarkerOffset = -1;
 	});
 
@@ -251,7 +248,7 @@ function drawMarkers()
 		//console.log("endMarkerMouseDown = 1");
 		$("#endMarker").css("z-index", 0);
 		$(".measureBox").css("z-index", 10);
-		$(".measureBox").css("height",measureBoxHeight+80);
+		$(".measureBox").css("height",measureBoxHeight+180);
 	});
 
 	$(".measureBox").mouseover(function() {
