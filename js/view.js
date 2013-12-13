@@ -145,11 +145,11 @@ function drawMeasureTrack()
 		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0px;cursor:pointer;z-index:10"></div>');
 		adjustTag("measureBox-"+number, measureBoxLeft, barTop-50, measureBoxWidth, measureBoxHeight+83, "clear");
 
-        if (number > 0 && number < tune.length)
+        //if (number > 0 && number < tune.length)
 		{
 			$("body").append('<div id="measureBoxDisplay-'+number+'" class="measureBoxDisplay" style="border-style:solid;border-width:1px;cursor:pointer;z-index:0"></div>');
 			adjustTag("measureBoxDisplay-"+number, measureBoxLeft, barTop+barHeight, measureBoxWidth, measureBoxHeight, "red");
-        	if (number%5==0 || number==1)
+        	if (number!= 0 &&(number%5==0 || number==1) && number < tune.length)
         	{
 	        	$("body").append('<div class="measureBoxLabel" id="measureBoxLabel-'+number+'" style="z-index:0">'+number+'</div>');
 	        	adjustTag("measureBoxLabel-"+number, measureBoxLeft, barTop+barHeight-15, measureBoxWidth, measureBoxWidth, "clear");
@@ -157,6 +157,21 @@ function drawMeasureTrack()
 		}
 
 		measureBoxLeft += measureBoxWidth;
+	}
+
+	$("#measureBoxDisplay--3").css("background-color","#919191");
+	$("#measureBoxDisplay-"+(tune.length+3)).css("background-color","#919191");
+	$("#measureBoxDisplay-"+number).css("border-top-width",0);
+
+	for (number = -2; number <= 0; number++)
+	{			
+		$("#measureBoxDisplay-"+number).css("background-color","#919191");
+		$("#measureBoxDisplay-"+number).css("border-width",0);
+	}	
+	for (number = tune.length; number <= tune.length+3; number++)
+	{			
+		$("#measureBoxDisplay-"+number).css("background-color","#919191");
+		$("#measureBoxDisplay-"+number).css("border-width",0);
 	}
 
 	/* SET CURRENT MEASURE */
@@ -269,7 +284,7 @@ function drawMarkers()
 	});
 
 	/* END MARKER */
-	$("body").append('<div id="endMarker" style="z-index:1"><div>');
+	$("body").append('<div id="endMarker" style="z-index:10"><div>');
 	endMarkerWidth = measureBoxWidth*4;
 	endMarkerLeft = $("#measureBox-"+(endMeasure+1)).css("left").replace(/px/g, '');
 	endMarkerTop = barTop+barHeight;
