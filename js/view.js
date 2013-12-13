@@ -142,7 +142,7 @@ function drawMeasureTrack()
 	/* MEASURE GRID */
 	for (number = -3; number < tune.length + 4; number++)
 	{			
-		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0px;cursor:pointer;z-index:0"></div>');
+		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0px;cursor:pointer;z-index:10"></div>');
 		adjustTag("measureBox-"+number, measureBoxLeft, barTop-50, measureBoxWidth, measureBoxHeight+83, "clear");
 		if (number > 0 || number < tune.length)
 		{
@@ -190,6 +190,38 @@ function drawMarkers()
 		positionMarkerHeight = measureBoxHeight;
 		adjustTag("positionMarkerLine", measureBoxWidth-1, barHeight, positionMarkerWidth, positionMarkerHeight, "green");
 
+	$("#positionMarker").mousedown(function() {
+		if (isiPad) return;
+		positionMarkerMouseDown = 1;
+		$("#positionMarker").css("z-index", 0);
+		$(".measureBox").css("height",measureBoxHeight+180);
+	});
+
+	$(".measureBox").mouseover(function() {
+		measureBoxId = $(this).attr('id');
+		newMeasure = measureBoxId.replace(/measureBox-/g, '');
+		if (positionMarkerOffset == -1 && positionMarkerMouseDown)
+		{
+			positionMarkerOffset = newMeasure - positionMeasure;
+			if (positionMarkerOffset < 0) // Hack to compensate for fact that initially positionMeasure is 1
+				positionMarkerOffset += 4;
+		}
+
+		newMeasure -= positionMarkerOffset;
+		if (newMeasure < -3 || newMeasure > 65) return;
+		if (positionMarkerMouseDown && newMeasure != positionMeasure)
+		{
+			setStartMeasure(newMeasure+4);
+		}
+	});
+
+	$("body").mouseup(function() {
+		positionMarkerMouseDown = 0;
+		$("#positionMarker").css("z-index", 1);
+		$(".measureBox").css("height",measureBoxHeight+82);
+		positionMarkerOffset = -1;
+	});
+
 	/* START MARKER */
 	$("body").append('<div id="startMarker" style="z-index:1"><div>');
 	startMarkerWidth = measureBoxWidth*4;
@@ -206,7 +238,6 @@ function drawMarkers()
 		if (isiPad) return;
 		startMarkerMouseDown = 1;
 		$("#startMarker").css("z-index", 0);
-		$(".measureBox").css("z-index", 10);
 		$(".measureBox").css("height",measureBoxHeight+180);
 	});
 
@@ -231,7 +262,6 @@ function drawMarkers()
 	$("body").mouseup(function() {
 		startMarkerMouseDown = 0;
 		$("#startMarker").css("z-index", 1);
-		$(".measureBox").css("z-index", 1);
 		$(".measureBox").css("height",measureBoxHeight+82);
 		startMarkerOffset = -1;
 	});
