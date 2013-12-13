@@ -992,8 +992,7 @@ function drawPiano(startKey, endKey)
 			/* WHITE KEY */
 			$("body").append('<div id="'+zoom+'key-'+key+'" class="key '+zoom+'" style="border-style:solid; border-width:2px; z-index:2"></div>');
 			adjustTag(zoom+"key-"+key, whiteKeyLeft+"%", whiteKeyTop, keyWidth+"%", whiteKeyHeight, "white");
-			console.log(whiteKeyLeft);
-			//$("#"+zoom+"key-"+key).css("left", whiteKeyLeft+"%");
+			//console.log(whiteKeyLeft);
 			/* WHITE KEY LABEL */
 			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
 			adjustTag(zoom+"keyLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop, keyWidth+"%", whiteKeyLabelHeight, "clear");
@@ -1003,21 +1002,21 @@ function drawPiano(startKey, endKey)
 			adjustTag(zoom+"keyNoteLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop*0.73, keyWidth+"%", whiteKeyLabelHeight, "clear");
 			$("#"+zoom+"keyNoteLabel-"+key).css("font-family", "arial");
 		}
-		// else
-		// {
-		// 	/* BLACK KEY */
-		// 	blackKeyLeft =  whiteKeyLeft + Math.floor(whiteKeyWidth * 0.75);
-		// 	$("body").append('<div id="'+zoom+'key-'+key+'" class="key '+zoom+'" style="z-index:3; border-style:solid; border-width:1px"></div>');
-		// 	adjustTag(zoom+"key-"+key, blackKeyLeft, blackKeyTop, blackKeyWidth, blackKeyHeight, "black");
-		// 	/* BLACK KEY LABEL */
-		// 	$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
-		// 	adjustTag(zoom+"keyLabel-"+key, blackKeyLabelLeft, blackKeyLabelTop, blackKeyLabelWidth, blackKeyLabelHeight, "clear");
-		// 	$("#"+zoom+"keyLabel-"+key).css("font-family", "arial");
-		// 	/* BLACK KEY NOTE LABEL */
-		// 	$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');
-		// 	adjustTag(zoom+"keyNoteLabel-"+key, blackKeyLabelLeft-10, blackKeyLabelTop*0.15, blackKeyLabelWidth+20, blackKeyLabelHeight*0.4, "clear");
-		// 	$("#"+zoom+"keyNoteLabel-"+key).css("font-family", "arial");
-		// }
+		else
+		{
+			/* BLACK KEY */
+			blackKeyLeft =  whiteKeyLeft + keyWidth*0.74;
+			$("body").append('<div id="'+zoom+'key-'+key+'" class="key '+zoom+'" style="z-index:3; border-style:solid; border-width:1px"></div>');
+			adjustTag(zoom+"key-"+key, blackKeyLeft+"%", blackKeyTop, keyWidth*0.55+"%", blackKeyHeight, "black");
+			/* BLACK KEY LABEL */
+			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
+			adjustTag(zoom+"keyLabel-"+key, blackKeyLabelLeft, blackKeyLabelTop, blackKeyLabelWidth, blackKeyLabelHeight, "clear");
+			$("#"+zoom+"keyLabel-"+key).css("font-family", "arial");
+			/* BLACK KEY NOTE LABEL */
+			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');
+			adjustTag(zoom+"keyNoteLabel-"+key, blackKeyLabelLeft-10, blackKeyLabelTop*0.15, blackKeyLabelWidth+20, blackKeyLabelHeight*0.4, "clear");
+			$("#"+zoom+"keyNoteLabel-"+key).css("font-family", "arial");
+		}
 	}
 	$('.keyNoteLabel').css("display","none");
 	$('.zoomOn').css("display","none");
