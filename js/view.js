@@ -30,8 +30,8 @@ function drawScreen()
 	}
 	//console.log("drawMetronome: " + (new Date().getTime() - startTime));
 	//console.log("drawPiano: " + (new Date().getTime() - startTime));
-	//drawPiano(8,68);
-	//drawPiano(0,88);
+	drawPiano(8,68);
+	drawPiano(0,88);
 	//console.log("setEvents: " + (new Date().getTime() - startTime));
 	setEvents();
 	//console.log("drawfeedback: " + (new Date().getTime() - startTime));
@@ -138,6 +138,7 @@ function drawMeasureTrack()
 	//measureBoxColor = "clear";//"#cbcbcb";
 
 	measureBoxFontSize = getFontSize(measureBoxHeight)-30;
+	measureBoxDisplayTop = barTop+barHeight-15;
 
 	/* MEASURE GRID */
 	for (number = -3; number < tune.length + 4; number++)
@@ -148,20 +149,25 @@ function drawMeasureTrack()
         //if (number > 0 && number < tune.length)
 		{
 			$("body").append('<div id="measureBoxDisplay-'+number+'" class="measureBoxDisplay" style="border-style:solid;border-width:1px;cursor:pointer;z-index:0"></div>');
-			adjustTag("measureBoxDisplay-"+number, measureBoxLeft, barTop+barHeight, measureBoxWidth, measureBoxHeight, "red");
+			adjustTag("measureBoxDisplay-"+number, measureBoxLeft, barTop+barHeight, measureBoxWidth, measureBoxHeight, "#919191");
+			$("#measureBoxDisplay-"+(tune.length+3)).css("background-color","#919191");
+			$("#measureBoxDisplay-"+number).css("border-top-color","#919191");
         	if (number!= 0 &&(number%5==0 || number==1) && number < tune.length)
         	{
 	        	$("body").append('<div class="measureBoxLabel" id="measureBoxLabel-'+number+'" style="z-index:0">'+number+'</div>');
-	        	adjustTag("measureBoxLabel-"+number, measureBoxLeft, barTop+barHeight-15, measureBoxWidth, measureBoxWidth, "clear");
+	        	adjustTag("measureBoxLabel-"+number, measureBoxLeft, measureBoxDisplayTop, measureBoxWidth, measureBoxWidth, "clear");
 	        }
 		}
 
 		measureBoxLeft += measureBoxWidth;
 	}
 
-	$("#measureBoxDisplay--3").css("background-color","#919191");
-	$("#measureBoxDisplay-"+(tune.length+3)).css("background-color","#919191");
-	$("#measureBoxDisplay-"+number).css("border-top-width",0);
+	// $("#measureBoxDisplay-3").css("background-color","clear");
+	// $("#measureBoxDisplay--3").css("border-top-color","black");
+
+	// $("#measureBoxDisplay-"+(tune.length+3)).css("background-color","#919191");
+	// $("#measureBoxDisplay-"+(tune.length+3)).css("border-top-color","black");
+	//$("#measureBoxDisplay--3"+number).css("border-top-width",0);
 
 	for (number = -2; number <= 0; number++)
 	{			
@@ -173,6 +179,10 @@ function drawMeasureTrack()
 		$("#measureBoxDisplay-"+number).css("background-color","#919191");
 		$("#measureBoxDisplay-"+number).css("border-width",0);
 	}
+
+	$("body").append('<div id="blackLine" style="z-index:0"></div>');
+	adjustTag("blackLine", 0, measureBoxDisplayTop+15, screenWidth, 1, "black");
+
 
 	/* SET CURRENT MEASURE */
 	$(".measureBoxDisplay").bind(onClickEvent, function(e){
