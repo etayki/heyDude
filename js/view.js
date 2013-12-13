@@ -172,15 +172,14 @@ function drawMeasureTrack()
 	});	
 }
 
-var	startMarkerMouseDown = 0;
-var	endMarkerMouseDown = 0;
-var startMarkerOffset = endMarkerOffset = -1;
+var	startMarkerMouseDown = endMarkerMouseDown = positionMarkerMouseDown = 0;
+var startMarkerOffset = endMarkerOffset = positionMarkerOffset = -1;
 
 function drawMarkers()
 {
 	/* POSITION MARKER */
 	$("body").append('<div id="positionMarker" style="z-index:1"><div>');
-	adjustTag("positionMarker", measureBoxWidth*3+1, barTop, barHeight, measureBoxWidth*2.05, "clear");
+	adjustTag("positionMarker",measureBoxWidth*3+1,barTop,barHeight,measureBoxWidth*2.05,"clear");
 		$("#positionMarker").append('<div id="positionMarkerLabel" style="z-index:1">'+startMeasure+'</div>');
 		adjustTag("positionMarkerLabel", 0, 0, barHeight, measureBoxWidth*2.05, "green");
 		// $("#positionMarker").append('<img id="positionMarkerImg" src="./images/positionMarker.png" style="z-index:2">');
@@ -202,16 +201,16 @@ function drawMarkers()
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
 		if (positionMarkerOffset == -1 && positionMarkerMouseDown)
 		{
-			positionMarkerOffset = newMeasure - positionMeasure;
+			positionMarkerOffset = newMeasure - 1;
 			if (positionMarkerOffset < 0) // Hack to compensate for fact that initially positionMeasure is 1
 				positionMarkerOffset += 4;
 		}
 
 		newMeasure -= positionMarkerOffset;
 		if (newMeasure < -3 || newMeasure > 65) return;
-		if (positionMarkerMouseDown && newMeasure != positionMeasure)
+		if (positionMarkerMouseDown && newMeasure != currentMeasure)
 		{
-			setStartMeasure(newMeasure+4);
+			setCurrentMeasure(newMeasure+4);
 		}
 	});
 
