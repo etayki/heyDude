@@ -144,10 +144,6 @@ function drawMeasureTrack()
 	{			
 		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0px;cursor:pointer;z-index:10"></div>');
 		adjustTag("measureBox-"+number, measureBoxLeft, barTop-50, measureBoxWidth, measureBoxHeight+83, "clear");
-		if (number > 0 || number < tune.length)
-		{
-
-		}
 
         if (number > 0 && number < tune.length)
 		{
@@ -156,7 +152,7 @@ function drawMeasureTrack()
         	if (number%5==0 || number==1)
         	{
 	        	$("body").append('<div class="measureBoxLabel" id="measureBoxLabel-'+number+'" style="z-index:0">'+number+'</div>');
-	        	adjustTag("measureBoxLabel-"+number, measureBoxLeft, barTop+barHeight+15, measureBoxWidth, measureBoxWidth, "clear");
+	        	adjustTag("measureBoxLabel-"+number, measureBoxLeft, barTop+barHeight-15, measureBoxWidth, measureBoxWidth, "clear");
 	        }
 		}
 
@@ -1063,23 +1059,22 @@ function didPressCancelFullScreenButton()
 
 function colorizeMeasures()
 {
-	return;
 	for (number = 1; number <= startMeasure; number++)
 	{			
 		/* MEASURE BOX */
-		$("#measureBox-"+number).css("background-color",measureBoxColor);
+		$("#measureBoxDisplay-"+number).css("background-color","#cbcbcb");
 	}
 	for (number = startMeasure; number <= endMeasure; number++)
 	{			
-		/* MEASURE BOX */
-		$("#measureBox-"+number).css("background-color","#FFFF99");
+		/* MEASURE BoxDisplay */
+		$("#measureBoxDisplay-"+number).css("background-color","#FFFF99");
 	}
 	for (number = endMeasure + 1; number <= (tune.length-1); number++)
 	{			
-		/* MEASURE BOX */
-		$("#measureBox-"+number).css("background-color",measureBoxColor);
+		/* MEASURE BoxDisplay */
+		$("#measureBoxDisplay-"+number).css("background-color","#cbcbcb");
 	}
-	$("#measureBox-"+currentMeasure).css("background-color","#FFFF00");
+	$("#measureBoxDisplay-"+currentMeasure).css("background-color","#FFFF00");
 }
 
 function didPressLeftHand()
