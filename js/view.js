@@ -299,11 +299,11 @@ function drawMarkers()
 	endMarkerLeft = $("#measureBox-"+(endMeasure+1)).css("left").replace(/px/g, '');
 	endMarkerTop = barTop+barHeight;
 	endMarkerHeight = measureBoxHeight;
-	adjustTag("endMarker", endMarkerLeft, endMarkerTop, endMarkerWidth, endMarkerHeight, "clear");
-	$("#endMarker").append('<img id="endMarkerImg" src="./images/endMarker.png" style="z-index:1">');
-	adjustTag("endMarkerImg", 0, 0, endMarkerWidth*0.5, endMarkerHeight, "clear");
-	$("#endMarker").append('<div id="endMarkerLabel" style="z-index:2">'+endMeasure+'</div>');
-    adjustTag("endMarkerLabel", endMarkerWidth*0.5-1, endMarkerHeight*0.2, endMarkerWidth*0.5, endMarkerHeight*0.6, "red");
+		adjustTag("endMarker", endMarkerLeft, endMarkerTop, endMarkerWidth, endMarkerHeight, "clear");
+		$("#endMarker").append('<img id="endMarkerImg" src="./images/endMarker.png" style="z-index:1">');
+		adjustTag("endMarkerImg", 0, 0, measureBoxWidth*2+1, endMarkerHeight, "clear");
+		$("#endMarker").append('<div id="endMarkerLabel" style="z-index:2">'+endMeasure+'</div>');
+	    adjustTag("endMarkerLabel", measureBoxWidth*2, endMarkerHeight*0.2, endMarkerWidth*0.5, endMarkerHeight*0.6, "red");
 	// adjustTag("startMarkerImg", startMarkerWidth*0.5, 0, startMarkerWidth*0.5, startMarkerHeight, "clear");
 	// $("#startMarker").append('<div id="startMarkerLabel" style="z-index:2">'+startMeasure+'</div>');
  //    adjustTag("startMarkerLabel",0,startMarkerHeight*0.2,startMarkerWidth*0.5+1,startMarkerHeight*0.6, "green");
