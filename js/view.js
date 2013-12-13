@@ -142,7 +142,7 @@ function drawMeasureTrack()
 	/* MEASURE GRID */
 	for (number = -3; number < tune.length + 4; number++)
 	{			
-		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0px;cursor:pointer;z-index:1"></div>');
+		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0px;cursor:pointer;z-index:0"></div>');
 		adjustTag("measureBox-"+number, measureBoxLeft, barTop-50, measureBoxWidth, measureBoxHeight+83, "clear");
 		if (number > 0 || number < tune.length)
 		{
@@ -151,7 +151,7 @@ function drawMeasureTrack()
 
         if (number > 0 && number < tune.length)
 		{
-			$("body").append('<div id="measureBoxDisplay-'+number+'" style="border-style:solid;border-width:1px;cursor:pointer;z-index:0"></div>');
+			$("body").append('<div id="measureBoxDisplay-'+number+'" class="measureBoxDisplay" style="border-style:solid;border-width:1px;cursor:pointer;z-index:0"></div>');
 			adjustTag("measureBoxDisplay-"+number, measureBoxLeft, barTop+barHeight, measureBoxWidth, measureBoxHeight, "red");
         	if (number%5==0 || number==1)
         	{
@@ -161,7 +161,15 @@ function drawMeasureTrack()
 		}
 
 		measureBoxLeft += measureBoxWidth;
-	}	
+	}
+
+	/* SET CURRENT MEASURE */
+	$(".measureBoxDisplay").bind(onClickEvent, function(e){
+		measureBoxId = $(this).attr('id');
+		newMeasure = measureBoxId.replace(/measureBoxDisplay-/g, '');
+		setCurrentMeasure(newMeasure);
+		setPositionMarker();
+	});	
 }
 
 var	startMarkerMouseDown = 0;
@@ -970,15 +978,7 @@ function setEvents()
 
 	$("body").mouseup(function() {
 		draggerMouseDown = 0;
-	});
-
-	/* SET CURRENT MEASURE */
-	$(".measureBox").bind(onClickEvent, function(e){
-		measureBoxId = $(this).attr('id');
-		newMeasure = measureBoxId.replace(/measureBox-/g, '');
-		setCurrentMeasure(newMeasure);
-		setPositionMarker();
-	});		
+	});	
 
 	keyPressTimer = 0;
 	/* KEY TAP */
