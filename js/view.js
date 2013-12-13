@@ -165,6 +165,12 @@ function drawMeasureTrack()
 		newMeasure = measureBoxId.replace(/measureBoxDisplay-/g, '');
 		setCurrentMeasure(newMeasure);
 		setPositionMarker();
+	});
+	$(".measureBox").bind(onClickEvent, function(e){
+		measureBoxId = $(this).attr('id');
+		newMeasure = measureBoxId.replace(/measureBox-/g, '');
+		setCurrentMeasure(newMeasure);
+		setPositionMarker();
 	});	
 }
 
