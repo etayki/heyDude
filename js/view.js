@@ -1,22 +1,22 @@
 var browser;
 var clickEvent;
+var startTime;
 
 function drawScreen()
 {
-	startTime = new Date().getTime();
-	//console.log("setSceenWidth: " + (new Date().getTime() - startTime));
+	console.log("setSceenWidth: " + (new Date().getTime() - startTime));
 	setSceenWidth();
-	//console.log("drawHeader: " + (new Date().getTime() - startTime));
+	console.log("drawHeader: " + (new Date().getTime() - startTime));
 	drawHeader();
-	//console.log("drawMeasureTrack: " + (new Date().getTime() - startTime));
+	console.log("drawMeasureTrack: " + (new Date().getTime() - startTime));
 	drawMeasureTrack();
-	//console.log("drawMarkers: " + (new Date().getTime() - startTime));
+	console.log("drawMarkers: " + (new Date().getTime() - startTime));
 	drawMarkers();
-	//console.log("colorizeMeasures: " + (new Date().getTime() - startTime));
+	console.log("colorizeMeasures: " + (new Date().getTime() - startTime));
 	colorizeMeasures();
-	//console.log("drawControls: " + (new Date().getTime() - startTime));
+	console.log("drawControls: " + (new Date().getTime() - startTime));
 	drawControls();
-	//console.log("drawTransposition: " + (new Date().getTime() - startTime));
+	console.log("drawTransposition: " + (new Date().getTime() - startTime));
 	if (isiPad)
 	//if (1)
 	{
@@ -28,19 +28,19 @@ function drawScreen()
 		drawMetronome();
 		drawTransposition();
 	}
-	//console.log("drawMetronome: " + (new Date().getTime() - startTime));
-	//console.log("drawPiano: " + (new Date().getTime() - startTime));
-	drawPiano(8,68);
+	console.log("drawMetronome: " + (new Date().getTime() - startTime));
+	console.log("drawPiano: " + (new Date().getTime() - startTime));
+	//drawPiano(8,68);
 	drawPiano(0,88);
-	//console.log("setEvents: " + (new Date().getTime() - startTime));
+	console.log("setEvents: " + (new Date().getTime() - startTime));
 	setEvents();
-	//console.log("drawfeedback: " + (new Date().getTime() - startTime));
+	console.log("drawfeedback: " + (new Date().getTime() - startTime));
 	drawfeedback();
-	//console.log("display: " + (new Date().getTime() - startTime));
+	console.log("display: " + (new Date().getTime() - startTime));
 	display();
-	//console.log("reportBrowser: " + (new Date().getTime() - startTime));
+	console.log("reportBrowser: " + (new Date().getTime() - startTime));
 	reportBrowser();
-	//console.log("done: " + (new Date().getTime() - startTime));
+	console.log("done: " + (new Date().getTime() - startTime));
 }
 
 function setSceenWidth()
@@ -936,7 +936,8 @@ function drawPiano(startKey, endKey)
 	}
 
 	whiteKeyWidth = controlsBackgroundWidth/(whiteKeyCount*1.015); // 52 white keys on keyboard, but we need room for margins
-	whiteKeyLeft = controlsBackgroundLeft + controlsBackgroundWidth * 0.005;
+	whiteKeyWidthNew = 100/54; // 52 white keys on keyboard, but we need room for margins
+	whiteKeyLeft = 0.3;
 	whiteKeyTop = redLineTop + redLineHeight;
 	whiteKeyHeight = whiteKeyWidth * 4.3;
 	
@@ -969,40 +970,54 @@ function drawPiano(startKey, endKey)
 	keyboardBgrdHeight = whiteKeyHeight * 1.07;
 	adjustTag(zoom+"keyboardBgrd", keyboardBgrdLeft, keyboardBgrdTop, keyboardBgrdWidth, keyboardBgrdHeight, "black");
 
+	$("body").append('<div id="pianoKeyboard" style="border-style:solid; border-width:2px; z-index:2"></div>');
+	adjustTag("pianoKeyboard", 0, whiteKeyTop+110, screenWidth, screenWidth*0.085, "green");
+
+	$("#pianoKeyboard").append('<div id="testkey1" style="border-style:solid; border-width:2px; z-index:2"></div>');
+	adjustTag("testkey1", 4, 0, whiteKeyWidth, whiteKeyHeight, "white");
+	$("#testkey1").css("width", whiteKeyWidthNew+"%");
+
+	// $("body").append('<div id="testkey2" style="border-style:solid; border-width:2px; z-index:2"></div>');
+	// adjustTag("testkey2", whiteKeyLeft, whiteKeyTop+110, whiteKeyWidth, whiteKeyHeight, "white");
+	// $("#testkey2").css("width", whiteKeyWidthNew+"%");
+
 	noteNames = ["A","Bb","B","C","C#","D","Eb","E","F","F#","G","Ab"];
+	keyWidth = 1/52.5*100;
 	for (var key = startKey; key < endKey; key++)
 	{
 		keyIdx = key % 12;
 		if (!(keyIdx==1 || keyIdx==4 || keyIdx==6 || keyIdx == 9 || keyIdx==11))
 		{
-			if (key!=startKey) whiteKeyLeft += whiteKeyWidth;
+			if (key!=startKey) whiteKeyLeft += keyWidth;
 			/* WHITE KEY */
 			$("body").append('<div id="'+zoom+'key-'+key+'" class="key '+zoom+'" style="border-style:solid; border-width:2px; z-index:2"></div>');
-			adjustTag(zoom+"key-"+key, whiteKeyLeft, whiteKeyTop, whiteKeyWidth, whiteKeyHeight, "white");
+			adjustTag(zoom+"key-"+key, whiteKeyLeft+"%", whiteKeyTop, keyWidth+"%", whiteKeyHeight, "white");
+			console.log(whiteKeyLeft);
+			//$("#"+zoom+"key-"+key).css("left", whiteKeyLeft+"%");
 			/* WHITE KEY LABEL */
 			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
-			adjustTag(zoom+"keyLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop, whiteKeyLabelWidth, whiteKeyLabelHeight, "clear");
+			adjustTag(zoom+"keyLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop, keyWidth+"%", whiteKeyLabelHeight, "clear");
 			$("#"+zoom+"keyLabel-"+key).css("font-family", "arial");
 			/* WHITE KEY NOTE LABEL */
 			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');			
-			adjustTag(zoom+"keyNoteLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop*0.73, whiteKeyLabelWidth, whiteKeyLabelHeight, "clear");
+			adjustTag(zoom+"keyNoteLabel-"+key, whiteKeyLabelLeft, whiteKeyLabelTop*0.73, keyWidth+"%", whiteKeyLabelHeight, "clear");
 			$("#"+zoom+"keyNoteLabel-"+key).css("font-family", "arial");
 		}
-		else
-		{
-			/* BLACK KEY */
-			blackKeyLeft =  whiteKeyLeft + Math.floor(whiteKeyWidth * 0.75);
-			$("body").append('<div id="'+zoom+'key-'+key+'" class="key '+zoom+'" style="z-index:3; border-style:solid; border-width:1px"></div>');
-			adjustTag(zoom+"key-"+key, blackKeyLeft, blackKeyTop, blackKeyWidth, blackKeyHeight, "black");
-			/* BLACK KEY LABEL */
-			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
-			adjustTag(zoom+"keyLabel-"+key, blackKeyLabelLeft, blackKeyLabelTop, blackKeyLabelWidth, blackKeyLabelHeight, "clear");
-			$("#"+zoom+"keyLabel-"+key).css("font-family", "arial");
-			/* BLACK KEY NOTE LABEL */
-			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');
-			adjustTag(zoom+"keyNoteLabel-"+key, blackKeyLabelLeft-10, blackKeyLabelTop*0.15, blackKeyLabelWidth+20, blackKeyLabelHeight*0.4, "clear");
-			$("#"+zoom+"keyNoteLabel-"+key).css("font-family", "arial");
-		}
+		// else
+		// {
+		// 	/* BLACK KEY */
+		// 	blackKeyLeft =  whiteKeyLeft + Math.floor(whiteKeyWidth * 0.75);
+		// 	$("body").append('<div id="'+zoom+'key-'+key+'" class="key '+zoom+'" style="z-index:3; border-style:solid; border-width:1px"></div>');
+		// 	adjustTag(zoom+"key-"+key, blackKeyLeft, blackKeyTop, blackKeyWidth, blackKeyHeight, "black");
+		// 	/* BLACK KEY LABEL */
+		// 	$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
+		// 	adjustTag(zoom+"keyLabel-"+key, blackKeyLabelLeft, blackKeyLabelTop, blackKeyLabelWidth, blackKeyLabelHeight, "clear");
+		// 	$("#"+zoom+"keyLabel-"+key).css("font-family", "arial");
+		// 	/* BLACK KEY NOTE LABEL */
+		// 	$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');
+		// 	adjustTag(zoom+"keyNoteLabel-"+key, blackKeyLabelLeft-10, blackKeyLabelTop*0.15, blackKeyLabelWidth+20, blackKeyLabelHeight*0.4, "clear");
+		// 	$("#"+zoom+"keyNoteLabel-"+key).css("font-family", "arial");
+		// }
 	}
 	$('.keyNoteLabel').css("display","none");
 	$('.zoomOn').css("display","none");

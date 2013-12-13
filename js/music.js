@@ -60,15 +60,14 @@ $(document).ready(function() {
 		soundfontUrl: "./soundfont/",
 		instrument: "acoustic_grand_piano",
 		callback: function() {
-			//debug("MIDI Player Load END: "+(new Date()).getMilliseconds());
-			// MIDI Player has loaded, so now allow user interaction
-			//debug("Draw screen START: "+(new Date()).getMilliseconds());
-			//debug("Draw screen END: "+(new Date()).getMilliseconds());
+			console.log("MIDI.loadPlugin Done: " + (new Date().getTime() - startTime));
+
 			$("#playBtn").attr("src", "./images/playButton.png");
 			MIDI.setVolume(0, 127);
 		}
 	});
-	
+
+	startTime = new Date().getTime();
 	drawScreen();
 	
 	/* DISABLE SELECTION */
