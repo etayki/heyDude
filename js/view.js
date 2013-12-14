@@ -1234,7 +1234,7 @@ function didPressZoom()
 		$('#zoomLabel').text("Zoom In");
 		$("#pianoKeyboard").css("left", "0%");
 		$("#pianoKeyboard").css("width", screenWidth);
-		$("#pianoKeyboard").css("height", screenWidth*0.0155+"%");
+		$("#pianoKeyboard").css("height", screenWidth*0.085);
 		zoomEnabled = 0;
 	}
 	else
@@ -1245,8 +1245,8 @@ function didPressZoom()
 		//width = $("#key-69").position().left - $("#key-8").position().left;
 		//console.log("left="+left+" width="+width);
 		$("#pianoKeyboard").css("left", "-15%");
-		$("#pianoKeyboard").css("width", "150.3%");
-		$("#pianoKeyboard").css("height", screenWidth*0.02+"%");
+		$("#pianoKeyboard").css("width", "150.3%"); 
+		$("#pianoKeyboard").css("height", screenWidth*0.124);
 		zoomEnabled = 1;
 	}
 }
