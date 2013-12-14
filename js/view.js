@@ -505,7 +505,7 @@ function drawControls()
 	});
 	
 	/* HAND INFO POPUP */
-	$("body").append('<img id="handInfoPopup" src="./images/handInfo.png"></img>');
+	$("body").append('<img id="handInfoPopup" src="./images/handInfo.jpg"></img>');
 	handInfoPopupWidth = controlsBackgroundWidth * 0.3;
 	handInfoPopupHeight = handInfoPopupWidth * 0.9;
 	handInfoPopupLeft = controlsBackgroundLeft + (controlsBackgroundWidth - handInfoPopupWidth)/2;
