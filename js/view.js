@@ -907,14 +907,9 @@ function drawMetronome()
 	});
 }
 
-var whiteKeyLabelHeight, blackKeyFingerLabelHeight, blackKeyNoteLabelHeight, zoom;
+var whiteKeyLabelHeight, blackKeyFingerLabelHeight, blackKeyNoteLabelHeight;
 function drawPiano(startKey, endKey)
 {
-	if (startKey == 0 && endKey == 88)
-		zoom = "zoomOff";
-	else
-		zoom = "zoomOn";
-
 	/* RED LINE */
 	redLineLeft =  controlsBackgroundLeft;
 	redLineTop = controlsBackgroundTop + controlsBackgroundHeight;
@@ -962,12 +957,12 @@ function drawPiano(startKey, endKey)
 	blackKeyNoteLabelFontSize = getFontSize(blackKeyLabelHeight*0.5);
 
 	/* KEYBOARD BACKGROUND */
-	$("body").append('<div id="'+zoom+'keyboardBgrd" class="'+zoom+'"></div>');
+	$("body").append('<div id="keyboardBgrd"></div>');
 	keyboardBgrdLeft =  controlsBackgroundLeft;
 	keyboardBgrdTop = redLineTop + redLineHeight;
 	keyboardBgrdWidth = controlsBackgroundWidth;
 	keyboardBgrdHeight = whiteKeyHeight * 1.07;
-	adjustTag(zoom+"keyboardBgrd", keyboardBgrdLeft, keyboardBgrdTop, keyboardBgrdWidth, keyboardBgrdHeight, "black");
+	adjustTag("keyboardBgrd", keyboardBgrdLeft, keyboardBgrdTop, keyboardBgrdWidth, keyboardBgrdHeight, "black");
 
 	whiteKeyWidthNew = 100/54; // 52 white keys on keyboard, but we need room for margins
 	whiteKeyLeft = 0.1;
@@ -984,32 +979,31 @@ function drawPiano(startKey, endKey)
 		{
 			if (key!=startKey) whiteKeyLeft += keyWidth;
 			/* WHITE KEY */
-			$("#pianoKeyboard").append('<div id="'+zoom+'key-'+key+'" class="key '+zoom+'" style="border-style:solid; border-width:2px; z-index:2"></div>');
-			adjustTag(zoom+"key-"+key, whiteKeyLeft+"%", 0, keyWidth+"%", whiteKeyHeight, "white");
-			//console.log(whiteKeyLeft);
+			$("#pianoKeyboard").append('<div id="key-'+key+'" class="key " style="border-style:solid; border-width:2px; z-index:2"></div>');
+			adjustTag("key-"+key, whiteKeyLeft+"%", 0, keyWidth+"%", whiteKeyHeight, "white");
 			/* WHITE KEY LABEL */
-			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
-			adjustTag(zoom+"keyLabel-"+key, 0, whiteKeyLabelTop, "100%", whiteKeyLabelHeight, "clear");
-			$("#"+zoom+"keyLabel-"+key).css("font-family", "arial");
+			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
+			adjustTag("keyLabel-"+key, 0, whiteKeyLabelTop, "100%", whiteKeyLabelHeight, "clear");
+			$("#keyLabel-"+key).css("font-family", "arial");
 			/* WHITE KEY NOTE LABEL */
-			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');			
-			adjustTag(zoom+"keyNoteLabel-"+key, 0, whiteKeyLabelTop*0.73, "100%", whiteKeyLabelHeight, "clear");
-			$("#"+zoom+"keyNoteLabel-"+key).css("font-family", "arial");
+			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');			
+			adjustTag("keyNoteLabel-"+key, 0, whiteKeyLabelTop*0.73, "100%", whiteKeyLabelHeight, "clear");
+			$("#keyNoteLabel-"+key).css("font-family", "arial");
 		}
 		else
 		{
 			/* BLACK KEY */
 			blackKeyLeft =  whiteKeyLeft + keyWidth*0.74	;
-			$("#pianoKeyboard").append('<div id="'+zoom+'key-'+key+'" class="key '+zoom+'" style="z-index:3; border-style:solid; border-width:1px"></div>');
-			adjustTag(zoom+"key-"+key, blackKeyLeft+"%", 0, keyWidth*0.55+"%", blackKeyHeight, "black");
+			$("#pianoKeyboard").append('<div id="key-'+key+'" class="key " style="z-index:3; border-style:solid; border-width:1px"></div>');
+			adjustTag("key-"+key, blackKeyLeft+"%", 0, keyWidth*0.55+"%", blackKeyHeight, "black");
 			/* BLACK KEY LABEL */
-			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
-			adjustTag(zoom+"keyLabel-"+key, blackKeyLabelLeft, blackKeyLabelTop, blackKeyLabelWidth, blackKeyLabelHeight, "clear");
-			$("#"+zoom+"keyLabel-"+key).css("font-family", "arial");
+			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
+			adjustTag("keyLabel-"+key, blackKeyLabelLeft, blackKeyLabelTop, blackKeyLabelWidth, blackKeyLabelHeight, "clear");
+			$("#keyLabel-"+key).css("font-family", "arial");
 			/* BLACK KEY NOTE LABEL */
-			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');
-			adjustTag(zoom+"keyNoteLabel-"+key, blackKeyLabelLeft-10, blackKeyLabelTop*0.15, blackKeyLabelWidth+20, blackKeyLabelHeight*0.4, "clear");
-			$("#"+zoom+"keyNoteLabel-"+key).css("font-family", "arial");
+			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');
+			adjustTag("keyNoteLabel-"+key, blackKeyLabelLeft-10, blackKeyLabelTop*0.15, blackKeyLabelWidth+20, blackKeyLabelHeight*0.4, "clear");
+			$("#keyNoteLabel-"+key).css("font-family", "arial");
 		}
 	}
 	$('.keyNoteLabel').css("display","none");
@@ -1057,13 +1051,13 @@ function setEvents()
 		resetNote(notePress);
 		
 		/* TURN ON NOTE */
-		keyPress = ($(this).attr('id')).replace(new RegExp(zoom+'key-','g'),'');
+		keyPress = ($(this).attr('id')).replace(new RegExp('key-','g'),'');
 		notePress = Number(keyPress) + 21;
 		//console.log(notePress);
 		MIDI.noteOn(0,notePress,90,0);
 		MIDI.noteOff(0,notePress,0.4);
-		$("#zoomOnkey-"+keyPress).css("background-color","yellow");
-		$("#zoomOffkey-"+keyPress).css("background-color","yellow");
+		$("#key-"+keyPress).css("background-color","yellow");
+		console.log("keyPress="+keyPress);
 
 		keyPressTimer = setTimeout(function() {
 			resetNote(notePress);
@@ -1248,18 +1242,24 @@ function didPressZoom()
 	{
 		$("#zoom").attr("src", "./images/zoomIn.png");
 		$('#zoomLabel').text("Zoom In");
-		$('.zoomOff').css("display","");
-		$('.zoomOn').css("display","none");
-		zoom = "zoomOff";
+		//$('.zoomOff').css("display","");
+		//$('.zoomOn').css("display","none");
+		//zoom = "zoomOff";
+		$("#pianoKeyboard").css("width", screenWidth);
 		zoomEnabled = 0;
 	}
 	else
 	{
 		$("#zoom").attr("src", "./images/zoomOut.png");
 		$('#zoomLabel').text("Zoom Out");
-		$('.zoomOff').css("display","none");
-		$('.zoomOn').css("display","");
-		zoom = "zoomOn";
+		//$('.zoomOff').css("display","none");
+		//$('.zoomOn').css("display","");
+		//zoom = "zoomOn"; 8 - 68 adjustTag("key-"+key
+		left = $("#key-8").position().left;
+		width = $("#key-69").position().left - $("#key-8").position().left;
+		//console.log("left="+left+" width="+width);
+		$("#pianoKeyboard").css("left", -left);
+		$("#pianoKeyboard").css("width", 88/60*100+"%");
 		zoomEnabled = 1;
 	}
 }
