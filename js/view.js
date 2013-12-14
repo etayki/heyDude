@@ -993,8 +993,8 @@ function drawPiano(startKey, endKey)
 		else
 		{
 			/* BLACK KEY */
-			blackKeyLeft =  whiteKeyLeft + keyWidth*0.74	;
-			$("#pianoKeyboard").append('<div id="key-'+key+'" class="key " style="z-index:3; border-style:solid; border-width:1px"></div>');
+			blackKeyLeft =  whiteKeyLeft + keyWidth*0.74;
+			$("#pianoKeyboard").append('<div id="key-'+key+'" class="key " style="border-style:solid; border-width:1px;z-index:3; "></div>');
 			adjustTag("key-"+key, blackKeyLeft+"%", 0, keyWidth*0.55+"%", blackKeyHeight, "black");
 			/* BLACK KEY LABEL */
 			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
