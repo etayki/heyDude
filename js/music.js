@@ -61,9 +61,9 @@ $(document).ready(function() {
 		instrument: "acoustic_grand_piano",
 		callback: function() {
 			console.log("MIDI.loadPlugin Done: " + (new Date().getTime() - startTime));
-
-			$("#playBtn").attr("src", "./images/playButton.png");
 			MIDI.setVolume(0, 127);
+			//drawScreen();
+			$("#playBtn").attr("src", "./images/playButton.png");
 		}
 	});
 
