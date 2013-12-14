@@ -189,12 +189,12 @@ function drawPiano(startKey, endKey)
 			$("#pianoKeyboard").append('<div id="key-'+key+'" class="key " style="border-style:solid; border-width:2px; z-index:2"></div>');
 			adjustTag("key-"+key, whiteKeyLeft+"%", 0, keyWidth+"%", screenWidth*0.0755+"%", "white");
 			/* WHITE KEY LABEL */
-			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
-			adjustTag("keyLabel-"+key, 0, whiteKeyLabelTop, "100%", whiteKeyLabelHeight, "clear");
+			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:black">5</div></b>');			
+			adjustTag("keyLabel-"+key, 0, "77%", "100%", whiteKeyLabelHeight, "clear");
 			$("#keyLabel-"+key).css("font-family", "arial");
 			/* WHITE KEY NOTE LABEL */
 			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');			
-			adjustTag("keyNoteLabel-"+key, 0, whiteKeyLabelTop*0.73, "100%", whiteKeyLabelHeight, "clear");
+			adjustTag("keyNoteLabel-"+key, 0, "56%", "100%", whiteKeyLabelHeight, "clear");
 			$("#keyNoteLabel-"+key).css("font-family", "arial");
 		}
 		else
@@ -204,18 +204,17 @@ function drawPiano(startKey, endKey)
 			$("#pianoKeyboard").append('<div id="key-'+key+'" class="key " style="border-style:solid; border-width:1px;z-index:3; "></div>');
 			adjustTag("key-"+key, blackKeyLeft+"%", 0, keyWidth*0.55+"%", screenWidth*0.043+"%", "black");
 			/* BLACK KEY LABEL */
-			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
-			adjustTag("keyLabel-"+key, blackKeyLabelLeft, blackKeyLabelTop, blackKeyLabelWidth, blackKeyLabelHeight, "clear");
+			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:green">6</div></b>');			
+			adjustTag("keyLabel-"+key, blackKeyLabelLeft, "50%", blackKeyLabelWidth, blackKeyLabelHeight, "clear");
 			$("#keyLabel-"+key).css("font-family", "arial");
 			/* BLACK KEY NOTE LABEL */
-			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');
-			adjustTag("keyNoteLabel-"+key, blackKeyLabelLeft-10, blackKeyLabelTop*0.15, blackKeyLabelWidth+20, blackKeyLabelHeight*0.4, "clear");
+			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:green">'+noteNames[keyIdx]+'</div></b>');
+			adjustTag("keyNoteLabel-"+key, blackKeyLabelLeft-10, "15%", blackKeyLabelWidth+20, blackKeyLabelHeight*0.4, "clear");
 			$("#keyNoteLabel-"+key).css("font-family", "arial");
 		}
 	}
-	$('.keyNoteLabel').css("display","none");
+	//$('.keyNoteLabel').css("display","none");
 }
-
 
 function setEvents()
 {
@@ -272,35 +271,6 @@ function setEvents()
 	  });
 }
 
-function didPressFullScreenButton()
-{
-	element = document.body;
-	requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
-        requestMethod.call(element);
-	$("#fullScreenButton").attr("src", "./images/cancelFullScreen.jpeg");
-	$("#fullScreenButton").attr(clickEvent, "didPressCancelFullScreenButton()");
-	$("#fullScreenLabel").text("Exit Full Screen");
-}
-
-function didPressFeedbackButton()
-{
-	if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
-		didPressPauseButton();
-	feedbackFormDisplayed = 1;
-	$('#feedbackForm').css("display","");
-	//$("#feedbackFormTextArea").focus();	
-}
-
-function didPressCancelFullScreenButton()
-{
-	element = document;
-	requestMethod = element.cancelFullScreen || element.webkitCancelFullScreen || element.mozCancelFullScreen || element.exitFullscreen;
-        requestMethod.call(element);
-	$("#fullScreenButton").attr("src", "./images/fullScreen.png");
-	$("#fullScreenButton").attr("onclick", "didPressFullScreenButton()");
-	$("#fullScreenLabel").text("Full Screen");
-}
-
 function colorizeMeasures()
 {
 	for (number = 1; number <= startMeasure; number++)
@@ -319,308 +289,6 @@ function colorizeMeasures()
 		$("#measureBoxDisplay-"+number).css("background-color","#cbcbcb");
 	}
 	$("#measureBoxDisplay-"+currentMeasure).css("background-color","#FFFF00");
-}
-
-function didPressLeftHand()
-{
-	/* TOGGLE FROM ENABLED TO DISABLED */
-	if (leftHandEnabled)
-	{
-		$("#leftHand").attr("src", "./images/leftHandDisabled.png");
-		leftHandEnabled = 0
-		if (!rightHandEnabled) didPressRightHand();
-		$("#leftHand").attr("src", "./images/leftHandDisabled.png");
-		$('#leftHandLabel').text("Left Off");
-		clearHand("left");
-	}
-	else
-	{
-		$("#leftHand").attr("src", "./images/leftHandEnabled.png");
-		$('#leftHandLabel').text("Left On");
-		leftHandEnabled = 1;
-	}
-}
-
-function didPressRightHand()
-{
-	/* TOGGLE FROM ENABLED TO DISABLED */
-	if (rightHandEnabled)
-	{
-		$("#rightHand").attr("src", "./images/rightHandDisabled.png");
-		rightHandEnabled = 0
-		if (!leftHandEnabled) didPressLeftHand();
-		$('#rightHandLabel').text("Right Off");
-		clearHand("right");
-	}
-	else
-	{
-		$("#rightHand").attr("src", "./images/rightHandEnabled.png");
-		$('#rightHandLabel').text("Right On");
-		rightHandEnabled = 1;
-	}
-}
-
-function didPressTransMinusButton()
-{
-	/* TOGGLE FROM ENABLED TO DISABLED */
-	if (transMinusButtonEnabled)
-	{
-		$("#transPlusButton").attr("src", "./images/plusButtonEnabled.png");
-		transPlusButtonEnabled = 1;
-		setTransposition(transposeValue-1);
-		if (transposeValue == -6)
-		{
-			$("#transMinusButton").attr("src", "./images/minusButtonDisabled.png");
-			transMinusButtonEnabled = 0;
-		}		
-	}
-}
-
-function didPressTransPlusButton()
-{
-	/* TOGGLE FROM ENABLED TO DISABLED */
-	if (transPlusButtonEnabled)
-	{
-		$("#transMinusButton").attr("src", "./images/minusButtonEnabled.png");
-		transMinusButtonEnabled = 1;
-		setTransposition(transposeValue+1);
-		if (transposeValue == 6)
-		{
-			$("#transPlusButton").attr("src", "./images/plusButtonDisabled.png");
-			transPlusButtonEnabled = 0;
-		}		
-	}
-}
-
-function didPressSpeedMinusButton()
-{
-	/* TOGGLE FROM ENABLED TO DISABLED */
-	if (speedMinusButtonEnabled)
-	{
-		$("#speedPlusButton").attr("src", "./images/plusButtonEnabled.png");
-		speedPlusButtonEnabled = 1;
-		setTempo(currentMetronomeBox - 10);
-		if (currentMetronomeBox == 10)
-		{
-			$("#speedMinusButton").attr("src", "./images/minusButtonDisabled.png");
-			speedMinusButtonEnabled = 0;
-		}		
-	}
-}
-
-function didPressSpeedPlusButton()
-{
-	/* TOGGLE FROM ENABLED TO DISABLED */
-	if (speedPlusButtonEnabled)
-	{
-		$("#speedMinusButton").attr("src", "./images/minusButtonEnabled.png");
-		speedMinusButtonEnabled = 1;
-		setTempo(currentMetronomeBox + 10);
-		if (currentMetronomeBox == 100)
-		{
-			$("#speedPlusButton").attr("src", "./images/plusButtonDisabled.png");
-			speedPlusButtonEnabled = 0;
-		}		
-	}
-}
-
-function didPressMetronome()
-{
-	/* TOGGLE FROM ENABLED TO DISABLED */
-	if (metronomeEnabled)
-	{
-		$("#metronome").attr("src", "./images/metronomeDisabled.png");
-		$('#metroLabel').text("Metro Off");
-		metronomeEnabled = 0;
-	}
-	else
-	{
-		$("#metronome").attr("src", "./images/metronomeEnabled.png");
-		$('#metroLabel').text("Metro On");
-		metronomeEnabled = 1;
-	}
-}
-
-function didPressZoom()
-{
-	/* TOGGLE FROM ENABLED TO DISABLED */
-	if (zoomEnabled)
-	{
-		$("#zoom").attr("src", "./images/zoomIn.png");
-		$('#zoomLabel').text("Zoom In");
-		$("#pianoKeyboard").css("left", "0%");
-		$("#pianoKeyboard").css("width", screenWidth);
-		$("#pianoKeyboard").css("height", screenWidth*0.085);
-		zoomEnabled = 0;
-	}
-	else
-	{
-		$("#zoom").attr("src", "./images/zoomOut.png");
-		$('#zoomLabel').text("Zoom Out");
-		//left = $("#key-8").position().left;
-		//width = $("#key-69").position().left - $("#key-8").position().left;
-		//console.log("left="+left+" width="+width);
-		$("#pianoKeyboard").css("left", "-15%");
-		$("#pianoKeyboard").css("width", "150.3%"); 
-		$("#pianoKeyboard").css("height", screenWidth*0.124);
-		zoomEnabled = 1;
-	}
-}
-
-function didPressNotes()
-{
-	/* TOGGLE FROM ENABLED TO DISABLED */
-	if (notesEnabled)
-	{
-		$("#notesButton").attr("src", "./images/notesDisabled.png");
-		$('#notesLabel').text("Notes Off");
-		notesEnabled = 0;
-	}
-	else
-	{
-		$("#notesButton").attr("src", "./images/notesEnabled.png");
-		$('#notesLabel').text("Notes On");
-		notesEnabled = 1;
-	}
-}
-
-function drawfeedback()
-{
-	/* FEEDBACK TAB */
-	feedbackTabLeft = 0
-	feedbackTabTop = controlsBackgroundTop;
-	feedbackTabHeight = screenWidth/55;
-
-	//$("body").append('<div id="feedbackTabLabel" style="cursor:pointer">Feedback</div>');
-	adjustTag("feedbackTabLabel", feedbackTabLeft, feedbackTabTop, 0, feedbackTabHeight, "green");
-	$("#feedbackTabLabel").css("left", -feedbackTabWidth/2 + 2);
-
-	/* FEEDBACK TAB 90 DEGREE ROTATION */
-    $('#feedbackTabLabel').css({"-webkit-transform" : "rotate(-90deg)"});
-    $('#feedbackTabLabel').css({"-moz-transform" : "rotate(-90deg)"});
-	$("#feedbackTabLabel").css({"-o-transform" : "rotate(-90deg)"});
-	$("#feedbackTabLabel").css({"-ms-transform" : "rotate(-90deg)"});
-	$("#feedbackTabLabel").css({"-transform" : "rotate(-90deg)"});
-	$("#feedbackTabLabel").css({"filter" : "progid:DXImageTransform.Microsoft.Matrix(M11=0.9396926207859084,M12=-0.3420201433256687,M21=0.3420201433256687,M22=0.9396926207859084,sizingMethod='auto expand')"});
-	$("#feedbackTabLabel").css({"zoom" : "1"});
-
-	$("#feedbackTabLabel").bind(onClickEvent, function (e) {
-		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
-			didPressPauseButton();
-		feedbackFormDisplayed = 1;
-		$('#feedbackForm').css("display","");
-		//$("#feedbackFormTextArea").focus();	
-	});
-	
-	/* FEEDBACK FORM */
-	feedbackFormWidth = controlsBackgroundWidth * 0.4;
-	feedbackFormHeight = controlsBackgroundWidth * 0.3;
-	feedbackFormLeft = controlsBackgroundLeft + (controlsBackgroundWidth - feedbackFormWidth)/2;
-	feedbackFormTop = controlsBackgroundTop - 2 * measureBoxHeight;
-	
-	$("body").append('<div id="feedbackForm"></div>');
-	adjustTag("feedbackForm", feedbackFormLeft, feedbackFormTop, feedbackFormWidth, feedbackFormHeight, "green");
-	$('#feedbackForm').css("z-index","6");
-	$('#feedbackForm').css("display","none");
-
-	/* FEEDBACK FORM LABEL */
-	feedbackFormLabelLeft = feedbackFormWidth * 0.1;
-	feedbackFormLabelTop = feedbackFormHeight * 0.05;
-	feedbackFormLabelWidth = feedbackFormWidth - feedbackFormLabelLeft;
-	feedbackFormLabelHeight = feedbackFormHeight * 0.07;
-	$("#feedbackForm").append('<div id="feedbackFormLabel">Tell us what you think about our site.</div>');
-	adjustTag("feedbackFormLabel", feedbackFormLabelLeft, feedbackFormLabelTop, feedbackFormLabelWidth, feedbackFormLabelHeight, "clear");
-	$("#feedbackFormLabel").css("text-align","left");
-
-	/* FEEDBACK FORM EMAIL TEXTAREA */
-	feedbackFormEmailTaWidth = feedbackFormWidth * 0.8;
-	feedbackFormEmailTaLeft = (feedbackFormWidth - feedbackFormEmailTaWidth)/2;
-	feedbackFormEmailTaTop = feedbackFormHeight * 0.15;
-	feedbackFormEmailTaHeight = feedbackFormHeight * 0.09;
-	$("#feedbackForm").append('<textarea name="message" id="feedbackFormEmailTa" rows="1" cols="30" wrap="SOFT">myEmail@domain.com</textarea>');
-	adjustTag("feedbackFormEmailTa", feedbackFormEmailTaLeft, feedbackFormEmailTaTop, feedbackFormEmailTaWidth, feedbackFormEmailTaHeight, "clear");
-	$("#feedbackFormEmailTa").css("text-align","left");
-	$("#feedbackFormEmailTa").css("font-size",$("#feedbackFormLabel").css("font-size").replace(/px/g, '') - 4);
-
-	$('#feedbackFormEmailTa').bind(onClickEvent, function (e) {
-			$("#feedbackFormEmailTa").val('');
-		});
-		
-	/* FEEDBACK FORM TEXTAREA */
-	feedbackFormTextAreaWidth = feedbackFormWidth * 0.8;
-	feedbackFormTextAreaLeft = (feedbackFormWidth - feedbackFormTextAreaWidth)/2;
-	feedbackFormTextAreaTop = feedbackFormHeight * 0.3;
-	feedbackFormTextAreaHeight = feedbackFormHeight * 0.55;
-	$("#feedbackForm").append('<textarea name="message" id="feedbackFormTextArea" rows="5" cols="30" wrap="SOFT">Type your message here ...</textarea>');
-	adjustTag("feedbackFormTextArea", feedbackFormTextAreaLeft, feedbackFormTextAreaTop, feedbackFormTextAreaWidth, feedbackFormTextAreaHeight, "clear");
-	$("#feedbackFormTextArea").css("text-align","left");
-	$("#feedbackFormTextArea").css("font-size",$("#feedbackFormLabel").css("font-size").replace(/px/g, '') - 4);
-
-	$('#feedbackFormTextArea').bind(onClickEvent, function (e) {
-			$("#feedbackFormTextArea").val('');
-		});
-	
-	/* SEND BUTTON */
-	sendButtonWidth = feedbackFormWidth * 0.15;
-	sendButtonLeft = feedbackFormTextAreaLeft + feedbackFormTextAreaWidth - sendButtonWidth;
-	sendButtonTop = feedbackFormHeight * 0.9;
-	sendButtonHeight = feedbackFormHeight * 0.06;
-	$("#feedbackForm").append('<input id="sendButton" type="button" name="send" value="Send" style="border:none">');
-	adjustTag("sendButton", sendButtonLeft, sendButtonTop, sendButtonWidth, sendButtonHeight, "clear");
-
-	$('#sendButton').bind(onClickEvent, function (e) {
-		var message = $("textarea#feedbackFormTextArea").val();
-		if (message == "") {
-			$("#feedbackFormTextArea").focus();
-			return false;
-		}
-
-		var email = $("textarea#feedbackFormEmailTa").val();
-		if (email == "") {
-			$("#feedbackFormEmailTa").focus();
-			return false;
-		}
-		
-		var dataString = '&message='+ message + '&email=' + email;
-		$.ajax({
-		  type: "POST",
-		  url: "./php/feedback.php",
-		  data: dataString,
-		  success: function() {
-			$('#feedbackForm').css("display","none");
-			feedbackFormDisplayed = 0;
-			$('#feedbackFormThanksLabel').css("display","");
-			setTimeout(function() {
-				$('#feedbackFormThanksLabel').css("display","none");
-			}, 2000);
-		  }
-		});
-		return false;
-	});
-	
-	/* CANCEL BUTTON */
-	cancelButtonLeft = sendButtonLeft - sendButtonWidth * 1.4;
-	cancelButtonTop = feedbackFormHeight * 0.9;
-	cancelButtonWidth = sendButtonWidth;
-	cancelButtonHeight = sendButtonHeight;
-	$("#feedbackForm").append('<input id="cancelButton" type="button" name="cancel" value="Cancel" style="border:none">');
-	adjustTag("cancelButton", cancelButtonLeft, cancelButtonTop, cancelButtonWidth, cancelButtonHeight, "clear");
-
-	$("#cancelButton").bind(onClickEvent, function (e) {
-		$('#feedbackForm').css("display","none");
-		feedbackFormDisplayed = 0;
-	});
-	
-	/* FEEDBACK FORM THANKS */
-	feedbackFormThanksLabelLeft = feedbackFormLeft;
-	feedbackFormThanksLabelTop = feedbackFormTop;
-	feedbackFormThanksLabelWidth = feedbackFormWidth;
-	feedbackFormThanksLabelHeight = feedbackFormLabelHeight;
-	$("body").append('<div id="feedbackFormThanksLabel">We appreciate your feedback. Thank you!</div>');
-	adjustTag("feedbackFormThanksLabel", feedbackFormThanksLabelLeft, feedbackFormThanksLabelTop, feedbackFormThanksLabelWidth, feedbackFormThanksLabelHeight, "green");
-	//$("#feedbackFormThanksLabel").css("text-align","left");
-	$('#feedbackFormThanksLabel').css("display","none");
-
 }
 
 function reportBrowser()
