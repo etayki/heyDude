@@ -131,47 +131,6 @@ function drawPiano(startKey, endKey)
 	redLineTop = controlsBackgroundTop + controlsBackgroundHeight;
 	redLineWidth = controlsBackgroundWidth;
 	redLineHeight = 5;
-	if (startKey == 0) // Draw only once
-	{
-		$("body").append('<img id="redVelvet" src="./images/redLine.png" style="z-index:5"></img>');
-		adjustTag("redVelvet", redLineLeft, redLineTop, redLineWidth, redLineHeight, "clear");
-	}
-
-	/* WHITE KEY */
-	whiteKeyCount = 0;
-	for (var key = startKey; key < endKey; key++)
-	{
-		var keyIdx = key % 12;
-		if (!(keyIdx==1 || keyIdx==4 || keyIdx==6 || keyIdx == 9 || keyIdx==11))
-			whiteKeyCount++;
-	}
-
-	whiteKeyWidth = controlsBackgroundWidth/(whiteKeyCount*1.015); // 52 white keys on keyboard, but we need room for margins
-
-	whiteKeyTop = redLineTop + redLineHeight;
-	whiteKeyHeight = whiteKeyWidth * 4.3;
-	//console.log(whiteKeyHeight/screenWidth);
-	
-	/* WHITE KEY LABEL */
-	whiteKeyLabelLeft = 0;
-	whiteKeyLabelTop = whiteKeyHeight * 0.76;
-	whiteKeyLabelWidth = whiteKeyWidth;
-	whiteKeyLabelHeight = whiteKeyLabelWidth * 1;
-	whiteKeyLabelFontSize = getFontSize(whiteKeyLabelHeight); 
-
-	/* BLACK KEY */
-	blackKeyLeft =  controlsBackgroundLeft;
-	blackKeyTop = whiteKeyTop;
-	blackKeyWidth = Math.floor(whiteKeyWidth * 0.55);
-	blackKeyHeight = Math.floor(whiteKeyHeight * 0.57);
-	
-	/* BLACK KEY LABEL */
-	blackKeyLabelLeft = 0;
-	blackKeyLabelTop = blackKeyHeight * 0.5;
-	blackKeyLabelWidth = blackKeyWidth;
-	blackKeyLabelHeight = blackKeyLabelWidth * 2;
-	blackKeyFingerLabelFontSize = getFontSize(blackKeyLabelHeight);
-	blackKeyNoteLabelFontSize = getFontSize(blackKeyLabelHeight*0.5);
 
 	$("body").append('<div id="pianoKeyboard" style="border-style:solid; border-width:2px; z-index:2"></div>');
 	adjustTag("pianoKeyboard", 0, 246, screenWidth, screenWidth*0.085, "black");
@@ -190,11 +149,11 @@ function drawPiano(startKey, endKey)
 			adjustTag("key-"+key, whiteKeyLeft+"%", 0, keyWidth+"%", screenWidth*0.0755+"%", "white");
 			/* WHITE KEY LABEL */
 			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:black;background-color:red">5</div></b>');			
-			adjustTag("keyLabel-"+key, 0, "77%", "100%", whiteKeyLabelHeight, "clear");
+			adjustTag("keyLabel-"+key, 0, "77%", "100%", "20%", "clear");
 			$("#keyLabel-"+key).css("font-family", "arial");
 			/* WHITE KEY NOTE LABEL */
 			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black;background-color:red">'+noteNames[keyIdx]+'</div></b>');			
-			adjustTag("keyNoteLabel-"+key, 0, "56%", "100%", whiteKeyLabelHeight, "clear");
+			adjustTag("keyNoteLabel-"+key, 0, "56%", "100%", "20%", "clear");
 			$("#keyNoteLabel-"+key).css("font-family", "arial");
 		}
 		else
@@ -205,11 +164,11 @@ function drawPiano(startKey, endKey)
 			adjustTag("key-"+key, blackKeyLeft+"%", 0, keyWidth*0.55+"%", screenWidth*0.043+"%", "black");
 			/* BLACK KEY LABEL */
 			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:green;background-color:red">6</div></b>');			
-			adjustTag("keyLabel-"+key, blackKeyLabelLeft, "50%", "100%", blackKeyLabelHeight, "clear");
+			adjustTag("keyLabel-"+key, 0, "50%", "100%", "20%", "clear");
 			$("#keyLabel-"+key).css("font-family", "arial");
 			/* BLACK KEY NOTE LABEL */
 			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:green;background-color:red">'+noteNames[keyIdx]+'</div></b>');
-			adjustTag("keyNoteLabel-"+key, 0, "15%", "100%", blackKeyLabelHeight*0.4, "clear");
+			adjustTag("keyNoteLabel-"+key, 0, "15%", "100%", "20%", "clear");
 			$("#keyNoteLabel-"+key).css("font-family", "arial");
 		}
 	}
