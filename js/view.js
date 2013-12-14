@@ -936,8 +936,7 @@ function drawPiano(startKey, endKey)
 	}
 
 	whiteKeyWidth = controlsBackgroundWidth/(whiteKeyCount*1.015); // 52 white keys on keyboard, but we need room for margins
-	whiteKeyWidthNew = 100/54; // 52 white keys on keyboard, but we need room for margins
-	whiteKeyLeft = 0.3;
+
 	whiteKeyTop = redLineTop + redLineHeight;
 	whiteKeyHeight = whiteKeyWidth * 4.3;
 	
@@ -970,17 +969,12 @@ function drawPiano(startKey, endKey)
 	keyboardBgrdHeight = whiteKeyHeight * 1.07;
 	adjustTag(zoom+"keyboardBgrd", keyboardBgrdLeft, keyboardBgrdTop, keyboardBgrdWidth, keyboardBgrdHeight, "black");
 
+	whiteKeyWidthNew = 100/54; // 52 white keys on keyboard, but we need room for margins
+	whiteKeyLeft = 0.1;
+
 	$("body").append('<div id="pianoKeyboard" style="border-style:solid; border-width:2px; z-index:2"></div>');
-	adjustTag("pianoKeyboard", 0, whiteKeyTop+110, screenWidth, screenWidth*0.085, "green");
+	adjustTag("pianoKeyboard", 0, 246, screenWidth, screenWidth*0.085, "black");
 
-	$("#pianoKeyboard").append('<div id="testkey1" style="border-style:solid; border-width:2px; z-index:2"></div>');
-	adjustTag("testkey1", 4, 0, whiteKeyWidth, whiteKeyHeight, "white");
-	$("#testkey1").css("width", whiteKeyWidthNew+"%");
-
-	// $("body").append('<div id="testkey2" style="border-style:solid; border-width:2px; z-index:2"></div>');
-	// adjustTag("testkey2", whiteKeyLeft, whiteKeyTop+110, whiteKeyWidth, whiteKeyHeight, "white");
-	// $("#testkey2").css("width", whiteKeyWidthNew+"%");
-    // ;border-style:solid;border-width:2px;z-index:3
 	noteNames = ["A","Bb","B","C","C#","D","Eb","E","F","F#","G","Ab"];
 	keyWidth = 1/52.5*100; // 52 keys + 0.5% key for padding between keys
 	for (var key = startKey; key < endKey; key++)
@@ -990,8 +984,8 @@ function drawPiano(startKey, endKey)
 		{
 			if (key!=startKey) whiteKeyLeft += keyWidth;
 			/* WHITE KEY */
-			$("body").append('<div id="'+zoom+'key-'+key+'" class="key '+zoom+'" style="border-style:solid; border-width:2px; z-index:2"></div>');
-			adjustTag(zoom+"key-"+key, whiteKeyLeft+"%", whiteKeyTop, keyWidth+"%", whiteKeyHeight, "white");
+			$("#pianoKeyboard").append('<div id="'+zoom+'key-'+key+'" class="key '+zoom+'" style="border-style:solid; border-width:2px; z-index:2"></div>');
+			adjustTag(zoom+"key-"+key, whiteKeyLeft+"%", 0, keyWidth+"%", whiteKeyHeight, "white");
 			//console.log(whiteKeyLeft);
 			/* WHITE KEY LABEL */
 			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
@@ -1006,8 +1000,8 @@ function drawPiano(startKey, endKey)
 		{
 			/* BLACK KEY */
 			blackKeyLeft =  whiteKeyLeft + keyWidth*0.74	;
-			$("body").append('<div id="'+zoom+'key-'+key+'" class="key '+zoom+'" style="z-index:3; border-style:solid; border-width:1px"></div>');
-			adjustTag(zoom+"key-"+key, blackKeyLeft+"%", blackKeyTop, keyWidth*0.55+"%", blackKeyHeight, "black");
+			$("#pianoKeyboard").append('<div id="'+zoom+'key-'+key+'" class="key '+zoom+'" style="z-index:3; border-style:solid; border-width:1px"></div>');
+			adjustTag(zoom+"key-"+key, blackKeyLeft+"%", 0, keyWidth*0.55+"%", blackKeyHeight, "black");
 			/* BLACK KEY LABEL */
 			$("#"+zoom+"key-"+key).append('<b><div id="'+zoom+'keyLabel-'+key+'" class="keyLabel" style="color:black"></div></b>');			
 			adjustTag(zoom+"keyLabel-"+key, blackKeyLabelLeft, blackKeyLabelTop, blackKeyLabelWidth, blackKeyLabelHeight, "clear");
