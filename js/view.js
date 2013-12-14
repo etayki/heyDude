@@ -189,11 +189,11 @@ function drawPiano(startKey, endKey)
 			$("#pianoKeyboard").append('<div id="key-'+key+'" class="key " style="border-style:solid; border-width:2px; z-index:2"></div>');
 			adjustTag("key-"+key, whiteKeyLeft+"%", 0, keyWidth+"%", screenWidth*0.0755+"%", "white");
 			/* WHITE KEY LABEL */
-			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:black">5</div></b>');			
+			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:black;background-color:red">5</div></b>');			
 			adjustTag("keyLabel-"+key, 0, "77%", "100%", whiteKeyLabelHeight, "clear");
 			$("#keyLabel-"+key).css("font-family", "arial");
 			/* WHITE KEY NOTE LABEL */
-			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black">'+noteNames[keyIdx]+'</div></b>');			
+			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black;background-color:red">'+noteNames[keyIdx]+'</div></b>');			
 			adjustTag("keyNoteLabel-"+key, 0, "56%", "100%", whiteKeyLabelHeight, "clear");
 			$("#keyNoteLabel-"+key).css("font-family", "arial");
 		}
@@ -204,12 +204,12 @@ function drawPiano(startKey, endKey)
 			$("#pianoKeyboard").append('<div id="key-'+key+'" class="key " style="border-style:solid; border-width:1px;z-index:3; "></div>');
 			adjustTag("key-"+key, blackKeyLeft+"%", 0, keyWidth*0.55+"%", screenWidth*0.043+"%", "black");
 			/* BLACK KEY LABEL */
-			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:green">6</div></b>');			
-			adjustTag("keyLabel-"+key, blackKeyLabelLeft, "50%", blackKeyLabelWidth, blackKeyLabelHeight, "clear");
+			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:green;background-color:red">6</div></b>');			
+			adjustTag("keyLabel-"+key, blackKeyLabelLeft, "50%", "100%", blackKeyLabelHeight, "clear");
 			$("#keyLabel-"+key).css("font-family", "arial");
 			/* BLACK KEY NOTE LABEL */
-			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:green">'+noteNames[keyIdx]+'</div></b>');
-			adjustTag("keyNoteLabel-"+key, blackKeyLabelLeft-10, "15%", blackKeyLabelWidth+20, blackKeyLabelHeight*0.4, "clear");
+			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:green;background-color:red">'+noteNames[keyIdx]+'</div></b>');
+			adjustTag("keyNoteLabel-"+key, 0, "15%", "100%", blackKeyLabelHeight*0.4, "clear");
 			$("#keyNoteLabel-"+key).css("font-family", "arial");
 		}
 	}
