@@ -957,22 +957,12 @@ function drawPiano(startKey, endKey)
 	blackKeyFingerLabelFontSize = getFontSize(blackKeyLabelHeight);
 	blackKeyNoteLabelFontSize = getFontSize(blackKeyLabelHeight*0.5);
 
-	/* KEYBOARD BACKGROUND */
-	$("body").append('<div id="keyboardBgrd"></div>');
-	keyboardBgrdLeft =  controlsBackgroundLeft;
-	keyboardBgrdTop = redLineTop + redLineHeight;
-	keyboardBgrdWidth = controlsBackgroundWidth;
-	keyboardBgrdHeight = whiteKeyHeight * 1.07;
-	adjustTag("keyboardBgrd", keyboardBgrdLeft, keyboardBgrdTop, keyboardBgrdWidth, keyboardBgrdHeight, "black");
-
-	whiteKeyWidthNew = 100/54; // 52 white keys on keyboard, but we need room for margins
-	whiteKeyLeft = 0.1;
-
 	$("body").append('<div id="pianoKeyboard" style="border-style:solid; border-width:2px; z-index:2"></div>');
 	adjustTag("pianoKeyboard", 0, 246, screenWidth, screenWidth*0.085, "black");
 
 	noteNames = ["A","Bb","B","C","C#","D","Eb","E","F","F#","G","Ab"];
 	keyWidth = 1/52.5*100; // 52 keys + 0.5% key for padding between keys
+	whiteKeyLeft = 0.1;
 	for (var key = startKey; key < endKey; key++)
 	{
 		keyIdx = key % 12;
@@ -1242,26 +1232,21 @@ function didPressZoom()
 	{
 		$("#zoom").attr("src", "./images/zoomIn.png");
 		$('#zoomLabel').text("Zoom In");
-		//$('.zoomOff').css("display","");
-		//$('.zoomOn').css("display","none");
-		//zoom = "zoomOff";
 		$("#pianoKeyboard").css("left", "0%");
 		$("#pianoKeyboard").css("width", screenWidth);
-		//$("#pianoKeyboard").css("height", screenWidth);
+		$("#pianoKeyboard").css("height", screenWidth*0.0155+"%");
 		zoomEnabled = 0;
 	}
 	else
 	{
 		$("#zoom").attr("src", "./images/zoomOut.png");
 		$('#zoomLabel').text("Zoom Out");
-		//$('.zoomOff').css("display","none");
-		//$('.zoomOn').css("display","");
-		//zoom = "zoomOn"; 8 - 68 adjustTag("key-"+key
-		left = $("#key-8").position().left;
-		width = $("#key-69").position().left - $("#key-8").position().left;
+		//left = $("#key-8").position().left;
+		//width = $("#key-69").position().left - $("#key-8").position().left;
 		//console.log("left="+left+" width="+width);
 		$("#pianoKeyboard").css("left", "-15%");
 		$("#pianoKeyboard").css("width", "150.3%");
+		$("#pianoKeyboard").css("height", screenWidth*0.02+"%");
 		zoomEnabled = 1;
 	}
 }
