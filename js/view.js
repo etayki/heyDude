@@ -1007,7 +1007,6 @@ function drawPiano(startKey, endKey)
 		}
 	}
 	$('.keyNoteLabel').css("display","none");
-	$('.zoomOn').css("display","none");
 }
 
 
@@ -1245,6 +1244,7 @@ function didPressZoom()
 		//$('.zoomOff').css("display","");
 		//$('.zoomOn').css("display","none");
 		//zoom = "zoomOff";
+		$("#pianoKeyboard").css("left", "0%");
 		$("#pianoKeyboard").css("width", screenWidth);
 		zoomEnabled = 0;
 	}
