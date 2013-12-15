@@ -123,7 +123,6 @@ function drawHeader()
 	adjustTag("bar", barLeft, barTop, barWidth, barHeight, barColor);
 }
 
-var whiteKeyLabelHeight, blackKeyFingerLabelHeight, blackKeyNoteLabelHeight;
 function drawPiano(startKey, endKey)
 {
 	/* RED LINE */
@@ -135,8 +134,6 @@ function drawPiano(startKey, endKey)
 	$("body").append('<div id="pianoKeyboard" style="border-style:solid; border-width:2px; z-index:2"></div>');
 	adjustTag("pianoKeyboard", 0, 246, screenWidth, screenWidth*0.085, "black");
 
-		// $("#"+tag).css("font-size", fontSize+"px");
-		// $("#"+tag).css("text-align","center");
 	noteNames = ["A","Bb","B","C","C#","D","Eb","E","F","F#","G","Ab"];
 	keyWidth = 1/52.5*100; // 52 keys + 0.5% key for padding between keys
 	whiteKeyLeft = 0.1;
@@ -147,8 +144,8 @@ function drawPiano(startKey, endKey)
 		{
 			if (key!=startKey) whiteKeyLeft += keyWidth;
 			/* WHITE KEY */
-			$("#pianoKeyboard").append('<div id="key-'+key+'" class="key" style="border-style:solid;border-width:2px;z-index:2;text-align:center"></div>');
-			adjustTag("key-"+key, whiteKeyLeft+"%", 0, keyWidth+"%", screenWidth*0.0755+"%", "white");
+			$("#pianoKeyboard").append('<div id="key-'+key+'" class="key" style="border-style:solid;border-width:2px;z-index:2;text-align:center;'+
+									   'position:absolute;left:'+whiteKeyLeft+'%;top:0px;width:'+keyWidth+'%;height:'+screenWidth*0.0755+'%;background-color:white"></div>');				
 			/* WHITE KEY LABEL */
 			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel whiteKeyLabel" style="color:black;background-color:clear"></div></b>');			
 			adjustTag("keyLabel-"+key, 0, "77%", "100%", "25%", "clear");
@@ -162,8 +159,8 @@ function drawPiano(startKey, endKey)
 		{
 			/* BLACK KEY */
 			blackKeyLeft =  whiteKeyLeft + keyWidth*0.74;
-			$("#pianoKeyboard").append('<div id="key-'+key+'" class="key" style="border-style:solid; border-width:1px;z-index:3;text-align:center"></div>');
-			adjustTag("key-"+key, blackKeyLeft+"%", 0, keyWidth*0.55+"%", screenWidth*0.043+"%", "black");
+			$("#pianoKeyboard").append('<div id="key-'+key+'" class="key" style="border-style:solid; border-width:1px;z-index:3;text-align:center;'+
+									   'position:absolute;left:'+blackKeyLeft+'%;top:0px;width:'+keyWidth*0.55+'%;height:'+screenWidth*0.043+'%;background-color:black"></div>');
 			/* BLACK KEY LABEL */
 			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel blackKeyLabel" style="color:black;background-color:clear"></div></b>');			
 			adjustTag("keyLabel-"+key, 0, "50%", "100%", "35%", "clear");
@@ -176,7 +173,7 @@ function drawPiano(startKey, endKey)
 	}
 
  	$(".whiteKeyLabel").css("font-size", getFontSize($("#keyLabel-"+0).height())+"px");
- 	$(".whiteKeyNoteLabel").css("font-size", getFontSize($("#keyNoteLabel-"+0).height())+"px")
+ 	$(".whiteKeyNoteLabel").css("font-size", getFontSize($("#keyNoteLabel-"+0).height())+"px");
  	$(".blackKeyLabel").css("font-size", getFontSize($("#keyLabel-"+1).height())+"px");
  	$(".blackKeyNoteLabel").css("font-size", getFontSize($("#keyNoteLabel-"+1).height())+"px");
 	$('.keyNoteLabel').css("display","none");
@@ -310,13 +307,7 @@ function adjustTag(tag, left, top, width, height, backgroundColor)
 	if (tag.indexOf("Label") !== -1 || tag.indexOf("Button") !== -1)
 	{
 		if (tag.indexOf("measureBoxLabel") !== -1) // Save 400ms by doing this once earlier
-			fontSize = measureBoxFontSize;
-		else if (height == whiteKeyLabelHeight) 
-			fontSize = whiteKeyLabelFontSize; 
-		else if (height == blackKeyFingerLabelHeight) 
-			fontSize = blackKeyFingerLabelFontSize; 
-		else if (height == blackKeyNoteLabelHeight) 
-			fontSize = blackKeyNoteLabelFontSize; 
+			fontSize = measureBoxFontSize; 
 		else
 			fontSize = getFontSize(height); 
 
