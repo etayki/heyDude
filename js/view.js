@@ -135,6 +135,8 @@ function drawPiano(startKey, endKey)
 	$("body").append('<div id="pianoKeyboard" style="border-style:solid; border-width:2px; z-index:2"></div>');
 	adjustTag("pianoKeyboard", 0, 246, screenWidth, screenWidth*0.085, "black");
 
+		// $("#"+tag).css("font-size", fontSize+"px");
+		// $("#"+tag).css("text-align","center");
 	noteNames = ["A","Bb","B","C","C#","D","Eb","E","F","F#","G","Ab"];
 	keyWidth = 1/52.5*100; // 52 keys + 0.5% key for padding between keys
 	whiteKeyLeft = 0.1;
@@ -145,33 +147,39 @@ function drawPiano(startKey, endKey)
 		{
 			if (key!=startKey) whiteKeyLeft += keyWidth;
 			/* WHITE KEY */
-			$("#pianoKeyboard").append('<div id="key-'+key+'" class="key " style="border-style:solid; border-width:2px; z-index:2"></div>');
+			$("#pianoKeyboard").append('<div id="key-'+key+'" class="key" style="border-style:solid;border-width:2px;z-index:2;text-align:center"></div>');
 			adjustTag("key-"+key, whiteKeyLeft+"%", 0, keyWidth+"%", screenWidth*0.0755+"%", "white");
 			/* WHITE KEY LABEL */
-			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:black;background-color:red">5</div></b>');			
-			adjustTag("keyLabel-"+key, 0, "77%", "100%", "20%", "clear");
+			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel whiteKeyLabel" style="color:black;background-color:clear">5</div></b>');			
+			adjustTag("keyLabel-"+key, 0, "77%", "100%", "25%", "clear");
 			$("#keyLabel-"+key).css("font-family", "arial");
 			/* WHITE KEY NOTE LABEL */
-			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:black;background-color:red">'+noteNames[keyIdx]+'</div></b>');			
-			adjustTag("keyNoteLabel-"+key, 0, "56%", "100%", "20%", "clear");
+			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel whiteKeyNoteLabel" style="color:black;background-color:clear">'+noteNames[keyIdx]+'</div></b>');			
+			adjustTag("keyNoteLabel-"+key, 0, "58%", "100%", "20%", "clear");
 			$("#keyNoteLabel-"+key).css("font-family", "arial");
 		}
 		else
 		{
 			/* BLACK KEY */
 			blackKeyLeft =  whiteKeyLeft + keyWidth*0.74;
-			$("#pianoKeyboard").append('<div id="key-'+key+'" class="key " style="border-style:solid; border-width:1px;z-index:3; "></div>');
+			$("#pianoKeyboard").append('<div id="key-'+key+'" class="key" style="border-style:solid; border-width:1px;z-index:3;text-align:center"></div>');
 			adjustTag("key-"+key, blackKeyLeft+"%", 0, keyWidth*0.55+"%", screenWidth*0.043+"%", "black");
 			/* BLACK KEY LABEL */
-			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel" style="color:green;background-color:red">6</div></b>');			
-			adjustTag("keyLabel-"+key, 0, "50%", "100%", "20%", "clear");
+			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel blackKeyLabel" style="color:black;background-color:red">6</div></b>');			
+			adjustTag("keyLabel-"+key, 0, "50%", "100%", "35%", "clear");
 			$("#keyLabel-"+key).css("font-family", "arial");
 			/* BLACK KEY NOTE LABEL */
-			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel" style="color:green;background-color:red">'+noteNames[keyIdx]+'</div></b>');
+			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel blackKeyNoteLabel" style="color:black;background-color:red">'+noteNames[keyIdx]+'</div></b>');
 			adjustTag("keyNoteLabel-"+key, 0, "15%", "100%", "20%", "clear");
 			$("#keyNoteLabel-"+key).css("font-family", "arial");
 		}
 	}
+
+ 	$(".whiteKeyLabel").css("font-size", getFontSize($("#keyLabel-"+0).height())+"px");
+ 	$(".whiteKeyNoteLabel").css("font-size", getFontSize($("#keyNoteLabel-"+0).height())+"px")
+ 	$(".blackKeyLabel").css("font-size", getFontSize($("#keyLabel-"+1).height())+"px");
+ 	$(".blackKeyNoteLabel").css("font-size", getFontSize($("#keyNoteLabel-"+1).height())+"px");
+ 	//$(".whiteKeyLabel").css("text-align","center");
 	//$('.keyNoteLabel').css("display","none");
 }
 
@@ -331,9 +339,9 @@ function adjustTag(tag, left, top, width, height, backgroundColor)
 
 function getFontSize(labelHeight)
 {
-	$("body").append('<div id="textLabel"><span id="textSpan">Feedback</span></div>');
-
+	$("body").append('<div id="textLabel"><span id="textSpan">TextTest</span></div>');
 	fontSize = 0;
+
 	do {
 	    fontSize += 2;
 	    $("#textLabel").css('font-size', fontSize);
