@@ -619,6 +619,10 @@ function didPressZoom()
 		$("#pianoKeyboard").css("width", screenWidth);
 		$("#pianoKeyboard").css("height", screenWidth*0.085);
 		zoomEnabled = 0;
+	 	$(".whiteKeyLabel").css("font-size", getFontSize($("#keyLabel-"+0).height())+"px");
+	 	$(".whiteKeyNoteLabel").css("font-size", getFontSize($("#keyNoteLabel-"+0).height())+"px")
+	 	$(".blackKeyLabel").css("font-size", getFontSize($("#keyLabel-"+1).height())+"px");
+	 	$(".blackKeyNoteLabel").css("font-size", getFontSize($("#keyNoteLabel-"+1).height())+"px");
 	}
 	else
 	{
@@ -631,6 +635,10 @@ function didPressZoom()
 		$("#pianoKeyboard").css("width", "150.3%"); 
 		$("#pianoKeyboard").css("height", screenWidth*0.124);
 		zoomEnabled = 1;
+	 	$(".whiteKeyLabel").css("font-size", getFontSize($("#keyLabel-"+0).height())+"px");
+	 	$(".whiteKeyNoteLabel").css("font-size", getFontSize($("#keyNoteLabel-"+0).height())+"px")
+	 	$(".blackKeyLabel").css("font-size", getFontSize($("#keyLabel-"+1).height())+"px");
+	 	$(".blackKeyNoteLabel").css("font-size", getFontSize($("#keyNoteLabel-"+1).height())+"px");
 	}
 }
 
