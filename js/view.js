@@ -168,9 +168,8 @@ function drawPiano(startKey, endKey)
 			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel blackKeyLabel" style="color:black;background-color:clear'+
 								  'left:0;top:50%;width:100%;height:40%;position:absolute;text-align:center;font-family:arial"></div></b>');
 			/* BLACK KEY NOTE LABEL */
-			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel blackKeyNoteLabel" style="color:black;background-color:clear">'+noteNames[keyIdx]+'</div></b>');
-			adjustTag("keyNoteLabel-"+key, 0, "15%", "100%", "18%", "clear");
-			$("#keyNoteLabel-"+key).css("font-family", "arial");
+			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel blackKeyNoteLabel" style="color:black;background-color:clear'+
+								  'left:0;top:15%;width:100%;height:18%;position:absolute;text-align:center;font-family:arial">'+noteNames[keyIdx]+'</div></b>');			
 		}
 	}
 
