@@ -4,7 +4,8 @@ function drawMeasureTrack()
 	measureBoxWidth = screenWidth/(tune.length+7); // 8 more boxes than measures to give room for markers
 	measureBoxLeft = 0;
 	measureBoxHeight = 50;
-	measureBoxTop = barTop + barHeight;
+	measureBoxTop = topOffset;
+	topOffset = measureBoxTop + measureBoxHeight;
 	//measureBoxColor = "clear";//"#cbcbcb";
 
 	measureBoxFontSize = getFontSize(measureBoxHeight)-30;

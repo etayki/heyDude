@@ -1,6 +1,7 @@
 var browser;
 var clickEvent;
 var startTime;
+var topOffset;
 
 function drawScreen()
 {
@@ -121,18 +122,22 @@ function drawHeader()
 	barHeight = headerHeight * 0.4;
 	barColor = "#919191";
 	adjustTag("bar", barLeft, barTop, barWidth, barHeight, barColor);
+	topOffset = barTop + barHeight;
 }
 
 function drawPiano(startKey, endKey)
 {
 	/* RED LINE */
 	redLineLeft =  controlsBackgroundLeft;
-	redLineTop = controlsBackgroundTop + controlsBackgroundHeight;
+	redLineTop = topOffset;
 	redLineWidth = controlsBackgroundWidth;
 	redLineHeight = 5;
 
+    $("body").append('<img id="redVelvet" src="./images/redLine.png" style="z-index:5"></img>');
+    adjustTag("redVelvet", 0, redLineTop, screenWidth, "5", "clear");
+
 	$("body").append('<div id="pianoKeyboard" style="border-style:solid; border-width:2px; z-index:2"></div>');
-	adjustTag("pianoKeyboard", 0, 246, screenWidth, screenWidth*0.085, "black");
+	adjustTag("pianoKeyboard", 0, redLineTop+redLineHeight, screenWidth, screenWidth*0.086, "black");
 
 	noteNames = ["A","Bb","B","C","C#","D","Eb","E","F","F#","G","Ab"];
 	keyWidth = 1/52.5*100; // 52 keys + 0.5% key for padding between keys
@@ -145,7 +150,7 @@ function drawPiano(startKey, endKey)
 			if (key!=startKey) whiteKeyLeft += keyWidth;
 			/* WHITE KEY */
 			$("#pianoKeyboard").append('<div id="key-'+key+'" class="key" style="border-style:solid;border-width:2px;z-index:2;text-align:center;'+
-									   'position:absolute;left:'+whiteKeyLeft+'%;top:0px;width:'+keyWidth+'%;height:'+screenWidth*0.0755+'%;background-color:white"></div>');				
+									   'position:absolute;left:'+whiteKeyLeft+'%;top:0px;width:'+keyWidth+'%;height:94%;background-color:white"></div>');				
 			/* WHITE KEY LABEL */
 			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel whiteKeyLabel" style="color:black;background-color:clear"></div></b>');			
 			adjustTag("keyLabel-"+key, 0, "77%", "100%", "25%", "clear");
@@ -160,7 +165,7 @@ function drawPiano(startKey, endKey)
 			/* BLACK KEY */
 			blackKeyLeft =  whiteKeyLeft + keyWidth*0.74;
 			$("#pianoKeyboard").append('<div id="key-'+key+'" class="key" style="border-style:solid; border-width:1px;z-index:3;text-align:center;'+
-									   'position:absolute;left:'+blackKeyLeft+'%;top:0px;width:'+keyWidth*0.55+'%;height:'+screenWidth*0.043+'%;background-color:black"></div>');
+									   'position:absolute;left:'+blackKeyLeft+'%;top:0px;width:'+keyWidth*0.55+'%;height:52.5%;background-color:black"></div>');
 			/* BLACK KEY LABEL */
 			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel blackKeyLabel" style="color:black;background-color:clear"></div></b>');			
 			adjustTag("keyLabel-"+key, 0, "50%", "100%", "35%", "clear");

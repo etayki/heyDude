@@ -3,9 +3,11 @@ function drawControls()
 	/* CONTROLS BACKGROUND */
 	$("body").append('<img id="controlsBackground" src="./images/controlsBackground.png"></img>');
 	controlsBackgroundLeft =  headerLeft;
-	controlsBackgroundTop = startMarkerTop+startMarkerHeight;
+	controlsBackgroundTop = topOffset;
 	controlsBackgroundWidth = headerWidth + 2;
-	controlsBackgroundHeight = measureBoxHeight * 1.5;
+	controlsBackgroundHeight = screenWidth * 0.0645;
+	topOffset += controlsBackgroundHeight;
+	console.log("topOffset: "+topOffset);
 	adjustTag("controlsBackground", controlsBackgroundLeft, controlsBackgroundTop, controlsBackgroundWidth, controlsBackgroundHeight, "clear");
 
 	/* LEFT HAND */
