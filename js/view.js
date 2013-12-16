@@ -56,16 +56,25 @@ function getDeviceSettings()
 function drawHeader()
 {
 	/* MEASURE GRID HEADER */
-	$("body").append('<div id="header" style="left=0;top=0;width:'+screenWidth+'height:'+screenWidth*0.065+';background-color:"#919191""></div>');
+	//$("body").append('<div id="header" style="left=0px;top=0px;width:'+screenWidth+'height:'+screenWidth*0.065+';background-color:#919191"></div>');
+	$("body").append('<div id="header" style="position:absolute;left:0%;top:0%;width:100%;height:40px;background-color:#919191"></div>');
+
+	// $("#header").css("background-color", "#919191");
+	// $("#header").css("position", "absolute");
+	// //$("#"+tag).css("left", left);
+	// //$("#"+tag).css("top", top);
+	// //$("#"+tag).css("width", width);
+	// //$("#"+tag).css("height", height);
+	// //$("#"+tag).css("background-color", backgroundColor);
 	// headerWidth = screenWidth;
 	// headerLeft = 0
 	// headerTop = 0;
 	// headerHeight = headerWidth * 0.065;
 	// headerColor = "#919191";
-	// adjustTag("header", headerLeft, headerTop, headerWidth, headerHeight, headerColor);	
+	//adjustTag("header", headerLeft, headerTop, headerWidth, headerHeight, headerColor);	
 	
 	/* LOGO */
-	$("body").append('<img id="logo" src="./images/logo.png"></img>');
+	$("body").append('<img id="logo" src="./images/logo.png" style="left=0;top=0;width:0;height:0;background-color:#919191"></img>');
 	logoLeft =  screenWidth * 0.03;
 	logoHeight = screenWidth*0.065 * 0.8;
 	logoTop = (screenWidth*0.065 - logoHeight)/2;
