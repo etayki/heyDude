@@ -7,7 +7,6 @@ function drawControls()
 	controlsBackgroundWidth = headerWidth + 2;
 	controlsBackgroundHeight = screenWidth * 0.0645;
 	topOffset += controlsBackgroundHeight;
-	console.log("topOffset: "+topOffset);
 	adjustTag("controlsBackground", controlsBackgroundLeft, controlsBackgroundTop, controlsBackgroundWidth, controlsBackgroundHeight, "clear");
 
 	/* LEFT HAND */
