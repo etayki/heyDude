@@ -9,18 +9,18 @@ function drawMeasureTrack()
 	//measureBoxColor = "clear";//"#cbcbcb";
 
 	measureBoxFontSize = getFontSize(measureBoxHeight)-30;
-	measureBoxDisplayTop = barTop+barHeight-15;
+	measureBoxDisplayTop = topOffset-15;
 
 	/* MEASURE GRID */
 	for (number = -3; number < tune.length + 4; number++)
 	{			
 		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0px;cursor:pointer;z-index:10"></div>');
-		adjustTag("measureBox-"+number, measureBoxLeft, barTop-50, measureBoxWidth, measureBoxHeight+83, "clear");
+		adjustTag("measureBox-"+number, measureBoxLeft, measureBoxDisplayTop-50, measureBoxWidth, measureBoxHeight+83, "clear");
 
         //if (number > 0 && number < tune.length)
 		{
 			$("body").append('<div id="measureBoxDisplay-'+number+'" class="measureBoxDisplay" style="border-style:solid;border-width:1px;cursor:pointer;z-index:0"></div>');
-			adjustTag("measureBoxDisplay-"+number, measureBoxLeft, barTop+barHeight, measureBoxWidth, measureBoxHeight, "#919191");
+			adjustTag("measureBoxDisplay-"+number, measureBoxLeft, measureBoxDisplayTop, measureBoxWidth, measureBoxHeight, "#919191");
 			$("#measureBoxDisplay-"+(tune.length+3)).css("background-color","#919191");
 			$("#measureBoxDisplay-"+number).css("border-top-color","#919191");
         	if (number != 0 &&(number%5==0 || number==1) && number < tune.length)
@@ -70,7 +70,7 @@ function drawMarkers()
 {
 	/* POSITION MARKER */
 	$("body").append('<div id="positionMarker" style="z-index:10"><div>');
-	adjustTag("positionMarker",measureBoxWidth*3+1,barTop,barHeight,measureBoxWidth*2.05,"clear");
+	adjustTag("positionMarker",measureBoxWidth*3+1,topOffset,barHeight,measureBoxWidth*2.05,"clear");
 		$("#positionMarker").append('<div id="positionMarkerLabel" style="z-index:1">'+startMeasure+'</div>');
 		adjustTag("positionMarkerLabel", 0, 0, barHeight, measureBoxWidth*2.05, "green");
 		// $("#positionMarker").append('<img id="positionMarkerImg" src="./images/positionMarker.png" style="z-index:2">');
