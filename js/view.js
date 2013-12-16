@@ -5,8 +5,8 @@ var topOffset;
 
 function drawScreen()
 {
-	console.log("setSceenWidth: " + (new Date().getTime() - startTime));
-	setSceenWidth();
+	console.log("setDeviceSettings: " + (new Date().getTime() - startTime));
+	getDeviceSettings();
 	console.log("setEvents: " + (new Date().getTime() - startTime));
 	setEvents();
 	console.log("drawHeader: " + (new Date().getTime() - startTime));
@@ -44,12 +44,11 @@ function drawScreen()
 	console.log("done: " + (new Date().getTime() - startTime));
 }
 
-function setSceenWidth()
+function getDeviceSettings()
 {
 	screenWidth = screen.width;
 	userAgent = navigator.userAgent;
 	isiPad = navigator.userAgent.match(/iPad/i) != null;
-	//$('body').css("background-color", "#C00000");
 	// if(userAgent.indexOf("iPhone") !== -1 || isiPad)
 	// 	screenWidth = 981;
 }
@@ -57,52 +56,52 @@ function setSceenWidth()
 function drawHeader()
 {
 	/* MEASURE GRID HEADER */
-	$("body").append('<div id="header"></div>');
-	headerWidth = screenWidth;
-	headerLeft = 0
-	headerTop = 0;
-	headerHeight = headerWidth * 0.065;
-	headerColor = "#919191";
-	adjustTag("header", headerLeft, headerTop, headerWidth, headerHeight, headerColor);	
+	$("body").append('<div id="header" style="left=0;top=0;width:'+screenWidth+'height:'+screenWidth*0.065+';background-color:"#919191""></div>');
+	// headerWidth = screenWidth;
+	// headerLeft = 0
+	// headerTop = 0;
+	// headerHeight = headerWidth * 0.065;
+	// headerColor = "#919191";
+	// adjustTag("header", headerLeft, headerTop, headerWidth, headerHeight, headerColor);	
 	
 	/* LOGO */
 	$("body").append('<img id="logo" src="./images/logo.png"></img>');
-	logoLeft = headerLeft + headerWidth * 0.03;
-	logoHeight = headerHeight * 0.8;
-	logoTop = headerTop + (headerHeight - logoHeight)/2;
-	logoWidth = headerHeight * 1.3;
+	logoLeft =  screenWidth * 0.03;
+	logoHeight = screenWidth*0.065 * 0.8;
+	logoTop = (screenWidth*0.065 - logoHeight)/2;
+	logoWidth = screenWidth*0.065 * 1.3;
 	adjustTag("logo", logoLeft, logoTop, logoWidth, logoHeight, "clear");
 	
 	/* COMPOSER PIC */
 	$("body").append('<img id="composerPic" src="./images/beethoven.jpeg"></img>');
-	composerPicTop = headerTop;
-	composerPicHeight = headerHeight;
-	composerPicWidth = headerHeight * 1.2;
-	composerPicLeft = headerLeft + headerWidth - composerPicWidth + 1;
+	composerPicTop = 0;
+	composerPicHeight = screenWidth*0.065;
+	composerPicWidth = screenWidth*0.065 * 1.2;
+	composerPicLeft = screenWidth - composerPicWidth + 1;
 	adjustTag("composerPic", composerPicLeft, composerPicTop, composerPicWidth, composerPicHeight, "clear");
 	
 	/* TUNE LABEL */
 	$("body").append('<div id="tuneLabel">Moonlight Sonata</div>');
-	tuneLabelLeft =  headerLeft;
-	tuneLabelTop = headerTop + headerHeight * 0.1;
-	tuneLabelWidth = headerWidth;
-	tuneLabelHeight = headerHeight * 0.4;
+	tuneLabelLeft =  0;
+	tuneLabelTop = screenWidth*0.065 * 0.1;
+	tuneLabelWidth = screenWidth;
+	tuneLabelHeight = screenWidth*0.065 * 0.4;
 	adjustTag("tuneLabel", tuneLabelLeft, tuneLabelTop, tuneLabelWidth, tuneLabelHeight, "clear");
 	
 	/* ARTIST LABEL */
 	$("body").append('<div id="artistLabel">L.V. Beethoven</div>');
-	artisitLabelLeft =  headerLeft;
-	artisitLabelTop = headerTop + headerHeight * 0.55;
-	artisitLabelWidth = headerWidth;
-	artisitLabelHeight = headerHeight * 0.25;
+	artisitLabelLeft =  0;
+	artisitLabelTop = screenWidth*0.065 * 0.55;
+	artisitLabelWidth = screenWidth;
+	artisitLabelHeight = screenWidth*0.065 * 0.25;
 	adjustTag("artistLabel", artisitLabelLeft, artisitLabelTop, artisitLabelWidth, artisitLabelHeight, "clear");
 
 	/* MEASURE GRID Bar */
 	$("body").append('<div id="bar" style="border-style:solid;border-width:1px"></div>');
-	barWidth = headerWidth - 1; // Subtract 1 because of the border width which adds one pixel on either side 
-	barLeft = headerLeft;
-	barTop = headerTop + headerHeight;
-	barHeight = headerHeight * 0.4;
+	barWidth = screenWidth - 1; // Subtract 1 because of the border width which adds one pixel on either side 
+	barLeft = 0;
+	barTop = screenWidth*0.065;
+	barHeight = screenWidth*0.065 * 0.4;
 	barColor = "#919191";
 	adjustTag("bar", barLeft, barTop, barWidth, barHeight, barColor);
 	topOffset = barTop + barHeight;

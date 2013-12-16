@@ -2,9 +2,9 @@ function drawControls()
 {
 	/* CONTROLS BACKGROUND */
 	$("body").append('<img id="controlsBackground" src="./images/controlsBackground.png"></img>');
-	controlsBackgroundLeft =  headerLeft;
+	controlsBackgroundLeft =  0;
 	controlsBackgroundTop = topOffset;
-	controlsBackgroundWidth = headerWidth + 2;
+	controlsBackgroundWidth = screenWidth + 2;
 	controlsBackgroundHeight = screenWidth * 0.0645;
 	topOffset += controlsBackgroundHeight;
 	adjustTag("controlsBackground", controlsBackgroundLeft, controlsBackgroundTop, controlsBackgroundWidth, controlsBackgroundHeight, "clear");
