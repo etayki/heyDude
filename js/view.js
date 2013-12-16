@@ -49,7 +49,7 @@ function setSceenWidth()
 	screenWidth = screen.width;
 	userAgent = navigator.userAgent;
 	isiPad = navigator.userAgent.match(/iPad/i) != null;
-	$('body').css("background-color", "#C00000");
+	//$('body').css("background-color", "#C00000");
 	// if(userAgent.indexOf("iPhone") !== -1 || isiPad)
 	// 	screenWidth = 981;
 }
