@@ -62,13 +62,13 @@ $(document).ready(function() {
 		callback: function() {
 			console.log("MIDI.loadPlugin Done: " + (new Date().getTime() - startTime));
 			MIDI.setVolume(0, 127);
-			//drawScreen();
+			drawScreen();
 			$("#playBtn").attr("src", "./images/playButton.png");
 		}
 	});
 
 	startTime = new Date().getTime();
-	drawScreen();
+	//drawScreen();
 	
 	/* DISABLE SELECTION */
 	$("body").css("-webkit-user-select","none");

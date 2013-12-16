@@ -7,6 +7,8 @@ function drawScreen()
 {
 	console.log("setSceenWidth: " + (new Date().getTime() - startTime));
 	setSceenWidth();
+	console.log("setEvents: " + (new Date().getTime() - startTime));
+	setEvents();
 	console.log("drawHeader: " + (new Date().getTime() - startTime));
 	drawHeader();
 	console.log("drawMeasureTrack: " + (new Date().getTime() - startTime));
@@ -33,8 +35,6 @@ function drawScreen()
 	console.log("drawPiano: " + (new Date().getTime() - startTime));
 	//drawPiano(8,68);
 	drawPiano(0,88);
-	console.log("setEvents: " + (new Date().getTime() - startTime));
-	setEvents();
 	console.log("drawfeedback: " + (new Date().getTime() - startTime));
 	drawfeedback();
 	console.log("display: " + (new Date().getTime() - startTime));
@@ -49,26 +49,9 @@ function setSceenWidth()
 	screenWidth = screen.width;
 	userAgent = navigator.userAgent;
 	isiPad = navigator.userAgent.match(/iPad/i) != null;
-
-	if(userAgent.indexOf("iPhone") !== -1 || isiPad)
-		screenWidth = 981;
-
-	/* SET BACKGROUND IMAGE */
-	$('body').css('background-image', 'url("./images/redCarpet.jpg")');
-	$("body").append('<img id="backgroundImg" src=""></img>'); // Hack to make background img work in full screen
-	$("#backgroundImg").css("width",screenWidth);
-	$("#backgroundImg").css("height","auto");
-	
-   	clickEvent = "onclick";
-    if(userAgent.indexOf("iPad") !== -1)
-    {
-		clickEvent = "ontouchstart";
-	}
-	else if(userAgent.indexOf("iPhone") !== -1)
-	{
-		clickEvent = "ontouchstart";
-	}
-	onClickEvent = clickEvent.replace("on","");
+	$('body').css("background-color", "#C00000");
+	// if(userAgent.indexOf("iPhone") !== -1 || isiPad)
+	// 	screenWidth = 981;
 }
 
 function drawHeader()
@@ -182,6 +165,16 @@ function drawPiano(startKey, endKey)
 
 function setEvents()
 {
+   	clickEvent = "onclick";
+    if(userAgent.indexOf("iPad") !== -1)
+    {
+		clickEvent = "ontouchstart";
+	}
+	else if(userAgent.indexOf("iPhone") !== -1)
+	{
+		clickEvent = "ontouchstart";
+	}
+	onClickEvent = clickEvent.replace("on","");
 	$('img').on('dragstart', function(event) { event.preventDefault(); });
 
  	// iPad
