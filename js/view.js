@@ -152,9 +152,8 @@ function drawPiano(startKey, endKey)
 			$("#pianoKeyboard").append('<div id="key-'+key+'" class="key" style="border-style:solid;border-width:2px;z-index:2;text-align:center;'+
 									   'position:absolute;left:'+whiteKeyLeft+'%;top:0px;width:'+keyWidth+'%;height:94%;background-color:white"></div>');				
 			/* WHITE KEY LABEL */
-			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel whiteKeyLabel" style="color:black;background-color:clear"></div></b>');			
-			adjustTag("keyLabel-"+key, 0, "77%", "100%", "25%", "clear");
-			$("#keyLabel-"+key).css("font-family", "arial");
+			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel whiteKeyLabel" style="color:black;background-color:clear'+
+								  'left:0;top:77%;width:100%;height:25%;position:absolute;text-align:center;font-family:arial">5</div></b>');
 			/* WHITE KEY NOTE LABEL */
 			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel whiteKeyNoteLabel" style="color:black;background-color:clear">'+noteNames[keyIdx]+'</div></b>');			
 			adjustTag("keyNoteLabel-"+key, 0, "58%", "100%", "23%", "clear");
