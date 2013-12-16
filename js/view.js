@@ -55,26 +55,14 @@ function getDeviceSettings()
 
 function drawHeader()
 {
-	$("body").append('<div id="header" style="position:absolute;left:0%;top:0%;width:100%;height:100px;background-color:#919191"></div>');	
+
+	$("body").append('<div id="header" style="position:absolute;left:0%;top:0%;width:100%;height:100px;background-color:#919191"></div>');
 	$("#header").append('<img id="logo" src="./images/logo.png" style="position:absolute;left:3%;top:10%;width:8.5%;height:75%"></img>');
 	$("#header").append('<img id="composerPic" src="./images/beethoven.jpeg" style="position:absolute;right:0%;top:0%;width:7.8%;height:94%"></img>');
 	$("#header").append('<div id="tuneLabel" style="position:absolute;left:0%;top:9%;width:100%;height:40%;text-align:center">Moonlight Sonata</div>');
 	$("#tuneLabel").css("font-size", getFontSize($("#tuneLabel").height())+"px");
-
-
-	tuneLabelLeft =  0;
-	tuneLabelTop = screenWidth*0.065 * 0.1;
-	tuneLabelWidth = screenWidth;
-	tuneLabelHeight = screenWidth*0.065 * 0.4;
-	//adjustTag("tuneLabel", tuneLabelLeft, tuneLabelTop, tuneLabelWidth, tuneLabelHeight, "clear");
-	
-	/* ARTIST LABEL */
-	$("body").append('<div id="artistLabel">L.V. Beethoven</div>');
-	artisitLabelLeft =  0;
-	artisitLabelTop = screenWidth*0.065 * 0.55;
-	artisitLabelWidth = screenWidth;
-	artisitLabelHeight = screenWidth*0.065 * 0.25;
-	adjustTag("artistLabel", artisitLabelLeft, artisitLabelTop, artisitLabelWidth, artisitLabelHeight, "clear");
+	$("#header").append('<div id="artistLabel" style="position:absolute;left:0%;top:51%;width:100%;height:25%;text-align:center">L.V. Beethoven</div>');
+	$("#artistLabel").css("font-size", getFontSize($("#artistLabel").height())+"px");
 
 	/* MEASURE GRID Bar */
 	$("body").append('<div id="bar" style="border-style:solid;border-width:1px"></div>');
@@ -83,7 +71,7 @@ function drawHeader()
 	barTop = screenWidth*0.065;
 	barHeight = screenWidth*0.065 * 0.4;
 	barColor = "#919191";
-	adjustTag("bar", barLeft, barTop, barWidth, barHeight, barColor);
+	adjustTag("bar", barLeft, barTop, barWidth, barHeight, "green");
 	topOffset = barTop + barHeight;
 }
 
