@@ -5,34 +5,37 @@ function drawMeasureTrack()
 	measureBoxLeft = 0;
 	measureBoxHeight = 50;
 	measureBoxTop = topOffset;
-	topOffset = measureBoxTop + measureBoxHeight;
+	//topOffset = measureBoxTop + measureBoxHeight;
 	//measureBoxColor = "clear";//"#cbcbcb";
 
 	measureBoxFontSize = getFontSize(measureBoxHeight)-30;
 	measureBoxDisplayTop = topOffset-15;
-
 	/* MEASURE GRID */
 	for (number = -3; number < tune.length + 4; number++)
 	{			
-		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0px;cursor:pointer;z-index:10"></div>');
-		adjustTag("measureBox-"+number, measureBoxLeft, measureBoxDisplayTop-50, measureBoxWidth, measureBoxHeight+83, "clear");
+		// $("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:1px;cursor:pointer;z-index:10;'+
+		// 			  	 'opacity:0.3;position:absolute;left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:100%;background-color:purple"></div>');
 
         //if (number > 0 && number < tune.length)
 		{
-			$("body").append('<div id="measureBoxDisplay-'+number+'" class="measureBoxDisplay" style="border-style:solid;border-width:1px;cursor:pointer;z-index:0"></div>');
-			adjustTag("measureBoxDisplay-"+number, measureBoxLeft, measureBoxDisplayTop, measureBoxWidth, measureBoxHeight, "#919191");
-			$("#measureBoxDisplay-"+(tune.length+3)).css("background-color","#919191");
-			$("#measureBoxDisplay-"+number).css("border-top-color","#919191");
-        	if (number != 0 &&(number%5==0 || number==1) && number < tune.length)
-        	{
-	        	$("body").append('<div class="measureBoxLabel" id="measureBoxLabel-'+number+'" style="z-index:0">'+number+'</div>');
-	        	adjustTag("measureBoxLabel-"+number, measureBoxLeft, measureBoxDisplayTop, measureBoxWidth, measureBoxWidth, "clear");
-	        }
+		$("body").append('<div id="measureBoxDisplay-'+number+'" class="measureBoxDisplay" style="cursor:pointer;z-index:0;border-style:solid;'+
+						 'border-width:0 0 0 1;position:absolute;'+
+						 'left:'+measureBoxLeft+';top:'+topOffset+';width:'+measureBoxWidth+';height:'+screenWidth*0.04+';background-color:blue"></div>');
+		//if (number == -3 || number == 73) $("#measureBoxDisplay--3").css("border-left-width","0px");
+		//adjustTag("measureBoxDisplay-"+number, measureBoxLeft, topOffset, measureBoxWidth, measureBoxHeight, "blue");//"#919191");
+			// $("#measureBoxDisplay-"+(tune.length+3)).css("background-color","#919191");
+			// $("#measureBoxDisplay-"+number).css("border-top-color","#919191");
+   //      	if (number != 0 &&(number%5==0 || number==1) && number < tune.length)
+   //      	{
+	  //       	$("body").append('<div class="measureBoxLabel" id="measureBoxLabel-'+number+'" style="z-index:0">'+number+'</div>');
+	  //       	adjustTag("measureBoxLabel-"+number, measureBoxLeft, measureBoxDisplayTop, measureBoxWidth, measureBoxWidth, "clear");
+	  //       }
 		}
 
 		measureBoxLeft += measureBoxWidth;
+		if (number==72) measureBoxLeft-=1; // Hack to keep the horizontal bar from showing
 	}
-
+	return;
 	for (number = -2; number <= 0; number++)
 	{			
 		$("#measureBoxDisplay-"+number).css("background-color","#919191");

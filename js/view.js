@@ -57,7 +57,7 @@ function getDeviceSettings()
 function drawHeader()
 {
 	$("body").append('<div id="header" style="position:absolute;left:0%;top:0%;width:'+screenWidth+';background-color:#919191;'+
-					 'border-style:solid;border-bottom-width:1px;'+'border-right-width:0px;border-left-width:0px;border-top-width:0px;"></div>');
+					 'border-style:solid;border-bottom-width:1px;border-right-width:0px;border-left-width:0px;border-top-width:0px"></div>');
 	$("#header").append('<img id="logo" src="./images/logo.png" style="position:absolute;left:3%;top:7%;width:8.4%;height:58%"></img>');
 	$("#header").append('<img id="composerPic" src="./images/beethoven.jpeg" style="position:absolute;right:0%;top:0%;width:7.8%;height:72%"></img>');
 	$("#header").append('<div id="tuneLabel" style="position:absolute;left:0%;top:7%;width:100%;height:30%;text-align:center">Moonlight Sonata</div>');
@@ -68,6 +68,7 @@ function drawHeader()
 	$("#header").css("height", topOffset);
 	$("#tuneLabel").css("font-size", getFontSize($("#tuneLabel").height())+"px");
 	$("#artistLabel").css("font-size", getFontSize($("#artistLabel").height())+"px");
+	topOffset += 1; //Accounts for bottom border of 1px
 }
 
 function drawPiano(startKey, endKey)
