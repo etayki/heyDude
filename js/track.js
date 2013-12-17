@@ -1,5 +1,8 @@
 function drawMeasureTrack()
 {
+	$("body").append('<div id="track" style="position:absolute;left:0%;top:'+topOffset+';width:'+screenWidth+';height:51;background-color:#919191;'+
+					 'border-style:solid;border-bottom-width:1px;border-right-width:0px;border-left-width:0px;border-top-width:0px"></div>');
+
 	/* MEASURE BOX */
 	measureBoxWidth = screenWidth/(tune.length+7); // 8 more boxes than measures to give room for markers
 	measureBoxLeft = 0;
@@ -11,7 +14,6 @@ function drawMeasureTrack()
 	/* MEASURE GRID */
 	for (number = -3; number < tune.length + 4; number++)
 	{			
-		//if (number < 71)
 		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0 0 0 1;cursor:pointer;z-index:10;'+
 					  		'opacity:0.3;position:absolute;left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:100%;background-color:purple"></div>');
 
