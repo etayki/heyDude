@@ -55,12 +55,15 @@ function getDeviceSettings()
 
 function drawHeader()
 {
-	$("body").append('<div id="header" style="position:absolute;left:0%;top:0%;width:'+screenWidth+';height:83px;background-color:#919191"></div>');
+	$("body").append('<div id="header" style="position:absolute;left:0%;top:0%;width:'+screenWidth+';background-color:#919191"></div>');
 	$("#header").append('<img id="logo" src="./images/logo.png" style="position:absolute;left:3%;top:10%;width:8.4%;height:80%"></img>');
 	$("#header").append('<img id="composerPic" src="./images/beethoven.jpeg" style="position:absolute;right:0%;top:0%;width:7.8%;height:100%"></img>');
 	$("#header").append('<div id="tuneLabel" style="position:absolute;left:0%;top:9.5%;width:100%;height:40%;text-align:center">Moonlight Sonata</div>');
 	$("#header").append('<div id="artistLabel" style="position:absolute;left:0%;top:55%;width:100%;height:25%;text-align:center">L.V. Beethoven</div>');
-	$("#header").append('<div id="headerBar" style="position:absolute;left:0%;top:100%;width:100%;height:38%;border-style:solid;border-width:1px;background-color:#919191"></div>');
+	$("#header").append('<div id="headerBar" style="position:absolute;left:0%;top:100%;width:100%;height:38%;border-style:solid;border-bottom-width:1px;'+
+					    'border-right-width:0px;border-left-width:0px;border-top-width:1px;background-color:#919191"></div>');
+
+	$("#header").css("height", $("#header").width()*0.065);
 	$("#tuneLabel").css("font-size", getFontSize($("#tuneLabel").height())+"px");
 	$("#artistLabel").css("font-size", getFontSize($("#artistLabel").height())+"px");
 }
