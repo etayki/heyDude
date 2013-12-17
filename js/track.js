@@ -68,9 +68,10 @@ var startMarkerOffset = endMarkerOffset = positionMarkerOffset = -1;
 function drawMarkers()
 {
 	/* POSITION MARKER */
-	$("body").append('<div id="positionMarker" style="z-index:10"><div>');
-	console.log("height="+$("#measureBoxDisplay-1").height());
-	adjustTag("positionMarker",measureBoxWidth*3+1,topOffset-35,"50",measureBoxWidth*2.05,"purple");
+	$("body").append('<div id="positionMarker" style="z-index:10;position:absolute;'+
+					 'left:'+(measureBoxWidth*3+1)+';top:'+(topOffset-35)+';width:'+"50"+';height:'+measureBoxWidth*2.05+'"><div>');
+	//console.log("height="+$("#measureBoxDisplay-1").height());
+	//adjustTag("positionMarker",measureBoxWidth*3+1,topOffset-35,"50",measureBoxWidth*2.05,"purple");
 		$("#positionMarker").append('<div id="positionMarkerLabel" style="z-index:1">'+startMeasure+'</div>');
 		adjustTag("positionMarkerLabel", -measureBoxWidth/2, 0, "50", measureBoxWidth*2.05, "green");
 		// $("#positionMarker").append('<img id="positionMarkerImg" src="./images/positionMarker.png" style="z-index:2">');
