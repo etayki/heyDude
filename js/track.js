@@ -11,8 +11,9 @@ function drawMeasureTrack()
 	/* MEASURE GRID */
 	for (number = -3; number < tune.length + 4; number++)
 	{			
-		// $("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:1px;cursor:pointer;z-index:10;'+
-		// 			  		'opacity:0.3;position:absolute;left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:100%;background-color:purple"></div>');
+		//if (number < 71)
+		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0 0 0 1;cursor:pointer;z-index:10;'+
+					  		'opacity:0.3;position:absolute;left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:100%;background-color:purple"></div>');
 
         if (number > 0 && number < tune.length)
 		{
@@ -23,12 +24,10 @@ function drawMeasureTrack()
 	    	{
 	        	$("body").append('<div class="measureBoxLabel" id="measureBoxLabel-'+number+'" style="z-index:0;position:absolute;text-align:center;background-color:green;'+
 	        					 'left:'+measureBoxLeft+';top:'+topOffset+';width:'+measureBoxWidth+';height:'+measureBoxWidth+'">'+number+'</div>');
-	        	//adjustTag("measureBoxLabel-"+number, measureBoxLeft, measureBoxDisplayTop, measureBoxWidth, measureBoxWidth, "clear");
 	        }
 		}
 
 		measureBoxLeft += measureBoxWidth;
-		//if (number==72) measureBoxLeft-=1; // Hack to keep the horizontal bar from showing
 	}
 	return;
 	for (number = -2; number <= 0; number++)
@@ -42,8 +41,8 @@ function drawMeasureTrack()
 		$("#measureBoxDisplay-"+number).css("border-width",0);
 	}
 
-	$("body").append('<div id="blackLine" style="z-index:0"></div>');
-	adjustTag("blackLine", 0, measureBoxDisplayTop+15, screenWidth, 1, "black");
+	// $("body").append('<div id="blackLine" style="z-index:0"></div>');
+	// adjustTag("blackLine", 0, measureBoxDisplayTop+15, screenWidth, 1, "black");
 
 
 	/* SET CURRENT MEASURE */
