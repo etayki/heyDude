@@ -19,7 +19,7 @@ function drawMeasureTrack()
         //if (number > 0 && number < tune.length)
 		{
 		$("body").append('<div id="measureBoxDisplay-'+number+'" class="measureBoxDisplay" style="cursor:pointer;z-index:0;border-style:solid;'+
-						 'border-width:0 0 0 1;position:absolute;'+
+						 'border-width:0 0 1 1;position:absolute;'+
 						 'left:'+measureBoxLeft+';top:'+topOffset+';width:'+measureBoxWidth+';height:'+screenWidth*0.04+';background-color:blue"></div>');
 		//if (number == -3 || number == 73) $("#measureBoxDisplay--3").css("border-left-width","0px");
 		//adjustTag("measureBoxDisplay-"+number, measureBoxLeft, topOffset, measureBoxWidth, measureBoxHeight, "blue");//"#919191");
