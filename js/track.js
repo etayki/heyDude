@@ -14,6 +14,7 @@ function drawMeasureTrack()
 	/* MEASURE GRID */
 	for (number = -3; number < tune.length + 4; number++)
 	{			
+		if (number != tune.length+3) // hack to keep bar from showing at bottom during development
 		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0 0 0 1;cursor:pointer;z-index:10;'+
 					  		'opacity:0.3;position:absolute;left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:100%;background-color:purple"></div>');
 
@@ -67,19 +68,20 @@ var startMarkerOffset = endMarkerOffset = positionMarkerOffset = -1;
 
 function drawMarkers()
 {
+	return;
 	/* POSITION MARKER */
 	$("body").append('<div id="positionMarker" style="z-index:10;position:absolute;'+
-					 'left:'+(measureBoxWidth*3+1)+';top:'+(topOffset-35)+';width:'+"50"+';height:'+measureBoxWidth*2.05+'"><div>');
+					 'left:'+(measureBoxWidth*2.5)+';top:'+(topOffset-35)+';width:'+(measureBoxWidth*3)+';height:'+(measureBoxWidth*2.05)+'"><div>');
 	//console.log("height="+$("#measureBoxDisplay-1").height());
-	//adjustTag("positionMarker",measureBoxWidth*3+1,topOffset-35,"50",measureBoxWidth*2.05,"purple");
-		$("#positionMarker").append('<div id="positionMarkerLabel" style="z-index:1">'+startMeasure+'</div>');
-		adjustTag("positionMarkerLabel", -measureBoxWidth/2, 0, "50", measureBoxWidth*2.05, "green");
-		// $("#positionMarker").append('<img id="positionMarkerImg" src="./images/positionMarker.png" style="z-index:2">');
-		// adjustTag("positionMarkerImg", 0, barHeight, measureBoxWidth*4, measureBoxWidth*1.8, "clear");
-		$("#positionMarker").append('<div id="positionMarkerLine" style="z-index:1"></div>');
-		positionMarkerWidth = Math.floor(measureBoxWidth * 0.3);
-		positionMarkerHeight = measureBoxHeight+1;
-		adjustTag("positionMarkerLine", measureBoxWidth-1, "35", positionMarkerWidth, positionMarkerHeight, "green");
+	$("#positionMarker").append('<div id="positionMarkerLabel" style="z-index:1;position:absolute;background-color:green;text-align:center'+
+								'left:'+(-measureBoxWidth/2)+';top:'+"0"+';width:'+"50"+';height:'+(measureBoxWidth*2.05)+'">'+startMeasure+'</div>');
+	//adjustTag("positionMarkerLabel", -measureBoxWidth/2, 0, "50", measureBoxWidth*2.05, "green");
+	// $("#positionMarker").append('<img id="positionMarkerImg" src="./images/positionMarker.png" style="z-index:2">');
+	// adjustTag("positionMarkerImg", 0, barHeight, measureBoxWidth*4, measureBoxWidth*1.8, "clear");
+	$("#positionMarker").append('<div id="positionMarkerLine" style="z-index:1"></div>');
+	positionMarkerWidth = Math.floor(measureBoxWidth * 0.3);
+	positionMarkerHeight = measureBoxHeight+1;
+	adjustTag("positionMarkerLine", measureBoxWidth*1.5-1, "35", positionMarkerWidth, positionMarkerHeight, "green");
 
 	$("#positionMarker").mousedown(function() {
 		if (isiPad) return;
