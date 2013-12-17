@@ -12,7 +12,7 @@ function drawScreen()
 	console.log("drawHeader: " + (new Date().getTime() - startTime));
 	drawHeader();
 	console.log("drawMeasureTrack: " + (new Date().getTime() - startTime));
-	// drawMeasureTrack();
+	drawMeasureTrack();
 	// console.log("drawMarkers: " + (new Date().getTime() - startTime));
 	// drawMarkers();
 	// console.log("colorizeMeasures: " + (new Date().getTime() - startTime));
@@ -62,7 +62,7 @@ function drawHeader()
 	$("#header").append('<img id="composerPic" src="./images/beethoven.jpeg" style="position:absolute;right:0%;top:0%;width:7.8%;height:72%"></img>');
 	$("#header").append('<div id="tuneLabel" style="position:absolute;left:0%;top:7%;width:100%;height:30%;text-align:center">Moonlight Sonata</div>');
 	$("#header").append('<div id="artistLabel" style="position:absolute;left:0%;top:40%;width:100%;height:18%;text-align:center">L.V. Beethoven</div>');
-	$("#header").append('<div id="blackLine" style="position:absolute;left:0%;top:72%;width:100%;height:1px;background-color:black"></div>');
+	$("#header").append('<div id="headerBlackLine" style="position:absolute;left:0%;top:72%;width:100%;height:1px;background-color:black"></div>');
 
 	topOffset += $("#header").width()*0.09;
 	$("#header").css("height", topOffset);
