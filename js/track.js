@@ -68,7 +68,6 @@ var startMarkerOffset = endMarkerOffset = positionMarkerOffset = -1;
 
 function drawMarkers()
 {
-	return;
 	/* POSITION MARKER */
 	$("body").append('<div id="positionMarker" style="z-index:10;position:absolute;'+
 					 'left:'+(measureBoxWidth*2.5)+';top:'+(topOffset-35)+';width:'+(measureBoxWidth*3)+';height:'+(measureBoxWidth*2.05)+'"><div>');
@@ -78,10 +77,11 @@ function drawMarkers()
 	//adjustTag("positionMarkerLabel", -measureBoxWidth/2, 0, "50", measureBoxWidth*2.05, "green");
 	// $("#positionMarker").append('<img id="positionMarkerImg" src="./images/positionMarker.png" style="z-index:2">');
 	// adjustTag("positionMarkerImg", 0, barHeight, measureBoxWidth*4, measureBoxWidth*1.8, "clear");
-	$("#positionMarker").append('<div id="positionMarkerLine" style="z-index:1"></div>');
-	positionMarkerWidth = Math.floor(measureBoxWidth * 0.3);
-	positionMarkerHeight = measureBoxHeight+1;
-	adjustTag("positionMarkerLine", measureBoxWidth*1.5-1, "35", positionMarkerWidth, positionMarkerHeight, "green");
+	$("#positionMarker").append('<div id="positionMarkerLine" style="z-index:1;position:absolute;background-color:green;'+
+		                        'left:'+(measureBoxWidth*1.5-1)+';top:35;width:'+Math.floor(measureBoxWidth*0.3)+';height:'+(measureBoxHeight+1)+'"></div>');
+	// positionMarkerWidth = Math.floor(measureBoxWidth * 0.3);
+	// positionMarkerHeight = measureBoxHeight+1;
+	// adjustTag("positionMarkerLine", measureBoxWidth*1.5-1, "35", positionMarkerWidth, positionMarkerHeight, "green");
 
 	$("#positionMarker").mousedown(function() {
 		if (isiPad) return;
@@ -120,12 +120,14 @@ function drawMarkers()
 	});
 
 	/* START MARKER */
-	$("body").append('<div id="startMarker" style="z-index:10"><div>');
 	startMarkerWidth = measureBoxWidth*4;
 	startMarkerLeft = $("#measureBox--3").css("left").replace(/px/g, '');
 	startMarkerTop = topOffset;
 	startMarkerHeight = measureBoxHeight;
-	adjustTag("startMarker", startMarkerLeft, startMarkerTop, startMarkerWidth, startMarkerHeight, "clear");
+	$("body").append('<div id="startMarker" style="z-index:10;position:absolute;'+
+					 'left:'+startMarkerLeft+';top:'+startMarkerTop+';width:'+startMarkerWidth+';height:'+measureBoxHeight+'"><div>');
+
+	//adjustTag("startMarker", startMarkerLeft, startMarkerTop, startMarkerWidth, startMarkerHeight, "clear");
 	$("#startMarker").append('<img id="startMarkerImg" src="./images/startMarker.png" style="z-index:1">');
 	adjustTag("startMarkerImg", startMarkerWidth*0.5, 0, startMarkerWidth*0.5, startMarkerHeight, "clear");
 	$("#startMarker").append('<div id="startMarkerLabel" style="z-index:2">'+startMeasure+'</div>');
