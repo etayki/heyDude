@@ -45,7 +45,6 @@ function drawMeasureTrack()
 	// }
 
 	// $("body").append('<div id="blackLine" style="z-index:0"></div>');
-	// adjustTag("blackLine", 0, measureBoxDisplayTop+15, screenWidth, 1, "black");
 
 
 	/* SET CURRENT MEASURE */
@@ -74,14 +73,11 @@ function drawMarkers()
 	//console.log("height="+$("#measureBoxDisplay-1").height());
 	$("#positionMarker").append('<div id="positionMarkerLabel" style="z-index:1;position:absolute;background-color:green;text-align:center'+
 								'left:'+(-measureBoxWidth/2)+';top:'+"0"+';width:'+"50"+';height:'+(measureBoxWidth*2.05)+'">'+startMeasure+'</div>');
-	//adjustTag("positionMarkerLabel", -measureBoxWidth/2, 0, "50", measureBoxWidth*2.05, "green");
 	// $("#positionMarker").append('<img id="positionMarkerImg" src="./images/positionMarker.png" style="z-index:2">');
-	// adjustTag("positionMarkerImg", 0, barHeight, measureBoxWidth*4, measureBoxWidth*1.8, "clear");
 	$("#positionMarker").append('<div id="positionMarkerLine" style="z-index:1;position:absolute;background-color:green;'+
 		                        'left:'+(measureBoxWidth*1.5-1)+';top:35;width:'+Math.floor(measureBoxWidth*0.3)+';height:'+(measureBoxHeight+1)+'"></div>');
 	// positionMarkerWidth = Math.floor(measureBoxWidth * 0.3);
 	// positionMarkerHeight = measureBoxHeight+1;
-	// adjustTag("positionMarkerLine", measureBoxWidth*1.5-1, "35", positionMarkerWidth, positionMarkerHeight, "green");
 
 	$("#positionMarker").mousedown(function() {
 		if (isiPad) return;
@@ -174,10 +170,8 @@ function drawMarkers()
 					 'left:'+endMarkerLeft+';top:'+topOffset+';width:'+endMarkerWidth+';height:'+measureBoxHeight+'"</div>');
 	$("#endMarker").append('<img id="endMarkerImg" src="./images/endMarker.png" style="z-index:1;position:absolute;'+
 						   'left:0;top:0;width:'+(measureBoxWidth*2+1)+';height:'+endMarkerHeight+'">');
-	//adjustTag("endMarkerImg", 0, 0, measureBoxWidth*2+1, endMarkerHeight, "clear");
 	$("#endMarker").append('<div id="endMarkerLabel" style="z-index:2;position:absolute;background-color:red;'+
 						   'left:'+(measureBoxWidth*2)+';top:'+(endMarkerHeight*0.2)+';width:'+(endMarkerWidth*0.5)+';height:'+(endMarkerHeight*0.6)+'">'+endMeasure+'</div>');
-    //adjustTag("endMarkerLabel", measureBoxWidth*2, measureBoxWidth*2, endMarkerWidth*0.5, endMarkerHeight*0.6, "red");
 
 	$("#endMarker").mousedown(function() {
 		if (isiPad) return;

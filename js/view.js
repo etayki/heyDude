@@ -79,11 +79,11 @@ function drawPiano(startKey, endKey)
 	redLineWidth = controlsBackgroundWidth;
 	redLineHeight = 5;
 
-    $("body").append('<img id="redVelvet" src="./images/redLine.png" style="z-index:5"></img>');
-    adjustTag("redVelvet", 0, redLineTop, screenWidth, "5", "clear");
+    $("body").append('<img id="redVelvet" src="./images/redLine.png" style="z-index:5;position:absolute;'+
+    				 'left:0;top:'+redLineTop+';width:'+screenWidth+';height=5">');
 
-	$("body").append('<div id="pianoKeyboard" style="border-style:solid; border-width:2px; z-index:2"></div>');
-	adjustTag("pianoKeyboard", 0, redLineTop+redLineHeight, screenWidth, screenWidth*0.086, "black");
+	$("body").append('<div id="pianoKeyboard" style="border-style:solid;border-width:2px;z-index:2;position:absolute;'+
+		             'left:0;top:'+(redLineTop+redLineHeight)+';width:'+screenWidth+';height='+(screenWidth*0.086)+'"></div>');
 
 	noteNames = ["A","Bb","B","C","C#","D","Eb","E","F","F#","G","Ab"];
 	keyWidth = 1/52.5*100; // 52 keys + 0.5% key for padding between keys
