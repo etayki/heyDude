@@ -12,9 +12,9 @@ function drawScreen()
 	console.log("drawHeader: " + (new Date().getTime() - startTime));
 	drawHeader();
 	console.log("drawMeasureTrack: " + (new Date().getTime() - startTime));
-	//drawMeasureTrack();
+	drawMeasureTrack();
 	console.log("drawMarkers: " + (new Date().getTime() - startTime));
-	//drawMarkers();
+	drawMarkers();
 	console.log("colorizeMeasures: " + (new Date().getTime() - startTime));
 	// colorizeMeasures();
 	// console.log("drawControls: " + (new Date().getTime() - startTime));

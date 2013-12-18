@@ -52,7 +52,7 @@ function drawMeasureTrack()
 }
 
 function drawMarkers()
-{return;
+{
 	/* POSITION MARKER */
 	$("body").append('<div id="positionMarker" style="z-index:10;position:absolute;'+
 					 'left:'+(measureBoxWidth*2.5)+';top:'+(topOffset-35)+';width:'+(measureBoxWidth*3)+';height:'+(measureBoxWidth*2.05)+'"><div>');
