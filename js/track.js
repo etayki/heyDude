@@ -1,3 +1,6 @@
+var	startMarkerMouseDown = endMarkerMouseDown = positionMarkerMouseDown = 0;
+var startMarkerOffset = endMarkerOffset = positionMarkerOffset = -1;
+
 function drawMeasureTrack()
 {
 	$("body").append('<div id="track" style="position:absolute;left:0%;top:'+topOffset+';width:'+screenWidth+';height:51;background-color:#919191;'+
@@ -8,10 +11,10 @@ function drawMeasureTrack()
 	measureBoxLeft = 0;
 	measureBoxHeight = 50;
 	measureBoxTop = topOffset;
-
 	measureBoxFontSize = getFontSize(measureBoxHeight)-30;
 	measureBoxDisplayTop = topOffset-15;
-	/* MEASURE GRID */
+
+	/* MEASURE TRACK */
 	for (number = -3; number < tune.length + 4; number++)
 	{			
 		if (number != tune.length+3) // hack to keep bar from showing at bottom during development
@@ -32,20 +35,6 @@ function drawMeasureTrack()
 
 		measureBoxLeft += measureBoxWidth;
 	}
-	//return;
-	// for (number = -2; number <= 0; number++)
-	// {			
-	// 	$("#measureBoxDisplay-"+number).css("background-color","#919191");
-	// 	$("#measureBoxDisplay-"+number).css("border-width",0);
-	// }	
-	// for (number = tune.length; number <= tune.length+3; number++)
-	// {			
-	// 	$("#measureBoxDisplay-"+number).css("background-color","#919191");
-	// 	$("#measureBoxDisplay-"+number).css("border-width",0);
-	// }
-
-	// $("body").append('<div id="blackLine" style="z-index:0"></div>');
-
 
 	/* SET CURRENT MEASURE */
 	$(".measureBoxDisplay").bind(onClickEvent, function(e){
@@ -62,11 +51,8 @@ function drawMeasureTrack()
 	});	
 }
 
-var	startMarkerMouseDown = endMarkerMouseDown = positionMarkerMouseDown = 0;
-var startMarkerOffset = endMarkerOffset = positionMarkerOffset = -1;
-
 function drawMarkers()
-{
+{return;
 	/* POSITION MARKER */
 	$("body").append('<div id="positionMarker" style="z-index:10;position:absolute;'+
 					 'left:'+(measureBoxWidth*2.5)+';top:'+(topOffset-35)+';width:'+(measureBoxWidth*3)+';height:'+(measureBoxWidth*2.05)+'"><div>');
