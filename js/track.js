@@ -264,7 +264,7 @@ function setPositionMarker()
 	measureBoxTop = Number($("#measureBox-"+currentMeasure).css("top").replace(/px/g, ''));
 	positionMarkerLeft = measureBoxLeft + (position-currentMeasure - 1) * measureBoxWidth;
 	$("#positionMarker").css("left", positionMarkerLeft);
-	$("#positionMarker").css("width", positionMarkerWidth);
+	$("#positionMarker").css("width", measureBoxWidth*3);
 	$("#positionMarkerLabel").text(currentMeasure);
 
 	if (currentMeasure == endMeasure)
