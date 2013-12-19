@@ -11,9 +11,7 @@ function drawMeasureTrack()
 	/* MEASURE BOX */
 	measureBoxWidth = screenWidth/(tune.length+7); // 8 more boxes than measures to give room for markers
 	measureBoxLeft = 0;
-	measureBoxHeight = 50;
 	measureBoxTop = topOffset;
-	measureBoxFontSize = getFontSize(measureBoxHeight*0.3);
 
 	/* MEASURE TRACK */
 	for (number = -3; number < tune.length + 4; number++)
@@ -64,7 +62,7 @@ function drawMarkers()
 								'left:0%;top:0%;width:100%;height:100%">'+startMeasure+'</div>');
 	// $("#positionMarker").append('<img id="positionMarkerImg" src="./images/positionMarker.png" style="z-index:2">');
 	$("#positionMarker").append('<div id="positionMarkerLine" style="z-index:1;position:absolute;background-color:green;'+
-		                        'left:'+(measureBoxWidth*1.5-1)+';top:35;width:'+Math.floor(measureBoxWidth*0.3)+';height:'+(measureBoxHeight+1)+'"></div>');
+		                        'left:'+(measureBoxWidth*1.5-1)+';top:105%;width:'+Math.floor(measureBoxWidth*0.3)+';height:'+$("#track").height()+'"></div>');
 	// positionMarkerWidth = Math.floor(measureBoxWidth * 0.3);
 	// positionMarkerHeight = measureBoxHeight+1;
 
