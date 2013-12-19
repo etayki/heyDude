@@ -14,7 +14,7 @@ function drawScreen()
 	console.log("drawMeasureTrack: " + (new Date().getTime() - startTime));
 	drawMeasureTrack();
 	console.log("drawMarkers: " + (new Date().getTime() - startTime));
-	//drawMarkers();
+	drawMarkers();
 	console.log("colorizeMeasures: " + (new Date().getTime() - startTime));
 	// colorizeMeasures();
 	// console.log("drawControls: " + (new Date().getTime() - startTime));

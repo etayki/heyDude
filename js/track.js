@@ -38,7 +38,7 @@ function drawMeasureTrack()
 	}
 
 	$(".msrBoxLabel").css("font-size",getFontSize($("#msrBoxLabel-1").height()));
-	console.log("height="+$("#msrBoxLabel-1").height()+" fontSize="+getFontSize($("#msrBoxLabel-1").height()));
+	//console.log("height="+$("#msrBoxLabel-1").height()+" fontSize="+getFontSize($("#msrBoxLabel-1").height()));
 	/* SET CURRENT MEASURE */
 	$(".msrBoxDisplay").bind(onClickEvent, function(e){
 		measureBoxId = $(this).attr('id');
@@ -57,16 +57,18 @@ function drawMeasureTrack()
 function drawMarkers()
 {
 	/* POSITION MARKER */
-	$("body").append('<div id="positionMarker" style="z-index:10;position:absolute;'+
-					 'left:'+(measureBoxWidth*2.5)+';top:'+(topOffset-35)+';width:'+(measureBoxWidth*3)+';height:'+(measureBoxWidth*2.05)+'"><div>');
+	$("#trackHeader").append('<div id="positionMarker" style="z-index:10;background-color:clear;position:absolute;'+
+					 'left:'+(measureBoxWidth*2.5)+';top:0%;width:'+(measureBoxWidth*3)+';height:100%"><div>');
 	//console.log("height="+$("#measureBoxDisplay-1").height());
-	$("#positionMarker").append('<div id="positionMarkerLabel" style="z-index:1;position:absolute;background-color:green;text-align:center'+
-								'left:'+(-measureBoxWidth/2)+';top:'+"0"+';width:'+"50"+';height:'+(measureBoxWidth*2.05)+'">'+startMeasure+'</div>');
+	$("#positionMarker").append('<div id="positionMarkerLabel" style="z-index:1;position:absolute;background-color:green;text-align:center;'+
+								'left:0%;top:0%;width:100%;height:100%">'+startMeasure+'</div>');
 	// $("#positionMarker").append('<img id="positionMarkerImg" src="./images/positionMarker.png" style="z-index:2">');
 	$("#positionMarker").append('<div id="positionMarkerLine" style="z-index:1;position:absolute;background-color:green;'+
 		                        'left:'+(measureBoxWidth*1.5-1)+';top:35;width:'+Math.floor(measureBoxWidth*0.3)+';height:'+(measureBoxHeight+1)+'"></div>');
 	// positionMarkerWidth = Math.floor(measureBoxWidth * 0.3);
 	// positionMarkerHeight = measureBoxHeight+1;
+
+	$("#positionMarkerLabel").css("font-size",getFontSize($("#positionMarkerLabel").height()));
 
 	$("#positionMarker").mousedown(function() {
 		if (isiPad) return;
@@ -75,7 +77,7 @@ function drawMarkers()
 		$("#positionMarker").css("z-index", 0);
 		$(".measureBox").css("height",measureBoxHeight+180);
 	});
-
+	return;
 	$(".measureBox").mouseover(function() {
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
