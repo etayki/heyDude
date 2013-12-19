@@ -66,38 +66,18 @@ function drawMarkers()
 
 	$("#positionMarker").mousedown(function() {
 		if (isiPad) return;
-		positionMarkerMouseDown = 1;
-		console.log(positionMarkerMouseDown);
 		$(".measureBox").css("display", "");
-		//$("#positionMarker").css("z-index", 0);
 	});
 
 	$(".measureBox").mouseover(function() {
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
-		//console.log("positionMarkerOffset: "+positionMarkerOffset + " positionMarkerMouseDown: " + positionMarkerMouseDown+" "+newMeasure);
-		// if (positionMarkerOffset == -1 && positionMarkerMouseDown)
-		// {
-
-		// 	positionMarkerOffset = newMeasure - 1;
-		// 	if (positionMarkerOffset < 0) // Hack to compensate for fact that initially positionMeasure is 1
-		// 		positionMarkerOffset += -10;
-		// }
-
-		// newMeasure -= positionMarkerOffset;
-		if (newMeasure < -3 || newMeasure > tune.length-1) return;
-		if (positionMarkerMouseDown && newMeasure != currentMeasure && newMeasure>0)
-		{
-			setCurrentMeasure(newMeasure);
-			setPositionMarker();
-		}
+		setCurrentMeasure(newMeasure);
+		setPositionMarker();
 	});
 
 	$("body").mouseup(function() {
-		positionMarkerMouseDown = 0;
-		//$("#positionMarker").css("z-index", 10);
 		$(".measureBox").css("display", "none");
-		positionMarkerOffset = -1;
 	});
 	return;
 
