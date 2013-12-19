@@ -8,7 +8,6 @@ function drawMeasureTrack()
 	$("body").append('<div id="track" style="position:absolute;left:0%;top:'+topOffset+';width:'+screenWidth+';height:51;background-color:#919191;'+
 	 				 'border-style:solid;border-width:1 0 1 0"></div>');
 
-	return;
 	/* MEASURE BOX */
 	measureBoxWidth = screenWidth/(tune.length+7); // 8 more boxes than measures to give room for markers
 	measureBoxLeft = 0;
@@ -21,18 +20,18 @@ function drawMeasureTrack()
 	for (number = -3; number < tune.length + 4; number++)
 	{			
 		if (number != tune.length+3) // hack to keep bar from showing at bottom during development
-		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0 0 0 1;cursor:pointer;z-index:10;'+
+		$("#track").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0 0 0 1;cursor:pointer;z-index:10;'+
 					  		'opacity:0.3;position:absolute;left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:100%;background-color:purple"></div>');
 
         if (number > 0 && number < tune.length)
 		{
-			$("body").append('<div id="measureBoxDisplay-'+number+'" class="measureBoxDisplay" style="cursor:pointer;z-index:0;border-style:solid;'+
+			$("#track").append('<div id="measureBoxDisplay-'+number+'" class="measureBoxDisplay" style="cursor:pointer;z-index:0;border-style:solid;'+
 							 'border-width:0 0 1 1;position:absolute;'+ //change color to #919191
-							 'left:'+measureBoxLeft+';top:'+topOffset+';width:'+measureBoxWidth+';height:'+screenWidth*0.04+';background-color:blue"></div>');
+							 'left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:'+screenWidth*0.04+';background-color:blue"></div>');
 	    	if (number != 0 &&(number%5==0 || number==1) && number < tune.length)
 	    	{
-	        	$("body").append('<div class="measureBoxLabel" id="measureBoxLabel-'+number+'" style="z-index:0;position:absolute;text-align:center;background-color:green;'+
-	        					 'left:'+measureBoxLeft+';top:'+topOffset+';width:'+measureBoxWidth+';height:'+measureBoxWidth+'">'+number+'</div>');
+	        	$("#track").append('<div class="measureBoxLabel" id="measureBoxLabel-'+number+'" style="z-index:0;position:absolute;text-align:center;background-color:green;'+
+	        					 'left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:'+measureBoxWidth+'">'+number+'</div>');
 	        }
 		}
 
