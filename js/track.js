@@ -70,8 +70,10 @@ function drawMarkers()
 	});
 
 	$(".measureBox").mouseover(function() {
+
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
+		if (newMeasure < 1 || newMeasure > tune.length-1) return;
 		setCurrentMeasure(newMeasure);
 		setPositionMarker();
 	});
@@ -247,12 +249,12 @@ function setPositionMarker()
 	$("#positionMarker").css("width", measureBoxWidth*3);
 	$("#positionMarkerLabel").text(currentMeasure);
 
-	if (currentMeasure == endMeasure)
-	{
-		remainingMeasureWidth = measureBoxWidth - (position-currentMeasure) * measureBoxWidth;
-		if (positionMarkerWidth > remainingMeasureWidth)
-			$("#positionMarker").css("width", remainingMeasureWidth);
-	}
+	// if (currentMeasure == endMeasure)
+	// {
+	// 	remainingMeasureWidth = measureBoxWidth - (position-currentMeasure) * measureBoxWidth;
+	// 	if (positionMarkerWidth > remainingMeasureWidth)
+	// 		$("#positionMarker").css("width", remainingMeasureWidth);
+	// }
 
 }
 
