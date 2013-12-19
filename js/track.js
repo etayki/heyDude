@@ -57,25 +57,21 @@ function drawMarkers()
 	/* POSITION MARKER */
 	$("#trackHeader").append('<div id="positionMarker" style="z-index:10;background-color:clear;position:absolute;'+
 					 'left:'+(measureBoxWidth*2.5)+';top:0%;width:'+(measureBoxWidth*3)+';height:100%"><div>');
-	//console.log("height="+$("#measureBoxDisplay-1").height());
 	$("#positionMarker").append('<div id="positionMarkerLabel" style="z-index:1;position:absolute;background-color:green;text-align:center;'+
 								'left:0%;top:0%;width:100%;height:100%">'+startMeasure+'</div>');
-	// $("#positionMarker").append('<img id="positionMarkerImg" src="./images/positionMarker.png" style="z-index:2">');
 	$("#positionMarker").append('<div id="positionMarkerLine" style="z-index:1;position:absolute;background-color:green;'+
 		                        'left:'+(measureBoxWidth*1.5-1)+';top:105%;width:'+Math.floor(measureBoxWidth*0.3)+';height:'+$("#track").height()+'"></div>');
-	// positionMarkerWidth = Math.floor(measureBoxWidth * 0.3);
-	// positionMarkerHeight = measureBoxHeight+1;
 
 	$("#positionMarkerLabel").css("font-size",getFontSize($("#positionMarkerLabel").height()));
 
 	$("#positionMarker").mousedown(function() {
-		if (isiPad) return;
+		//if (isiPad) return;
 		positionMarkerMouseDown = 1;
-		//console.log(positionMarkerMouseDown);
-		$("#positionMarker").css("z-index", 0);
-		$(".measureBox").css("height",measureBoxHeight+180);
+		console.log(positionMarkerMouseDown);
+		$("#positionMarker").css("z-index", 3);
+		//$(".measureBox").css("height",measureBoxHeight+180);
 	});
-	return;
+	
 	$(".measureBox").mouseover(function() {
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
@@ -100,9 +96,10 @@ function drawMarkers()
 	$("body").mouseup(function() {
 		positionMarkerMouseDown = 0;
 		$("#positionMarker").css("z-index", 1);
-		$(".measureBox").css("height",measureBoxHeight+82);
+		//$(".measureBox").css("height",measureBoxHeight+82);
 		positionMarkerOffset = -1;
 	});
+	return;
 
 	/* START MARKER */
 	startMarkerWidth = measureBoxWidth*4;
