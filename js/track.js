@@ -13,7 +13,7 @@ function drawMeasureTrack()
 	measureBoxLeft = 0;
 	measureBoxHeight = 50;
 	measureBoxTop = topOffset;
-	measureBoxFontSize = getFontSize(measureBoxHeight)-30;
+	measureBoxFontSize = getFontSize(measureBoxHeight*0.3);
 
 	/* MEASURE TRACK */
 	for (number = -3; number < tune.length + 4; number++)
@@ -30,13 +30,15 @@ function drawMeasureTrack()
 	    	if (number != 0 &&(number%5==0 || number==1) && number < tune.length)
 	    	{
 	        	$("#measureBoxDisplay-"+number).append('<b><div class="msrBoxLabel" id="msrBoxLabel-'+number+'" style="z-index:0;text-align:center;'+
-	        					   'position:absolute;left:0;top:35%;width:100%;height:10%;background-color:clear">'+number+'</div></b>');
+	        					   'position:absolute;left:0;top:35%;width:100%;height:35%;background-color:clear">'+number+'</div></b>');
 	        }
 		}
 
 		measureBoxLeft += measureBoxWidth;
 	}
 
+	$(".msrBoxLabel").css("font-size",getFontSize($("#msrBoxLabel-1").height()));
+	console.log("height="+$("#msrBoxLabel-1").height()+" fontSize="+getFontSize($("#msrBoxLabel-1").height()));
 	/* SET CURRENT MEASURE */
 	$(".msrBoxDisplay").bind(onClickEvent, function(e){
 		measureBoxId = $(this).attr('id');
