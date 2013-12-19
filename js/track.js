@@ -17,7 +17,7 @@ function drawMeasureTrack()
 	for (number = -3; number < tune.length + 4; number++)
 	{			
 		if (number != tune.length+3) // hack to keep bar from showing at bottom during development
-		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0 0 0 1;cursor:pointer;z-index:10;'+
+		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="display:none;border-style:solid;border-width:0 0 0 1;cursor:pointer;z-index:1;'+
 					  	  'opacity:0.3;position:absolute;left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:100%;background-color:purple"></div>');
 
         if (number > 0 && number < tune.length)
@@ -65,13 +65,34 @@ function drawMarkers()
 	$("#positionMarkerLabel").css("font-size",getFontSize($("#positionMarkerLabel").height()));
 
 	$("#positionMarker").mousedown(function() {
-		//if (isiPad) return;
+		if (isiPad) return;
 		positionMarkerMouseDown = 1;
 		console.log(positionMarkerMouseDown);
-		$("#positionMarker").css("z-index", 3);
-		//$(".measureBox").css("height",measureBoxHeight+180);
+		$(".measureBox").css("display", "");
+		//$("#positionMarker").css("z-index", 0);
 	});
-	
+
+	// $(".measureBoxDisplay").mouseover(function() {
+	// 	measureBoxId = $(this).attr('id');
+	// 	newMeasure = measureBoxId.replace(/measureBoxDisplay-/g, '');
+	// 	//console.log("positionMarkerOffset: "+positionMarkerOffset + " positionMarkerMouseDown: " + positionMarkerMouseDown+" "+newMeasure);
+	// 	// if (positionMarkerOffset == -1 && positionMarkerMouseDown)
+	// 	// {
+
+	// 	// 	positionMarkerOffset = newMeasure - 1;
+	// 	// 	if (positionMarkerOffset < 0) // Hack to compensate for fact that initially positionMeasure is 1
+	// 	// 		positionMarkerOffset += -10;
+	// 	// }
+
+	// 	// newMeasure -= positionMarkerOffset;
+	// 	if (newMeasure < -3 || newMeasure > tune.length-1) return;
+	// 	if (positionMarkerMouseDown && newMeasure != currentMeasure && newMeasure>0)
+	// 	{
+	// 		setCurrentMeasure(newMeasure);
+	// 		setPositionMarker();
+	// 	}
+	// });
+
 	$(".measureBox").mouseover(function() {
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
@@ -95,8 +116,8 @@ function drawMarkers()
 
 	$("body").mouseup(function() {
 		positionMarkerMouseDown = 0;
-		$("#positionMarker").css("z-index", 1);
-		//$(".measureBox").css("height",measureBoxHeight+82);
+		//$("#positionMarker").css("z-index", 10);
+		$(".measureBox").css("display", "none");
 		positionMarkerOffset = -1;
 	});
 	return;
