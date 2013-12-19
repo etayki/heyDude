@@ -72,10 +72,22 @@ function drawMarkers()
 		//$("#positionMarker").css("z-index", 0);
 	});
 
+	$(".measureBoxDisplay").mousedown(function() {
+		measureBoxId = $(this).attr('id');
+		newMeasure = measureBoxId.replace(/measureBoxDisplay-/g, '');
+		console.log("newMeasure: "+newMeasure);
+		if (newMeasure != currentMeasure)
+		{
+			setCurrentMeasure(newMeasure);
+			setPositionMarker();
+		}
+		//$("#positionMarker").css("z-index", 0);
+	});
+
 	// $(".measureBoxDisplay").mouseover(function() {
 	// 	measureBoxId = $(this).attr('id');
 	// 	newMeasure = measureBoxId.replace(/measureBoxDisplay-/g, '');
-	// 	//console.log("positionMarkerOffset: "+positionMarkerOffset + " positionMarkerMouseDown: " + positionMarkerMouseDown+" "+newMeasure);
+	// 	console.log("measureBoxDisplay: 	");
 	// 	// if (positionMarkerOffset == -1 && positionMarkerMouseDown)
 	// 	// {
 
