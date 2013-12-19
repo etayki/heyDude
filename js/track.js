@@ -38,7 +38,7 @@ function drawMeasureTrack()
 	$(".msrBoxLabel").css("font-size",getFontSize($("#msrBoxLabel-1").height()));
 	//console.log("height="+$("#msrBoxLabel-1").height()+" fontSize="+getFontSize($("#msrBoxLabel-1").height()));
 	/* SET CURRENT MEASURE */
-	$(".msrBoxDisplay").bind(onClickEvent, function(e){
+	$(".measureBoxDisplay").bind(onClickEvent, function(e){
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBoxDisplay-/g, '');
 		setCurrentMeasure(newMeasure);
@@ -49,7 +49,7 @@ function drawMeasureTrack()
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
 		setCurrentMeasure(newMeasure);
 		setPositionMarker();
-	});	
+	});
 }
 
 function drawMarkers()
@@ -71,39 +71,6 @@ function drawMarkers()
 		$(".measureBox").css("display", "");
 		//$("#positionMarker").css("z-index", 0);
 	});
-
-	$(".measureBoxDisplay").mousedown(function() {
-		measureBoxId = $(this).attr('id');
-		newMeasure = measureBoxId.replace(/measureBoxDisplay-/g, '');
-		console.log("newMeasure: "+newMeasure);
-		if (newMeasure != currentMeasure)
-		{
-			setCurrentMeasure(newMeasure);
-			setPositionMarker();
-		}
-		//$("#positionMarker").css("z-index", 0);
-	});
-
-	// $(".measureBoxDisplay").mouseover(function() {
-	// 	measureBoxId = $(this).attr('id');
-	// 	newMeasure = measureBoxId.replace(/measureBoxDisplay-/g, '');
-	// 	console.log("measureBoxDisplay: 	");
-	// 	// if (positionMarkerOffset == -1 && positionMarkerMouseDown)
-	// 	// {
-
-	// 	// 	positionMarkerOffset = newMeasure - 1;
-	// 	// 	if (positionMarkerOffset < 0) // Hack to compensate for fact that initially positionMeasure is 1
-	// 	// 		positionMarkerOffset += -10;
-	// 	// }
-
-	// 	// newMeasure -= positionMarkerOffset;
-	// 	if (newMeasure < -3 || newMeasure > tune.length-1) return;
-	// 	if (positionMarkerMouseDown && newMeasure != currentMeasure && newMeasure>0)
-	// 	{
-	// 		setCurrentMeasure(newMeasure);
-	// 		setPositionMarker();
-	// 	}
-	// });
 
 	$(".measureBox").mouseover(function() {
 		measureBoxId = $(this).attr('id');
