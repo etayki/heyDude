@@ -2,10 +2,13 @@ var	startMarkerMouseDown = endMarkerMouseDown = positionMarkerMouseDown = 0;
 var startMarkerOffset = endMarkerOffset = positionMarkerOffset = -1;
 
 function drawMeasureTrack()
-{
+{ // 0 0 1 0
+	$("body").append('<div id="trackHeader" style="position:absolute;left:0%;top:'+topOffset+';width:100%;height:'+screenWidth*0.0255+';background-color:#919191"></div>');
+	topOffset += screenWidth*0.0255;
 	$("body").append('<div id="track" style="position:absolute;left:0%;top:'+topOffset+';width:'+screenWidth+';height:51;background-color:#919191;'+
-					 'border-style:solid;border-bottom-width:1px;border-right-width:0px;border-left-width:0px;border-top-width:0px"></div>');
+	 				 'border-style:solid;border-width:1 0 1 0"></div>');
 
+	return;
 	/* MEASURE BOX */
 	measureBoxWidth = screenWidth/(tune.length+7); // 8 more boxes than measures to give room for markers
 	measureBoxLeft = 0;
