@@ -20,8 +20,8 @@ function drawMeasureTrack()
 	for (number = -3; number < tune.length + 4; number++)
 	{			
 		if (number != tune.length+3) // hack to keep bar from showing at bottom during development
-		$("#track").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0 0 0 1;cursor:pointer;z-index:10;'+
-					  		'opacity:0.3;position:absolute;left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:100%;background-color:purple"></div>');
+		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="border-style:solid;border-width:0 0 0 1;cursor:pointer;z-index:10;'+
+					  	  'opacity:0.3;position:absolute;left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:100%;background-color:purple"></div>');
 
         if (number > 0 && number < tune.length)
 		{
@@ -30,8 +30,8 @@ function drawMeasureTrack()
 							 'left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:'+screenWidth*0.04+';background-color:blue"></div>');
 	    	if (number != 0 &&(number%5==0 || number==1) && number < tune.length)
 	    	{
-	        	$("#track").append('<div class="measureBoxLabel" id="measureBoxLabel-'+number+'" style="z-index:0;position:absolute;text-align:center;background-color:green;'+
-	        					 'left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:'+measureBoxWidth+'">'+number+'</div>');
+	        	$("#measureBoxDisplay-"+number).append('<div class="measureBoxLabel" id="measureBoxLabel-'+number+'" style="z-index:0;position:absolute;text-align:center;background-color:green;'+
+	        					   'left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:'+measureBoxWidth+'">'+number+'</div>');
 	        }
 		}
 
