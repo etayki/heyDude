@@ -5,7 +5,7 @@ function drawMeasureTrack()
 { // 0 0 1 0
 	$("body").append('<div id="trackHeader" style="position:absolute;left:0%;top:'+topOffset+';width:100%;height:'+screenWidth*0.0255+';background-color:#919191"></div>');
 	topOffset += screenWidth*0.0255;
-	$("body").append('<div id="track" style="position:absolute;left:0%;top:'+topOffset+';width:'+screenWidth+';height:51;background-color:#919191;'+
+	$("body").append('<div id="track" style="position:absolute;left:0%;top:'+topOffset+';width:'+screenWidth+';height:'+screenWidth*0.04+';background-color:#919191;'+
 	 				 'border-style:solid;border-width:1 0 1 0"></div>');
 
 	/* MEASURE BOX */
@@ -14,7 +14,6 @@ function drawMeasureTrack()
 	measureBoxHeight = 50;
 	measureBoxTop = topOffset;
 	measureBoxFontSize = getFontSize(measureBoxHeight)-30;
-	measureBoxDisplayTop = topOffset-15;
 
 	/* MEASURE TRACK */
 	for (number = -3; number < tune.length + 4; number++)
@@ -30,8 +29,8 @@ function drawMeasureTrack()
 							 'left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:'+screenWidth*0.04+';background-color:blue"></div>');
 	    	if (number != 0 &&(number%5==0 || number==1) && number < tune.length)
 	    	{
-	        	$("#measureBoxDisplay-"+number).append('<div class="measureBoxLabel" id="measureBoxLabel-'+number+'" style="z-index:0;position:absolute;text-align:center;background-color:green;'+
-	        					   'left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:'+measureBoxWidth+'">'+number+'</div>');
+	        	$("#measureBoxDisplay-"+number).append('<b><div class="msrBoxLabel" id="msrBoxLabel-'+number+'" style="z-index:0;text-align:center;'+
+	        					   'position:absolute;left:0;top:35%;width:100%;height:10%;background-color:clear">'+number+'</div></b>');
 	        }
 		}
 
@@ -39,7 +38,7 @@ function drawMeasureTrack()
 	}
 
 	/* SET CURRENT MEASURE */
-	$(".measureBoxDisplay").bind(onClickEvent, function(e){
+	$(".msrBoxDisplay").bind(onClickEvent, function(e){
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBoxDisplay-/g, '');
 		setCurrentMeasure(newMeasure);
