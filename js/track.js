@@ -1,5 +1,5 @@
 var	startMarkerMouseDown = endMarkerMouseDown = positionMarkerMouseDown = 0;
-var startMarkerOffset = endMarkerOffset = positionMarkerOffset = -1;
+var startMarkerOffset = endMarkerOffset = positionMarkerOffset = -10;
 
 function drawMeasureTrack()
 { // 0 0 1 0
@@ -56,35 +56,36 @@ function drawMarkers()
 {
 	/* POSITION MARKER */
 	$("#trackHeader").append('<div id="positionMarker" style="z-index:10;background-color:clear;position:absolute;'+
-					 'left:'+(measureBoxWidth*2.5)+';top:0%;width:'+(measureBoxWidth*3)+';height:100%"><div>');
+					 'left:'+(measureBoxWidth*2)+';top:0%;width:'+(measureBoxWidth*4)+';height:100%"><div>');
 	$("#positionMarker").append('<div id="positionMarkerLabel" style="z-index:1;position:absolute;background-color:green;text-align:center;'+
 								'left:0%;top:0%;width:100%;height:100%">'+startMeasure+'</div>');
 	$("#positionMarker").append('<div id="positionMarkerLine" style="z-index:1;position:absolute;background-color:green;'+
-		                        'left:'+(measureBoxWidth*1.5-1)+';top:105%;width:'+Math.floor(measureBoxWidth*0.3)+';height:'+$("#track").height()+'"></div>');
+		                        'left:'+(measureBoxWidth*2-1)+';top:105%;width:'+Math.floor(measureBoxWidth*0.3)+';height:'+$("#track").height()+'"></div>');
 
 	$("#positionMarkerLabel").css("font-size",getFontSize($("#positionMarkerLabel").height()));
 
 	$("#positionMarker").mousedown(function() {
 		if (isiPad) return;
 		positionMarkerMouseDown = 1;
-		console.log(positionMarkerMouseDown);
+		//console.log(positionMarkerMouseDown);
 		$(".measureBox").css("display", "");
 		//$("#positionMarker").css("z-index", 0);
 	});
 
 	$(".measureBox").mouseover(function() {
 		measureBoxId = $(this).attr('id');
-		newMeasure = measureBoxId.replace(/measureBox-/g, '');
-		//console.log("positionMarkerOffset: "+positionMarkerOffset + " positionMarkerMouseDown: " + positionMarkerMouseDown+" "+newMeasure);
-		// if (positionMarkerOffset == -1 && positionMarkerMouseDown)
-		// {
+		newMeasure = Number(measureBoxId.replace(/measureBox-/g, ''));
+		if (positionMarkerOffset == -10 && positionMarkerMouseDown)
+		{
 
-		// 	positionMarkerOffset = newMeasure - 1;
-		// 	if (positionMarkerOffset < 0) // Hack to compensate for fact that initially positionMeasure is 1
-		// 		positionMarkerOffset += -10;
-		// }
+			positionMarkerOffset = newMeasure - currentMeasure;
 
-		// newMeasure -= positionMarkerOffset;
+			// if (positionMarkerOffset < 0) // Hack to compensate for fact that initially positionMeasure is 1
+			// 	positionMarkerOffset += -10;
+		}
+		console.log("OldnewMeasure: "+newMeasure);
+		newMeasure -= positionMarkerOffset;
+		console.log("positionMarkerOffset: "+positionMarkerOffset+" newMeasure: "+newMeasure);
 		if (newMeasure < -3 || newMeasure > tune.length-1) return;
 		if (positionMarkerMouseDown && newMeasure != currentMeasure && newMeasure>0)
 		{
@@ -97,7 +98,7 @@ function drawMarkers()
 		positionMarkerMouseDown = 0;
 		//$("#positionMarker").css("z-index", 10);
 		$(".measureBox").css("display", "none");
-		positionMarkerOffset = -1;
+		positionMarkerOffset = -10;
 	});
 	return;
 
@@ -262,18 +263,17 @@ function setPositionMarker()
 	}
 	measureBoxLeft = Number($("#measureBox-"+currentMeasure).css("left").replace(/px/g, ''));
 	measureBoxTop = Number($("#measureBox-"+currentMeasure).css("top").replace(/px/g, ''));
-	positionMarkerLeft = measureBoxLeft + (position-currentMeasure - 1.5) * measureBoxWidth;
+	positionMarkerLeft = measureBoxLeft + (position-currentMeasure - 2) * measureBoxWidth;
 	$("#positionMarker").css("left", positionMarkerLeft);
-	$("#positionMarker").css("width", measureBoxWidth*3);
+	//$("#positionMarker").css("width", measureBoxWidth*3);
 	$("#positionMarkerLabel").text(currentMeasure);
 
-	if (currentMeasure == endMeasure)
-	{
-		remainingMeasureWidth = measureBoxWidth - (position-currentMeasure) * measureBoxWidth;
-		if (positionMarkerWidth > remainingMeasureWidth)
-			$("#positionMarker").css("width", remainingMeasureWidth);
-	}
-
+	// if (currentMeasure == endMeasure)
+	// {
+	// 	remainingMeasureWidth = measureBoxWidth - (position-currentMeasure) * measureBoxWidth;
+	// 	if (positionMarkerWidth > remainingMeasureWidth)
+	// 		$("#positionMarker").css("width", remainingMeasureWidth);
+	// }
 }
 
 function setStartMarker(measure)
