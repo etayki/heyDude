@@ -17,8 +17,8 @@ function drawMeasureTrack()
 	for (number = -3; number < tune.length + 4; number++)
 	{			
 		if (number != tune.length+3) // hack to keep bar from showing at bottom during development
-		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="display:none;border-style:solid;border-width:0 0 0 1;cursor:pointer;z-index:11;'+
-					  	  'opacity:0.3;position:absolute;left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:100%;background-color:purple"></div>');
+		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="display:none;border-style:solid;border-width:0 0 0 0;cursor:pointer;z-index:11;'+
+					  	  'opacity:0;position:absolute;left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:100%;background-color:purple"></div>');
 
         if (number > 0 && number < tune.length)
 		{
