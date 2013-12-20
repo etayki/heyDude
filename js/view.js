@@ -15,9 +15,7 @@ function drawScreen()
 	drawMeasureTrack();
 	console.log("drawMarkers: " + (new Date().getTime() - startTime));
 	drawMarkers();
-	console.log("colorizeMeasures: " + (new Date().getTime() - startTime));
-	// colorizeMeasures();
-	// console.log("drawControls: " + (new Date().getTime() - startTime));
+	console.log("drawControls: " + (new Date().getTime() - startTime));
 	// drawControls();
 	// console.log("drawTransposition: " + (new Date().getTime() - startTime));
 	// if (isiPad)

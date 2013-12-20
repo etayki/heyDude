@@ -23,8 +23,8 @@ function drawMeasureTrack()
         if (number > 0 && number < tune.length)
 		{
 			$("#track").append('<div id="measureBoxDisplay-'+number+'" class="measureBoxDisplay" style="cursor:pointer;z-index:0;border-style:solid;'+
-							 'border-width:0 0 1 1;position:absolute;'+ //change color to #919191
-							 'left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:'+screenWidth*0.04+';background-color:blue"></div>');
+							 'border-width:0 0 1 1;position:absolute;background-color:#FFFF99;'+
+							 'left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:'+screenWidth*0.04+'"></div>');
 	    	if (number != 0 &&(number%5==0 || number==1) && number < tune.length)
 	    	{
 	        	$("#measureBoxDisplay-"+number).append('<b><div class="msrBoxLabel" id="msrBoxLabel-'+number+'" style="z-index:0;text-align:center;'+
