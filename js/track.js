@@ -16,7 +16,7 @@ function drawMeasureTrack()
 	/* MEASURE TRACK */
 	for (number = -3; number < tune.length + 4; number++)
 	{			
-		if (number != tune.length+3) // hack to keep bar from showing at bottom during development
+		//if (number != tune.length+3) // hack to keep bar from showing at bottom during development
 		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="display:none;border-style:solid;border-width:0 0 0 0;cursor:pointer;z-index:11;'+
 					  	  'opacity:0;position:absolute;left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:100%;background-color:purple"></div>');
 
@@ -36,7 +36,6 @@ function drawMeasureTrack()
 	}
 
 	$(".msrBoxLabel").css("font-size",getFontSize($("#msrBoxLabel-1").height()));
-	//console.log("height="+$("#msrBoxLabel-1").height()+" fontSize="+getFontSize($("#msrBoxLabel-1").height()));
 	/* SET CURRENT MEASURE */
 	$(".measureBoxDisplay").bind(onClickEvent, function(e){
 		measureBoxId = $(this).attr('id');
