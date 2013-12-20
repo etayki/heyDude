@@ -173,7 +173,7 @@ function setEvents()
 		/* RELEASE PREVIOUS NOTE */
 		clearTimeout(keyPressTimer);
 		resetNote(notePress);
-		
+
 		/* TURN ON NOTE */
 		keyPress = ($(this).attr('id')).replace(new RegExp('key-','g'),'');
 		notePress = Number(keyPress) + 21;
@@ -186,7 +186,7 @@ function setEvents()
 		keyPressTimer = setTimeout(function() {
 			resetNote(notePress);
 		}, 300);
-			
+
 	  });
 }
 
