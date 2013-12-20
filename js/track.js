@@ -3,7 +3,7 @@ var startMarkerOffset = endMarkerOffset = positionMarkerOffset = -1;
 
 function drawMeasureTrack()
 { // 0 0 1 0
-	$("body").append('<div id="trackHeader" style="position:absolute;left:0%;top:'+topOffset+';width:100%;height:'+screenWidth*0.0255+';background-color:#919191"></div>');
+	$("body").append('<div id="trackHeader" style="position:absolute;left:0%;top:'+topOffset+';width:'+screenWidth+';height:'+screenWidth*0.0255+';background-color:#919191"></div>');
 	topOffset += screenWidth*0.0255;
 	$("body").append('<div id="track" style="position:absolute;left:0%;top:'+topOffset+';width:'+screenWidth+';height:'+screenWidth*0.04+';background-color:#919191;'+
 	 				 'border-style:solid;border-width:1 0 1 0"></div>');
@@ -81,21 +81,20 @@ function drawMarkers()
 	$("body").mouseup(function() {
 		$(".measureBox").css("display", "none");
 	});
-	return;
 
 	/* START MARKER */
 	startMarkerWidth = measureBoxWidth*4;
-	startMarkerLeft = $("#measureBox--3").css("left").replace(/px/g, '');
-	startMarkerTop = topOffset;
-	startMarkerHeight = measureBoxHeight;
-	$("body").append('<div id="startMarker" style="z-index:10;position:absolute;'+
-					 'left:'+startMarkerLeft+';top:'+startMarkerTop+';width:'+startMarkerWidth+';height:'+measureBoxHeight+'"><div>');
+	$("#track").append('<div id="startMarker" style="z-index:10;position:absolute;'+
+					   'left:0%;top:0%;width:'+startMarkerWidth+';height:100%"><div>');
 
 	$("#startMarker").append('<img id="startMarkerImg" src="./images/startMarker.png" style="z-index:1;position:absolute;'+
-							 'left:'+(startMarkerWidth*0.5)+';top:'+0+';width:'+(startMarkerWidth*0.5)+';height:'+startMarkerHeight+'">');
+							 'left:'+(measureBoxWidth*2)+';top:0%;width:'+(measureBoxWidth*2)+';height:100%">');
+	
 	$("#startMarker").append('<div id="startMarkerLabel" style="z-index:10;position:absolute;background-color:green;'+
-							 'left:'+0+';top:'+(startMarkerHeight*0.2)+';width:'+(startMarkerWidth*0.5+1)+';height:'+(startMarkerHeight*0.6)+'"</div>');
+							 'left:0%;top:20%;width:'+(measureBoxWidth*2)+';height:60%;text-align:center;line-height:120%;">1</div>');
+	$("#startMarkerLabel").css("font-size",getFontSize($("#startMarkerLabel").height()));
 
+	return;
 	$("#startMarker").mousedown(function() {
 		if (isiPad) return;
 		startMarkerMouseDown = 1;
