@@ -1,5 +1,5 @@
 var	startMarkerMouseDown = endMarkerMouseDown = positionMarkerMouseDown = 0;
-var startMarkerOffset = endMarkerOffset = positionMarkerOffset = -1;
+var startMarkerOffset = endMarkerOffset = positionMarkerOffset = null;
 
 function drawMeasureTrack()
 { // 0 0 1 0
@@ -97,14 +97,12 @@ function drawMarkers()
 	$("#startMarker").mousedown(function() {
 		if (isiPad) return;
 		startMarkerMouseDown = 1;
-		console.log("startMarkerMouseDown="+startMarkerMouseDown);
 		$(".measureBox").css("display", "");
 	});
 
 	$("body").mouseup(function() {
 		startMarkerMouseDown = 0;
-		console.log("startMarkerMouseDown="+startMarkerMouseDown);
-		//startMarkerOffset = -1;
+		startMarkerOffset = null;
 	});
 
 	$(".measureBox").mouseover(function() {
@@ -112,19 +110,14 @@ function drawMarkers()
 		measureBoxId = $(this).attr('id');
 		newMeasure = Number(measureBoxId.replace(/measureBox-/g, ''));
 
-		// if (startMarkerOffset == -1 && startMarkerMouseDown)
-		// {
-		// 	startMarkerOffset = newMeasure - startMeasure;
-		// 	if (startMarkerOffset < 0) // Hack to compensate for fact that initially startMeasure is 1
-		// 		startMarkerOffset += 4;
-		// }
+		if (!startMarkerOffset && startMarkerMouseDown)
+			startMarkerOffset = startMeasure - newMeasure;
 
-		// newMeasure -= startMarkerOffset;
-		console.log("newMeasure="+newMeasure);
-		if (newMeasure < 1 || newMeasure > 65) return;
-		if (startMarkerMouseDown && newMeasure != startMeasure)
+		newMeasure += startMarkerOffset;
+		//if (newMeasure < 1 || newMeasure > tune.length-1) return;
+		if (startMarkerMouseDown && newMeasure != startMeasure && newMeasure>0 && newMeasure < tune.length)
 		{
-			setStartMeasure(newMeasure+0);
+			setStartMeasure(newMeasure);
 		}
 	});
 
