@@ -71,16 +71,26 @@ function drawMarkers()
 
 	$("body").mouseup(function() {
 		positionMarkerMouseDown = 0;
+		positionMarkerOffset = null;
 		$(".measureBox").css("display", "none");
 	});
 
 	$(".measureBox").mouseover(function() {
 		if (!positionMarkerMouseDown) return;
 		measureBoxId = $(this).attr('id');
-		newMeasure = measureBoxId.replace(/measureBox-/g, '');
-		if (newMeasure < 1 || newMeasure > tune.length-1) return;
-		setCurrentMeasure(newMeasure);
-		setPositionMarker();
+		newMeasure = Number(measureBoxId.replace(/measureBox-/g, ''));
+
+		if (positionMarkerOffset==null && positionMarkerMouseDown)
+			positionMarkerOffset = currentMeasure - newMeasure;
+
+		console.log("newMeasure="+newMeasure+" currentMeasure="+currentMeasure+" positionMarkerOffset="+positionMarkerOffset);
+
+		newMeasure += positionMarkerOffset;
+		if (positionMarkerMouseDown && newMeasure != currentMeasure && newMeasure >0 && newMeasure < tune.length)
+		{
+			setCurrentMeasure(newMeasure);
+			setPositionMarker();
+		}		
 	});
 
 
