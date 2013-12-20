@@ -114,62 +114,49 @@ function drawMarkers()
 			startMarkerOffset = startMeasure - newMeasure;
 
 		newMeasure += startMarkerOffset;
-		//if (newMeasure < 1 || newMeasure > tune.length-1) return;
 		if (startMarkerMouseDown && newMeasure != startMeasure && newMeasure>0 && newMeasure < tune.length)
 		{
 			setStartMeasure(newMeasure);
 		}
 	});
 
-	return;
 	/* END MARKER */
-	endMarkerWidth = measureBoxWidth*4;
-	endMarkerLeft = $("#measureBox-"+(endMeasure+1)).css("left").replace(/px/g, '');
-	endMarkerTop = topOffset;
-	endMarkerHeight = measureBoxHeight;
-	$("body").append('<div id="endMarker" style="z-index:10;position:absolute;'+
-					 'left:'+endMarkerLeft+';top:'+topOffset+';width:'+endMarkerWidth+';height:'+measureBoxHeight+'"</div>');
+	$("#track").append('<div id="endMarker" style="z-index:10;position:absolute;'+
+					   'right:0%;top:0%;width:'+measureBoxWidth*4+';height:100%"><div>');
 	$("#endMarker").append('<img id="endMarkerImg" src="./images/endMarker.png" style="z-index:1;position:absolute;'+
-						   'left:0;top:0;width:'+(measureBoxWidth*2+1)+';height:'+endMarkerHeight+'">');
-	$("#endMarker").append('<div id="endMarkerLabel" style="z-index:2;position:absolute;background-color:red;'+
-						   'left:'+(measureBoxWidth*2)+';top:'+(endMarkerHeight*0.2)+';width:'+(endMarkerWidth*0.5)+';height:'+(endMarkerHeight*0.6)+'">'+endMeasure+'</div>');
+							 'right:'+(measureBoxWidth*2-1)+';top:0%;width:'+(measureBoxWidth*2)+';height:100%">');
+	$("#endMarker").append('<div id="endMarkerLabel" style="z-index:10;position:absolute;background-color:red;'+
+							 'right:0%;top:20%;width:'+(measureBoxWidth*2)+';height:60%;text-align:center;line-height:120%;">1</div>');
+	$("#endMarkerLabel").css("font-size",getFontSize($("#endMarkerLabel").height()));
 
 	$("#endMarker").mousedown(function() {
 		if (isiPad) return;
 		endMarkerMouseDown = 1;
-		//console.log("endMarkerMouseDown = 1");
-		$("#endMarker").css("z-index", 0);
-		$(".measureBox").css("z-index", 10);
-		$(".measureBox").css("height",measureBoxHeight+180);
-	});
-
-	$(".measureBox").mouseover(function() {
-		measureBoxId = $(this).attr('id');
-		newMeasure = measureBoxId.replace(/measureBox-/g, '');
-		if (endMarkerOffset == -1 && endMarkerMouseDown)
-		{
-			endMarkerOffset = newMeasure - endMeasure;
-			//console.log("newMeasure= "+newMeasure+" endMeasure= "+endMeasure);
-		}
-
-		newMeasure -= endMarkerOffset;
-		if (newMeasure < 1 || newMeasure > 69) return;
-		if (endMarkerMouseDown && newMeasure != endMeasure)
-		{
-			setEndMeasure(newMeasure);
-		}
+		$(".measureBox").css("display", "");
 	});
 
 	$("body").mouseup(function() {
 		endMarkerMouseDown = 0;
-		$("#endMarker").css("z-index", 1);
-		$(".measureBox").css("z-index", 1);
-		$(".measureBox").css("height",measureBoxHeight+32);
-		endMarkerOffset = -1;
+		endMarkerOffset = null;
 	});
 
+	$(".measureBox").mouseover(function() {
+		if (!endMarkerMouseDown) return;
+		measureBoxId = $(this).attr('id');
+		newMeasure = Number(measureBoxId.replace(/measureBox-/g, ''));
+
+		if (!endMarkerOffset && endMarkerMouseDown)
+			endMarkerOffset = endMeasure - newMeasure;
+
+		newMeasure += endMarkerOffset;
+		if (endMarkerMouseDown && newMeasure != endMeasure && newMeasure>0 && newMeasure < tune.length)
+		{
+			setEndMeasure(newMeasure);
+		}
+	});
+	return;
 	// Don't allow to save image
-	$('#endMarker').bind('touchend', function(e){
+	$('#endMarker').bind('touchstart', function(e){
 		e.preventDefault();
 	});
 
@@ -195,7 +182,7 @@ function drawMarkers()
 		}
 	});
 
-	$('#endMarker').bind('touchstart', function(e){
+	$('#endMarker').bind('touchend', function(e){
 		e.preventDefault();
 	});
 
