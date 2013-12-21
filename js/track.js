@@ -158,58 +158,44 @@ function drawMarkers()
 	$('#startMarker').bind('touchstart', function(e){
 		e.preventDefault();
 		newMeasure = Math.floor(event.touches[0].pageX/measureBoxWidth)-3;
-		startMarkerOffset = currentMeasure - newMeasure;
+		startMarkerOffset = startMeasure - newMeasure;
+		console.log("x= "+event.touches[0].pageX+" y= "+event.touches[0].pageY+" newMasure="+newMeasure+" currentMeasure="+currentMeasure+" startMarkerOffset="+startMarkerOffset);
+
+	});
+
+	$('#startMarker').bind('touchmove', function(e){
+		e.preventDefault();
+		newMeasure = Math.floor(event.touches[0].pageX/measureBoxWidth)-3+startMarkerOffset;
 		console.log("x= "+event.touches[0].pageX+" y= "+event.touches[0].pageY+" measure="+newMeasure+ " startMarkerOffset="+startMarkerOffset);
-
+		if (newMeasure != startMeasure && newMeasure > 0 && newMeasure < tune.length)
+			setStartMeasure(newMeasure);//+startMarkerOffset);
 	});
 
-	$('#endMarker').bind('touchmove', function(e){
-		e.preventDefault();
-		for (number = 1; number <= maxBoxes; number++)
-		{
-			measureBoxLeft = Number($("#measureBox-"+number).css('left').replace(/px/g, ''));
-			measureBoxTop = Number($("#measureBox-"+number).css('top').replace(/px/g, ''));
-			measureBoxWidth = Number($("#measureBox-"+number).css('width').replace(/px/g, ''));
-			//debug (number + " " + event.touches[0].pageY + ">" + (measureBoxTop + measureBoxWidth));
-			if (event.touches[0].pageX > measureBoxLeft &&
-				event.touches[0].pageX < (measureBoxLeft + measureBoxWidth) &&
-				event.touches[0].pageY > measureBoxTop && 
-				event.touches[0].pageY < (measureBoxTop + measureBoxWidth))
-			{
-				if (number != endMeasure)
-				{				
-					//debug(number);
-					setendMeasure(number);
-				}
-			}
-		}
-	});
+	// $('#endMarker').bind('touchend', function(e){
+	// 	e.preventDefault();
+	// });
 
-	$('#endMarker').bind('touchend', function(e){
-		e.preventDefault();
-	});
-
-	$('#endMarker').bind('touchmove', function(e){
-		e.preventDefault();
-		for (number = 1; number <= maxBoxes; number++)
-		{
-			measureBoxLeft = Number($("#measureBox-"+number).css('left').replace(/px/g, ''));
-			measureBoxTop = Number($("#measureBox-"+number).css('top').replace(/px/g, ''));
-			measureBoxWidth = Number($("#measureBox-"+number).css('width').replace(/px/g, ''));
-			//debug (number + " " + event.touches[0].pageY + ">" + (measureBoxTop + measureBoxWidth));
-			if (event.touches[0].pageX > measureBoxLeft &&
-				event.touches[0].pageX < (measureBoxLeft + measureBoxWidth) &&
-				event.touches[0].pageY > measureBoxTop && 
-				event.touches[0].pageY < (measureBoxTop + measureBoxWidth))
-			{
-				if (number != endMeasure)
-				{				
-					//debug(number);
-					setEndMeasure(number);
-				}
-			}
-		}
-	});
+	// $('#endMarker').bind('touchmove', function(e){
+	// 	e.preventDefault();
+	// 	for (number = 1; number <= maxBoxes; number++)
+	// 	{
+	// 		measureBoxLeft = Number($("#measureBox-"+number).css('left').replace(/px/g, ''));
+	// 		measureBoxTop = Number($("#measureBox-"+number).css('top').replace(/px/g, ''));
+	// 		measureBoxWidth = Number($("#measureBox-"+number).css('width').replace(/px/g, ''));
+	// 		//debug (number + " " + event.touches[0].pageY + ">" + (measureBoxTop + measureBoxWidth));
+	// 		if (event.touches[0].pageX > measureBoxLeft &&
+	// 			event.touches[0].pageX < (measureBoxLeft + measureBoxWidth) &&
+	// 			event.touches[0].pageY > measureBoxTop && 
+	// 			event.touches[0].pageY < (measureBoxTop + measureBoxWidth))
+	// 		{
+	// 			if (number != endMeasure)
+	// 			{				
+	// 				//debug(number);
+	// 				setEndMeasure(number);
+	// 			}
+	// 		}
+	// 	}
+	// });
 }
 
 function setPositionMarker()
