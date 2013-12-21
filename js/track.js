@@ -63,25 +63,25 @@ function drawMarkers()
 
 	$("#positionMarkerLabel").css("font-size",getFontSize($("#positionMarkerLabel").height()));
 
-	$("#positionMarker").mousedown(function() {
-		if (isiPad) return;
-		positionMarkerMouseDown = 1;
-		$(".measureBox").css("display", "");
-	});
+	// $("#positionMarker").mousedown(function() {
+	// 	if (isiPad) return;
+	// 	positionMarkerMouseDown = 1;
+	// 	$(".measureBox").css("display", "");
+	// });
 
-	$("body").mouseup(function() {
-		positionMarkerMouseDown = 0;
-		$(".measureBox").css("display", "none");
-	});
+	// $("body").mouseup(function() {
+	// 	positionMarkerMouseDown = 0;
+	// 	$(".measureBox").css("display", "none");
+	// });
 
-	$(".measureBox").mouseover(function() {
-		if (!positionMarkerMouseDown) return;
-		measureBoxId = $(this).attr('id');
-		newMeasure = measureBoxId.replace(/measureBox-/g, '');
-		if (newMeasure < 1 || newMeasure > tune.length-1) return;
-		setCurrentMeasure(newMeasure);
-		setPositionMarker();
-	});
+	// $(".measureBox").mouseover(function() {
+	// 	if (!positionMarkerMouseDown) return;
+	// 	measureBoxId = $(this).attr('id');
+	// 	newMeasure = measureBoxId.replace(/measureBox-/g, '');
+	// 	if (newMeasure < 1 || newMeasure > tune.length-1) return;
+	// 	setCurrentMeasure(newMeasure);
+	// 	setPositionMarker();
+	// });
 
 
 	/* START MARKER */
@@ -93,31 +93,31 @@ function drawMarkers()
 							 'left:0%;top:20%;width:'+(measureBoxWidth*2)+';height:60%;text-align:center;line-height:120%;">1</div>');
 	$("#startMarkerLabel").css("font-size",getFontSize($("#startMarkerLabel").height()));
 
-	$("#startMarker").mousedown(function() {
-		if (isiPad) return;
-		startMarkerMouseDown = 1;
-		$(".measureBox").css("display", "");
-	});
+	// $("#startMarker").mousedown(function() {
+	// 	if (isiPad) return;
+	// 	startMarkerMouseDown = 1;
+	// 	$(".measureBox").css("display", "");
+	// });
 
-	$("body").mouseup(function() {
-		startMarkerMouseDown = 0;
-		startMarkerOffset = null;
-	});
+	// $("body").mouseup(function() {
+	// 	startMarkerMouseDown = 0;
+	// 	startMarkerOffset = null;
+	// });
 
-	$(".measureBox").mouseover(function() {
-		if (!startMarkerMouseDown) return;
-		measureBoxId = $(this).attr('id');
-		newMeasure = Number(measureBoxId.replace(/measureBox-/g, ''));
+	// $(".measureBox").mouseover(function() {
+	// 	if (!startMarkerMouseDown) return;
+	// 	measureBoxId = $(this).attr('id');
+	// 	newMeasure = Number(measureBoxId.replace(/measureBox-/g, ''));
 
-		if (!startMarkerOffset && startMarkerMouseDown)
-			startMarkerOffset = startMeasure - newMeasure;
+	// 	if (!startMarkerOffset && startMarkerMouseDown)
+	// 		startMarkerOffset = startMeasure - newMeasure;
 
-		newMeasure += startMarkerOffset;
-		if (startMarkerMouseDown && newMeasure != startMeasure && newMeasure>0 && newMeasure < tune.length)
-		{
-			setStartMeasure(newMeasure);
-		}
-	});
+	// 	newMeasure += startMarkerOffset;
+	// 	if (startMarkerMouseDown && newMeasure != startMeasure && newMeasure>0 && newMeasure < tune.length)
+	// 	{
+	// 		setStartMeasure(newMeasure);
+	// 	}
+	// });
 
 	/* END MARKER */
 	$("#track").append('<div id="endMarker" style="z-index:10;position:absolute;'+
@@ -128,35 +128,39 @@ function drawMarkers()
 							 'right:0%;top:20%;width:'+(measureBoxWidth*2)+';height:60%;text-align:center;line-height:120%;">1</div>');
 	$("#endMarkerLabel").css("font-size",getFontSize($("#endMarkerLabel").height()));
 
-	$("#endMarker").mousedown(function() {
-		if (isiPad) return;
-		endMarkerMouseDown = 1;
-		$(".measureBox").css("display", "");
-	});
+	// $("#endMarker").mousedown(function() {
+	// 	if (isiPad) return;
+	// 	endMarkerMouseDown = 1;
+	// 	$(".measureBox").css("display", "");
+	// });
 
-	$("body").mouseup(function() {
-		endMarkerMouseDown = 0;
-		endMarkerOffset = null;
-	});
+	// $("body").mouseup(function() {
+	// 	endMarkerMouseDown = 0;
+	// 	endMarkerOffset = null;
+	// });
 
-	$(".measureBox").mouseover(function() {
-		if (!endMarkerMouseDown) return;
-		measureBoxId = $(this).attr('id');
-		newMeasure = Number(measureBoxId.replace(/measureBox-/g, ''));
+	// $(".measureBox").mouseover(function() {
+	// 	if (!endMarkerMouseDown) return;
+	// 	measureBoxId = $(this).attr('id');
+	// 	newMeasure = Number(measureBoxId.replace(/measureBox-/g, ''));
 
-		if (!endMarkerOffset && endMarkerMouseDown)
-			endMarkerOffset = endMeasure - newMeasure;
+	// 	if (!endMarkerOffset && endMarkerMouseDown)
+	// 		endMarkerOffset = endMeasure - newMeasure;
 
-		newMeasure += endMarkerOffset;
-		if (endMarkerMouseDown && newMeasure != endMeasure && newMeasure>0 && newMeasure < tune.length)
-		{
-			setEndMeasure(newMeasure);
-		}
-	});
-	return;
+	// 	newMeasure += endMarkerOffset;
+	// 	if (endMarkerMouseDown && newMeasure != endMeasure && newMeasure>0 && newMeasure < tune.length)
+	// 	{
+	// 		setEndMeasure(newMeasure);
+	// 	}
+	// });
+
 	// Don't allow to save image
-	$('#endMarker').bind('touchstart', function(e){
+	$('#startMarker').bind('touchstart', function(e){
 		e.preventDefault();
+		newMeasure = Math.floor(event.touches[0].pageX/measureBoxWidth)-3;
+		startMarkerOffset = currentMeasure - newMeasure;
+		console.log("x= "+event.touches[0].pageX+" y= "+event.touches[0].pageY+" measure="+newMeasure+ " startMarkerOffset="+startMarkerOffset);
+
 	});
 
 	$('#endMarker').bind('touchmove', function(e){
