@@ -10,11 +10,11 @@ function drawMeasureTrack()
 
 	/* MEASURE BOX */
 	measureBoxWidth = screenWidth/(tune.length+7); // 8 more boxes than measures to give room for markers
-	measureBoxLeft = 0;
+	measureBoxLeft = measureBoxWidth*4;
 	measureBoxTop = topOffset;
 
 	/* MEASURE TRACK */
-	for (number = -3; number < tune.length + 4; number++)
+	for (number = 1; number < tune.length; number++)
 	{			
 		$("#track").append('<div id="measureBox-'+number+'" class="measureBox" style="cursor:pointer;z-index:0;border-style:solid;'+
 						 'border-width:0 0 1 1;position:absolute;background-color:#FFFF99;'+
@@ -131,14 +131,14 @@ function setPositionMarker()
 	$("#positionLabel").text(delay);
 	
 	/* SET POSITION MARKER */
-	nowMeasure = Math.floor(position);
+	nowMeasure = Number(Math.floor(position));
 	if (nowMeasure != currentMeasure)
 	{
 		currentMeasure = nowMeasure;
 		colorizeMeasures();
 	}
-	measureBoxLeft = Number($("#measureBox-"+currentMeasure).css("left").replace(/px/g, ''));
-	positionMarkerLeft = measureBoxLeft + (position-currentMeasure - 1.5) * measureBoxWidth;
+
+	positionMarkerLeft = measureBoxWidth*(Number(currentMeasure)+1.5);
 	$("#positionMarker").css("left", positionMarkerLeft);
 	$("#positionMarker").css("width", measureBoxWidth*3);
 	$("#positionMarkerLabel").text(currentMeasure);
@@ -149,12 +149,11 @@ function setPositionMarker()
 	// 	if (positionMarkerWidth > remainingMeasureWidth)
 	// 		$("#positionMarker").css("width", remainingMeasureWidth);
 	// }
-
 }
 
 function setStartMarker(measure)
 {
-	startMarkerLeft = $("#measureBox-"+(measure-4)).css("left").replace(/px/g, '');
+	startMarkerLeft = measureBoxWidth*(measure-1);
 	$("#startMarker").css("left", startMarkerLeft);
 	$("#startMarkerLabel").text(measure);
 	//console.log("setStartMarker: "+startMarkerLeft+", "+startMarkerTop);
@@ -162,7 +161,7 @@ function setStartMarker(measure)
 
 function setEndMarker(measure)
 {
-	endMarkerLeft = $("#measureBox-"+(measure+1)).css("left").replace(/px/g, '');
+	endMarkerLeft = measureBoxWidth*(measure+4);
 	$("#endMarker").css("left", endMarkerLeft);
 	//console.log("measure: "+measure+" endMarkerLeft: " + endMarkerLeft);
 	$("#endMarkerLabel").text(measure);
