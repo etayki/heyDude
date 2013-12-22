@@ -1,4 +1,4 @@
-var	startMarkerMouseDown = endMarkerMouseDown = positionMarkerMouseDown = 0;
+var	startMarkerMouseDown = endMarkerMouseDown = currentMarkerMouseDown = 0;
 var markerOffset = activeMarker = null;
 
 function drawMeasureTrack()
@@ -34,7 +34,7 @@ function drawMeasureTrack()
 		if (selectedMeasure > 0 && selectedMeasure < tune.length)
 		{
 			setCurrentMeasure(selectedMeasure);
-			setPositionMarker();
+			setCurrentMarker();
 		}
 	});
 }
@@ -42,16 +42,16 @@ function drawMeasureTrack()
 function drawMarkers()
 {
 	/* POSITION MARKER */
-	$("#trackHeader").append('<div id="positionMarker" style="z-index:10;background-color:clear;position:absolute;'+
+	$("#trackHeader").append('<div id="currentMarker" style="z-index:10;background-color:clear;position:absolute;'+
 					 'left:'+(measureBoxWidth*2.5)+';top:0%;width:'+(measureBoxWidth*3)+';height:100%"><div>');
-	$("#positionMarker").append('<div id="positionMarkerLabel" style="z-index:1;position:absolute;background-color:green;text-align:center;'+
+	$("#currentMarker").append('<div id="currentMarkerLabel" style="z-index:1;position:absolute;background-color:green;text-align:center;'+
 								'left:0%;top:0%;width:100%;height:100%">'+startMeasure+'</div>');
-	$("#positionMarker").append('<div id="positionMarkerLine" style="z-index:1;position:absolute;background-color:green;'+
+	$("#currentMarker").append('<div id="currentMarkerLine" style="z-index:1;position:absolute;background-color:green;'+
 		                        'left:'+(measureBoxWidth*1.5-1)+';top:105%;width:'+Math.floor(measureBoxWidth*0.3)+';height:'+$("#track").height()+'"></div>');
 
-	$("#positionMarkerLabel").css("font-size",getFontSize($("#positionMarkerLabel").height()));
+	$("#currentMarkerLabel").css("font-size",getFontSize($("#currentMarkerLabel").height()));
 
-	$('#positionMarker').bind(startEvent, function(e){
+	$('#currentMarker').bind(startEvent, function(e){
 		e.preventDefault();
 		activeMarker = $(this).attr('id');
 		newMeasure = Math.floor(Number(eval(positionX))/measureBoxWidth)-3;
@@ -75,31 +75,31 @@ function drawMarkers()
 		newMeasure = Math.floor(eval(positionX)/measureBoxWidth)-3+markerOffset;
 		if (newMeasure > 0 && newMeasure < tune.length)
 		{
-			if (activeMarker == "positionMarker" && newMeasure != currentMeasure){
+			if (activeMarker == "currentMarker" && newMeasure != currentMeasure){
 				setCurrentMeasure(newMeasure);
-				setPositionMarker();
+				setCurrentMarker();
 			}
 		}
 	});
 
-	// $("#positionMarker").mousedown(function() {
+	// $("#currentMarker").mousedown(function() {
 	// 	if (isiPad) return;
-	// 	positionMarkerMouseDown = 1;
+	// 	currentMarkerMouseDown = 1;
 	// 	$(".measureBox").css("display", "");
 	// });
 
 	// $("body").mouseup(function() {
-	// 	positionMarkerMouseDown = 0;
+	// 	currentMarkerMouseDown = 0;
 	// 	$(".measureBox").css("display", "none");
 	// });
 
 	// $(".measureBox").mouseover(function() {
-	// 	if (!positionMarkerMouseDown) return;
+	// 	if (!currentMarkerMouseDown) return;
 	// 	measureBoxId = $(this).attr('id');
 	// 	newMeasure = measureBoxId.replace(/measureBox-/g, '');
 	// 	if (newMeasure < 1 || newMeasure > tune.length-1) return;
 	// 	setCurrentMeasure(newMeasure);
-	// 	setPositionMarker();
+	// 	setcurrentMarker();
 	// });
 
 
@@ -157,7 +157,7 @@ function addEvent(obj, evt, fn) {
     obj.addEventListener(evt, fn, false);
 }
 
-function setPositionMarker()
+function setCurrentMarker()
 {
 	/* SET POSITION LABEL */
 	position = (Math.floor((delay/delayPerMeasure + 1)*100)/100).toFixed(2);
@@ -171,16 +171,16 @@ function setPositionMarker()
 		colorizeMeasures();
 	}
 
-	positionMarkerLeft = measureBoxWidth*(Number(currentMeasure)+1.5);
-	$("#positionMarker").css("left", positionMarkerLeft);
-	$("#positionMarker").css("width", measureBoxWidth*3);
-	$("#positionMarkerLabel").text(currentMeasure);
+	currentMarkerLeft = measureBoxWidth*(Number(currentMeasure)+1.5);
+	$("#currentMarker").css("left", currentMarkerLeft);
+	$("#currentMarker").css("width", measureBoxWidth*3);
+	$("#currentMarkerLabel").text(currentMeasure);
 
 	// if (currentMeasure == endMeasure)
 	// {
 	// 	remainingMeasureWidth = measureBoxWidth - (position-currentMeasure) * measureBoxWidth;
-	// 	if (positionMarkerWidth > remainingMeasureWidth)
-	// 		$("#positionMarker").css("width", remainingMeasureWidth);
+	// 	if (currentMarkerWidth > remainingMeasureWidth)
+	// 		$("#currentMarker").css("width", remainingMeasureWidth);
 	// }
 }
 
