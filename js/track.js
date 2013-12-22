@@ -104,6 +104,19 @@ function drawMarkers()
 		startMarkerActive = null;
 	});
 
+	addEvent(document, 'mouseout', function(evt) {
+	  if (evt.toElement == null && evt.relatedTarget == null) {
+	  	startMarkerActive = null;
+	    console.log("left window");
+	  }
+	});
+
+  //   document.onmouseout = function(e) {
+		// console.log("Mouse Left");
+		// e.stopPropagation();
+  //   	startMarkerActive = null;
+  //   }
+
 	$(startMarkerElement).bind(moveEvent, function(e){
 		e.preventDefault();
 		if (!startMarkerActive) return;
@@ -139,6 +152,15 @@ function drawMarkers()
 		if (newMeasure != endMeasure && newMeasure > 0 && newMeasure < tune.length && endMarkerActive)
 			setEndMeasure(newMeasure);
 	});
+}
+
+function addEvent(obj, evt, fn) {
+    if (obj.addEventListener) {
+        obj.addEventListener(evt, fn, false);
+    }
+    else if (obj.attachEvent) {
+        obj.attachEvent("on" + evt, fn);
+    }
 }
 
 function setPositionMarker()
