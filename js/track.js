@@ -87,8 +87,10 @@ function drawMarkers()
 	$("#endMarker").append('<div id="endMarkerLabel" style="z-index:10;position:absolute;background-color:red;'+
 							 'right:0%;top:20%;width:'+(measureBoxWidth*2)+';height:60%;text-align:center;line-height:120%;">1</div>');
 	$("#endMarkerLabel").css("font-size",getFontSize($("#endMarkerLabel").height()));
+}
 
-	/* MARKER EVENTS */
+function setMarkerEvents()
+{
 	$('.marker').bind(startEvent, function(e){
 		e.preventDefault();
 		activeMarker = $(this).attr('id');

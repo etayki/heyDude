@@ -15,6 +15,8 @@ function drawScreen()
 	drawMeasureTrack();
 	console.log("drawMarkers: " + (new Date().getTime() - startTime));
 	drawMarkers();
+	console.log("setMarkerEvents: " + (new Date().getTime() - startTime));
+	setMarkerEvents();
 	console.log("drawControls: " + (new Date().getTime() - startTime));
 	// drawControls();
 	// console.log("drawTransposition: " + (new Date().getTime() - startTime));
@@ -299,5 +301,6 @@ function getFontSize(labelHeight)
 	} while (spanHeight < labelHeight)
 	
 	$('#textLabel').remove();
+	//console.log("fontSize="+fontSize); - optimize later
 	return fontSize;
 }
