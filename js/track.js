@@ -94,7 +94,6 @@ function drawMarkers()
 	$("#startMarkerLabel").css("font-size",getFontSize($("#startMarkerLabel").height()));
 
 	$('#startMarker').bind(startEvent, function(e){
-		//console.log(startEvent);
 		startMarkerActive = 1;
 		e.preventDefault();
 		if (isiPad)
@@ -102,18 +101,13 @@ function drawMarkers()
 		else
 			newMeasure = Math.floor(e.pageX/measureBoxWidth)-3;
 		startMarkerOffset = startMeasure - newMeasure;
-		//console.log("x= "+e.pageX+" newMeasure="+newMeasure);
-		//console.log("x= "+event.touches[0].pageX+" newMasure="+newMeasure+" currentMeasure="+currentMeasure+" startMarkerOffset="+startMarkerOffset);
-
 	});
 
 	$('#startMarker').bind("mouseup", function(e){
-		//console.log("mouseup");
 		startMarkerActive = null;
 	});
 
-	$(moveOnElement).bind(moveEvent, function(e){
-		//console.log("body");
+	$(startMarkerElement).bind(moveEvent, function(e){
 		e.preventDefault();
 		if (!startMarkerActive) return;
 		if (isiPad)
