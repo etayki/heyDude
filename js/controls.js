@@ -442,7 +442,7 @@ function drawMetronome()
 	// });
 
 	$('#dragger').bind('touchmove', function(e){
-		e.preventDefault();
+		//e.preventDefault();
 		for (number = 1; number <= metronomeMaxBox; number++)
 		{
 			metronomeBoxLeft = Number($("#metronomeBox-"+number).css('left').replace(/px/g, ''));

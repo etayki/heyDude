@@ -74,9 +74,9 @@ function setEvents()
 	$('img').on('dragstart', function(event) { event.preventDefault(); });
 
  	// iPad
- 	document.body.addEventListener('touchmove',function(e){
-	      //e.preventDefault();
-	  });
+ 	// document.body.addEventListener('touchmove',function(e){
+	 //      //e.preventDefault();
+	 //  });
 
  	// var tagList=[".measureBox","#playBtn","#metronome","#rightHand","#leftHand","#infoButton","#startMarker",
  	//              "#startMarker","#notesButton","#header","#logo","#composerPic","#tuneLabel",

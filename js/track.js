@@ -98,7 +98,7 @@ function setMarkerEvents()
 	});
 
 	$(markerElement).bind(moveEvent, function(e){
-		e.preventDefault();
+		//e.preventDefault();
 		if (!activeMarker) return;
 		newMeasure = Math.floor(eval(positionX)/measureBoxWidth)-3+markerOffset;
 		if (newMeasure > 0 && newMeasure < tune.length)
@@ -109,7 +109,6 @@ function setMarkerEvents()
 				setCurrentMeasure(newMeasure);
 				setCurrentMarker();
 			}
-			colorizeMeasures();
 		}
 	});
 }

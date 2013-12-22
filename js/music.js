@@ -258,17 +258,6 @@ function resetNote(note)
 /* SET THE CURRENT MEASURE EITHER WITH ARROW KEYS OR BY CLICKING ON MEASURE BOX */
 function setCurrentMeasure(newMeasure)
 {
-	if (newMeasure == "-")
-	{
-		newMeasure = currentMeasure - 1;
-		if (newMeasure == 0) return;
-	}
-	else if (newMeasure == "+")
-	{
-		newMeasure = currentMeasure + 1;
-		if (newMeasure == tune.length) return;
-	}
-
 	currentMeasure = newMeasure;
 	delay = (currentMeasure - 1) * delayPerMeasure;
 
@@ -281,7 +270,6 @@ function setCurrentMeasure(newMeasure)
 	resetNotes();
 	if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
 		playMusic();
-	colorizeMeasures();
 }
 
 function setStartMeasure(newMeasure)
@@ -303,7 +291,6 @@ function setStartMeasure(newMeasure)
 
 	setStartMarker(startMeasure);
 	$('#startMarkerInfoLabel').css("display","none");
-	colorizeMeasures();
 }
 
 function setEndMeasure(newMeasure)
@@ -326,7 +313,6 @@ function setEndMeasure(newMeasure)
 
 	setEndMarker(endMeasure);
 	$('#endMarkerInfoLabel').css("display","none");
-	colorizeMeasures();
 }
 
 function setTempo(newMetronomeBox)
