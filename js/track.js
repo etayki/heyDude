@@ -51,6 +51,36 @@ function drawMarkers()
 
 	$("#positionMarkerLabel").css("font-size",getFontSize($("#positionMarkerLabel").height()));
 
+	// $('#positionMarker').bind(startEvent, function(e){
+	// 	e.preventDefault();
+	// 	activeMarker = $(this).attr('id');
+	// 	newMeasure = Math.floor(Number(eval(positionX))/measureBoxWidth)-3;
+	// 	console.log("newMeasure="+newMeasure);
+	// 	//markerOffset = eval(activeMarker.replace(/Marker/g, 'Measure')) - newMeasure;
+	// });
+
+	// addEvent(document, 'mouseout', function(evt) {
+	//   if (evt.toElement == null && evt.relatedTarget == null) {
+	//   	activeMarker = null;
+	//   }
+	// });
+
+	// $('body').bind("mouseup", function(e){
+	// 	activeMarker = null;
+	// });
+
+	// $("#positionMarker").bind(moveEvent, function(e){
+	// 	e.preventDefault();
+	// 	//if (!activeMarker) return;
+	// 	newMeasure = Math.floor(eval(positionX)/measureBoxWidth)-3;//+markerOffset;
+	// 	if (newMeasure != endMeasure && newMeasure > 0 && newMeasure < tune.length)
+	// 	{
+			// setCurrentMeasure(newMeasure);
+			// setPositionMarker();
+	// 	}
+	// });
+
+
 	// $("#positionMarker").mousedown(function() {
 	// 	if (isiPad) return;
 	// 	positionMarkerMouseDown = 1;
@@ -114,10 +144,10 @@ function setMarkerEvents()
 		e.preventDefault();
 		if (!activeMarker) return;
 		newMeasure = Math.floor(eval(positionX)/measureBoxWidth)-3+markerOffset;
-		if (newMeasure != endMeasure && newMeasure > 0 && newMeasure < tune.length)
+		if (newMeasure > 0 && newMeasure < tune.length)
 		{
-			if (activeMarker == "endMarker") setEndMeasure(newMeasure);
-			if (activeMarker == "startMarker") setStartMeasure(newMeasure);
+			if (activeMarker == "endMarker" && newMeasure != endMeasure) setEndMeasure(newMeasure);
+			if (activeMarker == "startMarker" && newMeasure != startMeasure) setStartMeasure(newMeasure);
 		}
 	});
 }
