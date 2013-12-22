@@ -1,5 +1,6 @@
 var	startMarkerMouseDown = endMarkerMouseDown = positionMarkerMouseDown = 0;
-var startMarkerOffset = endMarkerOffset = positionMarkerOffset = startMarkerActive = endMarkerActive = null;
+var startMarkerOffset = endMarkerOffset = positionMarkerOffset = null;
+var startMarkerActive = endMarkerActive = currentMarkerActive = null;
 
 function drawMeasureTrack()
 { // 0 0 1 0
@@ -107,7 +108,8 @@ function drawMarkers()
 	addEvent(document, 'mouseout', function(evt) {
 	  if (evt.toElement == null && evt.relatedTarget == null) {
 	  	startMarkerActive = null;
-	    console.log("left window");
+	  	endMarkerActive = null;
+	  	currentMarkerActive = null;
 	  }
 	});
 
@@ -115,7 +117,7 @@ function drawMarkers()
 		e.preventDefault();
 		if (!startMarkerActive) return;
 		newMeasure = Math.floor(eval(positionX)/measureBoxWidth)-3+startMarkerOffset;
-		if (newMeasure != startMeasure && newMeasure > 0 && newMeasure < tune.length && startMarkerActive)
+		if (newMeasure != startMeasure && newMeasure > 0 && newMeasure < tune.length)
 			setStartMeasure(newMeasure);
 	});
 
@@ -143,7 +145,7 @@ function drawMarkers()
 		e.preventDefault();
 		if (!endMarkerActive) return;
 		newMeasure = Math.floor(eval(positionX)/measureBoxWidth)-3+endMarkerOffset;
-		if (newMeasure != endMeasure && newMeasure > 0 && newMeasure < tune.length && endMarkerActive)
+		if (newMeasure != endMeasure && newMeasure > 0 && newMeasure < tune.length)
 			setEndMeasure(newMeasure);
 	});
 }
