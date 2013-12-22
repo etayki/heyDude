@@ -291,7 +291,7 @@ function adjustTag(tag, left, top, width, height, backgroundColor)
 function getFontSize(labelHeight)
 {
 	$("body").append('<div id="textLabel"><span id="textSpan">TextTest</span></div>');
-	fontSize = 0;
+	fontSize = labelHeight-3;
 
 	do {
 	    fontSize += 1;
