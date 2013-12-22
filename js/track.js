@@ -109,6 +109,7 @@ function setMarkerEvents()
 				setCurrentMeasure(newMeasure);
 				setCurrentMarker();
 			}
+			colorizeMeasures();
 		}
 	});
 }
@@ -126,10 +127,7 @@ function setCurrentMarker()
 	/* SET POSITION MARKER */
 	nowMeasure = Number(Math.floor(position));
 	if (nowMeasure != currentMeasure)
-	{
 		currentMeasure = nowMeasure;
-		colorizeMeasures();
-	}
 
 	currentMarkerLeft = measureBoxWidth*(Number(currentMeasure)+1.5);
 	$("#currentMarker").css("left", currentMarkerLeft);

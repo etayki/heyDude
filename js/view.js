@@ -30,7 +30,7 @@ function drawScreen()
 	// {
 	// 	drawMetronome();
 	// 	drawTransposition();
-	// }
+	// }	
 	// console.log("drawMetronome: " + (new Date().getTime() - startTime));
 	// console.log("drawPiano: " + (new Date().getTime() - startTime));
 	// //drawPiano(8,68);
@@ -200,19 +200,19 @@ function colorizeMeasures()
 	for (number = 1; number <= startMeasure; number++)
 	{			
 		/* MEASURE BOX */
-		$("#measureBoxDisplay-"+number).css("background-color","#cbcbcb");
+		$("#measureBox-"+number).css("background-color","#cbcbcb");
 	}
 	for (number = startMeasure; number <= endMeasure; number++)
 	{			
-		/* MEASURE BoxDisplay */
-		$("#measureBoxDisplay-"+number).css("background-color","#FFFF99");
+		/* MEASURE Box */
+		$("#measureBox-"+number).css("background-color","#FFFF99");
 	}
 	for (number = endMeasure + 1; number <= (tune.length-1); number++)
 	{			
-		/* MEASURE BoxDisplay */
-		$("#measureBoxDisplay-"+number).css("background-color","#cbcbcb");
+		/* MEASURE Box */
+		$("#measureBox-"+number).css("background-color","#cbcbcb");
 	}
-	$("#measureBoxDisplay-"+currentMeasure).css("background-color","#FFFF00");
+	$("#measureBox-"+currentMeasure).css("background-color","#FFFF00");
 }
 
 function reportBrowser()
