@@ -57,11 +57,13 @@ function setEvents()
    	clickEvent = "onclick";
 	startEvent = "mousedown";
 	moveEvent = "mousemove";
-    if(userAgent.indexOf("iPad") !== -1 && userAgent.indexOf("iPhone") !== -1)
+	moveOnElement = "body";
+    if(isiPad || isiPhone)
     {
 		clickEvent = "ontouchstart";
 		startEvent = "touchstart";
 		moveEvent = "touchmove";
+		moveOnElement = "#startMarker";
 	}
 	onClickEvent = clickEvent.replace("on","");
 
