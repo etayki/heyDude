@@ -2,7 +2,7 @@ var	startMarkerMouseDown = endMarkerMouseDown = positionMarkerMouseDown = 0;
 var markerOffset = activeMarker = null;
 
 function drawMeasureTrack()
-{ // 0 0 1 0
+{
 	$("body").append('<div id="trackHeader" style="position:absolute;left:0%;top:'+topOffset+';width:'+screenWidth+';height:'+screenWidth*0.0255+';background-color:#919191"></div>');
 	topOffset += screenWidth*0.0255;
 	$("body").append('<div id="track" style="position:absolute;left:0%;top:'+topOffset+';width:'+screenWidth+';height:'+screenWidth*0.04+';background-color:#919191;'+
@@ -16,33 +16,19 @@ function drawMeasureTrack()
 	/* MEASURE TRACK */
 	for (number = -3; number < tune.length + 4; number++)
 	{			
-		//if (number != tune.length+3) // hack to keep bar from showing at bottom during development
-		$("body").append('<div id="measureBox-'+number+'" class="measureBox" style="display:none;border-style:solid;border-width:0 0 0 0;cursor:pointer;z-index:11;'+
-					  	  'opacity:0;position:absolute;left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:100%;background-color:purple"></div>');
-
-        if (number > 0 && number < tune.length)
-		{
-			$("#track").append('<div id="measureBoxDisplay-'+number+'" class="measureBoxDisplay" style="cursor:pointer;z-index:0;border-style:solid;'+
-							 'border-width:0 0 1 1;position:absolute;background-color:#FFFF99;'+
-							 'left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:'+screenWidth*0.04+'"></div>');
-	    	if (number != 0 &&(number%5==0 || number==1) && number < tune.length)
-	    	{
-	        	$("#measureBoxDisplay-"+number).append('<b><div class="msrBoxLabel" id="msrBoxLabel-'+number+'" style="z-index:0;text-align:center;'+
-	        					   'position:absolute;left:0;top:35%;width:100%;height:35%;background-color:clear">'+number+'</div></b>');
-	        }
-		}
-
+		$("#track").append('<div id="measureBox-'+number+'" class="measureBox" style="cursor:pointer;z-index:0;border-style:solid;'+
+						 'border-width:0 0 1 1;position:absolute;background-color:#FFFF99;'+
+						 'left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:'+screenWidth*0.04+'"></div>');
+    	if (number != 0 &&(number%5==0 || number==1) && number < tune.length)
+    	{
+        	$("#measureBox-"+number).append('<b><div class="msrBoxLabel" id="msrBoxLabel-'+number+'" style="z-index:0;text-align:center;'+
+        					   'position:absolute;left:0;top:35%;width:100%;height:35%;background-color:clear">'+number+'</div></b>');
+        }
 		measureBoxLeft += measureBoxWidth;
 	}
 
 	$(".msrBoxLabel").css("font-size",getFontSize($("#msrBoxLabel-1").height()));
 	/* SET CURRENT MEASURE */
-	$(".measureBoxDisplay").bind(onClickEvent, function(e){
-		measureBoxId = $(this).attr('id');
-		newMeasure = measureBoxId.replace(/measureBoxDisplay-/g, '');
-		setCurrentMeasure(newMeasure);
-		setPositionMarker();
-	});
 	$(".measureBox").bind(onClickEvent, function(e){
 		measureBoxId = $(this).attr('id');
 		newMeasure = measureBoxId.replace(/measureBox-/g, '');
@@ -116,7 +102,8 @@ function drawMarkers()
 	  }
 	});
 
-	$('.marker').bind("mouseup", function(e){
+	$('body').bind("mouseup", function(e){
+		console.log("mouseup");
 		activeMarker = null;
 	});
 
@@ -150,7 +137,6 @@ function setPositionMarker()
 		colorizeMeasures();
 	}
 	measureBoxLeft = Number($("#measureBox-"+currentMeasure).css("left").replace(/px/g, ''));
-	measureBoxTop = Number($("#measureBox-"+currentMeasure).css("top").replace(/px/g, ''));
 	positionMarkerLeft = measureBoxLeft + (position-currentMeasure - 1.5) * measureBoxWidth;
 	$("#positionMarker").css("left", positionMarkerLeft);
 	$("#positionMarker").css("width", measureBoxWidth*3);
