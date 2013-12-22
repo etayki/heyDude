@@ -1,4 +1,3 @@
-var	startMarkerMouseDown = endMarkerMouseDown = currentMarkerMouseDown = 0;
 var markerOffset = activeMarker = null;
 
 function drawMeasureTrack()
@@ -41,8 +40,8 @@ function drawMeasureTrack()
 
 function drawMarkers()
 {
-	/* POSITION MARKER */
-	$("#trackHeader").append('<div id="currentMarker" style="z-index:10;background-color:clear;position:absolute;'+
+	/* CURRENT MARKER */
+	$("#trackHeader").append('<div id="currentMarker" class="marker" style="z-index:10;background-color:clear;position:absolute;'+
 					 'left:'+(measureBoxWidth*2.5)+';top:0%;width:'+(measureBoxWidth*3)+';height:100%"><div>');
 	$("#currentMarker").append('<div id="currentMarkerLabel" style="z-index:1;position:absolute;background-color:green;text-align:center;'+
 								'left:0%;top:0%;width:100%;height:100%">'+startMeasure+'</div>');
@@ -50,58 +49,6 @@ function drawMarkers()
 		                        'left:'+(measureBoxWidth*1.5-1)+';top:105%;width:'+Math.floor(measureBoxWidth*0.3)+';height:'+$("#track").height()+'"></div>');
 
 	$("#currentMarkerLabel").css("font-size",getFontSize($("#currentMarkerLabel").height()));
-
-	$('#currentMarker').bind(startEvent, function(e){
-		e.preventDefault();
-		activeMarker = $(this).attr('id');
-		newMeasure = Math.floor(Number(eval(positionX))/measureBoxWidth)-3;
-		markerOffset = currentMeasure - newMeasure;
-		//console.log("newMeasure="+newMeasure+" markerOffset="+markerOffset);
-	});
-
-	addEvent(document, 'mouseout', function(evt) {
-	  if (evt.toElement == null && evt.relatedTarget == null) {
-	  	activeMarker = null;
-	  }
-	});
-
-	$('body').bind("mouseup", function(e){
-		activeMarker = null;
-	});
-
-	$("body").bind(moveEvent, function(e){
-		e.preventDefault();
-		if (!activeMarker) return;
-		newMeasure = Math.floor(eval(positionX)/measureBoxWidth)-3+markerOffset;
-		if (newMeasure > 0 && newMeasure < tune.length)
-		{
-			if (activeMarker == "currentMarker" && newMeasure != currentMeasure){
-				setCurrentMeasure(newMeasure);
-				setCurrentMarker();
-			}
-		}
-	});
-
-	// $("#currentMarker").mousedown(function() {
-	// 	if (isiPad) return;
-	// 	currentMarkerMouseDown = 1;
-	// 	$(".measureBox").css("display", "");
-	// });
-
-	// $("body").mouseup(function() {
-	// 	currentMarkerMouseDown = 0;
-	// 	$(".measureBox").css("display", "none");
-	// });
-
-	// $(".measureBox").mouseover(function() {
-	// 	if (!currentMarkerMouseDown) return;
-	// 	measureBoxId = $(this).attr('id');
-	// 	newMeasure = measureBoxId.replace(/measureBox-/g, '');
-	// 	if (newMeasure < 1 || newMeasure > tune.length-1) return;
-	// 	setCurrentMeasure(newMeasure);
-	// 	setcurrentMarker();
-	// });
-
 
 	/* START MARKER */
 	$("#track").append('<div id="startMarker" class="marker" style="z-index:10;position:absolute;'+
@@ -149,6 +96,10 @@ function setMarkerEvents()
 		{
 			if (activeMarker == "endMarker" && newMeasure != endMeasure) setEndMeasure(newMeasure);
 			if (activeMarker == "startMarker" && newMeasure != startMeasure) setStartMeasure(newMeasure);
+			if (activeMarker == "currentMarker" && newMeasure != currentMeasure){
+				setCurrentMeasure(newMeasure);
+				setCurrentMarker();
+			}
 		}
 	});
 }
