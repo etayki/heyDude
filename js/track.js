@@ -1,6 +1,5 @@
 var	startMarkerMouseDown = endMarkerMouseDown = positionMarkerMouseDown = 0;
-var startMarkerOffset = endMarkerOffset = positionMarkerOffset = null;
-var startMarkerActive = endMarkerActive = currentMarkerActive = null;
+var markerOffset = activeMarker = null;
 
 function drawMeasureTrack()
 { // 0 0 1 0
@@ -86,7 +85,7 @@ function drawMarkers()
 
 
 	/* START MARKER */
-	$("#track").append('<div id="startMarker" style="z-index:10;position:absolute;'+
+	$("#track").append('<div id="startMarker" class="marker" style="z-index:10;position:absolute;'+
 					   'left:0%;top:0%;width:'+measureBoxWidth*4+';height:100%"><div>');
 	$("#startMarker").append('<img id="startMarkerImg" src="./images/startMarker.png" style="z-index:1;position:absolute;'+
 							 'left:'+(measureBoxWidth*2)+';top:0%;width:'+(measureBoxWidth*2)+';height:100%">');
@@ -94,35 +93,8 @@ function drawMarkers()
 							 'left:0%;top:20%;width:'+(measureBoxWidth*2)+';height:60%;text-align:center;line-height:120%;">1</div>');
 	$("#startMarkerLabel").css("font-size",getFontSize($("#startMarkerLabel").height()));
 
-	$('#startMarker').bind(startEvent, function(e){
-		e.preventDefault();
-		startMarkerActive = 1;
-		newMeasure = Math.floor(Number(eval(positionX))/measureBoxWidth)-3;
-		startMarkerOffset = startMeasure - newMeasure;
-	});
-
-	$('#startMarker').bind("mouseup", function(e){
-		startMarkerActive = null;
-	});
-
-	addEvent(document, 'mouseout', function(evt) {
-	  if (evt.toElement == null && evt.relatedTarget == null) {
-	  	startMarkerActive = null;
-	  	endMarkerActive = null;
-	  	currentMarkerActive = null;
-	  }
-	});
-
-	$(startMarkerElement).bind(moveEvent, function(e){
-		e.preventDefault();
-		if (!startMarkerActive) return;
-		newMeasure = Math.floor(eval(positionX)/measureBoxWidth)-3+startMarkerOffset;
-		if (newMeasure != startMeasure && newMeasure > 0 && newMeasure < tune.length)
-			setStartMeasure(newMeasure);
-	});
-
 	/* END MARKER */
-	$("#track").append('<div id="endMarker" style="z-index:10;position:absolute;'+
+	$("#track").append('<div id="endMarker" class="marker" style="z-index:10;position:absolute;'+
 					   'right:0%;top:0%;width:'+measureBoxWidth*4+';height:100%"><div>');
 	$("#endMarker").append('<img id="endMarkerImg" src="./images/endMarker.png" style="z-index:1;position:absolute;'+
 							 'right:'+(measureBoxWidth*2-1)+';top:0%;width:'+(measureBoxWidth*2)+';height:100%">');
@@ -130,23 +102,33 @@ function drawMarkers()
 							 'right:0%;top:20%;width:'+(measureBoxWidth*2)+';height:60%;text-align:center;line-height:120%;">1</div>');
 	$("#endMarkerLabel").css("font-size",getFontSize($("#endMarkerLabel").height()));
 
-	$('#endMarker').bind(startEvent	, function(e){
+	/* MARKER EVENTS */
+	$('.marker').bind(startEvent, function(e){
 		e.preventDefault();
-		endMarkerActive = 1;
+		activeMarker = $(this).attr('id');
 		newMeasure = Math.floor(Number(eval(positionX))/measureBoxWidth)-3;
-		endMarkerOffset = endMeasure - newMeasure;
+		markerOffset = eval(activeMarker.replace(/Marker/g, 'Measure')) - newMeasure;
 	});
 
-	$('#endMarker').bind("mouseup", function(e){
-		endMarkerActive = null;
+	addEvent(document, 'mouseout', function(evt) {
+	  if (evt.toElement == null && evt.relatedTarget == null) {
+	  	activeMarker = null;
+	  }
+	});
+
+	$('.marker').bind("mouseup", function(e){
+		activeMarker = null;
 	});
 
 	$(endMarkerElement).bind(moveEvent, function(e){
 		e.preventDefault();
-		if (!endMarkerActive) return;
-		newMeasure = Math.floor(eval(positionX)/measureBoxWidth)-3+endMarkerOffset;
+		if (!activeMarker) return;
+		newMeasure = Math.floor(eval(positionX)/measureBoxWidth)-3+markerOffset;
 		if (newMeasure != endMeasure && newMeasure > 0 && newMeasure < tune.length)
-			setEndMeasure(newMeasure);
+		{
+			if (activeMarker == "endMarker") setEndMeasure(newMeasure);
+			if (activeMarker == "startMarker") setStartMeasure(newMeasure);
+		}
 	});
 }
 
