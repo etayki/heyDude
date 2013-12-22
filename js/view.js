@@ -294,13 +294,27 @@ function getFontSize(labelHeight)
 	fontSize = 0;
 
 	do {
-	    fontSize += 2;
+	    fontSize += 1;
 	    $("#textLabel").css('font-size', fontSize);
 	    spanHeight = Number($("#textSpan").css('height').replace(/px/g, ''));
 	    //feedbackTabWidth = Number($("#textSpan").css('width').replace(/px/g, ''));
 	} while (spanHeight < labelHeight)
 	
 	$('#textLabel').remove();
-	console.log("fontSize="+fontSize);// - optimize later
 	return fontSize;
 }
+
+	// var arr = [];
+	// for(scrnWidth = 100; scrnWidth < 1700; scrnWidth+=10)
+	// {
+	// 	$("#track").append('<div id="measureBoxTest" style="cursor:pointer;z-index:0;border-style:solid;'+
+	// 					 'border-width:0 0 1 1;position:absolute;background-color:#FFFF99;'+
+	// 					 'left:0;top:0%;width:'+measureBoxWidth+';height:'+Math.floor(scrnWidth*0.04)+'"></div>');
+
+ //    	$("#measureBoxTest").append('<b><div id="msrBoxLabelTest" style="z-index:5;text-align:center;'+
+ //    					   'position:absolute;left:0;top:35%;width:100%;height:35%;background-color:clear">6</div></b>');
+ //    	//console.log(" screenWidth="+scrnWidth+" height="+$("#msrBoxLabelTest").height()+" fontSize="+getFontSize($("#msrBoxLabelTest").height()));
+ //    	arr[$("#msrBoxLabelTest").height()] = getFontSize($("#msrBoxLabelTest").height());
+ //    	$("#measureBoxTest").remove();
+	// }
+	// console.log(arr);

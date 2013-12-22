@@ -1,3 +1,5 @@
+				   	   // Idx: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24
+var measureBoxLabelFontSize = [0,1,1,1,2,2,3,4,4,6,7, 8,8,8,10,11,12,12,14,15,15,16,16,18,19];
 var markerOffset = activeMarker = null;
 
 function drawMeasureTrack()
@@ -17,16 +19,18 @@ function drawMeasureTrack()
 	{			
 		$("#track").append('<div id="measureBox-'+number+'" class="measureBox" style="cursor:pointer;z-index:0;border-style:solid;'+
 						 'border-width:0 0 1 1;position:absolute;background-color:#FFFF99;'+
-						 'left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:'+screenWidth*0.04+'"></div>');
+						 'left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:'+Math.floor(screenWidth*0.04)+'"></div>');
     	if (number != 0 &&(number%5==0 || number==1) && number < tune.length)
     	{
         	$("#measureBox-"+number).append('<b><div class="msrBoxLabel" id="msrBoxLabel-'+number+'" style="z-index:0;text-align:center;'+
-        					   'position:absolute;left:0;top:35%;width:100%;height:35%;background-color:clear">'+number+'</div></b>');
+        					   'position:absolute;left:0%;top:35%;width:100%;height:35%;background-color:clear">'+number+'</div></b>');
         }
 		measureBoxLeft += measureBoxWidth;
 	}
 
-	$(".msrBoxLabel").css("font-size",getFontSize($("#msrBoxLabel-1").height()));
+
+	$(".msrBoxLabel").css("font-size",measureBoxLabelFontSize[$("#msrBoxLabel-1").height()]);
+
 	/* SET CURRENT MEASURE */
 	$(".measureBox").bind(onClickEvent, function(e){
 		selectedMeasure = Math.floor(Number(eval(positionX))/measureBoxWidth)-3;
