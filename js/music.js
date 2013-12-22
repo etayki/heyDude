@@ -315,7 +315,7 @@ function setEndMeasure(newMeasure)
 	{
 		delay = endDelay - delayPerMeasure;
 		currentMeasure = endMeasure - 1;
-		setPositionMarker();
+		setCurrentMarker();
 		resetNotes();
 		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
 			playMusic();
