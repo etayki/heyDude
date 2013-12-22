@@ -96,11 +96,9 @@ function drawMarkers()
 	$('#startMarker').bind(startEvent, function(e){
 		startMarkerActive = 1;
 		e.preventDefault();
-		if (isiPad)
-			newMeasure = Math.floor(event.touches[0].pageX/measureBoxWidth)-3;
-		else
-			newMeasure = Math.floor(e.pageX/measureBoxWidth)-3;
+		newMeasure = Math.floor(Number(eval(positionX))/measureBoxWidth)-3;
 		startMarkerOffset = startMeasure - newMeasure;
+		//console.log("eval(positionX)="+eval(positionX)+" startMarkerOffset="+startMarkerOffset);
 	});
 
 	$('#startMarker').bind("mouseup", function(e){
@@ -110,12 +108,7 @@ function drawMarkers()
 	$(startMarkerElement).bind(moveEvent, function(e){
 		e.preventDefault();
 		if (!startMarkerActive) return;
-		if (isiPad)
-			newMeasure = Math.floor(event.touches[0].pageX/measureBoxWidth)-3+startMarkerOffset;
-		else
-			newMeasure = Math.floor(e.pageX/measureBoxWidth)-3+startMarkerOffset;
-		//console.log("x= "+e.pageX+" measure="+newMeasure+ " startMarkerOffset="+startMarkerOffset);
-		//console.log("x= "+event.touches[0].pageX+" measure="+newMeasure+ " startMarkerOffset="+startMarkerOffset);
+		newMeasure = Math.floor(eval(positionX)/measureBoxWidth)-3+startMarkerOffset;
 		if (newMeasure != startMeasure && newMeasure > 0 && newMeasure < tune.length && startMarkerActive)
 			setStartMeasure(newMeasure);
 	});
