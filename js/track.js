@@ -50,7 +50,7 @@ function drawMeasureTrack()
 		setPositionMarker();
 	});
 }
-
+startMarkerActive = null;
 function drawMarkers()
 {
 	/* POSITION MARKER */
@@ -117,7 +117,7 @@ function drawMarkers()
 			newMeasure = Math.floor(event.touches[0].pageX/measureBoxWidth)-3+startMarkerOffset;
 		else
 			newMeasure = Math.floor(e.pageX/measureBoxWidth)-3+startMarkerOffset;
-		console.log("x= "+e.pageX+" measure="+newMeasure+ " startMarkerOffset="+startMarkerOffset);
+		//console.log("x= "+e.pageX+" measure="+newMeasure+ " startMarkerOffset="+startMarkerOffset);
 		//console.log("x= "+event.touches[0].pageX+" measure="+newMeasure+ " startMarkerOffset="+startMarkerOffset);
 		if (newMeasure != startMeasure && newMeasure > 0 && newMeasure < tune.length && startMarkerActive)
 			setStartMeasure(newMeasure);
