@@ -70,7 +70,7 @@ function drawMarkers()
 							 'right:'+(measureBoxWidth*2-1)+';top:0%;width:'+(measureBoxWidth*2)+';height:100%">');
 	$("#endMarker").append('<div id="endMarkerLabel" style="z-index:10;position:absolute;background-color:red;'+
 							 'right:0%;top:20%;width:'+(measureBoxWidth*2)+';height:60%;text-align:center;line-height:120%;">1</div>');
-	$("#trackHeader").append('<div id="startMarkerInfoLabel" class="markerInfoLabel" style="cursor:pointer;z-index:10;background-color:clear;position:absolute;'+
+	$("#trackHeader").append('<div id="startMarkerInfoLabel" class="markerInfoLabel" style="cursor:pointer;z-index:0;background-color:clear;position:absolute;'+
 					 'color:white;text-align:right;right:0.2%;top:20%;width:'+(measureBoxWidth*6)+';height:60%">Drag to End<div>');
 
 	$(".marker").css("font-size",getFontSize($("#endMarkerLabel").height()));
