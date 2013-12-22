@@ -74,6 +74,7 @@ function drawMarkers()
 					 'color:white;text-align:right;right:0.2%;top:20%;width:'+(measureBoxWidth*6)+';height:60%">Drag to End<div>');
 
 	$(".marker").css("font-size",getFontSize($("#endMarkerLabel").height()));
+	$(".markerInfoLabel").css("font-size",getFontSize($("#startMarkerInfoLabel").height())-2);
 
 }
 

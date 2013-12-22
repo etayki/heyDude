@@ -18,8 +18,8 @@ function drawScreen()
 	console.log("setMarkerEvents: " + (new Date().getTime() - startTime));
 	setMarkerEvents();
 	console.log("drawControls: " + (new Date().getTime() - startTime));
-	// drawControls();
-	// console.log("drawTransposition: " + (new Date().getTime() - startTime));
+	//drawControls();
+	console.log("drawTransposition: " + (new Date().getTime() - startTime));
 	// if (isiPad)
 	// //if (1)
 	// {
