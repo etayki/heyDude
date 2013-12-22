@@ -29,11 +29,13 @@ function drawMeasureTrack()
 
 	$(".msrBoxLabel").css("font-size",getFontSize($("#msrBoxLabel-1").height()));
 	/* SET CURRENT MEASURE */
-	$(".measureBox").bind(onClickEvent, function(e){
-		measureBoxId = $(this).attr('id');
-		newMeasure = measureBoxId.replace(/measureBox-/g, '');
-		setCurrentMeasure(newMeasure);
-		setPositionMarker();
+	$("#track").bind(onClickEvent, function(e){
+		selectedMeasure = Math.floor(Number(eval(positionX))/measureBoxWidth)-3;
+		if (selectedMeasure > 0 && selectedMeasure < tune.length)
+		{
+			setCurrentMeasure(selectedMeasure);
+			setPositionMarker();
+		}
 	});
 }
 
