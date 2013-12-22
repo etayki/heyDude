@@ -120,7 +120,7 @@ function drawMarkers()
 		activeMarker = null;
 	});
 
-	$(endMarkerElement).bind(moveEvent, function(e){
+	$(markerElement).bind(moveEvent, function(e){
 		e.preventDefault();
 		if (!activeMarker) return;
 		newMeasure = Math.floor(eval(positionX)/measureBoxWidth)-3+markerOffset;

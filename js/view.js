@@ -57,21 +57,17 @@ function setEvents()
    	clickEvent = "onclick";
 	startEvent = "mousedown";
 	moveEvent = "mousemove";
-	startMarkerElement = "body";
-	endMarkerElement = "body";
+	markerElement = "body";
 	positionX = "e.pageX";
     if(isiPad || isiPhone)
     {
 		clickEvent = "ontouchstart";
 		startEvent = "touchstart";
 		moveEvent = "touchmove";
-		startMarkerElement = "#startMarker";
-		endMarkerElement = "#endMarker";
+		startMarkerElement = ".marker";
 		positionX = "event.touches[0].pageX";
 	}
 	onClickEvent = clickEvent.replace("on","");
-
-
 
 	$('img').on('dragstart', function(event) { event.preventDefault(); });
 
