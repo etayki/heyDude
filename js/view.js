@@ -1,5 +1,5 @@
 var browser;
-var clickEvent;
+var clickEvent, startEvent, moveEvent;
 var startTime;
 var topOffset = 0;
 
@@ -50,6 +50,74 @@ function getDeviceSettings()
 	isiPhone = navigator.userAgent.match(/iPhone/i) != null;
 	if(isiPhone || isiPad)
 		screenWidth = 981;
+}
+
+function setEvents()
+{
+   	clickEvent = "onclick";
+	startEvent = "mousedown";
+	moveEvent = "mousemove";
+    if(userAgent.indexOf("iPad") !== -1 && userAgent.indexOf("iPhone") !== -1)
+    {
+		clickEvent = "ontouchstart";
+		startEvent = "touchstart";
+		moveEvent = "touchmove";
+	}
+	onClickEvent = clickEvent.replace("on","");
+
+
+
+	$('img').on('dragstart', function(event) { event.preventDefault(); });
+
+ 	// iPad
+ 	document.body.addEventListener('touchmove',function(e){
+	      //e.preventDefault();
+	  });
+
+ 	// var tagList=[".measureBox","#playBtn","#metronome","#rightHand","#leftHand","#infoButton","#startMarker",
+ 	//              "#startMarker","#notesButton","#header","#logo","#composerPic","#tuneLabel",
+ 	//              "#artistLabel","#bar","#positionMarker","#startMarkerInfoLabel","#endMarkerInfoLabel",
+ 	//              "#leftHand","#rightHand","#leftHandLabel","#rightHandLabel","#infoButton","#handInfoPopup","#metronome",
+ 	//              "#fullScreenButton","#feedbackButton","#draggerTransTrack",".transpositionBox","#draggerTrack","#dragger",
+ 	//              "#keyboardBgrd", ".key", "#controlsBackground", "#divider1", "#divider2", "#divider3", "#divider4"];
+
+ 	// Disable double tap zoom
+	doubleTouchStartTimestamp = 0;
+	$("body").bind("touchstart", function (e) {
+	    var now = +(new Date());
+	    if (doubleTouchStartTimestamp + 500 > now) {
+	        event.preventDefault();
+	    }
+	    doubleTouchStartTimestamp = now;
+	});
+
+	// PC
+
+	$("body").mouseup(function() {
+		draggerMouseDown = 0;
+	});	
+
+	keyPressTimer = 0;
+	/* KEY TAP */
+	$(".key").bind(onClickEvent, function (e) {
+		/* RELEASE PREVIOUS NOTE */
+		clearTimeout(keyPressTimer);
+		resetNote(notePress);
+
+		/* TURN ON NOTE */
+		keyPress = ($(this).attr('id')).replace(new RegExp('key-','g'),'');
+		notePress = Number(keyPress) + 21;
+		//console.log(notePress);
+		MIDI.noteOn(0,notePress,90,0);
+		MIDI.noteOff(0,notePress,0.4);
+		$("#key-"+keyPress).css("background-color","yellow");
+		console.log("keyPress="+keyPress);
+
+		keyPressTimer = setTimeout(function() {
+			resetNote(notePress);
+		}, 300);
+
+	  });
 }
 
 function drawHeader()
@@ -121,71 +189,6 @@ function drawPiano(startKey, endKey)
  	$(".blackKeyLabel").css("font-size", getFontSize($("#keyLabel-"+1).height())+"px");
  	$(".blackKeyNoteLabel").css("font-size", getFontSize($("#keyNoteLabel-"+1).height())+"px");
 	$('.keyNoteLabel').css("display","none");
-}
-
-function setEvents()
-{
-   	clickEvent = "onclick";
-    if(userAgent.indexOf("iPad") !== -1)
-    {
-		clickEvent = "ontouchstart";
-	}
-	else if(userAgent.indexOf("iPhone") !== -1)
-	{
-		clickEvent = "ontouchstart";
-	}
-	onClickEvent = clickEvent.replace("on","");
-	$('img').on('dragstart', function(event) { event.preventDefault(); });
-
- 	// iPad
- 	document.body.addEventListener('touchmove',function(e){
-	      //e.preventDefault();
-	  });
-
- 	// var tagList=[".measureBox","#playBtn","#metronome","#rightHand","#leftHand","#infoButton","#startMarker",
- 	//              "#startMarker","#notesButton","#header","#logo","#composerPic","#tuneLabel",
- 	//              "#artistLabel","#bar","#positionMarker","#startMarkerInfoLabel","#endMarkerInfoLabel",
- 	//              "#leftHand","#rightHand","#leftHandLabel","#rightHandLabel","#infoButton","#handInfoPopup","#metronome",
- 	//              "#fullScreenButton","#feedbackButton","#draggerTransTrack",".transpositionBox","#draggerTrack","#dragger",
- 	//              "#keyboardBgrd", ".key", "#controlsBackground", "#divider1", "#divider2", "#divider3", "#divider4"];
-
- 	// Disable double tap zoom
-	doubleTouchStartTimestamp = 0;
-	$("body").bind("touchstart", function (e) {
-	    var now = +(new Date());
-	    if (doubleTouchStartTimestamp + 500 > now) {
-	        event.preventDefault();
-	    }
-	    doubleTouchStartTimestamp = now;
-	});
-
-	// PC
-
-	$("body").mouseup(function() {
-		draggerMouseDown = 0;
-	});	
-
-	keyPressTimer = 0;
-	/* KEY TAP */
-	$(".key").bind(onClickEvent, function (e) {
-		/* RELEASE PREVIOUS NOTE */
-		clearTimeout(keyPressTimer);
-		resetNote(notePress);
-
-		/* TURN ON NOTE */
-		keyPress = ($(this).attr('id')).replace(new RegExp('key-','g'),'');
-		notePress = Number(keyPress) + 21;
-		//console.log(notePress);
-		MIDI.noteOn(0,notePress,90,0);
-		MIDI.noteOff(0,notePress,0.4);
-		$("#key-"+keyPress).css("background-color","yellow");
-		console.log("keyPress="+keyPress);
-
-		keyPressTimer = setTimeout(function() {
-			resetNote(notePress);
-		}, 300);
-
-	  });
 }
 
 function colorizeMeasures()

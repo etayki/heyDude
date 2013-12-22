@@ -93,6 +93,36 @@ function drawMarkers()
 							 'left:0%;top:20%;width:'+(measureBoxWidth*2)+';height:60%;text-align:center;line-height:120%;">1</div>');
 	$("#startMarkerLabel").css("font-size",getFontSize($("#startMarkerLabel").height()));
 
+	$('#startMarker').bind(startEvent, function(e){
+		startMarkerActive = 1;
+		e.preventDefault();
+		if (isiPad)
+			newMeasure = Math.floor(event.touches[0].pageX/measureBoxWidth)-3;
+		else
+			newMeasure = Math.floor(e.pageX/measureBoxWidth)-3;
+		startMarkerOffset = startMeasure - newMeasure;
+		console.log("x= "+e.pageX+" newMeasure="+newMeasure);
+		//console.log("x= "+event.touches[0].pageX+" newMasure="+newMeasure+" currentMeasure="+currentMeasure+" startMarkerOffset="+startMarkerOffset);
+
+	});
+
+	$('#startMarker').bind("mouseup", function(e){
+		startMarkerActive = null;
+	});
+
+	$('body').bind(moveEvent, function(e){
+		e.preventDefault();
+		if (!startMarkerActive) return;
+		if (isiPad)
+			newMeasure = Math.floor(event.touches[0].pageX/measureBoxWidth)-3+startMarkerOffset;
+		else
+			newMeasure = Math.floor(e.pageX/measureBoxWidth)-3+startMarkerOffset;
+		console.log("x= "+e.pageX+" measure="+newMeasure+ " startMarkerOffset="+startMarkerOffset);
+		//console.log("x= "+event.touches[0].pageX+" measure="+newMeasure+ " startMarkerOffset="+startMarkerOffset);
+		if (newMeasure != startMeasure && newMeasure > 0 && newMeasure < tune.length && startMarkerActive)
+			setStartMeasure(newMeasure);
+	});
+
 	// $("#startMarker").mousedown(function() {
 	// 	if (isiPad) return;
 	// 	startMarkerMouseDown = 1;
@@ -155,47 +185,8 @@ function drawMarkers()
 	// });
 
 	// Don't allow to save image
-	$('#startMarker').bind('touchstart', function(e){
-		e.preventDefault();
-		newMeasure = Math.floor(event.touches[0].pageX/measureBoxWidth)-3;
-		startMarkerOffset = startMeasure - newMeasure;
-		console.log("x= "+event.touches[0].pageX+" y= "+event.touches[0].pageY+" newMasure="+newMeasure+" currentMeasure="+currentMeasure+" startMarkerOffset="+startMarkerOffset);
 
-	});
 
-	$('#startMarker').bind('touchmove', function(e){
-		e.preventDefault();
-		newMeasure = Math.floor(event.touches[0].pageX/measureBoxWidth)-3+startMarkerOffset;
-		console.log("x= "+event.touches[0].pageX+" y= "+event.touches[0].pageY+" measure="+newMeasure+ " startMarkerOffset="+startMarkerOffset);
-		if (newMeasure != startMeasure && newMeasure > 0 && newMeasure < tune.length)
-			setStartMeasure(newMeasure);//+startMarkerOffset);
-	});
-
-	// $('#endMarker').bind('touchend', function(e){
-	// 	e.preventDefault();
-	// });
-
-	// $('#endMarker').bind('touchmove', function(e){
-	// 	e.preventDefault();
-	// 	for (number = 1; number <= maxBoxes; number++)
-	// 	{
-	// 		measureBoxLeft = Number($("#measureBox-"+number).css('left').replace(/px/g, ''));
-	// 		measureBoxTop = Number($("#measureBox-"+number).css('top').replace(/px/g, ''));
-	// 		measureBoxWidth = Number($("#measureBox-"+number).css('width').replace(/px/g, ''));
-	// 		//debug (number + " " + event.touches[0].pageY + ">" + (measureBoxTop + measureBoxWidth));
-	// 		if (event.touches[0].pageX > measureBoxLeft &&
-	// 			event.touches[0].pageX < (measureBoxLeft + measureBoxWidth) &&
-	// 			event.touches[0].pageY > measureBoxTop && 
-	// 			event.touches[0].pageY < (measureBoxTop + measureBoxWidth))
-	// 		{
-	// 			if (number != endMeasure)
-	// 			{				
-	// 				//debug(number);
-	// 				setEndMeasure(number);
-	// 			}
-	// 		}
-	// 	}
-	// });
 }
 
 function setPositionMarker()
