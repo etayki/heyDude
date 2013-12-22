@@ -58,6 +58,7 @@ function setEvents()
 	startEvent = "mousedown";
 	moveEvent = "mousemove";
 	startMarkerElement = "body";
+	endMarkerElement = "body";
 	positionX = "e.pageX";
     if(isiPad || isiPhone)
     {
@@ -65,6 +66,7 @@ function setEvents()
 		startEvent = "touchstart";
 		moveEvent = "touchmove";
 		startMarkerElement = "#startMarker";
+		endMarkerElement = "#endMarker";
 		positionX = "event.touches[0].pageX";
 	}
 	onClickEvent = clickEvent.replace("on","");

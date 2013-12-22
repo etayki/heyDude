@@ -1,5 +1,5 @@
 var	startMarkerMouseDown = endMarkerMouseDown = positionMarkerMouseDown = 0;
-var startMarkerOffset = endMarkerOffset = positionMarkerOffset = null;
+var startMarkerOffset = endMarkerOffset = positionMarkerOffset = startMarkerActive = endMarkerActive = null;
 
 function drawMeasureTrack()
 { // 0 0 1 0
@@ -50,7 +50,7 @@ function drawMeasureTrack()
 		setPositionMarker();
 	});
 }
-startMarkerActive = null;
+
 function drawMarkers()
 {
 	/* POSITION MARKER */
@@ -94,11 +94,10 @@ function drawMarkers()
 	$("#startMarkerLabel").css("font-size",getFontSize($("#startMarkerLabel").height()));
 
 	$('#startMarker').bind(startEvent, function(e){
-		startMarkerActive = 1;
 		e.preventDefault();
+		startMarkerActive = 1;
 		newMeasure = Math.floor(Number(eval(positionX))/measureBoxWidth)-3;
 		startMarkerOffset = startMeasure - newMeasure;
-		//console.log("eval(positionX)="+eval(positionX)+" startMarkerOffset="+startMarkerOffset);
 	});
 
 	$('#startMarker').bind("mouseup", function(e){
@@ -113,32 +112,6 @@ function drawMarkers()
 			setStartMeasure(newMeasure);
 	});
 
-	// $("#startMarker").mousedown(function() {
-	// 	if (isiPad) return;
-	// 	startMarkerMouseDown = 1;
-	// 	$(".measureBox").css("display", "");
-	// });
-
-	// $("body").mouseup(function() {
-	// 	startMarkerMouseDown = 0;
-	// 	startMarkerOffset = null;
-	// });
-
-	// $(".measureBox").mouseover(function() {
-	// 	if (!startMarkerMouseDown) return;
-	// 	measureBoxId = $(this).attr('id');
-	// 	newMeasure = Number(measureBoxId.replace(/measureBox-/g, ''));
-
-	// 	if (!startMarkerOffset && startMarkerMouseDown)
-	// 		startMarkerOffset = startMeasure - newMeasure;
-
-	// 	newMeasure += startMarkerOffset;
-	// 	if (startMarkerMouseDown && newMeasure != startMeasure && newMeasure>0 && newMeasure < tune.length)
-	// 	{
-	// 		setStartMeasure(newMeasure);
-	// 	}
-	// });
-
 	/* END MARKER */
 	$("#track").append('<div id="endMarker" style="z-index:10;position:absolute;'+
 					   'right:0%;top:0%;width:'+measureBoxWidth*4+';height:100%"><div>');
@@ -148,35 +121,24 @@ function drawMarkers()
 							 'right:0%;top:20%;width:'+(measureBoxWidth*2)+';height:60%;text-align:center;line-height:120%;">1</div>');
 	$("#endMarkerLabel").css("font-size",getFontSize($("#endMarkerLabel").height()));
 
-	// $("#endMarker").mousedown(function() {
-	// 	if (isiPad) return;
-	// 	endMarkerMouseDown = 1;
-	// 	$(".measureBox").css("display", "");
-	// });
+	$('#endMarker').bind(startEvent	, function(e){
+		e.preventDefault();
+		endMarkerActive = 1;
+		newMeasure = Math.floor(Number(eval(positionX))/measureBoxWidth)-3;
+		endMarkerOffset = endMeasure - newMeasure;
+	});
 
-	// $("body").mouseup(function() {
-	// 	endMarkerMouseDown = 0;
-	// 	endMarkerOffset = null;
-	// });
+	$('#endMarker').bind("mouseup", function(e){
+		endMarkerActive = null;
+	});
 
-	// $(".measureBox").mouseover(function() {
-	// 	if (!endMarkerMouseDown) return;
-	// 	measureBoxId = $(this).attr('id');
-	// 	newMeasure = Number(measureBoxId.replace(/measureBox-/g, ''));
-
-	// 	if (!endMarkerOffset && endMarkerMouseDown)
-	// 		endMarkerOffset = endMeasure - newMeasure;
-
-	// 	newMeasure += endMarkerOffset;
-	// 	if (endMarkerMouseDown && newMeasure != endMeasure && newMeasure>0 && newMeasure < tune.length)
-	// 	{
-	// 		setEndMeasure(newMeasure);
-	// 	}
-	// });
-
-	// Don't allow to save image
-
-
+	$(endMarkerElement).bind(moveEvent, function(e){
+		e.preventDefault();
+		if (!endMarkerActive) return;
+		newMeasure = Math.floor(eval(positionX)/measureBoxWidth)-3+endMarkerOffset;
+		if (newMeasure != endMeasure && newMeasure > 0 && newMeasure < tune.length && endMarkerActive)
+			setEndMeasure(newMeasure);
+	});
 }
 
 function setPositionMarker()
