@@ -292,7 +292,7 @@ function setStartMeasure(newMeasure)
 	if (startDelay > delay)
 	{
 		delay = startDelay;
-		setPositionMarker();
+		setCurrentMarker();
 		resetNotes();
 		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
 			playMusic();

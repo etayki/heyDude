@@ -48,7 +48,7 @@ function drawMarkers()
 	$("#currentMarker").append('<div id="currentMarkerLine" style="z-index:1;position:absolute;background-color:green;'+
 		                        'left:'+(measureBoxWidth*1.5-1)+';top:105%;width:'+Math.floor(measureBoxWidth*0.3)+';height:'+$("#track").height()+'"></div>');
 
-	$("#currentMarkerLabel").css("font-size",getFontSize($("#currentMarkerLabel").height()));
+	//$("#currentMarkerLabel").css("font-size",getFontSize($("#currentMarkerLabel").height()));
 
 	/* START MARKER */
 	$("#track").append('<div id="startMarker" class="marker" style="z-index:10;position:absolute;'+
@@ -57,7 +57,7 @@ function drawMarkers()
 							 'left:'+(measureBoxWidth*2)+';top:0%;width:'+(measureBoxWidth*2)+';height:100%">');
 	$("#startMarker").append('<div id="startMarkerLabel" style="z-index:10;position:absolute;background-color:green;'+
 							 'left:0%;top:20%;width:'+(measureBoxWidth*2)+';height:60%;text-align:center;line-height:120%;">1</div>');
-	$("#startMarkerLabel").css("font-size",getFontSize($("#startMarkerLabel").height()));
+	//$("#startMarkerLabel").css("font-size",getFontSize($("#startMarkerLabel").height()));
 
 	/* END MARKER */
 	$("#track").append('<div id="endMarker" class="marker" style="z-index:10;position:absolute;'+
@@ -66,7 +66,7 @@ function drawMarkers()
 							 'right:'+(measureBoxWidth*2-1)+';top:0%;width:'+(measureBoxWidth*2)+';height:100%">');
 	$("#endMarker").append('<div id="endMarkerLabel" style="z-index:10;position:absolute;background-color:red;'+
 							 'right:0%;top:20%;width:'+(measureBoxWidth*2)+';height:60%;text-align:center;line-height:120%;">1</div>');
-	$("#endMarkerLabel").css("font-size",getFontSize($("#endMarkerLabel").height()));
+	$(".marker").css("font-size",getFontSize($("#endMarkerLabel").height()));
 }
 
 function setMarkerEvents()

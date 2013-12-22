@@ -297,10 +297,10 @@ function getFontSize(labelHeight)
 	    fontSize += 2;
 	    $("#textLabel").css('font-size', fontSize);
 	    spanHeight = Number($("#textSpan").css('height').replace(/px/g, ''));
-	    feedbackTabWidth = Number($("#textSpan").css('width').replace(/px/g, ''));
+	    //feedbackTabWidth = Number($("#textSpan").css('width').replace(/px/g, ''));
 	} while (spanHeight < labelHeight)
 	
 	$('#textLabel').remove();
-	//console.log("fontSize="+fontSize); - optimize later
+	console.log("fontSize="+fontSize);// - optimize later
 	return fontSize;
 }
