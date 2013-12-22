@@ -111,12 +111,6 @@ function drawMarkers()
 	  }
 	});
 
-  //   document.onmouseout = function(e) {
-		// console.log("Mouse Left");
-		// e.stopPropagation();
-  //   	startMarkerActive = null;
-  //   }
-
 	$(startMarkerElement).bind(moveEvent, function(e){
 		e.preventDefault();
 		if (!startMarkerActive) return;
@@ -155,12 +149,7 @@ function drawMarkers()
 }
 
 function addEvent(obj, evt, fn) {
-    if (obj.addEventListener) {
-        obj.addEventListener(evt, fn, false);
-    }
-    else if (obj.attachEvent) {
-        obj.attachEvent("on" + evt, fn);
-    }
+    obj.addEventListener(evt, fn, false);
 }
 
 function setPositionMarker()
