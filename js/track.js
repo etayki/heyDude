@@ -9,11 +9,16 @@ function drawMeasureTrack()
 	$("body").append('<div id="track" style="position:absolute;left:0%;top:'+topOffset+';width:'+screenWidth+';height:'+screenWidth*0.04+';background-color:#919191;'+
 	 				 'border-style:solid;border-width:1 0 1 0"></div>');
 
+
 	/* MEASURE BOX */
 	measureBoxWidth = screenWidth/(tune.length+7); // 8 more boxes than measures to give room for markers
 	measureBoxLeft = measureBoxWidth*4;
 	measureBoxTop = topOffset;
 
+	$("body").append('<div id="track2" style="position:absolute;left:'+measureBoxLeft+';top:172;width:'+screenWidth+';height:'+screenWidth*0.04+';background-color:green;'+
+	 				 'border-style:solid;border-width:0 0 1 0;background-image: url(./images/lineBackground.png);'+
+	 				 'background-size:17px 60px;"></div>');
+//'+(measureBoxWidth*1.02268)+' //clip:rect(0px,'+(tune.length*(measureBoxWidth+1))+',200,0);
 	/* MEASURE TRACK */
 	for (number = 1; number < tune.length; number++)
 	{			
