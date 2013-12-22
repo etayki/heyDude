@@ -29,7 +29,7 @@ function drawMeasureTrack()
 
 	$(".msrBoxLabel").css("font-size",getFontSize($("#msrBoxLabel-1").height()));
 	/* SET CURRENT MEASURE */
-	$("#track").bind(onClickEvent, function(e){
+	$(".measureBox").bind(onClickEvent, function(e){
 		selectedMeasure = Math.floor(Number(eval(positionX))/measureBoxWidth)-3;
 		if (selectedMeasure > 0 && selectedMeasure < tune.length)
 		{
