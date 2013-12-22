@@ -103,7 +103,6 @@ function drawMarkers()
 	});
 
 	$('body').bind("mouseup", function(e){
-		console.log("mouseup");
 		activeMarker = null;
 	});
 
