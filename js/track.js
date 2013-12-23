@@ -35,16 +35,11 @@ function drawMeasureTrack()
 	console.log("canvas start: " + (new Date().getTime() - startTime));
 
 	var canvas = $('<canvas/>').attr({width:screenWidth,height:screenWidth*0.04}).appendTo('#track');
-
 	var context = canvas.get(0).getContext("2d");
 	context.translate(measureBoxWidth*4, 0);
-    for (var x = 0; x < tune.length; x++) {
-        context.moveTo(x*(measureBoxWidth)+0.5, 0);
-        context.lineTo(x*(measureBoxWidth)+0.5, screenWidth*0.04);
-    }
-
-    context.strokeStyle = "black";
-    context.stroke();
+	context.fillStyle="black";
+    for (var x = 0; x < tune.length; x++)
+		context.fillRect(x*(measureBoxWidth)+0.5,0,1,screenWidth*0.04);
 
 	console.log("canvas end: " + (new Date().getTime() - startTime));
 
