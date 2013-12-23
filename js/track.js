@@ -15,9 +15,12 @@ function drawMeasureTrack()
 	measureBoxLeft = measureBoxWidth*4;
 	measureBoxTop = topOffset;
 
-	$("body").append('<div id="track2" style="position:absolute;left:'+measureBoxLeft+';top:172;width:'+screenWidth+';height:'+screenWidth*0.04+';background-color:green;'+
-	 				 'border-style:solid;border-width:0 0 1 0;background-image: url(./images/lineBackground.png);'+
-	 				 'background-size:17px 60px;"></div>');
+	// $("body").append('<div id="track2" style="position:absolute;left:'+(measureBoxLeft-3)+';top:172;width:'+screenWidth+';height:'+screenWidth*0.04+';background-color:green;'+
+	//  				 'border-style:solid;border-width:0 0 1 0;background-image: url(./images/lineBackground.png);'+
+	//  				 'background-size:17px 60px;"></div>');
+	$("body").append('<div id="track2" style="position:absolute;left:'+(measureBoxLeft-3)+';top:172;width:'+screenWidth+';height:'+screenWidth*0.04+';background-color:green;'+
+	 				 'border-style:solid;border-width:0 0 1 0;background-image: url(./images/lineBackground1.png);'+
+	 				 'background-repeat: space;background-repeat: round; "></div>');
 //'+(measureBoxWidth*1.02268)+' //clip:rect(0px,'+(tune.length*(measureBoxWidth+1))+',200,0);
 	/* MEASURE TRACK */
 	for (number = 1; number < tune.length; number++)
