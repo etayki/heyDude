@@ -39,11 +39,18 @@ function drawMeasureTrack()
 	context.translate(measureBoxWidth*4, 0);
 	context.fillStyle="black";
     for (var msr = 0; msr < tune.length; msr++)
+    {
 		context.fillRect(msr*(measureBoxWidth)+0.5,0,1,screenWidth*0.04);
+		if (msr != 0 &&(msr%5==0 || msr==1) && msr < tune.length)
+		{
+		   	$("#track").append('<b><div class="msrBoxLabel" id="msrBoxLabel-'+msr+'" style="z-index:0;text-align:center;'+
+		   					   'position:absolute;left:'+((msr+3)*measureBoxWidth+1)+';top:35%;width:'+measureBoxWidth+';height:35%;background-color:clear">'+msr+'</div></b>');
+	   	}
+	}
 
 	console.log("canvas end: " + (new Date().getTime() - startTime));
 
-	$(".msrBoxLabel").css("font-size",measureBoxLabelFontSize[$("#msrBoxLabel-1").height()]);
+	$(".msrBoxLabel").css("font-size",measureBoxLabelFontSize[$("#msrBoxLabel-5").height()]);
 
 	/* SET CURRENT MEASURE */
 	$("#track").bind(onClickEvent, function(e){
