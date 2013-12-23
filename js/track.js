@@ -15,19 +15,38 @@ function drawMeasureTrack()
 	measureBoxTop = topOffset;
 
 	/* MEASURE TRACK */
-	for (number = 1; number < tune.length; number++)
-	{			
-		$("#track").append('<div id="measureBox-'+number+'" class="measureBox" style="cursor:pointer;z-index:0;border-style:solid;'+
-						 'border-width:0 0 1 1;position:absolute;background-color:#FFFF99;'+
-						 'left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:'+Math.floor(screenWidth*0.04)+'"></div>');
-    	if (number != 0 &&(number%5==0 || number==1) && number < tune.length)
-    	{
-        	$("#measureBox-"+number).append('<b><div class="msrBoxLabel" id="msrBoxLabel-'+number+'" style="z-index:0;text-align:center;'+
-        					   'position:absolute;left:0%;top:35%;width:100%;height:35%;background-color:clear">'+number+'</div></b>');
-        }
-		measureBoxLeft += measureBoxWidth;
-	}
+	// console.log("track start: " + (new Date().getTime() - startTime));
 
+	// for (number = 1; number < tune.length; number++)
+	// {			
+	// 	$("#track").append('<div id="measureBox-'+number+'" class="measureBox" style="cursor:pointer;z-index:0;border-style:solid;'+
+	// 					 'border-width:0 0 1 1;position:absolute;background-color:#FFFF99;'+
+	// 					 'left:'+measureBoxLeft+';top:0%;width:'+measureBoxWidth+';height:'+Math.floor(screenWidth*0.04)+'"></div>');
+ //    	if (number != 0 &&(number%5==0 || number==1) && number < tune.length)
+ //    	{
+ //        	$("#measureBox-"+number).append('<b><div class="msrBoxLabel" id="msrBoxLabel-'+number+'" style="z-index:0;text-align:center;'+
+ //        					   'position:absolute;left:0%;top:35%;width:100%;height:35%;background-color:clear">'+number+'</div></b>');
+ //        }
+	// 	measureBoxLeft += measureBoxWidth;
+	// }
+	// console.log("track end: " + (new Date().getTime() - startTime));
+
+	//grid width and height
+	console.log("canvas start: " + (new Date().getTime() - startTime));
+
+	var canvas = $('<canvas/>').attr({width:screenWidth,height:screenWidth*0.04}).appendTo('#track');
+
+	var context = canvas.get(0).getContext("2d");
+	context.translate(measureBoxWidth*4, 0);
+    for (var x = 0; x < tune.length; x++) {
+        context.moveTo(x*(measureBoxWidth)+0.5, 0);
+        context.lineTo(x*(measureBoxWidth)+0.5, screenWidth*0.04);
+    }
+
+    context.strokeStyle = "black";
+    context.stroke();
+
+	console.log("canvas end: " + (new Date().getTime() - startTime));
 
 	$(".msrBoxLabel").css("font-size",measureBoxLabelFontSize[$("#msrBoxLabel-1").height()]);
 
@@ -50,7 +69,7 @@ function drawMarkers()
 	$("#currentMarker").append('<div id="currentMarkerLabel" style="z-index:1;position:absolute;background-color:green;text-align:center;'+
 								'left:0%;top:0%;width:100%;height:100%">'+startMeasure+'</div>');
 	$("#currentMarker").append('<div id="currentMarkerLine" style="z-index:1;position:absolute;background-color:green;'+
-		                        'left:'+(measureBoxWidth*1.5-1)+';top:105%;width:'+Math.floor(measureBoxWidth*0.3)+';height:'+$("#track").height()+'"></div>');
+		                        'left:'+(measureBoxWidth*1.5-1)+';top:102%;width:'+Math.floor(measureBoxWidth*0.3)+';height:'+($("#track").height()+1)+'"></div>');
 
 	//$("#currentMarkerLabel").css("font-size",getFontSize($("#currentMarkerLabel").height()));
 
@@ -60,7 +79,7 @@ function drawMarkers()
 	$("#startMarker").append('<img id="startMarkerImg" src="./images/startMarker.png" style="z-index:1;position:absolute;'+
 							 'left:'+(measureBoxWidth*2)+';top:0%;width:'+(measureBoxWidth*2)+';height:100%">');
 	$("#startMarker").append('<div id="startMarkerLabel" style="z-index:10;position:absolute;background-color:green;'+
-							 'left:0%;top:20%;width:'+(measureBoxWidth*2)+';height:60%;text-align:center;line-height:120%;">1</div>');
+							 'left:1%;top:20%;width:'+(measureBoxWidth*2)+';height:60%;text-align:center;line-height:120%;">1</div>');
 
 
 	/* END MARKER */
