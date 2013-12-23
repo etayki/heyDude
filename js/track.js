@@ -38,15 +38,15 @@ function drawMeasureTrack()
 	var context = canvas.get(0).getContext("2d");
 	context.translate(measureBoxWidth*4, 0);
 	context.fillStyle="black";
-    for (var x = 0; x < tune.length; x++)
-		context.fillRect(x*(measureBoxWidth)+0.5,0,1,screenWidth*0.04);
+    for (var msr = 0; msr < tune.length; msr++)
+		context.fillRect(msr*(measureBoxWidth)+0.5,0,1,screenWidth*0.04);
 
 	console.log("canvas end: " + (new Date().getTime() - startTime));
 
 	$(".msrBoxLabel").css("font-size",measureBoxLabelFontSize[$("#msrBoxLabel-1").height()]);
 
 	/* SET CURRENT MEASURE */
-	$(".measureBox").bind(onClickEvent, function(e){
+	$("#track").bind(onClickEvent, function(e){
 		selectedMeasure = Math.floor(Number(eval(positionX))/measureBoxWidth)-3;
 		if (selectedMeasure > 0 && selectedMeasure < tune.length)
 		{
