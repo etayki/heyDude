@@ -20,7 +20,7 @@ function drawMeasureTrack()
 	var context = canvas.get(0).getContext("2d");
 	context.translate(measureBoxWidth*4, 0);
 	context.fillStyle="black";
-	console.log("font= "+getFontSize(Math.floor($("#track").height()*0.28)));
+	//console.log("font= "+getFontSize(Math.floor($("#track").height()*0.28)));
 	fontSize = getFontSize(Math.floor($("#track").height()*0.28));
 	context.font="bold "+fontSize+" Times";
 	context.textAlign = 'center';
@@ -50,8 +50,8 @@ function drawMarkers()
 	$("#trackHeader").append('<div id="currentMarker" class="marker" style="cursor:pointer;z-index:10;background-color:clear;position:absolute;'+
 					 'left:'+(measureBoxWidth*2.5)+';top:0%;width:'+(measureBoxWidth*3)+';height:100%"><div>');
 	$("#currentMarker").append('<div id="currentMarkerLabel" style="z-index:1;position:absolute;background-color:green;text-align:center;'+
-								'left:0%;top:0%;width:100%;height:100%">'+startMeasure+'</div>');
-	$("#currentMarker").append('<div id="currentMarkerLine" style="z-index:1;position:absolute;background-color:green;'+
+								'left:0%;top:0%;width:100%;height:100%;box-shadow:1px 1px 1px #555555">'+startMeasure+'</div>');
+	$("#currentMarker").append('<div id="currentMarkerLine" style="z-index:1;position:absolute;background-color:green;box-shadow:1px 0px 1px #555555;'+
 		                        'left:'+(measureBoxWidth*1.5-1)+';top:102%;width:'+Math.floor(measureBoxWidth*0.3)+';height:'+($("#track").height()+1)+'"></div>');
 
 	/* START MARKER */

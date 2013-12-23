@@ -128,7 +128,6 @@ function drawHeader()
 	$("#header").append('<img id="composerPic" src="./images/beethoven.jpeg" style="position:absolute;right:0%;top:0%;width:7.8%;height:100%"></img>');
 	$("#header").append('<div id="tuneLabel" style="position:absolute;left:0%;top:10%;width:100%;height:40%;text-align:center">Moonlight Sonata</div>');
 	$("#header").append('<div id="artistLabel" style="position:absolute;left:0%;top:55%;width:100%;height:24%;text-align:center">L.V. Beethoven</div>');
-	console.log("font= "+$('#artistLabel').css('font-family'));
 	topOffset += $("#header").width()*0.065;
 	$("#header").css("height", topOffset);
 	$("#tuneLabel").css("font-size", getFontSize($("#tuneLabel").height())+"px");
