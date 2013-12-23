@@ -56,20 +56,16 @@ function getDeviceSettings()
 
 function setEvents()
 {
-   	clickEvent = "onclick";
 	startEvent = "mousedown";
 	moveEvent = "mousemove";
-	markerElement = "body";
 	positionX = "e.pageX";
     if(isiPad || isiPhone)
     {
 		clickEvent = "ontouchstart";
 		startEvent = "touchstart";
 		moveEvent = "touchmove";
-		startMarkerElement = ".marker";
 		positionX = "event.touches[0].pageX";
 	}
-	onClickEvent = clickEvent.replace("on","");
 
 	$('img').on('dragstart', function(event) { event.preventDefault(); });
 
@@ -103,7 +99,7 @@ function setEvents()
 
 	keyPressTimer = 0;
 	/* KEY TAP */
-	$(".key").bind(onClickEvent, function (e) {
+	$(".key").bind(startEvent, function (e) {
 		/* RELEASE PREVIOUS NOTE */
 		clearTimeout(keyPressTimer);
 		resetNote(notePress);

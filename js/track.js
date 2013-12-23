@@ -118,7 +118,7 @@ function setMarkerEvents()
 		activeMarker = null;
 	});
 
-	$(markerElement).bind(moveEvent, function(e){
+	$('body').bind(moveEvent, function(e){
 		//e.preventDefault();
 		if (!activeMarker) return;
 		newMeasure = Math.floor(eval(positionX)/measureBoxWidth)-3+markerOffset;
