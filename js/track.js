@@ -34,7 +34,7 @@ function drawMeasureTrack()
 	//grid width and height
 	console.log("canvas start: " + (new Date().getTime() - startTime));
 
-	var canvas = $('<canvas style="cursor:pointer"/>').attr({width:screenWidth,height:screenWidth*0.04}).appendTo('#track');
+	var canvas = $('<canvas id="canvas" style="cursor:pointer"/>').attr({width:screenWidth,height:screenWidth*0.04}).appendTo('#track');
 	var context = canvas.get(0).getContext("2d");
 	context.translate(measureBoxWidth*4, 0);
 	context.fillStyle="black";
@@ -53,7 +53,7 @@ function drawMeasureTrack()
 	$(".msrBoxLabel").css("font-size",measureBoxLabelFontSize[$("#msrBoxLabel-5").height()]);
 
 	/* SET CURRENT MEASURE */
-	$("#track").bind(onClickEvent, function(e){
+	$("#canvas").bind(startEvent, function(e){
 		selectedMeasure = Math.floor(Number(eval(positionX))/measureBoxWidth)-3;
 		if (selectedMeasure > 0 && selectedMeasure < tune.length)
 		{
