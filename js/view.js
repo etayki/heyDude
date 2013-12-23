@@ -124,10 +124,10 @@ function drawHeader()
 {
 	$("body").append('<div id="header" style="border-style:solid;border-width:0 0 1 0;;background-color:#919191;'+
 					 'position:absolute;left:0%;top:0%;width:'+screenWidth+'"></div>');
-	$("#header").append('<img id="logo" src="./images/logo.png" style="position:absolute;left:3%;top:10%;width:8.4%;height:80%"></img>');
+	$("#header").append('<img id="logo" src="./images/logo.png" style="position:absolute;left:3%;top:10%;width:8.4%;height:80%;"></img>');
 	$("#header").append('<img id="composerPic" src="./images/beethoven.jpeg" style="position:absolute;right:0%;top:0%;width:7.8%;height:100%"></img>');
-	$("#header").append('<div id="tuneLabel" style="position:absolute;left:0%;top:10%;width:100%;height:40%;text-align:center">Moonlight Sonata</div>');
-	$("#header").append('<div id="artistLabel" style="position:absolute;left:0%;top:55%;width:100%;height:24%;text-align:center">L.V. Beethoven</div>');
+	$("#header").append('<div id="tuneLabel" style="position:absolute;left:0%;top:10%;width:100%;height:40%;text-align:center;text-shadow:0px 1px 0px rgba(220,220,220,0.5);">Moonlight Sonata</div>');
+	$("#header").append('<div id="artistLabel" style="position:absolute;left:0%;top:55%;width:100%;height:24%;text-align:center;text-shadow:0px 1px 0px rgba(220,220,220,0.5);">L.V. Beethoven</div>');
 	topOffset += $("#header").width()*0.065;
 	$("#header").css("height", topOffset);
 	$("#tuneLabel").css("font-size", getFontSize($("#tuneLabel").height())+"px");

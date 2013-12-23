@@ -50,7 +50,7 @@ function drawMarkers()
 	$("#trackHeader").append('<div id="currentMarker" class="marker" style="cursor:pointer;z-index:10;background-color:clear;position:absolute;'+
 					 'left:'+(measureBoxWidth*2.5)+';top:0%;width:'+(measureBoxWidth*3)+';height:100%"><div>');
 	$("#currentMarker").append('<div id="currentMarkerLabel" style="z-index:1;position:absolute;background-color:green;text-align:center;'+
-								'left:0%;top:0%;width:100%;height:100%;box-shadow:1px 1px 1px #555555">'+startMeasure+'</div>');
+								'left:0%;top:0%;width:100%;height:100%;box-shadow:1px 1px 1px #555555;text-shadow:0px 1px 0px rgba(220,220,220,0.3);">'+startMeasure+'</div>');
 	$("#currentMarker").append('<div id="currentMarkerLine" style="z-index:1;position:absolute;background-color:green;box-shadow:1px 0px 1px #555555;'+
 		                        'left:'+(measureBoxWidth*1.5-1)+';top:102%;width:'+Math.floor(measureBoxWidth*0.3)+';height:'+($("#track").height()+1)+'"></div>');
 
@@ -59,7 +59,7 @@ function drawMarkers()
 					   'left:0%;top:0%;width:'+measureBoxWidth*4+';height:100%"><div>');
 	$("#startMarker").append('<img id="startMarkerImg" src="./images/startMarker.png" style="z-index:1;position:absolute;'+
 							 'left:'+(measureBoxWidth*2)+';top:0%;width:'+(measureBoxWidth*2)+';height:100%">');
-	$("#startMarker").append('<div id="startMarkerLabel" style="z-index:10;position:absolute;background-color:green;'+
+	$("#startMarker").append('<div id="startMarkerLabel" style="z-index:10;position:absolute;background-color:green;text-shadow:0px 1px 0px rgba(220,220,220,0.3);'+
 							 'left:1%;top:20%;width:'+(measureBoxWidth*2)+';height:60%;text-align:center;line-height:120%;">1</div>');
 
 
@@ -68,7 +68,7 @@ function drawMarkers()
 					   'right:0%;top:0%;width:'+measureBoxWidth*4+';height:100%"><div>');
 	$("#endMarker").append('<img id="endMarkerImg" src="./images/endMarker.png" style="z-index:1;position:absolute;'+
 							 'right:'+(measureBoxWidth*2-1)+';top:0%;width:'+(measureBoxWidth*2)+';height:100%">');
-	$("#endMarker").append('<div id="endMarkerLabel" style="z-index:10;position:absolute;background-color:red;'+
+	$("#endMarker").append('<div id="endMarkerLabel" style="z-index:10;position:absolute;background-color:red;text-shadow:0px 1px 0px rgba(220,220,220,0.5);'+
 							 'right:0%;top:20%;width:'+(measureBoxWidth*2)+';height:60%;text-align:center;line-height:120%;">1</div>');
 	$("#trackHeader").append('<div id="startMarkerInfoLabel" class="markerInfoLabel" style="cursor:pointer;z-index:0;background-color:clear;position:absolute;'+
 					 'color:white;text-align:right;right:0.2%;top:20%;width:'+(measureBoxWidth*6)+';height:60%">Drag to End<div>');
