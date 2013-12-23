@@ -23,13 +23,12 @@ function drawMeasureTrack()
 	console.log("font= "+getFontSize(Math.floor($("#track").height()*0.28)));
 	fontSize = getFontSize(Math.floor($("#track").height()*0.28));
 	context.font="bold "+fontSize+" Times";
+	context.textAlign = 'center';
     for (var msr = 0; msr < tune.length; msr++)
     {
-		context.fillRect(msr*(measureBoxWidth)+0.5,0,1,screenWidth*0.04);
-		if (msr==1 || msr==5)
-		   	context.fillText(msr,((msr-1)*measureBoxWidth+Math.floor(screenWidth*0.005)),$("#track").height()*0.6);
-		if (msr > 5 && msr%5==0 && msr < tune.length)
-		   	context.fillText(msr,((msr-1)*measureBoxWidth+Math.floor(screenWidth*0.0025)),$("#track").height()*0.6);
+		context.fillRect(msr*(measureBoxWidth)+0.5,0,1.0,screenWidth*0.04);
+		if (msr==1 || (msr > 1 && msr%5==0 && msr < tune.length))
+		   	context.fillText(msr,((msr-1)*measureBoxWidth+Math.floor(measureBoxWidth/2)+1),$("#track").height()*0.6);
 	}	
 	console.log("canvas end: " + (new Date().getTime() - startTime));
 	//$(".msrBoxLabel").css("font-size",measureBoxLabelFontSize[$("#msrBoxLabel-5").height()]);
