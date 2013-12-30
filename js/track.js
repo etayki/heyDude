@@ -55,16 +55,20 @@ function drawMarkers()
 		                        'left:'+(measureBoxWidth*1.5-1)+';top:102%;width:'+Math.floor(measureBoxWidth*0.3)+';height:'+($("#track").height()+1)+'"></div>');
 
 	/* START MARKER */
-	$("#track").append('<div id="startMarker" class="marker" style="cursor:pointer;z-index:10;position:absolute;'+
+	$("#track").append('<div id="startMarker" class="marker" style="cursor:pointer;z-index:10;position:absolute;box-shadow:1px 1px 1px #555555;'+
 					   'left:0%;top:0%;width:'+measureBoxWidth*4+';height:100%"><div>');
-	$("#startMarker").append('<img id="startMarkerImg" src="./images/startMarker.png" style="z-index:1;position:absolute;'+
-							 'left:'+(measureBoxWidth*2)+';top:0%;width:'+(measureBoxWidth*2)+';height:100%">');
+	// $("#startMarker").append('<img id="startMarkerImg" src="./images/startMarker.png" style="z-index:1;position:absolute;'+
+	// 						 'left:'+(measureBoxWidth*2)+';top:0%;width:'+(measureBoxWidth*2)+';height:100%">');
 	$("#startMarker").append('<div id="startMarkerLabel" style="z-index:10;position:absolute;background-color:green;text-shadow:0px 1px 0px rgba(220,220,220,0.3);'+
 							 'left:1%;top:20%;width:'+(measureBoxWidth*2)+';height:60%;text-align:center;line-height:120%;">1</div>');
 
+	test = screenWidth*0.021;
+	$("#startMarker").append('<div id="startMarker1" style="position:absolute;left:'+(measureBoxWidth*2)+';width:0;height:0;border-top:'+test+' solid transparent;border-top-width:'+test+';border-top-style:solid;'+
+					   'border-top-color:transparent;border-bottom:'+test+' solid transparent;border-bottom-width:'+test+';border-bottom-style:solid;'+
+					   'border-bottom-color:transparent;border-left:'+test+' solid green;border-left-width:'+test+';border-left-style:solid;border-left-color:green;"><div>');
 
 	/* END MARKER */
-	$("#track").append('<div id="endMarker" class="marker" style="cursor:pointer;z-index:10;position:absolute;'+
+	$("#track").append('<div id="endMarker" class="marker" style="cursor:pointer;z-index:10;position:absolute;box-shadow:1px 1px 1px #555555;'+
 					   'right:0%;top:0%;width:'+measureBoxWidth*4+';height:100%"><div>');
 	$("#endMarker").append('<img id="endMarkerImg" src="./images/endMarker.png" style="z-index:1;position:absolute;'+
 							 'right:'+(measureBoxWidth*2-1)+';top:0%;width:'+(measureBoxWidth*2)+';height:100%">');
