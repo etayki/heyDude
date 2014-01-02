@@ -18,7 +18,7 @@ function drawScreen()
 	console.log("setMarkerEvents: " + (new Date().getTime() - startTime));
 	setMarkerEvents();
 	console.log("drawControls: " + (new Date().getTime() - startTime));
-	//drawControls();
+	drawControls();
 	console.log("drawTransposition: " + (new Date().getTime() - startTime));
 	// if (isiPad)
 	// //if (1)
@@ -61,7 +61,6 @@ function setEvents()
 	positionX = "e.pageX";
     if(isiPad || isiPhone)
     {
-		clickEvent = "ontouchstart";
 		startEvent = "touchstart";
 		moveEvent = "touchmove";
 		positionX = "event.touches[0].pageX";

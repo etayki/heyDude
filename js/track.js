@@ -5,14 +5,16 @@ var markerOffset = activeMarker = null;
 function drawMeasureTrack()
 {
 	$("body").append('<div id="trackHeader" style="position:absolute;left:0%;top:'+topOffset+';width:'+screenWidth+';height:'+screenWidth*0.0255+';background-color:#919191"></div>');
-	topOffset += screenWidth*0.0255;
-	$("body").append('<div id="track" style="position:absolute;left:0%;top:'+topOffset+';width:'+screenWidth+';height:'+screenWidth*0.04+';background-color:#919191;'+
+ 	topOffset += screenWidth*0.0255;
+ 	trackHeight = screenWidth*0.04
+	$("body").append('<div id="track" style="position:absolute;left:0%;top:'+topOffset+';width:'+screenWidth+';height:'+trackHeight+';background-color:#919191;'+
 	 				 'border-style:solid;border-width:1 0 1 0"></div>');
 
 	/* MEASURE BOX */
 	measureBoxWidth = screenWidth/(tune.length+7); // 8 more boxes than measures to give room for markers
 	measureBoxLeft = measureBoxWidth*4;
 	measureBoxTop = topOffset;
+	topOffset += trackHeight;
 
 	/* MEASURE TRACK */
 	console.log("canvas start: " + (new Date().getTime() - startTime));
@@ -26,7 +28,7 @@ function drawMeasureTrack()
 	context.textAlign = 'center';
     for (var msr = 0; msr < tune.length; msr++)
     {
-		context.fillRect(msr*(measureBoxWidth)+0.5,0,1.0,screenWidth*0.04);
+		context.fillRect(msr*(measureBoxWidth)+0.5,0,1.0,trackHeight);
 		if (msr==1 || (msr > 1 && msr%5==0 && msr < tune.length))
 		   	context.fillText(msr,((msr-1)*measureBoxWidth+Math.floor(measureBoxWidth/2)+1),$("#track").height()*0.6);
 	}	

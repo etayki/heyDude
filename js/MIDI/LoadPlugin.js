@@ -5,6 +5,7 @@
 	https://github.com/mudcube/MIDI.js
 	-----------------------------------------------------------
 	MIDI.loadPlugin({
+		targetFormat: "mp3", // optionally can force to use MP3 (for instance on mobile networks)
 		instrument: "acoustic_grand_piano", // or 1 (default)
 		instruments: [ "acoustic_grand_piano", "acoustic_guitar_nylon" ], // or multiple instruments
 		callback: function() { }
@@ -27,15 +28,13 @@ MIDI.loadPlugin = function(conf) {
 	/// Get the instrument name.
 	var instruments = conf.instruments || conf.instrument || "acoustic_grand_piano";
 	if (typeof(instruments) !== "object") instruments = [ instruments ];
-
 	///
 	for (var n = 0; n < instruments.length; n ++) {
 		var instrument = instruments[n];
 		if (typeof(instrument) === "number") {
-		  instruments[n] = MIDI.GeneralMIDI.byId[instrument];
+			instruments[n] = MIDI.GeneralMIDI.byId[instrument];
 		}
 	};
-	
 	///
 	MIDI.soundfontUrl = conf.soundfontUrl || MIDI.soundfontUrl || "./soundfont/";
 	/// Detect the best type of audio to use.
@@ -48,7 +47,7 @@ MIDI.loadPlugin = function(conf) {
 			api = window.location.hash.substr(1);
 		} else if (USE_JAZZMIDI && navigator.requestMIDIAccess) {
 			api = "webmidi";
-		} else if (window.webkitAudioContext) { // Chrome
+		} else if (window.webkitAudioContext || window.AudioContext) { // Chrome
 			api = "webaudio";
 		} else if (window.Audio) { // Firefox
 			api = "audiotag";
@@ -58,7 +57,11 @@ MIDI.loadPlugin = function(conf) {
 		///
 		if (!connect[api]) return;
 		// use audio/ogg when supported
-		var filetype = types["audio/ogg"] ? "ogg" : "mp3";
+		if (conf.targetFormat) {
+			var filetype = conf.targetFormat;
+		} else { // use best quality
+			var filetype = types["audio/ogg"] ? "ogg" : "mp3";
+		}
 		// load the specified plugin
 		connect[api](filetype, instruments, conf);
 	});

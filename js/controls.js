@@ -6,232 +6,232 @@ function drawControls()
 	controlsBackgroundTop = topOffset;
 	controlsBackgroundWidth = screenWidth + 2;
 	controlsBackgroundHeight = screenWidth * 0.0645;
-	topOffset += controlsBackgroundHeight;
-	adjustTag("controlsBackground", controlsBackgroundLeft, controlsBackgroundTop, controlsBackgroundWidth, controlsBackgroundHeight, "clear");
+	//topOffset += controlsBackgroundHeight;
+	adjustTag("controlsBackground", controlsBackgroundLeft, topOffset, controlsBackgroundWidth, controlsBackgroundHeight, "clear");
 
-	/* LEFT HAND */
-	$("body").append('<img id="leftHand" src="./images/leftHandEnabled.png "'+clickEvent+'="didPressLeftHand()"></img>');
-	leftHandWidth = controlsBackgroundHeight * 0.6;
-	leftHandHeight = leftHandWidth;
-	leftHandLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.02;
-	leftHandTop = controlsBackgroundTop + (controlsBackgroundHeight - leftHandHeight) * 0.6;
-	adjustTag("leftHand", leftHandLeft, leftHandTop, leftHandWidth, leftHandHeight, "clear");
+	// /* LEFT HAND */
+	// $("body").append('<img id="leftHand" src="./images/leftHandEnabled.png "'+clickEvent+'="didPressLeftHand()"></img>');
+	// leftHandWidth = controlsBackgroundHeight * 0.6;
+	// leftHandHeight = leftHandWidth;
+	// leftHandLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.02;
+	// leftHandTop = controlsBackgroundTop + (controlsBackgroundHeight - leftHandHeight) * 0.6;
+	// adjustTag("leftHand", leftHandLeft, leftHandTop, leftHandWidth, leftHandHeight, "clear");
 
-	/* LEFT HAND LABEL */
-	$("body").append('<div id="leftHandLabel">Left On</div>');
-	leftHandLabelLeft =  leftHandLeft - leftHandWidth;
-	leftHandLabelTop = leftHandTop - leftHandHeight * 0.3;
-	leftHandLabelWidth = leftHandWidth * 3;
-	leftHandLabelHeight = controlsBackgroundHeight * 0.145;
-	adjustTag("leftHandLabel", leftHandLabelLeft, leftHandLabelTop, leftHandLabelWidth, leftHandLabelHeight, "clear");
+	// /* LEFT HAND LABEL */
+	// $("body").append('<div id="leftHandLabel">Left On</div>');
+	// leftHandLabelLeft =  leftHandLeft - leftHandWidth;
+	// leftHandLabelTop = leftHandTop - leftHandHeight * 0.3;
+	// leftHandLabelWidth = leftHandWidth * 3;
+	// leftHandLabelHeight = controlsBackgroundHeight * 0.145;
+	// adjustTag("leftHandLabel", leftHandLabelLeft, leftHandLabelTop, leftHandLabelWidth, leftHandLabelHeight, "clear");
 	
-	/* RIGHT HAND */
-	$("body").append('<img id="rightHand" src="./images/rightHandEnabled.png "'+clickEvent+'="didPressRightHand()"></img>');
-	rightHandWidth = controlsBackgroundHeight * 0.6;
-	rightHandHeight = leftHandHeight;
-	rightHandLeft =  leftHandLeft + leftHandWidth * 2;
-	rightHandTop = leftHandTop;
-	adjustTag("rightHand", rightHandLeft, rightHandTop, rightHandWidth, rightHandHeight, "clear");
+	// /* RIGHT HAND */
+	// $("body").append('<img id="rightHand" src="./images/rightHandEnabled.png "'+clickEvent+'="didPressRightHand()"></img>');
+	// rightHandWidth = controlsBackgroundHeight * 0.6;
+	// rightHandHeight = leftHandHeight;
+	// rightHandLeft =  leftHandLeft + leftHandWidth * 2;
+	// rightHandTop = leftHandTop;
+	// adjustTag("rightHand", rightHandLeft, rightHandTop, rightHandWidth, rightHandHeight, "clear");
 
-	/* RIGHT HAND LABEL */
-	$("body").append('<div id="rightHandLabel">Right On</div>');
-	rightHandLabelLeft =  rightHandLeft - rightHandWidth;
-	rightHandLabelTop = leftHandLabelTop;
-	rightHandLabelWidth = rightHandWidth * 3;
-	rightHandLabelHeight = controlsBackgroundHeight * 0.145;
-	adjustTag("rightHandLabel", rightHandLabelLeft, rightHandLabelTop, rightHandLabelWidth, rightHandLabelHeight, "clear");
+	// /* RIGHT HAND LABEL */
+	// $("body").append('<div id="rightHandLabel">Right On</div>');
+	// rightHandLabelLeft =  rightHandLeft - rightHandWidth;
+	// rightHandLabelTop = leftHandLabelTop;
+	// rightHandLabelWidth = rightHandWidth * 3;
+	// rightHandLabelHeight = controlsBackgroundHeight * 0.145;
+	// adjustTag("rightHandLabel", rightHandLabelLeft, rightHandLabelTop, rightHandLabelWidth, rightHandLabelHeight, "clear");
 	
-	/* INFO BUTTON */
-	$("body").append('<img id="infoButton" src="./images/info.png"></img>');
-	infoButtonWidth = controlsBackgroundHeight * 0.3;
-	infoButtonHeight = infoButtonWidth;
-	infoButtonLeft =  leftHandLeft + leftHandWidth + ((rightHandLeft - (leftHandLeft + leftHandWidth)) - infoButtonWidth)/2;
-	infoButtonTop = rightHandTop + (rightHandHeight - infoButtonHeight)/2;
-	adjustTag("infoButton", infoButtonLeft, infoButtonTop, infoButtonWidth, infoButtonHeight, "clear");
+	// // /* INFO BUTTON */
+	// // $("body").append('<img id="infoButton" src="./images/info.png"></img>');
+	// // infoButtonWidth = controlsBackgroundHeight * 0.3;
+	// // infoButtonHeight = infoButtonWidth;
+	// // infoButtonLeft =  leftHandLeft + leftHandWidth + ((rightHandLeft - (leftHandLeft + leftHandWidth)) - infoButtonWidth)/2;
+	// // infoButtonTop = rightHandTop + (rightHandHeight - infoButtonHeight)/2;
+	// // adjustTag("infoButton", infoButtonLeft, infoButtonTop, infoButtonWidth, infoButtonHeight, "clear");
 
-	$('#infoButton').bind(onClickEvent, function (e) {
- 		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
-			didPressPauseButton();
-		feedbackFormDisplayed = 1;
-		$('#handInfoPopup').css("display","");
-		$('#handInfoPopupCloseButton').css("display","");
-	});
+	// // $('#infoButton').bind(startEvent, function (e) {
+ // // 		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
+	// // 		didPressPauseButton();
+	// // 	feedbackFormDisplayed = 1;
+	// // 	$('#handInfoPopup').css("display","");
+	// // 	$('#handInfoPopupCloseButton').css("display","");
+	// // });
 	
-	/* HAND INFO POPUP */
-	$("body").append('<img id="handInfoPopup" src="./images/handInfo.jpeg"></img>');
-	handInfoPopupWidth = controlsBackgroundWidth * 0.3;
-	handInfoPopupHeight = handInfoPopupWidth * 0.9;
-	handInfoPopupLeft = controlsBackgroundLeft + (controlsBackgroundWidth - handInfoPopupWidth)/2;
-	handInfoPopupTop = controlsBackgroundTop - 2 * measureBoxHeight;
+	// /* HAND INFO POPUP */
+	// $("body").append('<img id="handInfoPopup" src="./images/handInfo.jpeg"></img>');
+	// handInfoPopupWidth = controlsBackgroundWidth * 0.3;
+	// handInfoPopupHeight = handInfoPopupWidth * 0.9;
+	// handInfoPopupLeft = controlsBackgroundLeft + (controlsBackgroundWidth - handInfoPopupWidth)/2;
+	// handInfoPopupTop = controlsBackgroundTop - 2 * screenWidth;
 	
-	adjustTag("handInfoPopup", handInfoPopupLeft, handInfoPopupTop, handInfoPopupWidth, handInfoPopupHeight, "clear");
-	$('#handInfoPopup').css("z-index","6");
-	$('#handInfoPopup').css("display","none");
+	// adjustTag("handInfoPopup", handInfoPopupLeft, handInfoPopupTop, handInfoPopupWidth, handInfoPopupHeight, "clear");
+	// $('#handInfoPopup').css("z-index","6");
+	// $('#handInfoPopup').css("display","none");
 
-	$("#handInfoPopup").bind(onClickEvent, function (e) {
-		feedbackFormDisplayed = 0;
-		$('#handInfoPopup').css("display","none");
-		//$('#handInfoPopupCloseButton').css("display","none");
-	});
+	// $("#handInfoPopup").bind(onClickEvent, function (e) {
+	// 	feedbackFormDisplayed = 0;
+	// 	$('#handInfoPopup').css("display","none");
+	// 	//$('#handInfoPopupCloseButton').css("display","none");
+	// });
 	
-	/* DIVIDER */
-	$("body").append('<img id="divider1" src="./images/divider.png"></img>');
-	dividerLeft =  infoButtonLeft + leftHandWidth * 2.2;
-	dividerTop = controlsBackgroundTop;
-	dividerWidth = 20;
-	dividerHeight = controlsBackgroundHeight;
-	adjustTag("divider1", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
+	// /* DIVIDER */
+	// $("body").append('<img id="divider1" src="./images/divider.png"></img>');
+	// dividerLeft =  infoButtonLeft + leftHandWidth * 2.2;
+	// dividerTop = controlsBackgroundTop;
+	// dividerWidth = 20;
+	// dividerHeight = controlsBackgroundHeight;
+	// adjustTag("divider1", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
 
-	/* DIVIDER */
-	$("body").append('<img id="divider4" src="./images/divider.png"></img>');
-	dividerLeft =  controlsBackgroundWidth * 0.38;
-	dividerTop = controlsBackgroundTop;
-	dividerWidth = 20;
-	dividerHeight = controlsBackgroundHeight;
-	adjustTag("divider4", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
+	// /* DIVIDER */
+	// $("body").append('<img id="divider4" src="./images/divider.png"></img>');
+	// dividerLeft =  controlsBackgroundWidth * 0.38;
+	// dividerTop = controlsBackgroundTop;
+	// dividerWidth = 20;
+	// dividerHeight = controlsBackgroundHeight;
+	// adjustTag("divider4", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
 
-	/* NOTE BUTTON */
-	$("body").append('<img id="notesButton" src="./images/notesDisabled.png "'+clickEvent+'="didPressNotes()"></img>');
-	noteButtonLeft =  controlsBackgroundWidth * 0.33;
-	noteButtonHeight = rightHandHeight * 0.97;
-	noteButtonTop = leftHandTop;
-	noteButtonWidth = noteButtonHeight;
-	adjustTag("notesButton", noteButtonLeft, noteButtonTop, noteButtonWidth, noteButtonHeight, "clear");
+	// /* NOTE BUTTON */
+	// $("body").append('<img id="notesButton" src="./images/notesDisabled.png "'+clickEvent+'="didPressNotes()"></img>');
+	// noteButtonLeft =  controlsBackgroundWidth * 0.33;
+	// noteButtonHeight = rightHandHeight * 0.97;
+	// noteButtonTop = leftHandTop;
+	// noteButtonWidth = noteButtonHeight;
+	// adjustTag("notesButton", noteButtonLeft, noteButtonTop, noteButtonWidth, noteButtonHeight, "clear");
 	
-	/* NOTE BUTTON LABEL */
-	$("body").append('<div id="notesLabel">Notes Off</div>');
-	noteButtonLabelLeft =  noteButtonLeft - noteButtonWidth;
-	noteButtonLabelTop = leftHandLabelTop;
-	noteButtonLabelWidth = noteButtonWidth * 3;
-	noteButtonLabelHeight = controlsBackgroundHeight * 0.145;
-	adjustTag("notesLabel", noteButtonLabelLeft, noteButtonLabelTop, noteButtonLabelWidth, noteButtonLabelHeight, "clear");
+	// /* NOTE BUTTON LABEL */
+	// $("body").append('<div id="notesLabel">Notes Off</div>');
+	// noteButtonLabelLeft =  noteButtonLeft - noteButtonWidth;
+	// noteButtonLabelTop = leftHandLabelTop;
+	// noteButtonLabelWidth = noteButtonWidth * 3;
+	// noteButtonLabelHeight = controlsBackgroundHeight * 0.145;
+	// adjustTag("notesLabel", noteButtonLabelLeft, noteButtonLabelTop, noteButtonLabelWidth, noteButtonLabelHeight, "clear");
 
-	/* PLAY BUTTON */
-	$("body").append('<img id="playBtn" src="./images/loading.gif "'+clickEvent+'="didPressPlayButton()"></img>');
-	playButtonLeft =  controlsBackgroundWidth * 0.43;
-	playButtonTop = leftHandTop;
-	playButtonWidth = controlsBackgroundHeight * 0.6;
-	playButtonHeight = leftHandHeight;
-	adjustTag("playBtn", playButtonLeft, playButtonTop, playButtonWidth, playButtonHeight, "clear");
+	// /* PLAY BUTTON */
+	// $("body").append('<img id="playBtn" src="./images/loading.gif "'+clickEvent+'="didPressPlayButton()"></img>');
+	// playButtonLeft =  controlsBackgroundWidth * 0.43;
+	// playButtonTop = leftHandTop;
+	// playButtonWidth = controlsBackgroundHeight * 0.6;
+	// playButtonHeight = leftHandHeight;
+	// adjustTag("playBtn", playButtonLeft, playButtonTop, playButtonWidth, playButtonHeight, "clear");
 
-	/* PLAY LABEL */
-	$("body").append('<div id="playLabel">Play</div>');
-	playLabelLeft =  playButtonLeft - playButtonWidth;
-	playLabelTop = leftHandLabelTop;
-	playLabelWidth = leftHandLabelWidth;
-	playLabelHeight = controlsBackgroundHeight * 0.145;
-	adjustTag("playLabel", playLabelLeft, playLabelTop, playLabelWidth, playLabelHeight, "clear");
+	// /* PLAY LABEL */
+	// $("body").append('<div id="playLabel">Play</div>');
+	// playLabelLeft =  playButtonLeft - playButtonWidth;
+	// playLabelTop = leftHandLabelTop;
+	// playLabelWidth = leftHandLabelWidth;
+	// playLabelHeight = controlsBackgroundHeight * 0.145;
+	// adjustTag("playLabel", playLabelLeft, playLabelTop, playLabelWidth, playLabelHeight, "clear");
 	
-	/* DIVIDER */
-	$("body").append('<img id="divider2" src="./images/divider.png"></img>');
-	dividerLeft =  controlsBackgroundWidth * 0.5;
-	dividerTop = controlsBackgroundTop;
-	dividerWidth = 20;
-	dividerHeight = controlsBackgroundHeight;
-	adjustTag("divider2", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
+	// /* DIVIDER */
+	// $("body").append('<img id="divider2" src="./images/divider.png"></img>');
+	// dividerLeft =  controlsBackgroundWidth * 0.5;
+	// dividerTop = controlsBackgroundTop;
+	// dividerWidth = 20;
+	// dividerHeight = controlsBackgroundHeight;
+	// adjustTag("divider2", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
 
-	/* METRONOME BUTTON */
-	$("body").append('<img id="metronome" src="./images/metronomeDisabled.png "'+clickEvent+'="didPressMetronome()"></img>');
-	metronomeLeft =  controlsBackgroundWidth * 0.53;
-	metronomeHeight = playButtonHeight * 0.95;
-	metronomeTop = leftHandTop;
-	metronomeWidth = metronomeHeight;
-	adjustTag("metronome", metronomeLeft, metronomeTop, metronomeWidth, metronomeHeight, "clear");
+	// /* METRONOME BUTTON */
+	// $("body").append('<img id="metronome" src="./images/metronomeDisabled.png "'+clickEvent+'="didPressMetronome()"></img>');
+	// metronomeLeft =  controlsBackgroundWidth * 0.53;
+	// metronomeHeight = playButtonHeight * 0.95;
+	// metronomeTop = leftHandTop;
+	// metronomeWidth = metronomeHeight;
+	// adjustTag("metronome", metronomeLeft, metronomeTop, metronomeWidth, metronomeHeight, "clear");
 	
-	/* METRONOME LABEL */
-	$("body").append('<div id="metroLabel">Metro Off</div>');
-	tempoLabelLeft =  metronomeLeft - metronomeWidth;
-	tempoLabelTop = leftHandLabelTop;
-	tempoLabelWidth = metronomeWidth * 3;
-	tempoLabelHeight = leftHandLabelHeight;
-	adjustTag("metroLabel", tempoLabelLeft, tempoLabelTop, tempoLabelWidth, tempoLabelHeight, "clear");
+	// /* METRONOME LABEL */
+	// $("body").append('<div id="metroLabel">Metro Off</div>');
+	// tempoLabelLeft =  metronomeLeft - metronomeWidth;
+	// tempoLabelTop = leftHandLabelTop;
+	// tempoLabelWidth = metronomeWidth * 3;
+	// tempoLabelHeight = leftHandLabelHeight;
+	// adjustTag("metroLabel", tempoLabelLeft, tempoLabelTop, tempoLabelWidth, tempoLabelHeight, "clear");
 
-	/* POSITION LABEL */
-	$("body").append('<div id="positionLabel">1.00</div>');
-	positionLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.37;
-	positionLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.38;
-	positionLabelWidth = controlsBackgroundWidth * 0.03;
-	positionLabelHeight = positionLabelWidth;
-	adjustTag("positionLabel", positionLabelLeft, positionLabelTop, positionLabelWidth, positionLabelHeight, "clear");
-	$('#positionLabel').css("display","none");
+	// /* POSITION LABEL */
+	// $("body").append('<div id="positionLabel">1.00</div>');
+	// positionLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.37;
+	// positionLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.38;
+	// positionLabelWidth = controlsBackgroundWidth * 0.03;
+	// positionLabelHeight = positionLabelWidth;
+	// adjustTag("positionLabel", positionLabelLeft, positionLabelTop, positionLabelWidth, positionLabelHeight, "clear");
+	// $('#positionLabel').css("display","none");
 
-	/* SLOW LABEL */
-	$("body").append('<div id="slowLabel">Slow</div>');
-	slowLabelLeft =  metronomeLeft + leftHandWidth;
-	slowLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.65;
-	slowLabelWidth = controlsBackgroundWidth * 0.05;
-	slowLabelHeight = controlsBackgroundHeight * 0.2;
-	adjustTag("slowLabel", slowLabelLeft, slowLabelTop, slowLabelWidth, slowLabelHeight, "clear");
-	$('#slowLabel').css("display","none");
+	// /* SLOW LABEL */
+	// $("body").append('<div id="slowLabel">Slow</div>');
+	// slowLabelLeft =  metronomeLeft + leftHandWidth;
+	// slowLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.65;
+	// slowLabelWidth = controlsBackgroundWidth * 0.05;
+	// slowLabelHeight = controlsBackgroundHeight * 0.2;
+	// adjustTag("slowLabel", slowLabelLeft, slowLabelTop, slowLabelWidth, slowLabelHeight, "clear");
+	// $('#slowLabel').css("display","none");
 	
-	/* FAST LABEL */
-	$("body").append('<div id="fastLabel">Fast</div>');
-	fastLabelLeft =  slowLabelLeft + leftHandWidth * 3.5;
-	fastLabelTop = slowLabelTop;
-	fastLabelWidth = controlsBackgroundWidth * 0.05;
-	fastLabelHeight = controlsBackgroundHeight * 0.2;
-	adjustTag("fastLabel", fastLabelLeft, fastLabelTop, fastLabelWidth, fastLabelHeight, "clear");
-	$('#fastLabel').css("display","none");
+	// /* FAST LABEL */
+	// $("body").append('<div id="fastLabel">Fast</div>');
+	// fastLabelLeft =  slowLabelLeft + leftHandWidth * 3.5;
+	// fastLabelTop = slowLabelTop;
+	// fastLabelWidth = controlsBackgroundWidth * 0.05;
+	// fastLabelHeight = controlsBackgroundHeight * 0.2;
+	// adjustTag("fastLabel", fastLabelLeft, fastLabelTop, fastLabelWidth, fastLabelHeight, "clear");
+	// $('#fastLabel').css("display","none");
 
-	/* DIVIDER */
-	$("body").append('<img id="divider3" src="./images/divider.png"></img>');
-	dividerLeft =  controlsBackgroundWidth * 0.75;
-	dividerTop = controlsBackgroundTop;
-	dividerWidth = 20;
-	dividerHeight = controlsBackgroundHeight;
-	adjustTag("divider3", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
+	// /* DIVIDER */
+	// $("body").append('<img id="divider3" src="./images/divider.png"></img>');
+	// dividerLeft =  controlsBackgroundWidth * 0.75;
+	// dividerTop = controlsBackgroundTop;
+	// dividerWidth = 20;
+	// dividerHeight = controlsBackgroundHeight;
+	// adjustTag("divider3", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
 
-	/* ZOOM BUTTON */
-	$("body").append('<img id="zoom" src="./images/zoomIn.png "'+clickEvent+'="didPressZoom()"></img>');
-	zoomLeft =  controlsBackgroundWidth * 0.78;
-	zoomHeight = playButtonHeight * 0.99;
-	zoomTop = leftHandTop*1.005;
-	zoomWidth = zoomHeight;
-	adjustTag("zoom", zoomLeft, zoomTop, zoomWidth, zoomHeight, "clear");
+	// /* ZOOM BUTTON */
+	// $("body").append('<img id="zoom" src="./images/zoomIn.png "'+clickEvent+'="didPressZoom()"></img>');
+	// zoomLeft =  controlsBackgroundWidth * 0.78;
+	// zoomHeight = playButtonHeight * 0.99;
+	// zoomTop = leftHandTop*1.005;
+	// zoomWidth = zoomHeight;
+	// adjustTag("zoom", zoomLeft, zoomTop, zoomWidth, zoomHeight, "clear");
 	
-	/* ZOOM LABEL */
-	$("body").append('<div id="zoomLabel">Zoom In</div>');
-	zoomLabelLeft =  zoomLeft - zoomWidth;
-	zoomLabelTop = leftHandLabelTop;
-	zoomLabelWidth = zoomWidth * 3;
-	zoomLabelHeight = leftHandLabelHeight;
-	adjustTag("zoomLabel", zoomLabelLeft, zoomLabelTop, zoomLabelWidth, zoomLabelHeight, "clear");
+	// /* ZOOM LABEL */
+	// $("body").append('<div id="zoomLabel">Zoom In</div>');
+	// zoomLabelLeft =  zoomLeft - zoomWidth;
+	// zoomLabelTop = leftHandLabelTop;
+	// zoomLabelWidth = zoomWidth * 3;
+	// zoomLabelHeight = leftHandLabelHeight;
+	// adjustTag("zoomLabel", zoomLabelLeft, zoomLabelTop, zoomLabelWidth, zoomLabelHeight, "clear");
 
-	/* FULL SCREEN BUTTON */
-	$("body").append('<img id="fullScreenButton" src="./images/fullScreen.png "'+clickEvent+'="didPressFullScreenButton()"></img>');
-	fullScreenButtonLeft =  controlsBackgroundWidth * 0.85;
-	fullScreenButtonTop = leftHandTop;
-	fullScreenButtonWidth = controlsBackgroundHeight * 0.6;
-	fullScreenButtonHeight = leftHandHeight * 1.07;
-	adjustTag("fullScreenButton", fullScreenButtonLeft, fullScreenButtonTop, fullScreenButtonWidth, fullScreenButtonHeight, "clear");
-	if (isiPad)
-		$('#fullScreenButton').css("display","none");
+	// /* FULL SCREEN BUTTON */
+	// $("body").append('<img id="fullScreenButton" src="./images/fullScreen.png "'+clickEvent+'="didPressFullScreenButton()"></img>');
+	// fullScreenButtonLeft =  controlsBackgroundWidth * 0.85;
+	// fullScreenButtonTop = leftHandTop;
+	// fullScreenButtonWidth = controlsBackgroundHeight * 0.6;
+	// fullScreenButtonHeight = leftHandHeight * 1.07;
+	// adjustTag("fullScreenButton", fullScreenButtonLeft, fullScreenButtonTop, fullScreenButtonWidth, fullScreenButtonHeight, "clear");
+	// if (isiPad)
+	// 	$('#fullScreenButton').css("display","none");
 
-	/* FULL SCREEN LABEL */
-	$("body").append('<div id="fullScreenLabel">Full Screen</div>');
-	fullScreenLabelWidth = leftHandLabelWidth * 0.6;
-	fullScreenLabelLeft =  fullScreenButtonLeft - (fullScreenLabelWidth - fullScreenButtonWidth)/2;
-	fullScreenLabelTop = leftHandLabelTop;
-	fullScreenLabelHeight = leftHandLabelHeight;
-	adjustTag("fullScreenLabel", fullScreenLabelLeft, fullScreenLabelTop, fullScreenLabelWidth, fullScreenLabelHeight, "clear");
-	if (isiPad)
-		$('#fullScreenLabel').css("display","none");
+	// /* FULL SCREEN LABEL */
+	// $("body").append('<div id="fullScreenLabel">Full Screen</div>');
+	// fullScreenLabelWidth = leftHandLabelWidth * 0.6;
+	// fullScreenLabelLeft =  fullScreenButtonLeft - (fullScreenLabelWidth - fullScreenButtonWidth)/2;
+	// fullScreenLabelTop = leftHandLabelTop;
+	// fullScreenLabelHeight = leftHandLabelHeight;
+	// adjustTag("fullScreenLabel", fullScreenLabelLeft, fullScreenLabelTop, fullScreenLabelWidth, fullScreenLabelHeight, "clear");
+	// if (isiPad)
+	// 	$('#fullScreenLabel').css("display","none");
 
-	/* FEEDBACK BUTTON */
-	$("body").append('<img id="feedbackButton" src="./images/feedbackIcon.png "'+clickEvent+'="didPressFeedbackButton()"></img>');
-	feedbackButtonLeft =  fullScreenButtonLeft + 2 * fullScreenButtonWidth;
-	feedbackButtonTop = leftHandTop;
-	feedbackButtonWidth = controlsBackgroundHeight * 0.6;
-	feedbackButtonHeight = leftHandHeight;
-	adjustTag("feedbackButton", feedbackButtonLeft, feedbackButtonTop, feedbackButtonWidth, feedbackButtonHeight, "clear");
+	// /* FEEDBACK BUTTON */
+	// $("body").append('<img id="feedbackButton" src="./images/feedbackIcon.png "'+clickEvent+'="didPressFeedbackButton()"></img>');
+	// feedbackButtonLeft =  fullScreenButtonLeft + 2 * fullScreenButtonWidth;
+	// feedbackButtonTop = leftHandTop;
+	// feedbackButtonWidth = controlsBackgroundHeight * 0.6;
+	// feedbackButtonHeight = leftHandHeight;
+	// adjustTag("feedbackButton", feedbackButtonLeft, feedbackButtonTop, feedbackButtonWidth, feedbackButtonHeight, "clear");
 
-	/* FEEDBACK LABEL */
-	$("body").append('<div id="feedbackLabel">Feedback</div>');
-	feedbackLabelWidth = leftHandLabelWidth * 0.6;
-	feedbackLabelLeft =  feedbackButtonLeft - (feedbackLabelWidth - feedbackButtonWidth)/2;
-	feedbackLabelTop = leftHandLabelTop;
-	feedbackLabelHeight = leftHandLabelHeight;
-	adjustTag("feedbackLabel", feedbackLabelLeft, feedbackLabelTop, feedbackLabelWidth, feedbackLabelHeight, "clear");
+	// /* FEEDBACK LABEL */
+	// $("body").append('<div id="feedbackLabel">Feedback</div>');
+	// feedbackLabelWidth = leftHandLabelWidth * 0.6;
+	// feedbackLabelLeft =  feedbackButtonLeft - (feedbackLabelWidth - feedbackButtonWidth)/2;
+	// feedbackLabelTop = leftHandLabelTop;
+	// feedbackLabelHeight = leftHandLabelHeight;
+	// adjustTag("feedbackLabel", feedbackLabelLeft, feedbackLabelTop, feedbackLabelWidth, feedbackLabelHeight, "clear");
 }
 
 function drawTransposition()
