@@ -19,7 +19,7 @@ function drawControls()
 	
 	/* TRANSPOSITION BUTTONS */
 	$("#controls").append('<img id="transMinusButton" src="./images/minusButtonEnabled.png" on'+startEvent+'="didPressTransMinusButton()" style="position:absolute;left:'+controlsLeft+'%;top:25%;height:60%">');
-	$("#controls").append('<img id="transPlusButton" src="./images/plusButtonDisabled.png" on'+startEvent+'="didPressTransPlusButton()" style="position:absolute;left:'+(controlsLeft+5)+'%;top:25%;height:60%">');
+	$("#controls").append('<img id="transPlusButton" src="./images/plusButtonEnabled.png" on'+startEvent+'="didPressTransPlusButton()" style="position:absolute;left:'+(controlsLeft+5)+'%;top:25%;height:60%">');
 	$("#controls").append('<div id="transpositionLabel" style="position:absolute;left:'+controlsLeft+'%;top:6%;height:15%;width:9%;text-align:center;background-color:clear" class="ctrlLabel">Transpostion (0)</div>');
 	controlsLeft += 12;
 
