@@ -1,87 +1,41 @@
 function drawControls()
 {
-	/* CONTROLS BACKGROUND */
-	$("body").append('<img id="controlsBackground" src="./images/controlsBackground.png"></img>');
-	controlsBackgroundLeft =  0;
-	controlsBackgroundTop = topOffset;
-	controlsBackgroundWidth = screenWidth + 2;
-	controlsBackgroundHeight = screenWidth * 0.0645;
-	//topOffset += controlsBackgroundHeight;
-	adjustTag("controlsBackground", controlsBackgroundLeft, topOffset, controlsBackgroundWidth, controlsBackgroundHeight, "clear");
+	$("body").append('<div id="controls" style="position:absolute;left:0%;top:'+topOffset+';width:'+screenWidth+';height:'+screenWidth * 0.0645+'"></div>');
+	$("#controls").append('<img src="./images/controlsBackground.png" style="position:absolute;left:0%;top:0%;width:100%;height:100%">');
 
-	// /* LEFT HAND */
-	// $("body").append('<img id="leftHand" src="./images/leftHandEnabled.png "'+clickEvent+'="didPressLeftHand()"></img>');
-	// leftHandWidth = controlsBackgroundHeight * 0.6;
-	// leftHandHeight = leftHandWidth;
-	// leftHandLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.02;
-	// leftHandTop = controlsBackgroundTop + (controlsBackgroundHeight - leftHandHeight) * 0.6;
-	// adjustTag("leftHand", leftHandLeft, leftHandTop, leftHandWidth, leftHandHeight, "clear");
+	/* LEFT HAND */
+	$("#controls").append('<img id="leftHand" src="./images/leftHandEnabled.png" on'+startEvent+'="didPressLeftHand()" style="position:absolute;left:3%;top:25%;height:60%">');
+	$("#controls").append('<div id="leftHandLabel" style="position:absolute;left:3%;top:6%;height:15%;width:4%;text-align:center;background-color:clear" class="ctrlLabel">Left On</div>');
 
-	// /* LEFT HAND LABEL */
-	// $("body").append('<div id="leftHandLabel">Left On</div>');
-	// leftHandLabelLeft =  leftHandLeft - leftHandWidth;
-	// leftHandLabelTop = leftHandTop - leftHandHeight * 0.3;
-	// leftHandLabelWidth = leftHandWidth * 3;
-	// leftHandLabelHeight = controlsBackgroundHeight * 0.145;
-	// adjustTag("leftHandLabel", leftHandLabelLeft, leftHandLabelTop, leftHandLabelWidth, leftHandLabelHeight, "clear");
-	
-	// /* RIGHT HAND */
-	// $("body").append('<img id="rightHand" src="./images/rightHandEnabled.png "'+clickEvent+'="didPressRightHand()"></img>');
-	// rightHandWidth = controlsBackgroundHeight * 0.6;
-	// rightHandHeight = leftHandHeight;
-	// rightHandLeft =  leftHandLeft + leftHandWidth * 2;
-	// rightHandTop = leftHandTop;
-	// adjustTag("rightHand", rightHandLeft, rightHandTop, rightHandWidth, rightHandHeight, "clear");
+	/* RIGHT HAND */
+	$("#controls").append('<img id="rightHand" src="./images/rightHandEnabled.png" on'+startEvent+'="didPressRightHand()"  style="position:absolute;left:9%;top:25%;height:60%">');
+	$("#controls").append('<div id="rightHandLabel" style="position:absolute;left:9%;top:6%;height:15%;width:4%;text-align:center;background-color:clear" class="ctrlLabel">Right On</div>');
 
-	// /* RIGHT HAND LABEL */
-	// $("body").append('<div id="rightHandLabel">Right On</div>');
-	// rightHandLabelLeft =  rightHandLeft - rightHandWidth;
-	// rightHandLabelTop = leftHandLabelTop;
-	// rightHandLabelWidth = rightHandWidth * 3;
-	// rightHandLabelHeight = controlsBackgroundHeight * 0.145;
-	// adjustTag("rightHandLabel", rightHandLabelLeft, rightHandLabelTop, rightHandLabelWidth, rightHandLabelHeight, "clear");
-	
-	// // /* INFO BUTTON */
-	// // $("body").append('<img id="infoButton" src="./images/info.png"></img>');
-	// // infoButtonWidth = controlsBackgroundHeight * 0.3;
-	// // infoButtonHeight = infoButtonWidth;
-	// // infoButtonLeft =  leftHandLeft + leftHandWidth + ((rightHandLeft - (leftHandLeft + leftHandWidth)) - infoButtonWidth)/2;
-	// // infoButtonTop = rightHandTop + (rightHandHeight - infoButtonHeight)/2;
-	// // adjustTag("infoButton", infoButtonLeft, infoButtonTop, infoButtonWidth, infoButtonHeight, "clear");
+	/* DIVIDER */
+	$("#controls").append('<img id="divider1" src="./images/divider.png" style="position:absolute;left:15%;top:0%;width:1.3%;height:100%">');
 
-	// // $('#infoButton').bind(startEvent, function (e) {
- // // 		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
-	// // 		didPressPauseButton();
-	// // 	feedbackFormDisplayed = 1;
-	// // 	$('#handInfoPopup').css("display","");
-	// // 	$('#handInfoPopupCloseButton').css("display","");
-	// // });
-	
-	// /* HAND INFO POPUP */
-	// $("body").append('<img id="handInfoPopup" src="./images/handInfo.jpeg"></img>');
-	// handInfoPopupWidth = controlsBackgroundWidth * 0.3;
-	// handInfoPopupHeight = handInfoPopupWidth * 0.9;
-	// handInfoPopupLeft = controlsBackgroundLeft + (controlsBackgroundWidth - handInfoPopupWidth)/2;
-	// handInfoPopupTop = controlsBackgroundTop - 2 * screenWidth;
-	
-	// adjustTag("handInfoPopup", handInfoPopupLeft, handInfoPopupTop, handInfoPopupWidth, handInfoPopupHeight, "clear");
-	// $('#handInfoPopup').css("z-index","6");
-	// $('#handInfoPopup').css("display","none");
+	/* TRANSPOSITION BUTTONS */
+	$("#controls").append('<img id="transMinusButton" src="./images/minusButtonEnabled.png" on'+startEvent+'="didPressTransMinusButton()" style="position:absolute;left:20%;top:25%;height:60%">');
+	$("#controls").append('<img id="transPlusButton" src="./images/plusButtonEnabled.png" on'+startEvent+'="didPressTransPlusButton()" style="position:absolute;left:25%;top:25%;height:60%">');
+	$("#controls").append('<div id="transpositionLabel" style="position:absolute;left:20%;top:6%;height:15%;width:9%;text-align:center;background-color:clear" class="ctrlLabel">Transpostion (0)</div>');
 
-	// $("#handInfoPopup").bind(onClickEvent, function (e) {
-	// 	feedbackFormDisplayed = 0;
-	// 	$('#handInfoPopup').css("display","none");
-	// 	//$('#handInfoPopupCloseButton').css("display","none");
-	// });
-	
-	// /* DIVIDER */
-	// $("body").append('<img id="divider1" src="./images/divider.png"></img>');
-	// dividerLeft =  infoButtonLeft + leftHandWidth * 2.2;
-	// dividerTop = controlsBackgroundTop;
-	// dividerWidth = 20;
-	// dividerHeight = controlsBackgroundHeight;
-	// adjustTag("divider1", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
 
+
+	/* TRANSPOSITION MINUS BUTTON */
+	// $("body").append('<img id="transPlusButton" src="./images/plusButtonEnabled.png"'+clickEvent+'="didPressTransPlusButton()"></img>');
+	// transPlusButtonLeft =  controlsBackgroundWidth * 0.25;
+	// transPlusButtonTop = leftHandTop;
+	// transPlusButtonWidth = controlsBackgroundHeight * 0.6;
+	// transPlusButtonHeight = leftHandHeight;
+	// adjustTag("transPlusButton", transPlusButtonLeft, transPlusButtonTop, transPlusButtonWidth, transPlusButtonHeight, "clear");
+
+	// /* TRANSPOSITION LABEL */
+	// $("body").append('<div id="transpositionLabel">Transposition (0)</div>');
+	// transLabelLeft =  transMinusButtonLeft;
+	// transLabelTop = leftHandLabelTop;
+	// transLabelWidth = transPlusButtonLeft + transPlusButtonWidth - transMinusButtonLeft;
+	// transLabelHeight = leftHandLabelHeight;
+	// adjustTag("transpositionLabel", transLabelLeft, transLabelTop, transLabelWidth, transLabelHeight, "clear");
 	// /* DIVIDER */
 	// $("body").append('<img id="divider4" src="./images/divider.png"></img>');
 	// dividerLeft =  controlsBackgroundWidth * 0.38;
@@ -232,6 +186,7 @@ function drawControls()
 	// feedbackLabelTop = leftHandLabelTop;
 	// feedbackLabelHeight = leftHandLabelHeight;
 	// adjustTag("feedbackLabel", feedbackLabelLeft, feedbackLabelTop, feedbackLabelWidth, feedbackLabelHeight, "clear");
+	$(".ctrlLabel").css("font-size", getFontSize($("#leftHandLabel").height())+"px");
 }
 
 function drawTransposition()
