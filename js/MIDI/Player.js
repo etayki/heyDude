@@ -55,6 +55,8 @@ root.clearAnimation = function() {
 };
 
 root.setAnimation = function(config) {
+//console.log("root.setAnimation: " + (new Date().getTime() - startTime));
+
 	var callback = (typeof(config) === "function") ? config : config.callback;
 	var interval = config.interval || 30;
 	var currentTime = 0;
@@ -97,12 +99,15 @@ root.setAnimation = function(config) {
 // helpers
 
 root.loadMidiFile = function() { // reads midi into javascript array of events
+//console.log("root.loadMidiFile: " + (new Date().getTime() - startTime));
+
 	root.replayer = new Replayer(MidiFile(root.currentData), root.timeWarp);
 	root.data = root.replayer.getData();
 	root.endTime = getLength();
 };
 
 root.loadFile = function (file, callback) {
+//console.log("root.loadMidiFile: " + (new Date().getTime() - startTime));
 	root.stop();
 	if (file.indexOf("base64,") !== -1) {
 		var data = window.atob(file.split(",")[1]);
@@ -141,7 +146,11 @@ var startTime = 0; // to measure time elapse
 var noteRegistrar = {}; // get event for requested note
 var onMidiEvent = undefined; // listener callback
 var scheduleTracking = function (channel, note, currentTime, offset, message, velocity) {
+//console.log("scheduleTracking: " + (new Date().getTime() - startTime));
+
 	var interval = window.setTimeout(function () {
+		//console.log("interval: " + (new Date().getTime() - startTime));
+
 		var data = {
 			channel: channel,
 			note: note,
@@ -168,6 +177,8 @@ var scheduleTracking = function (channel, note, currentTime, offset, message, ve
 };
 
 var getContext = function() {
+	//console.log("getContext: " + (new Date().getTime() - startTime));
+
 	if (MIDI.lang === 'WebAudioAPI') {
 		return MIDI.Player.ctx;
 	} else if (!root.ctx) {
@@ -177,6 +188,8 @@ var getContext = function() {
 };
 
 var getLength = function() {
+	//console.log("getLength: " + (new Date().getTime() - startTime));
+
 	var data =  root.data;
 	var length = data.length;
 	var totalTime = 0.5;
@@ -187,6 +200,8 @@ var getLength = function() {
 };
 
 var startAudio = function (currentTime, fromCache) {
+	//console.log("startAudio: " + (new Date().getTime() - startTime));
+
 	if (!root.replayer) return;
 	if (!fromCache) {
 		if (typeof (currentTime) === "undefined") currentTime = root.restart;
@@ -242,6 +257,8 @@ var startAudio = function (currentTime, fromCache) {
 };
 
 var stopAudio = function () {
+	//console.log("stopAudio: " + (new Date().getTime() - startTime));
+
 	var ctx = getContext();
 	root.playing = false;
 	root.restart += (ctx.currentTime - startTime) * 1000;

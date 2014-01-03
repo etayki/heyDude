@@ -31,9 +31,8 @@ function getDeviceSettings()
 {
 	screenWidth = screen.width;
 	userAgent = navigator.userAgent;
-	isiPad = navigator.userAgent.match(/iPad/i) != null;
-	isiPhone = navigator.userAgent.match(/iPhone/i) != null;
-	if(isiPhone || isiPad)
+	isiOS = navigator.userAgent.match(/iP/i) != null;
+	if(isiOS)
 		screenWidth = 981;
 }
 
@@ -42,7 +41,7 @@ function setEvents()
 	startEvent = "mousedown";
 	moveEvent = "mousemove";
 	positionX = "e.pageX";
-    if(isiPad || isiPhone)
+    if(isiOS)
     {
 		startEvent = "touchstart";
 		moveEvent = "touchmove";
@@ -64,20 +63,17 @@ function setEvents()
  	//              "#keyboardBgrd", ".key", "#controlsBackground", "#divider1", "#divider2", "#divider3", "#divider4"];
 
  	// Disable double tap zoom
-	doubleTouchStartTimestamp = 0;
-	$("body").bind("touchstart", function (e) {
-	    var now = +(new Date());
-	    if (doubleTouchStartTimestamp + 500 > now) {
-	        event.preventDefault();
-	    }
-	    doubleTouchStartTimestamp = now;
-	});
+	// doubleTouchStartTimestamp = 0;
+	// $("body").bind("touchstart", function (e) {
+	//     var now = +(new Date());
+	//     if (doubleTouchStartTimestamp + 500 > now) {
+	//         event.preventDefault();
+	//     }
+	//     doubleTouchStartTimestamp = now;
+	// });
 
 	// PC
 
-	$("body").mouseup(function() {
-		draggerMouseDown = 0;
-	});	
 
 	keyPressTimer = 0;
 	/* KEY TAP */

@@ -154,8 +154,6 @@ function playMusic()
 		}
 	}
 
-	//adjustedTempo = tempo
-	//if (isiPad) adjustedTempo = tempo/1.6;
 	timers.push(setTimeout(function() {
 		delay += 0.01;
 		if (delay >= endDelay)

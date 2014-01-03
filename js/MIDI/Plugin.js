@@ -25,6 +25,8 @@ if (typeof (MIDI) === "undefined") var MIDI = {};
 (function() { "use strict";
 
 var setPlugin = function(root) {
+	//console.log("setPlugin: " + (new Date().getTime() - startTime));
+
 	MIDI.api = root.api;
 	MIDI.setVolume = root.setVolume;
 	MIDI.programChange = root.programChange;
@@ -122,8 +124,10 @@ var setPlugin = function(root) {
 	https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html
 	--------------------------------------------
 */
-
+var startTime;
 if (window.AudioContext || window.webkitAudioContext) (function () {
+	startTime = new Date().getTime();
+	//console.log("Web Audio API : " + (new Date().getTime() - startTime));
 
 	var AudioContext = window.AudioContext || window.webkitAudioContext;
 	var root = MIDI.WebAudio = {
@@ -134,6 +138,7 @@ if (window.AudioContext || window.webkitAudioContext) (function () {
 	var masterVolume = 127;
 	var audioBuffers = {};
 	var audioLoader = function (instrument, urlList, index, bufferList, callback) {
+		//console.log((new Date().getTime() - startTime)+" 	instrument="+instrument+" urlList="+urlList+" index="+index+" bufferList="+bufferList+" callback="+callback);
 		var synth = MIDI.GeneralMIDI.byName[instrument];
 		var instrumentId = synth.number;
 		var url = urlList[index];
@@ -540,6 +545,8 @@ if (window.Audio) (function () {
 
 // instrument-tracker
 MIDI.GeneralMIDI = (function (arr) {
+		//console.log("MIDI.GeneralMIDI: " + (new Date().getTime() - startTime));
+
 	var clean = function(v) {
 		return v.replace(/[^a-z0-9 ]/gi, "").replace(/[ ]/g, "_").toLowerCase();
 	};
@@ -587,6 +594,7 @@ MIDI.GeneralMIDI = (function (arr) {
 
 // channel-tracker
 MIDI.channels = (function () { // 0 - 15 channels
+		//console.log("MIDI.channels: " + (new Date().getTime() - startTime));
 	var channels = {};
 	for (var n = 0; n < 16; n++) {
 		channels[n] = { // default values
@@ -608,6 +616,7 @@ MIDI.pianoKeyOffset = 21;
 MIDI.keyToNote = {}; // C8  == 108
 MIDI.noteToKey = {}; // 108 ==  C8
 (function () {
+		//console.log("MIDI.noteToKey: " + (new Date().getTime() - startTime));
 	var A0 = 0x15; // first note
 	var C8 = 0x6C; // last note
 	var number2key = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];

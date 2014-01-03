@@ -17,6 +17,8 @@ if (typeof(MIDI) === "undefined") var MIDI = {};
 var supports = {};	
 var pending = 0;
 var canPlayThrough = function (src) {
+	//console.log("canPlayThrough: " + (new Date().getTime() - startTime));
+
 	pending ++;
 	var audio = new Audio();
 	var mime = src.split(";")[0];
@@ -36,6 +38,7 @@ var canPlayThrough = function (src) {
 };
 
 MIDI.audioDetect = function(callback) {
+	//console.log("MIDI.audioDetect: " + (new Date().getTime() - startTime));
 	// check whether <audio> tag is supported
 	if (typeof(Audio) === "undefined") return callback({});
 	// check whether canPlayType is supported
@@ -58,7 +61,7 @@ MIDI.audioDetect = function(callback) {
 	var time = (new Date()).getTime(); 
 	var interval = window.setInterval(function() {
 		var now = (new Date()).getTime();
-		var maxExecution = now - time > 5000;
+		var maxExecution = now - time > 150;
 		if (!pending || maxExecution) {
 			window.clearInterval(interval);
 			callback(supports);

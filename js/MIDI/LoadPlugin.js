@@ -22,6 +22,7 @@ var USE_XHR = false;
 var USE_JAZZMIDI = false;
 
 MIDI.loadPlugin = function(conf) {
+	//console.log("loadPlugin: " + (new Date().getTime() - startTime));
 	if (typeof(conf) === "function") conf = {
 		callback: conf
 	};
@@ -89,6 +90,7 @@ connect.flash = function(filetype, instruments, conf) {
 };
 
 connect.audiotag = function(filetype, instruments, conf) {
+	//console.log("connect.audiotag: " + (new Date().getTime() - startTime));
 	if (MIDI.loader) MIDI.loader.message("HTML5 Audio API...");
 	// works ok, kinda like a drunken tuna fish, across the board.
 	var queue = createQueue({
@@ -122,6 +124,8 @@ connect.audiotag = function(filetype, instruments, conf) {
 };
 
 connect.webaudio = function(filetype, instruments, conf) {
+	//console.log("connect.webaudio: " + (new Date().getTime() - startTime));
+
 	if (MIDI.loader) MIDI.loader.message("Web Audio API...");
 	// works awesome! safari and chrome support
 	var queue = createQueue({
@@ -164,6 +168,7 @@ var apis = {
 };
 
 var getPercent = function(event) {
+	//console.log("getPercent: " + (new Date().getTime() - startTime));
 	if (!this.totalSize) {
 		if (this.getResponseHeader("Content-Length-Raw")) {
 			this.totalSize = parseInt(this.getResponseHeader("Content-Length-Raw"));
@@ -176,12 +181,14 @@ var getPercent = function(event) {
 };
 
 var createQueue = function(conf) {
+	//console.log("createQueue: " + (new Date().getTime() - startTime));
 	var self = {};
 	self.queue = [];
 	for (var key in conf.items) {
 		self.queue.push(conf.items[key]);
 	}
 	self.getNext = function() {
+		//console.log("getNext: " + (new Date().getTime() - startTime));
 		if (!self.queue.length) return conf.onComplete();
 		conf.getNext(self.queue.shift());
 	};
