@@ -19,20 +19,17 @@ function drawControls()
 	$("#controls").append('<img id="transPlusButton" src="./images/plusButtonEnabled.png" on'+startEvent+'="didPressTransPlusButton()" style="position:absolute;left:25%;top:25%;height:60%">');
 	$("#controls").append('<div id="transpositionLabel" style="position:absolute;left:20%;top:6%;height:15%;width:9%;text-align:center;background-color:clear" class="ctrlLabel">Transpostion (0)</div>');
 
-	// /* NOTE BUTTON */
+	/* NOTE BUTTON */
 	$("#controls").append('<img id="transMinusButton" src="./images/notesDisabled.png" on'+startEvent+'="didPressNotes()" style="position:absolute;left:32%;top:25%;height:60%">');
 	$("#controls").append('<div id="notesLabel" style="position:absolute;left:32%;top:6%;height:15%;width:4%;text-align:center;background-color:clear" class="ctrlLabel">Notes Off</div>');
 
-	
-	// /* NOTE BUTTON LABEL */
-	// $("body").append('<div id="notesLabel">Notes Off</div>');
-	// noteButtonLabelLeft =  noteButtonLeft - noteButtonWidth;
-	// noteButtonLabelTop = leftHandLabelTop;
-	// noteButtonLabelWidth = noteButtonWidth * 3;
-	// noteButtonLabelHeight = controlsBackgroundHeight * 0.145;
-	// adjustTag("notesLabel", noteButtonLabelLeft, noteButtonLabelTop, noteButtonLabelWidth, noteButtonLabelHeight, "clear");
+	/* DIVIDER */
+	$("#controls").append('<img id="divider2" src="./images/divider.png" style="position:absolute;left:40%;top:0%;width:1.3%;height:100%">');
 
-	// /* PLAY BUTTON */
+	/* PLAY BUTTON */
+	$("#controls").append('<img id="playBtn" src="./images/playLoading.gif" on'+startEvent+'="didPressPlayButton()" style="position:absolute;left:42%;top:25%;height:60%;width:4%">');
+	$("#controls").append('<div id="playLabel" style="position:absolute;left:42%;top:6%;height:15%;width:4%;text-align:center;background-color:clear" class="ctrlLabel">Play</div>');
+
 	// $("body").append('<img id="playBtn" src="./images/loading.gif "'+clickEvent+'="didPressPlayButton()"></img>');
 	// playButtonLeft =  controlsBackgroundWidth * 0.43;
 	// playButtonTop = leftHandTop;
