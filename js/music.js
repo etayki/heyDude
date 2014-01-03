@@ -84,10 +84,10 @@ function didPressPauseButton()
 
 function playMusic()
 {	
-	thisTime = new Date().getTime();
+	// thisTime = new Date().getTime();
 	//debug(tempo + " " + (thisTime-previousTime));
 	//console.log(tempo + " " + (thisTime-previousTime));
-	previousTime = thisTime;
+	// previousTime = thisTime;
 
 	// Metronome
 	if ((Math.floor(delay * 100) % 100 == 0) && metronomeEnabled)
@@ -281,6 +281,7 @@ function setEndMeasure(newMeasure)
 function setTempo(newMetronomeBox)
 {
 	$('#speedLabel').text("Speed: "+newMetronomeBox+"%");
+	currentMetronomeBox = newMetronomeBox;
 	tempo = Math.floor((101-0.75*newMetronomeBox)/100 * 40);
 }
 
