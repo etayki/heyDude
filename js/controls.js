@@ -2,22 +2,25 @@ function drawControls()
 {
 	$("body").append('<div id="controls" style="position:absolute;left:0%;top:'+topOffset+';width:'+screenWidth+';height:'+screenWidth * 0.0645+'"></div>');
 	$("#controls").append('<img src="./images/controlsBackground.png" style="position:absolute;left:0%;top:0%;width:100%;height:100%">');
-
+	controlsLeft = 3;
 	/* LEFT HAND */
-	$("#controls").append('<img id="leftHand" src="./images/leftHandEnabled.png" on'+startEvent+'="didPressLeftHand()" style="position:absolute;left:3%;top:25%;height:60%">');
-	$("#controls").append('<div id="leftHandLabel" style="position:absolute;left:3%;top:6%;height:15%;width:4%;text-align:center;background-color:clear" class="ctrlLabel">Left On</div>');
+	$("#controls").append('<img id="leftHand" src="./images/leftHandEnabled.png" on'+startEvent+'="didPressLeftHand()" style="position:absolute;left:'+controlsLeft+'%;top:25%;height:60%">');
+	$("#controls").append('<div id="leftHandLabel" style="position:absolute;left:'+controlsLeft+'%;top:6%;height:15%;width:4%;text-align:center;background-color:clear" class="ctrlLabel">Left On</div>');
+	controlsLeft += 6;
 
 	/* RIGHT HAND */
-	$("#controls").append('<img id="rightHand" src="./images/rightHandEnabled.png" on'+startEvent+'="didPressRightHand()"  style="position:absolute;left:9%;top:25%;height:60%">');
-	$("#controls").append('<div id="rightHandLabel" style="position:absolute;left:9%;top:6%;height:15%;width:4%;text-align:center;background-color:clear" class="ctrlLabel">Right On</div>');
+	$("#controls").append('<img id="rightHand" src="./images/rightHandEnabled.png" on'+startEvent+'="didPressRightHand()"  style="position:absolute;left:'+controlsLeft+'%;top:25%;height:60%">');
+	$("#controls").append('<div id="rightHandLabel" style="position:absolute;left:'+controlsLeft+'%;top:6%;height:15%;width:4%;text-align:center;background-color:clear" class="ctrlLabel">Right On</div>');
+	controlsLeft += 6;
 
 	/* DIVIDER */
-	$("#controls").append('<img id="divider1" src="./images/divider.png" style="position:absolute;left:15%;top:0%;width:1.3%;height:100%">');
-
+	$("#controls").append('<img id="divider1" src="./images/divider.png" style="position:absolute;left:'+controlsLeft+'%;top:0%;width:1.3%;height:100%">');
+	controlsLeft += 3.5;
+	
 	/* TRANSPOSITION BUTTONS */
-	$("#controls").append('<img id="transMinusButton" src="./images/minusButtonEnabled.png" on'+startEvent+'="didPressTransMinusButton()" style="position:absolute;left:20%;top:25%;height:60%">');
-	$("#controls").append('<img id="transPlusButton" src="./images/plusButtonEnabled.png" on'+startEvent+'="didPressTransPlusButton()" style="position:absolute;left:25%;top:25%;height:60%">');
-	$("#controls").append('<div id="transpositionLabel" style="position:absolute;left:20%;top:6%;height:15%;width:9%;text-align:center;background-color:clear" class="ctrlLabel">Transpostion (0)</div>');
+	$("#controls").append('<img id="transMinusButton" src="./images/minusButtonEnabled.png" on'+startEvent+'="didPressTransMinusButton()" style="position:absolute;left:'+controlsLeft+'%;top:25%;height:60%">');
+	$("#controls").append('<img id="transPlusButton" src="./images/plusButtonEnabled.png" on'+startEvent+'="didPressTransPlusButton()" style="position:absolute;left:'+(controlsLeft+5)+'%;top:25%;height:60%">');
+	$("#controls").append('<div id="transpositionLabel" style="position:absolute;left:'+controlsLeft+'%;top:6%;height:15%;width:9%;text-align:center;background-color:clear" class="ctrlLabel">Transpostion (0)</div>');
 
 	/* NOTE BUTTON */
 	$("#controls").append('<img id="notesButton" src="./images/notesDisabled.png" on'+startEvent+'="didPressNotes()" style="position:absolute;left:32%;top:25%;height:60%">');
