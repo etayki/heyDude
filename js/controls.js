@@ -64,8 +64,13 @@ function drawControls()
 	/* FULL SCREEN BUTTON */
 	$("#controls").append('<img id="fullScreenButton" src="./images/fullScreen.png" on'+startEvent+'="didPressFullScreenButton()" style="position:absolute;left:'+controlsLeft+'%;top:23%;height:67%;width:4%">');
 	$("#controls").append('<div id="fullScreenLabel" style="position:absolute;left:'+controlsLeft+'%;top:6%;height:15%;width:4%;text-align:center;background-color:clear" class="ctrlLabel">Full Screen</div>');
-	controlsLeft += 5.5;
+	controlsLeft += 8;
 
+	/* FEEDBACK BUTTON */
+	$("#controls").append('<img id="feedbackButton" src="./images/feedbackIcon.png" on'+startEvent+'="didPressFeedbackButton()" style="position:absolute;left:'+controlsLeft+'%;top:25%;height:60%;width:4%">');
+	$("#controls").append('<div id="feedbackLabel" style="position:absolute;left:'+controlsLeft+'%;top:6%;height:15%;width:4%;text-align:center;background-color:clear" class="ctrlLabel">Feedback</div>');
+	controlsLeft += 5.5;
+	
 	// /* FEEDBACK BUTTON */
 	// $("body").append('<img id="feedbackButton" src="./images/feedbackIcon.png "'+clickEvent+'="didPressFeedbackButton()"></img>');
 	// feedbackButtonLeft =  fullScreenButtonLeft + 2 * fullScreenButtonWidth;
