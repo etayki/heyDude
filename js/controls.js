@@ -19,7 +19,7 @@ function drawControls()
 	
 	/* TRANSPOSITION BUTTONS */
 	$("#controls").append('<img id="transMinusButton" src="./images/minusButtonEnabled.png" on'+startEvent+'="didPressTransMinusButton()" style="position:absolute;left:'+controlsLeft+'%;top:25%;height:60%">');
-	$("#controls").append('<img id="transPlusButton" src="./images/plusButtonEnabled.png" on'+startEvent+'="didPressTransPlusButton()" style="position:absolute;left:'+(controlsLeft+5)+'%;top:25%;height:60%">');
+	$("#controls").append('<img id="transPlusButton" src="./images/plusButtonDisabled.png" on'+startEvent+'="didPressTransPlusButton()" style="position:absolute;left:'+(controlsLeft+5)+'%;top:25%;height:60%">');
 	$("#controls").append('<div id="transpositionLabel" style="position:absolute;left:'+controlsLeft+'%;top:6%;height:15%;width:9%;text-align:center;background-color:clear" class="ctrlLabel">Transpostion (0)</div>');
 	controlsLeft += 12;
 
@@ -39,15 +39,17 @@ function drawControls()
 
 	/* DIVIDER */
 	$("#controls").append('<img id="divider3" src="./images/divider.png" style="position:absolute;left:'+controlsLeft+'%;top:0%;width:1.3%;height:100%">');
+	controlsLeft += 4;
 
-	/* PLAY BUTTON */
-	$("#controls").append('<img id="metronome" src="./images/metronomeDisabled.png" on'+startEvent+'="didPressMetronome()" style="position:absolute;left:50%;top:25%;height:60%;width:4%">');
-	$("#controls").append('<div id="metroLabel" style="position:absolute;left:50%;top:6%;height:15%;width:4%;text-align:center;background-color:clear" class="ctrlLabel">Metro Off</div>');
+	/* METRONOME BUTTON */
+	$("#controls").append('<img id="metronome" src="./images/metronomeDisabled.png" on'+startEvent+'="didPressMetronome()" style="position:absolute;left:'+controlsLeft+'%;top:25%;height:60%;width:4%">');
+	$("#controls").append('<div id="metroLabel" style="position:absolute;left:'+controlsLeft+'%;top:6%;height:15%;width:4%;text-align:center;background-color:clear" class="ctrlLabel">Metro Off</div>');
+	controlsLeft += 7;
 
 	/* SPEED BUTTONS */
-	$("#controls").append('<img id="speedMinusButton" src="./images/minusButtonEnabled.png" on'+startEvent+'="didPressSpeedMinusButton()" style="position:absolute;left:56%;top:25%;height:60%">');
-	$("#controls").append('<img id="speedPlusButton" src="./images/plusButtonEnabled.png" on'+startEvent+'="didPressSpeedPlusButton()" style="position:absolute;left:61%;top:25%;height:60%">');
-	$("#controls").append('<div id="speedLabel" style="position:absolute;left:56%;top:6%;height:15%;width:9%;text-align:center;background-color:clear" class="ctrlLabel">Speed: (100%)</div>');
+	$("#controls").append('<img id="speedMinusButton" src="./images/minusButtonEnabled.png" on'+startEvent+'="didPressSpeedMinusButton()" style="position:absolute;left:'+controlsLeft+'%;top:25%;height:60%">');
+	$("#controls").append('<img id="speedPlusButton" src="./images/plusButtonDisabled.png" on'+startEvent+'="didPressSpeedPlusButton()" style="position:absolute;left:'+(controlsLeft+5)+'%;top:25%;height:60%">');
+	$("#controls").append('<div id="speedLabel" style="position:absolute;left:'+controlsLeft+'%;top:6%;height:15%;width:9%;text-align:center;background-color:clear" class="ctrlLabel">Speed: (100%)</div>');
 
 	// /* POSITION LABEL */
 	// $("body").append('<div id="positionLabel">1.00</div>');
