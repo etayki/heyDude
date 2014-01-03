@@ -33,44 +33,9 @@ function drawControls()
 	/* DIVIDER */
 	$("#controls").append('<img id="divider3" src="./images/divider.png" style="position:absolute;left:47%;top:0%;width:1.3%;height:100%">');
 
-	// $("body").append('<img id="playBtn" src="./images/loading.gif "'+clickEvent+'="didPressPlayButton()"></img>');
-	// playButtonLeft =  controlsBackgroundWidth * 0.43;
-	// playButtonTop = leftHandTop;
-	// playButtonWidth = controlsBackgroundHeight * 0.6;
-	// playButtonHeight = leftHandHeight;
-	// adjustTag("playBtn", playButtonLeft, playButtonTop, playButtonWidth, playButtonHeight, "clear");
-
-	// /* PLAY LABEL */
-	// $("body").append('<div id="playLabel">Play</div>');
-	// playLabelLeft =  playButtonLeft - playButtonWidth;
-	// playLabelTop = leftHandLabelTop;
-	// playLabelWidth = leftHandLabelWidth;
-	// playLabelHeight = controlsBackgroundHeight * 0.145;
-	// adjustTag("playLabel", playLabelLeft, playLabelTop, playLabelWidth, playLabelHeight, "clear");
-	
-	// /* DIVIDER */
-	// $("body").append('<img id="divider2" src="./images/divider.png"></img>');
-	// dividerLeft =  controlsBackgroundWidth * 0.5;
-	// dividerTop = controlsBackgroundTop;
-	// dividerWidth = 20;
-	// dividerHeight = controlsBackgroundHeight;
-	// adjustTag("divider2", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
-
-	// /* METRONOME BUTTON */
-	// $("body").append('<img id="metronome" src="./images/metronomeDisabled.png "'+clickEvent+'="didPressMetronome()"></img>');
-	// metronomeLeft =  controlsBackgroundWidth * 0.53;
-	// metronomeHeight = playButtonHeight * 0.95;
-	// metronomeTop = leftHandTop;
-	// metronomeWidth = metronomeHeight;
-	// adjustTag("metronome", metronomeLeft, metronomeTop, metronomeWidth, metronomeHeight, "clear");
-	
-	// /* METRONOME LABEL */
-	// $("body").append('<div id="metroLabel">Metro Off</div>');
-	// tempoLabelLeft =  metronomeLeft - metronomeWidth;
-	// tempoLabelTop = leftHandLabelTop;
-	// tempoLabelWidth = metronomeWidth * 3;
-	// tempoLabelHeight = leftHandLabelHeight;
-	// adjustTag("metroLabel", tempoLabelLeft, tempoLabelTop, tempoLabelWidth, tempoLabelHeight, "clear");
+	/* PLAY BUTTON */
+	$("#controls").append('<img id="metronome" src="./images/metronomeDisabled.png" on'+startEvent+'="didPressMetronome()" style="position:absolute;left:50%;top:25%;height:60%;width:4%">');
+	$("#controls").append('<div id="metroLabel" style="position:absolute;left:50%;top:6%;height:15%;width:4%;text-align:center;background-color:clear" class="ctrlLabel">Metro Off</div>');
 
 	// /* POSITION LABEL */
 	// $("body").append('<div id="positionLabel">1.00</div>');
@@ -81,22 +46,7 @@ function drawControls()
 	// adjustTag("positionLabel", positionLabelLeft, positionLabelTop, positionLabelWidth, positionLabelHeight, "clear");
 	// $('#positionLabel').css("display","none");
 
-	// /* SLOW LABEL */
-	// $("body").append('<div id="slowLabel">Slow</div>');
-	// slowLabelLeft =  metronomeLeft + leftHandWidth;
-	// slowLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.65;
-	// slowLabelWidth = controlsBackgroundWidth * 0.05;
-	// slowLabelHeight = controlsBackgroundHeight * 0.2;
-	// adjustTag("slowLabel", slowLabelLeft, slowLabelTop, slowLabelWidth, slowLabelHeight, "clear");
-	// $('#slowLabel').css("display","none");
-	
-	// /* FAST LABEL */
-	// $("body").append('<div id="fastLabel">Fast</div>');
-	// fastLabelLeft =  slowLabelLeft + leftHandWidth * 3.5;
-	// fastLabelTop = slowLabelTop;
-	// fastLabelWidth = controlsBackgroundWidth * 0.05;
-	// fastLabelHeight = controlsBackgroundHeight * 0.2;
-	// adjustTag("fastLabel", fastLabelLeft, fastLabelTop, fastLabelWidth, fastLabelHeight, "clear");
+
 	// $('#fastLabel').css("display","none");
 
 	// /* DIVIDER */
