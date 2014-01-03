@@ -56,49 +56,15 @@ function drawControls()
 	$("#controls").append('<img id="divider4" src="./images/divider.png" style="position:absolute;left:'+controlsLeft+'%;top:0%;width:1.3%;height:100%">');
 	controlsLeft += 4;
 
-	// /* DIVIDER */
-	// $("body").append('<img id="divider3" src="./images/divider.png"></img>');
-	// dividerLeft =  controlsBackgroundWidth * 0.75;
-	// dividerTop = controlsBackgroundTop;
-	// dividerWidth = 20;
-	// dividerHeight = controlsBackgroundHeight;
-	// adjustTag("divider3", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
+	/* ZOOM BUTTON */
+	$("#controls").append('<img id="zoom" src="./images/zoomIn.png" on'+startEvent+'="didPressZoom()" style="position:absolute;left:'+controlsLeft+'%;top:25%;height:60%;width:4%">');
+	$("#controls").append('<div id="zoomLabel" style="position:absolute;left:'+controlsLeft+'%;top:6%;height:15%;width:4%;text-align:center;background-color:clear" class="ctrlLabel">Zoom</div>');
+	controlsLeft += 8;
 
-	// /* ZOOM BUTTON */
-	// $("body").append('<img id="zoom" src="./images/zoomIn.png "'+clickEvent+'="didPressZoom()"></img>');
-	// zoomLeft =  controlsBackgroundWidth * 0.78;
-	// zoomHeight = playButtonHeight * 0.99;
-	// zoomTop = leftHandTop*1.005;
-	// zoomWidth = zoomHeight;
-	// adjustTag("zoom", zoomLeft, zoomTop, zoomWidth, zoomHeight, "clear");
-	
-	// /* ZOOM LABEL */
-	// $("body").append('<div id="zoomLabel">Zoom In</div>');
-	// zoomLabelLeft =  zoomLeft - zoomWidth;
-	// zoomLabelTop = leftHandLabelTop;
-	// zoomLabelWidth = zoomWidth * 3;
-	// zoomLabelHeight = leftHandLabelHeight;
-	// adjustTag("zoomLabel", zoomLabelLeft, zoomLabelTop, zoomLabelWidth, zoomLabelHeight, "clear");
-
-	// /* FULL SCREEN BUTTON */
-	// $("body").append('<img id="fullScreenButton" src="./images/fullScreen.png "'+clickEvent+'="didPressFullScreenButton()"></img>');
-	// fullScreenButtonLeft =  controlsBackgroundWidth * 0.85;
-	// fullScreenButtonTop = leftHandTop;
-	// fullScreenButtonWidth = controlsBackgroundHeight * 0.6;
-	// fullScreenButtonHeight = leftHandHeight * 1.07;
-	// adjustTag("fullScreenButton", fullScreenButtonLeft, fullScreenButtonTop, fullScreenButtonWidth, fullScreenButtonHeight, "clear");
-	// if (isiPad)
-	// 	$('#fullScreenButton').css("display","none");
-
-	// /* FULL SCREEN LABEL */
-	// $("body").append('<div id="fullScreenLabel">Full Screen</div>');
-	// fullScreenLabelWidth = leftHandLabelWidth * 0.6;
-	// fullScreenLabelLeft =  fullScreenButtonLeft - (fullScreenLabelWidth - fullScreenButtonWidth)/2;
-	// fullScreenLabelTop = leftHandLabelTop;
-	// fullScreenLabelHeight = leftHandLabelHeight;
-	// adjustTag("fullScreenLabel", fullScreenLabelLeft, fullScreenLabelTop, fullScreenLabelWidth, fullScreenLabelHeight, "clear");
-	// if (isiPad)
-	// 	$('#fullScreenLabel').css("display","none");
+	/* FULL SCREEN BUTTON */
+	$("#controls").append('<img id="fullScreenButton" src="./images/fullScreen.png" on'+startEvent+'="didPressFullScreenButton()" style="position:absolute;left:'+controlsLeft+'%;top:23%;height:67%;width:4%">');
+	$("#controls").append('<div id="fullScreenLabel" style="position:absolute;left:'+controlsLeft+'%;top:6%;height:15%;width:4%;text-align:center;background-color:clear" class="ctrlLabel">Full Screen</div>');
+	controlsLeft += 5.5;
 
 	// /* FEEDBACK BUTTON */
 	// $("body").append('<img id="feedbackButton" src="./images/feedbackIcon.png "'+clickEvent+'="didPressFeedbackButton()"></img>');
@@ -134,8 +100,8 @@ function didPressFullScreenButton()
 	requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
         requestMethod.call(element);
 	$("#fullScreenButton").attr("src", "./images/cancelFullScreen.jpeg");
-	$("#fullScreenButton").attr(clickEvent, "didPressCancelFullScreenButton()");
-	$("#fullScreenLabel").text("Exit Full Screen");
+	$("#fullScreenButton").attr("on"+startEvent, "didPressCancelFullScreenButton()");
+	$("#fullScreenLabel").text("Exit");
 }
 
 function didPressFeedbackButton()
@@ -153,7 +119,7 @@ function didPressCancelFullScreenButton()
 	requestMethod = element.cancelFullScreen || element.webkitCancelFullScreen || element.mozCancelFullScreen || element.exitFullscreen;
         requestMethod.call(element);
 	$("#fullScreenButton").attr("src", "./images/fullScreen.png");
-	$("#fullScreenButton").attr("onclick", "didPressFullScreenButton()");
+	$("#fullScreenButton").attr("on"+startEvent, "didPressFullScreenButton()");
 	$("#fullScreenLabel").text("Full Screen");
 }
 
