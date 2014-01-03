@@ -19,38 +19,10 @@ function drawControls()
 	$("#controls").append('<img id="transPlusButton" src="./images/plusButtonEnabled.png" on'+startEvent+'="didPressTransPlusButton()" style="position:absolute;left:25%;top:25%;height:60%">');
 	$("#controls").append('<div id="transpositionLabel" style="position:absolute;left:20%;top:6%;height:15%;width:9%;text-align:center;background-color:clear" class="ctrlLabel">Transpostion (0)</div>');
 
-
-
-	/* TRANSPOSITION MINUS BUTTON */
-	// $("body").append('<img id="transPlusButton" src="./images/plusButtonEnabled.png"'+clickEvent+'="didPressTransPlusButton()"></img>');
-	// transPlusButtonLeft =  controlsBackgroundWidth * 0.25;
-	// transPlusButtonTop = leftHandTop;
-	// transPlusButtonWidth = controlsBackgroundHeight * 0.6;
-	// transPlusButtonHeight = leftHandHeight;
-	// adjustTag("transPlusButton", transPlusButtonLeft, transPlusButtonTop, transPlusButtonWidth, transPlusButtonHeight, "clear");
-
-	// /* TRANSPOSITION LABEL */
-	// $("body").append('<div id="transpositionLabel">Transposition (0)</div>');
-	// transLabelLeft =  transMinusButtonLeft;
-	// transLabelTop = leftHandLabelTop;
-	// transLabelWidth = transPlusButtonLeft + transPlusButtonWidth - transMinusButtonLeft;
-	// transLabelHeight = leftHandLabelHeight;
-	// adjustTag("transpositionLabel", transLabelLeft, transLabelTop, transLabelWidth, transLabelHeight, "clear");
-	// /* DIVIDER */
-	// $("body").append('<img id="divider4" src="./images/divider.png"></img>');
-	// dividerLeft =  controlsBackgroundWidth * 0.38;
-	// dividerTop = controlsBackgroundTop;
-	// dividerWidth = 20;
-	// dividerHeight = controlsBackgroundHeight;
-	// adjustTag("divider4", dividerLeft, dividerTop, dividerWidth, dividerHeight, "clear");
-
 	// /* NOTE BUTTON */
-	// $("body").append('<img id="notesButton" src="./images/notesDisabled.png "'+clickEvent+'="didPressNotes()"></img>');
-	// noteButtonLeft =  controlsBackgroundWidth * 0.33;
-	// noteButtonHeight = rightHandHeight * 0.97;
-	// noteButtonTop = leftHandTop;
-	// noteButtonWidth = noteButtonHeight;
-	// adjustTag("notesButton", noteButtonLeft, noteButtonTop, noteButtonWidth, noteButtonHeight, "clear");
+	$("#controls").append('<img id="transMinusButton" src="./images/notesDisabled.png" on'+startEvent+'="didPressNotes()" style="position:absolute;left:32%;top:25%;height:60%">');
+	$("#controls").append('<div id="notesLabel" style="position:absolute;left:32%;top:6%;height:15%;width:4%;text-align:center;background-color:clear" class="ctrlLabel">Notes Off</div>');
+
 	
 	// /* NOTE BUTTON LABEL */
 	// $("body").append('<div id="notesLabel">Notes Off</div>');
