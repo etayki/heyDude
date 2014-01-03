@@ -1,6 +1,7 @@
 function drawControls()
 {
 	$("body").append('<div id="controls" style="position:absolute;left:0%;top:'+topOffset+';width:'+screenWidth+';height:'+screenWidth * 0.0645+'"></div>');
+	topOffset += screenWidth * 0.0645;
 	$("#controls").append('<img src="./images/controlsBackground.png" style="position:absolute;left:0%;top:0%;width:100%;height:100%">');
 	controlsLeft = 3;
 	/* LEFT HAND */

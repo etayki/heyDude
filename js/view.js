@@ -19,22 +19,8 @@ function drawScreen()
 	setMarkerEvents();
 	console.log("drawControls: " + (new Date().getTime() - startTime));
 	drawControls();
-	console.log("drawTransposition: " + (new Date().getTime() - startTime));
-	// if (isiPad)
-	// //if (1)
-	// {
-	// 	drawTranspositionTablet();
-	// 	drawSpeedTablet();
-	// }
-	// else
-	// {
-	// 	drawMetronome();
-	// 	drawTransposition();
-	// }	
-	// console.log("drawMetronome: " + (new Date().getTime() - startTime));
-	// console.log("drawPiano: " + (new Date().getTime() - startTime));
-	// //drawPiano(8,68);
-	// drawPiano(0,88);
+	console.log("drawPiano: " + (new Date().getTime() - startTime));
+	drawPiano(0,88);
 	// console.log("drawfeedback: " + (new Date().getTime() - startTime));
 	// drawfeedback();
 	// console.log("display: " + (new Date().getTime() - startTime));
@@ -136,18 +122,17 @@ function drawHeader()
 
 function drawPiano(startKey, endKey)
 {
+
 	/* RED LINE */
-	redLineLeft =  controlsBackgroundLeft;
-	redLineTop = topOffset;
-	redLineWidth = controlsBackgroundWidth;
-	redLineHeight = 5;
-
     $("body").append('<img id="redVelvet" src="./images/redLine.png" style="z-index:5;position:absolute;'+
-    				 'left:0;top:'+redLineTop+';width:'+screenWidth+';height=5">');
+    				 'left:0;top:'+topOffset+';width:100%;height=5">');
+    topOffset += 5;
 
-	$("body").append('<div id="pianoKeyboard" style="border-style:solid;border-width:2px;z-index:2;position:absolute;'+
-		             'left:0;top:'+(redLineTop+redLineHeight)+';width:'+screenWidth+';height='+(screenWidth*0.086)+'"></div>');
-
+    //(screenWidth*0.086)
+    /* PIANO */
+	$("body").append('<div id="pianoKeyboard" style="border-style:solid;border-width:0px;z-index:2;position:absolute;'+
+		             'left:0;top:'+topOffset+';width:100%;height:'+(screenWidth*0.086)+';background-color:black"></div>');
+	//return;
 	noteNames = ["A","Bb","B","C","C#","D","Eb","E","F","F#","G","Ab"];
 	keyWidth = 1/52.5*100; // 52 keys + 0.5% key for padding between keys
 	whiteKeyLeft = 0.1;
