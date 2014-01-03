@@ -141,7 +141,7 @@ END;
 }
 ?>
 </head>
-<body bgcolor="#900000">
+<body bgcolor="#900000" style="overflow-x:hidden">
 <title>Learn Moonlight Sonata</title>
 <!-- Loading Animation -->
 <div id="loading" style="position:absolute;top:15%;left:35%"><img src="./images/loading.gif" style="position:absolute;width:400px;height:400px"></img></div>
