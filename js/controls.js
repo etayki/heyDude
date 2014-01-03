@@ -50,18 +50,11 @@ function drawControls()
 	$("#controls").append('<img id="speedMinusButton" src="./images/minusButtonEnabled.png" on'+startEvent+'="didPressSpeedMinusButton()" style="position:absolute;left:'+controlsLeft+'%;top:25%;height:60%">');
 	$("#controls").append('<img id="speedPlusButton" src="./images/plusButtonDisabled.png" on'+startEvent+'="didPressSpeedPlusButton()" style="position:absolute;left:'+(controlsLeft+5)+'%;top:25%;height:60%">');
 	$("#controls").append('<div id="speedLabel" style="position:absolute;left:'+controlsLeft+'%;top:6%;height:15%;width:9%;text-align:center;background-color:clear" class="ctrlLabel">Speed: (100%)</div>');
+	controlsLeft += 11;
 
-	// /* POSITION LABEL */
-	// $("body").append('<div id="positionLabel">1.00</div>');
-	// positionLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.37;
-	// positionLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.38;
-	// positionLabelWidth = controlsBackgroundWidth * 0.03;
-	// positionLabelHeight = positionLabelWidth;
-	// adjustTag("positionLabel", positionLabelLeft, positionLabelTop, positionLabelWidth, positionLabelHeight, "clear");
-	// $('#positionLabel').css("display","none");
-
-
-	// $('#fastLabel').css("display","none");
+	/* DIVIDER */
+	$("#controls").append('<img id="divider4" src="./images/divider.png" style="position:absolute;left:'+controlsLeft+'%;top:0%;width:1.3%;height:100%">');
+	controlsLeft += 4;
 
 	// /* DIVIDER */
 	// $("body").append('<img id="divider3" src="./images/divider.png"></img>');
@@ -122,6 +115,15 @@ function drawControls()
 	// feedbackLabelTop = leftHandLabelTop;
 	// feedbackLabelHeight = leftHandLabelHeight;
 	// adjustTag("feedbackLabel", feedbackLabelLeft, feedbackLabelTop, feedbackLabelWidth, feedbackLabelHeight, "clear");
+
+	// /* POSITION LABEL */
+	// $("body").append('<div id="positionLabel">1.00</div>');
+	// positionLabelLeft =  controlsBackgroundLeft + controlsBackgroundWidth * 0.37;
+	// positionLabelTop = controlsBackgroundTop + controlsBackgroundHeight * 0.38;
+	// positionLabelWidth = controlsBackgroundWidth * 0.03;
+	// positionLabelHeight = positionLabelWidth;
+	// adjustTag("positionLabel", positionLabelLeft, positionLabelTop, positionLabelWidth, positionLabelHeight, "clear");
+	// $('#positionLabel').css("display","none");
 	$(".ctrlLabel").css("font-size", getFontSize($("#leftHandLabel").height())+"px");
 }
 
