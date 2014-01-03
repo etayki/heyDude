@@ -21,12 +21,9 @@ function drawScreen()
 	drawControls();
 	console.log("drawPiano: " + (new Date().getTime() - startTime));
 	drawPiano(0,88);
-	// console.log("drawfeedback: " + (new Date().getTime() - startTime));
-	// drawfeedback();
-	// console.log("display: " + (new Date().getTime() - startTime));
 	 $("#loading").css("display","none");
-	// console.log("reportBrowser: " + (new Date().getTime() - startTime));
-	// reportBrowser();
+	console.log("reportBrowser: " + (new Date().getTime() - startTime));
+	reportBrowser();
 	// console.log("done: " + (new Date().getTime() - startTime));
 }
 

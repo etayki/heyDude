@@ -28,13 +28,13 @@ $(document).ready(function() {
 		callback: function() {
 			console.log("MIDI.loadPlugin Done: " + (new Date().getTime() - startTime));
 			MIDI.setVolume(0, 127);
-			//drawScreen();
+			drawScreen();
 			$("#playBtn").attr("src", "./images/playButton.png");
 		}
 	});
 
 	startTime = new Date().getTime();
-	drawScreen();
+	//drawScreen();
 	
 	/* DISABLE SELECTION */
 	$("body").css("-webkit-user-select","none");
@@ -283,6 +283,7 @@ function setTempo(newMetronomeBox)
 	$('#speedLabel').text("Speed: "+newMetronomeBox+"%");
 	currentMetronomeBox = newMetronomeBox;
 	tempo = Math.floor((101-0.75*newMetronomeBox)/100 * 40);
+	//playMusic(); //- Add this to REALLY make things go faster
 }
 
 function setTransposition(newTransposition)
