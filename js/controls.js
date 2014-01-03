@@ -20,7 +20,7 @@ function drawControls()
 	$("#controls").append('<div id="transpositionLabel" style="position:absolute;left:20%;top:6%;height:15%;width:9%;text-align:center;background-color:clear" class="ctrlLabel">Transpostion (0)</div>');
 
 	/* NOTE BUTTON */
-	$("#controls").append('<img id="transMinusButton" src="./images/notesDisabled.png" on'+startEvent+'="didPressNotes()" style="position:absolute;left:32%;top:25%;height:60%">');
+	$("#controls").append('<img id="notesButton" src="./images/notesDisabled.png" on'+startEvent+'="didPressNotes()" style="position:absolute;left:32%;top:25%;height:60%">');
 	$("#controls").append('<div id="notesLabel" style="position:absolute;left:32%;top:6%;height:15%;width:4%;text-align:center;background-color:clear" class="ctrlLabel">Notes Off</div>');
 
 	/* DIVIDER */
@@ -29,6 +29,9 @@ function drawControls()
 	/* PLAY BUTTON */
 	$("#controls").append('<img id="playBtn" src="./images/playLoading.gif" on'+startEvent+'="didPressPlayButton()" style="position:absolute;left:42%;top:25%;height:60%;width:4%">');
 	$("#controls").append('<div id="playLabel" style="position:absolute;left:42%;top:6%;height:15%;width:4%;text-align:center;background-color:clear" class="ctrlLabel">Play</div>');
+
+	/* DIVIDER */
+	$("#controls").append('<img id="divider3" src="./images/divider.png" style="position:absolute;left:47%;top:0%;width:1.3%;height:100%">');
 
 	// $("body").append('<img id="playBtn" src="./images/loading.gif "'+clickEvent+'="didPressPlayButton()"></img>');
 	// playButtonLeft =  controlsBackgroundWidth * 0.43;
