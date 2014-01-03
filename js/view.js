@@ -144,7 +144,7 @@ function drawPiano(startKey, endKey)
 									   'position:absolute;left:'+whiteKeyLeft+'%;top:0px;width:'+keyWidth+'%;height:94%;background-color:white"></div>');				
 			/* WHITE KEY LABEL */
 			$("#key-"+key).append('<b><div id="keyLabel-'+key+'" class="keyLabel whiteKeyLabel" style="color:black;background-color:clear'+
-								  'left:0;top:72%;width:100%;height:30%;position:absolute;text-align:center;font-family:arial"></div></b>');
+								  'left:0;top:72.5%;width:100%;height:30%;position:absolute;text-align:center;font-family:arial"></div></b>');
 			/* WHITE KEY NOTE LABEL */
 			$("#key-"+key).append('<b><div id="keyNoteLabel-'+key+'" class="keyNoteLabel whiteKeyNoteLabel" style="color:black;background-color:clear;'+
 								  'left:0;top:55%;width:100%;height:23%;position:absolute;text-align:center;font-family:arial">'+noteNames[keyIdx]+'</div></b>');			
