@@ -201,7 +201,7 @@ function playMusic()
 			delay = startDelay;
 		}
 		
-		setPositionMarker();
+		setCurrentMarker();
 		playMusic();
 
 	}, tempo));	
