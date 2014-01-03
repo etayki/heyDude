@@ -1,3 +1,37 @@
+/* TRANSPOSITION */
+var transposeValue = 0;
+var transMinusButtonEnabled = 1;
+var transPlusButtonEnabled = 1;
+
+/* SPEED */
+var speedMinusButtonEnabled = 1;
+var speedPlusButtonEnabled = 1;
+
+/* MEASURE/DELAY */
+var startMeasure = currentMeasure = 1;
+var endMeasure = tune.length-1;
+var startDelay = delay = 0;
+var endDelay = endMeasure * delayPerMeasure;
+var FAST_FORWARD = 0.01;
+
+/* HAND SELECTION */
+var leftHandEnabled = 1;
+var rightHandEnabled = 1;
+
+/* METRONOME */
+var metronomeEnabled = 0;
+var currentMetronomeBox = 100;
+
+/* NOTES */
+var notesEnabled = 0;
+
+/* ZOOM */
+zoomEnabled = 0;
+
+/* FEEDBACK */
+var feedbackFormDisplayed = 0;
+var notePress = 21;
+
 function drawControls()
 {
 	$("body").append('<div id="controls" style="position:absolute;left:0%;top:'+topOffset+';width:'+screenWidth+';height:'+screenWidth * 0.0645+'"></div>');
@@ -49,7 +83,7 @@ function drawControls()
 
 	/* SPEED BUTTONS */
 	$("#controls").append('<img id="speedMinusButton" src="./images/minusButtonEnabled.png" on'+startEvent+'="didPressSpeedMinusButton()" style="position:absolute;left:'+controlsLeft+'%;top:25%;height:60%">');
-	$("#controls").append('<img id="speedPlusButton" src="./images/plusButtonDisabled.png" on'+startEvent+'="didPressSpeedPlusButton()" style="position:absolute;left:'+(controlsLeft+5)+'%;top:25%;height:60%">');
+	$("#controls").append('<img id="speedPlusButton" src="./images/plusButtonEnabled.png" on'+startEvent+'="didPressSpeedPlusButton()" style="position:absolute;left:'+(controlsLeft+5)+'%;top:25%;height:60%">');
 	$("#controls").append('<div id="speedLabel" style="position:absolute;left:'+controlsLeft+'%;top:6%;height:15%;width:9%;text-align:center;background-color:clear" class="ctrlLabel">Speed: (100%)</div>');
 	controlsLeft += 11;
 
@@ -214,7 +248,7 @@ function didPressSpeedPlusButton()
 		$("#speedMinusButton").attr("src", "./images/minusButtonEnabled.png");
 		speedMinusButtonEnabled = 1;
 		setTempo(currentMetronomeBox + 10);
-		if (currentMetronomeBox == 100)
+		if (currentMetronomeBox == 120)
 		{
 			$("#speedPlusButton").attr("src", "./images/plusButtonDisabled.png");
 			speedPlusButtonEnabled = 0;

@@ -1,33 +1,6 @@
 /* TEMPO */
 var tempo = 10;
 
-/* TRANSPOSITION */
-var transposeValue = 0;
-var transMinusButtonEnabled = 1;
-var transPlusButtonEnabled = 1;
-
-/* SPEED */
-var speedMinusButtonEnabled = 1;
-var speedPlusButtonEnabled = 0;
-
-/* MEASURE/DELAY */
-var startMeasure = currentMeasure = 1;
-var endMeasure = tune.length-1;
-var startDelay = delay = 0;
-var endDelay = endMeasure * delayPerMeasure;
-var FAST_FORWARD = 0.01;
-
-/* HAND SELECTION */
-var leftHandEnabled = 1;
-var rightHandEnabled = 1;
-
-/* METRONOME */
-var metronomeEnabled = 0;
-var currentMetronomeBox = 100;
-
-/* NOTES */
-var notesEnabled = 0;
-
 /* TIMER */
 var timers = new Array();
 
@@ -39,13 +12,6 @@ var VELOCITY = 3;
 var FINGER = 4;
 var REPEAT = 1;
 var RETAIN_VISUAL = 1;
-
-/* ZOOM */
-zoomEnabled = 0;
-
-/* FEEDBACK */
-var feedbackFormDisplayed = 0;
-var notePress = 21;
 
 /* EVENT REPORTING */
 playIdx = 1;
@@ -314,10 +280,8 @@ function setEndMeasure(newMeasure)
 
 function setTempo(newMetronomeBox)
 {
-	currentMetronomeBox = newMetronomeBox;
 	$('#speedLabel').text("Speed: "+newMetronomeBox+"%");
-	newMetronomeBox = newMetronomeBox * 0.75;
-	tempo = Math.floor((101-newMetronomeBox)/100 * 40);
+	tempo = Math.floor((101-0.75*newMetronomeBox)/100 * 40);
 }
 
 function setTransposition(newTransposition)
