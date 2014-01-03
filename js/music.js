@@ -87,10 +87,7 @@ function didPressPlayButton()
 
 	/* TOGGLE FROM PLAY TO PAUSE */
 	$("#playBtn").attr("src", "http://watchandrepeat.com/images/pauseButton.png");
-	if(navigator.platform.indexOf("iPad") != -1)
-		$("#playBtn").attr("ontouchstart", "didPressPauseButton()");
-	else
-		$("#playBtn").attr("onclick", "didPressPauseButton()");
+	$("#playBtn").attr("on"+startEvent, "didPressPauseButton()");
 	$('#playLabel').text("Pause");
 
 	playMusic();
@@ -107,7 +104,7 @@ function didPressPauseButton()
 	/* TOGGLE FROM PAUSE TO PLAY */
 	//debug("pause");
 	$("#playBtn").attr("src", "./images/playButton.png");
-	$("#playBtn").attr(clickEvent, "didPressPlayButton()");
+	$("#playBtn").attr("on"+startEvent, "didPressPlayButton()");
 	$('#playLabel').text("Play");
 
 	resetNotes(RETAIN_VISUAL);
