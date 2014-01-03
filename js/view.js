@@ -258,28 +258,6 @@ function adjustTag(tag, left, top, width, height, backgroundColor)
 	$("#"+tag).css("width", width);
 	$("#"+tag).css("height", height);
 	$("#"+tag).css("background-color", backgroundColor);
-	
-	if (tag.indexOf("Label") !== -1 || tag.indexOf("Button") !== -1)
-	{
-		if (tag.indexOf("measureBoxLabel") !== -1) // Save 400ms by doing this once earlier
-			fontSize = measureBoxFontSize; 
-		else
-			fontSize = getFontSize(height); 
-
-		if (tag.indexOf("feedbackTabLabel") !== -1)
-		    fontSize -= 2;
-		    
-		if (tag.indexOf("Button") !== -1)
-		    fontSize -= 4;
-		    
-		$("#"+tag).css("font-size", fontSize+"px");
-		$("#"+tag).css("text-align","center");
-	}
-	
-	if (tag.indexOf("feedbackTabLabel") !== -1)
-	{
-		$("#"+tag).css("width",feedbackTabWidth * 1.2);
-	}
 }
 
 function getFontSize(labelHeight)

@@ -70,22 +70,6 @@ function drawControls()
 	$("#controls").append('<img id="feedbackButton" src="./images/feedbackIcon.png" on'+startEvent+'="didPressFeedbackButton()" style="position:absolute;left:'+controlsLeft+'%;top:25%;height:60%;width:4%">');
 	$("#controls").append('<div id="feedbackLabel" style="position:absolute;left:'+controlsLeft+'%;top:6%;height:15%;width:4%;text-align:center;background-color:clear" class="ctrlLabel">Feedback</div>');
 	controlsLeft += 5.5;
-	
-	// /* FEEDBACK BUTTON */
-	// $("body").append('<img id="feedbackButton" src="./images/feedbackIcon.png "'+clickEvent+'="didPressFeedbackButton()"></img>');
-	// feedbackButtonLeft =  fullScreenButtonLeft + 2 * fullScreenButtonWidth;
-	// feedbackButtonTop = leftHandTop;
-	// feedbackButtonWidth = controlsBackgroundHeight * 0.6;
-	// feedbackButtonHeight = leftHandHeight;
-	// adjustTag("feedbackButton", feedbackButtonLeft, feedbackButtonTop, feedbackButtonWidth, feedbackButtonHeight, "clear");
-
-	// /* FEEDBACK LABEL */
-	// $("body").append('<div id="feedbackLabel">Feedback</div>');
-	// feedbackLabelWidth = leftHandLabelWidth * 0.6;
-	// feedbackLabelLeft =  feedbackButtonLeft - (feedbackLabelWidth - feedbackButtonWidth)/2;
-	// feedbackLabelTop = leftHandLabelTop;
-	// feedbackLabelHeight = leftHandLabelHeight;
-	// adjustTag("feedbackLabel", feedbackLabelLeft, feedbackLabelTop, feedbackLabelWidth, feedbackLabelHeight, "clear");
 
 	// /* POSITION LABEL */
 	// $("body").append('<div id="positionLabel">1.00</div>');
@@ -109,8 +93,14 @@ function didPressFullScreenButton()
 	$("#fullScreenLabel").text("Exit");
 }
 
+var didDrawFeedback = 0;
 function didPressFeedbackButton()
 {
+	if (!didDrawFeedback)
+	{
+		didDrawFeedback = 1;
+		drawFeedback();
+	}
 	if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
 		didPressPauseButton();
 	feedbackFormDisplayed = 1;
@@ -299,39 +289,13 @@ function didPressNotes()
 	}
 }
 
-function drawfeedback()
-{
-	/* FEEDBACK TAB */
-	feedbackTabLeft = 0
-	feedbackTabTop = controlsBackgroundTop;
-	feedbackTabHeight = screenWidth/55;
-
-	//$("body").append('<div id="feedbackTabLabel" style="cursor:pointer">Feedback</div>');
-	adjustTag("feedbackTabLabel", feedbackTabLeft, feedbackTabTop, 0, feedbackTabHeight, "green");
-	$("#feedbackTabLabel").css("left", -feedbackTabWidth/2 + 2);
-
-	/* FEEDBACK TAB 90 DEGREE ROTATION */
-    $('#feedbackTabLabel').css({"-webkit-transform" : "rotate(-90deg)"});
-    $('#feedbackTabLabel').css({"-moz-transform" : "rotate(-90deg)"});
-	$("#feedbackTabLabel").css({"-o-transform" : "rotate(-90deg)"});
-	$("#feedbackTabLabel").css({"-ms-transform" : "rotate(-90deg)"});
-	$("#feedbackTabLabel").css({"-transform" : "rotate(-90deg)"});
-	$("#feedbackTabLabel").css({"filter" : "progid:DXImageTransform.Microsoft.Matrix(M11=0.9396926207859084,M12=-0.3420201433256687,M21=0.3420201433256687,M22=0.9396926207859084,sizingMethod='auto expand')"});
-	$("#feedbackTabLabel").css({"zoom" : "1"});
-
-	$("#feedbackTabLabel").bind(onClickEvent, function (e) {
-		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
-			didPressPauseButton();
-		feedbackFormDisplayed = 1;
-		$('#feedbackForm').css("display","");
-		//$("#feedbackFormTextArea").focus();	
-	});
-	
+function drawFeedback()
+{	
 	/* FEEDBACK FORM */
-	feedbackFormWidth = controlsBackgroundWidth * 0.4;
-	feedbackFormHeight = controlsBackgroundWidth * 0.3;
-	feedbackFormLeft = controlsBackgroundLeft + (controlsBackgroundWidth - feedbackFormWidth)/2;
-	feedbackFormTop = controlsBackgroundTop - 2 * measureBoxHeight;
+	feedbackFormWidth = screenWidth * 0.4;
+	feedbackFormHeight = screenWidth * 0.3;
+	feedbackFormLeft = (screenWidth - feedbackFormWidth)/2;
+	feedbackFormTop = screenWidth*0.05;
 	
 	$("body").append('<div id="feedbackForm"></div>');
 	adjustTag("feedbackForm", feedbackFormLeft, feedbackFormTop, feedbackFormWidth, feedbackFormHeight, "green");
@@ -357,7 +321,7 @@ function drawfeedback()
 	$("#feedbackFormEmailTa").css("text-align","left");
 	$("#feedbackFormEmailTa").css("font-size",$("#feedbackFormLabel").css("font-size").replace(/px/g, '') - 4);
 
-	$('#feedbackFormEmailTa').bind(onClickEvent, function (e) {
+	$('#feedbackFormEmailTa').bind(startEvent, function (e) {
 			$("#feedbackFormEmailTa").val('');
 		});
 		
@@ -371,7 +335,7 @@ function drawfeedback()
 	$("#feedbackFormTextArea").css("text-align","left");
 	$("#feedbackFormTextArea").css("font-size",$("#feedbackFormLabel").css("font-size").replace(/px/g, '') - 4);
 
-	$('#feedbackFormTextArea').bind(onClickEvent, function (e) {
+	$('#feedbackFormTextArea').bind(startEvent, function (e) {
 			$("#feedbackFormTextArea").val('');
 		});
 	
@@ -383,7 +347,7 @@ function drawfeedback()
 	$("#feedbackForm").append('<input id="sendButton" type="button" name="send" value="Send" style="border:none">');
 	adjustTag("sendButton", sendButtonLeft, sendButtonTop, sendButtonWidth, sendButtonHeight, "clear");
 
-	$('#sendButton').bind(onClickEvent, function (e) {
+	$('#sendButton').bind(startEvent, function (e) {
 		var message = $("textarea#feedbackFormTextArea").val();
 		if (message == "") {
 			$("#feedbackFormTextArea").focus();
@@ -421,7 +385,7 @@ function drawfeedback()
 	$("#feedbackForm").append('<input id="cancelButton" type="button" name="cancel" value="Cancel" style="border:none">');
 	adjustTag("cancelButton", cancelButtonLeft, cancelButtonTop, cancelButtonWidth, cancelButtonHeight, "clear");
 
-	$("#cancelButton").bind(onClickEvent, function (e) {
+	$("#cancelButton").bind(startEvent, function (e) {
 		$('#feedbackForm').css("display","none");
 		feedbackFormDisplayed = 0;
 	});
