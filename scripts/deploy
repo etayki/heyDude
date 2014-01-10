@@ -11,12 +11,56 @@ java -jar production/compiler.jar --js=production/app.js > production/tmp
 mv production/tmp production/app.js
 
 # OBFUSCATION - make sure not to do anything that is an image
-
+sed -i "" 's/drawScreen/aab/g' production/app.js
+sed -i "" 's/drawHeader/aac/g' production/app.js
+sed -i "" 's/drawMeasureGrid/aad/g' production/app.js
+sed -i "" 's/drawMarkers/aae/g' production/app.js
+sed -i "" 's/colorizeMeasures/aaf/g' production/app.js
+sed -i "" 's/drawControls/aag/g' production/app.js
+sed -i "" 's/drawMetronome/aah/g' production/app.js
+sed -i "" 's/drawPiano/aai/g' production/app.js
+sed -i "" 's/setEvents/aaj/g' production/app.js
+sed -i "" 's/drawfeedback/aak/g' production/app.js
+sed -i "" 's/Height/aal/g' production/app.js
+sed -i "" 's/measure/aam/g' production/app.js
+sed -i "" 's/Width/aan/g' production/app.js
+#sed -i "" 's/Left/aao/g' production/app.js
+sed -i "" 's/Top/aap/g' production/app.js
+sed -i "" 's/adjustTag/aaq/g' production/app.js
+sed -i "" 's/tune/aar/g' production/app.js
+sed -i "" 's/Label/aas/g' production/app.js
+#sed -i "" 's/feedback/aat/g' production/app.js
+sed -i "" 's/keyboard/aau/g' production/app.js
+sed -i "" 's/Box/aav/g' production/app.js
+sed -i "" 's/Key/aaw/g' production/app.js
+sed -i "" 's/slow/aax/g' production/app.js
+sed -i "" 's/fast/aay/g' production/app.js
+sed -i "" 's/composer/aaz/g' production/app.js
+sed -i "" 's/Grid/aba/g' production/app.js
+sed -i "" 's/Header/abb/g' production/app.js
+sed -i "" 's/did/abc/g' production/app.js
+sed -i "" 's/MouseDown/abd/g' production/app.js
+sed -i "" 's/Track/abe/g' production/app.js
+sed -i "" 's/setPositionMarker/abf/g' production/app.js
+sed -i "" 's/setStartMarker/abg/g' production/app.js
+sed -i "" 's/setEndMarker/abh/g' production/app.js
+sed -i "" 's/getFontSize/abi/g' production/app.js
+sed -i "" 's/PressPlayButton/abj/g' production/app.js
+sed -i "" 's/PressPauseButton/abk/g' production/app.js
+sed -i "" 's/clearHand/abl/g' production/app.js
+sed -i "" 's/resetNotes/abm/g' production/app.js
+sed -i "" 's/resetNote/abn/g' production/app.js
+sed -i "" 's/setCurrentMeasure/abo/g' production/app.js
+sed -i "" 's/setStartMeasure/abp/g' production/app.js
+sed -i "" 's/setEndMeasure/abq/g' production/app.js
+sed -i "" 's/setTempo/abr/g' production/app.js
+sed -i "" 's/Delay/abs/g' production/app.js
+sed -i "" 's/Measure/abt/g' production/app.js
 
 
 # Upload index.php app.js
-#curl -T production/index.php -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/watchandrepeat.com/
-#curl -T production/app.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/watchandrepeat.com/
+curl -T production/index.php -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/watchandrepeat.com/
+curl -T production/app.js -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/watchandrepeat.com/
 #curl -T event.php -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/watchandrepeat.com/
 #curl -T city.php -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/watchandrepeat.com/
 
