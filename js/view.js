@@ -40,7 +40,7 @@ function setEvents()
 {
 	startEvent = "mousedown";
 	moveEvent = "mousemove";
-	positionX = "evt.pageX";
+	positionX = "a.pageX"; // Goolge Closure minifys evt to "a"
     if(isiOS)
     {
 		startEvent = "touchstart";

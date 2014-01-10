@@ -715,5 +715,5 @@ jQueryObject.prototype.inArray = function(value, array) {};
 
 jQueryObject.prototype.ready = function(fn) {};
 jQueryObject.prototype.on = function(fn) {};
-
+var evt={};
     //$('img').on('dragstart', function(event) { event.preventDefault(); });
