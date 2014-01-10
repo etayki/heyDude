@@ -36,7 +36,7 @@ function drawMeasureTrack()
 	//$(".msrBoxLabel").css("font-size",measureBoxLabelFontSize[$("#msrBoxLabel-5").height()]);
 
 	/* SET CURRENT MEASURE */
-	$("#canvas").bind(startEvent, function(evt){
+	$("#canvas").bind(startEvent, function(a){
 		selectedMeasure = Math.floor(Number(eval(positionX))/measureBoxWidth)-3;
 		if (selectedMeasure > 0 && selectedMeasure < tune.length)
 		{
@@ -82,24 +82,24 @@ function drawMarkers()
 
 function setMarkerEvents()
 {
-	$('.marker').bind(startEvent, function(evt){
-		evt.preventDefault();
+	$('.marker').bind(startEvent, function(a){
+		a.preventDefault();
 		activeMarker = $(this).attr('id');
 		newMeasure = Math.floor(Number(eval(positionX))/measureBoxWidth)-3;
 		markerOffset = eval(activeMarker.replace(/Marker/g, 'Measure')) - newMeasure;
 	});
 
-	addEvent(document, 'mouseout', function(evt) {
-	  if (evt.toElement == null && evt.relatedTarget == null) {
+	addEvent(document, 'mouseout', function(a) {
+	  if (a.toElement == null && a.relatedTarget == null) {
 	  	activeMarker = null;
 	  }
 	});
 
-	$('body').bind("mouseup", function(evt){
+	$('body').bind("mouseup", function(a){
 		activeMarker = null;
 	});
 
-	$('body').bind(moveEvent, function(evt){
+	$('body').bind(moveEvent, function(a){
 		//e.preventDefault();
 		if (!activeMarker) return;
 		newMeasure = Math.floor(eval(positionX)/measureBoxWidth)-3+markerOffset;
