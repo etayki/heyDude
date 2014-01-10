@@ -1,10 +1,5 @@
-# Create new html.index
-#sed '/script/d' index.php > tmp && mv tmp production/index.php
+# Create index.php
 cp index.php production/index.php
-#printf '2a\n<script src="./app.js"></script>\n.\nw\n' | ed production/index.php
-#printf '2a\n<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>\n.\nw\n' | ed production/index.php
-#printf '2a\n<?php include_once("php/analyticstracking.php") ?>\n.\nw\n' | ed production/index.php
-
 
 # Create app.js
 cat inc/base64binary.js js/Window/DOMLoader.XMLHttp.js js/music.js js/view.js js/track.js js/controls.js js/MIDI/AudioDetect.js js/MIDI/LoadPlugin.js js/MIDI/Plugin.js js/MIDI/Player.js js/tune.js js/Window/DOMLoader.script.js js/music.js inc/Base64.js  > production/app.js
@@ -70,7 +65,7 @@ sed -i "" 's/Measure/abt/g' production/app.js
 #curl -T city.php -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/watchandrepeat.com/
 
 # PRODUCTION IMAGES
-cp images/* production/images/
+#cp images/* production/images/
 # PHP
 #curl -T php/feedback.php -u yudaluz:Savta1924 ftp://ftp.myluzfamily.com/learnmeasurebymeasure.com/php/
 
