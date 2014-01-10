@@ -75,27 +75,7 @@ function setEvents()
 	// PC
 
 
-	keyPressTimer = 0;
-	/* KEY TAP */
-	$(".key").bind(startEvent, function (e) {
-		/* RELEASE PREVIOUS NOTE */
-		clearTimeout(keyPressTimer);
-		resetNote(notePress);
 
-		/* TURN ON NOTE */
-		keyPress = ($(this).attr('id')).replace(new RegExp('key-','g'),'');
-		notePress = Number(keyPress) + 21;
-		//console.log(notePress);
-		MIDI.noteOn(0,notePress,90,0);
-		MIDI.noteOff(0,notePress,0.4);
-		$("#key-"+keyPress).css("background-color","yellow");
-		console.log("keyPress="+keyPress);
-
-		keyPressTimer = setTimeout(function() {
-			resetNote(notePress);
-		}, 300);
-
-	  });
 }
 
 function drawHeader()
@@ -162,6 +142,28 @@ function drawPiano(startKey, endKey)
  	$(".blackKeyLabel").css("font-size", getFontSize($("#keyLabel-"+1).height())+"px");
  	$(".blackKeyNoteLabel").css("font-size", getFontSize($("#keyNoteLabel-"+1).height())+"px");
 	$('.keyNoteLabel').css("display","none");
+
+	keyPressTimer = 0;
+	/* KEY TAP */
+	$(".key").bind(startEvent, function (e) {
+		/* RELEASE PREVIOUS NOTE */
+		clearTimeout(keyPressTimer);
+		resetNote(notePress);
+
+		/* TURN ON NOTE */
+		keyPress = ($(this).attr('id')).replace(new RegExp('key-','g'),'');
+		notePress = Number(keyPress) + 21;
+		//console.log(notePress);
+		MIDI.noteOn(0,notePress,90,0);
+		MIDI.noteOff(0,notePress,0.4);
+		$("#key-"+keyPress).css("background-color","yellow");
+		console.log("keyPress="+keyPress);
+
+		keyPressTimer = setTimeout(function() {
+			resetNote(notePress);
+		}, 300);
+
+	  });
 }
 
 function colorizeMeasures()
