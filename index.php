@@ -79,8 +79,6 @@ if(isset($_SERVER['HTTP_USER_AGENT']))
     }
 }
 
-
-
 // Connect to database
 $mysqli = new mysqli($host,$username,$password,$database);
 
@@ -107,6 +105,7 @@ if($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] == "localhost/PianoByHeart/index.p
 {
 echo <<<END
     <script src="http://localhost:35729/livereload.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="./js/MIDI/AudioDetect.js" type="text/javascript"></script>
     <script src="./js/MIDI/LoadPlugin.js" type="text/javascript"></script>
     <script src="./js/MIDI/Plugin.js" type="text/javascript"></script>
@@ -141,7 +140,7 @@ END;
 }
 ?>
 </head>
-<body bgcolor="#900000" style="overflow-x:hidden">
+<body>
 <title>Learn Moonlight Sonata</title>
 <!-- Loading Animation -->
 <img id="loading" src="./images/playLoading.gif" style="position:absolute;left:47.5%;top:30%;width:5%"></img>

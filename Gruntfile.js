@@ -14,6 +14,10 @@ module.exports = function( grunt ) {
         js: {
             files: [ 'js/**/*.js' ],
             tasks: [ 'default' ]
+        },
+        watch: {
+            files: [ 'index.php' ],
+            tasks: [ 'default' ]
         }
       }
   });
