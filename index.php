@@ -101,7 +101,7 @@ $mysqli->close();
 <html>
 <head>
 <?php
-if($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] == "localhost/PianoByHeart/index.php")
+if(strpos(strtolower($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']), "localhost") !== FALSE)
 {
 echo <<<END
     <script src="http://localhost:35729/livereload.js"></script>
