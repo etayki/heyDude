@@ -101,7 +101,8 @@ $mysqli->close();
 <html>
 <head>
 <?php
-if(strpos(strtolower($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']), "localhost") !== FALSE)
+if(strpos(strtolower($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']), "localhost") !== FALSE &&
+   strpos(strtolower($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']), "production") == FALSE)
 {
 echo <<<END
     <script src="http://localhost:35729/livereload.js"></script>
@@ -115,7 +116,6 @@ echo <<<END
     <script src="./inc/Base64.js" type="text/javascript"></script>
     <script src="./inc/base64binary.js" type="text/javascript"></script>
     <script src="./js/jquery.min.js" type="text/javascript"></script>
-    <script src="./js/utilities.js" type="text/javascript"></script>
     <script src="./js/tune.js" type="text/javascript"></script>
     <script src="./js/music.js" type="text/javascript"></script>
     <script src="./js/view.js" type="text/javascript"></script>

@@ -79,8 +79,6 @@ if(isset($_SERVER['HTTP_USER_AGENT']))
     }
 }
 
-
-
 // Connect to database
 $mysqli = new mysqli($host,$username,$password,$database);
 
@@ -103,10 +101,12 @@ $mysqli->close();
 <html>
 <head>
 <?php
-if($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] == "localhost/PianoByHeart/index.php")
+if(strpos(strtolower($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']), "localhost") !== FALSE &&
+   strpos(strtolower($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']), "production") == FALSE)
 {
 echo <<<END
     <script src="http://localhost:35729/livereload.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="./js/MIDI/AudioDetect.js" type="text/javascript"></script>
     <script src="./js/MIDI/LoadPlugin.js" type="text/javascript"></script>
     <script src="./js/MIDI/Plugin.js" type="text/javascript"></script>
@@ -116,11 +116,11 @@ echo <<<END
     <script src="./inc/Base64.js" type="text/javascript"></script>
     <script src="./inc/base64binary.js" type="text/javascript"></script>
     <script src="./js/jquery.min.js" type="text/javascript"></script>
-    <script src="./js/utilities.js" type="text/javascript"></script>
     <script src="./js/tune.js" type="text/javascript"></script>
     <script src="./js/music.js" type="text/javascript"></script>
     <script src="./js/view.js" type="text/javascript"></script>
-    <script src="./js/keyboard.js" type="text/javascript"></script>     
+    <script src="./js/track.js" type="text/javascript"></script>
+    <script src="./js/controls.js" type="text/javascript"></script>
 END;
 }
 else 
@@ -143,6 +143,6 @@ END;
 <body>
 <title>Learn Moonlight Sonata</title>
 <!-- Loading Animation -->
-<div id="loading"  style="position:absolute;top:100px;left:500px;z-index:8;font-size:12px"><img src="./images/loading.gif"></img></div>
+<img id="loading" src="./images/playLoading.gif" style="position:absolute;left:47.5%;top:30%;width:5%"></img>
 </body>
 </html>
