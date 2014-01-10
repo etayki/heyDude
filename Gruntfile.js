@@ -16,7 +16,7 @@ module.exports = function( grunt ) {
             tasks: [ 'default' ]
         },
         watch: {
-            files: [ 'index.php' ],
+            files: [ 'index.php', 'styles.css' ],
             tasks: [ 'default' ]
         }
       }
