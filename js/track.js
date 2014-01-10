@@ -36,7 +36,7 @@ function drawMeasureTrack()
 	//$(".msrBoxLabel").css("font-size",measureBoxLabelFontSize[$("#msrBoxLabel-5").height()]);
 
 	/* SET CURRENT MEASURE */
-	$("#canvas").bind(startEvent, function(e){
+	$("#canvas").bind(startEvent, function(evt){
 		selectedMeasure = Math.floor(Number(eval(positionX))/measureBoxWidth)-3;
 		if (selectedMeasure > 0 && selectedMeasure < tune.length)
 		{

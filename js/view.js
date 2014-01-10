@@ -40,7 +40,7 @@ function setEvents()
 {
 	startEvent = "mousedown";
 	moveEvent = "mousemove";
-	positionX = "e.pageX";
+	positionX = "evt.pageX";
     if(isiOS)
     {
 		startEvent = "touchstart";
