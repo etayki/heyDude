@@ -82,8 +82,8 @@ function drawMarkers()
 
 function setMarkerEvents()
 {
-	$('.marker').bind(startEvent, function(e){
-		e.preventDefault();
+	$('.marker').bind(startEvent, function(evt){
+		evt.preventDefault();
 		activeMarker = $(this).attr('id');
 		newMeasure = Math.floor(Number(eval(positionX))/measureBoxWidth)-3;
 		markerOffset = eval(activeMarker.replace(/Marker/g, 'Measure')) - newMeasure;
@@ -95,11 +95,11 @@ function setMarkerEvents()
 	  }
 	});
 
-	$('body').bind("mouseup", function(e){
+	$('body').bind("mouseup", function(evt){
 		activeMarker = null;
 	});
 
-	$('body').bind(moveEvent, function(e){
+	$('body').bind(moveEvent, function(evt){
 		//e.preventDefault();
 		if (!activeMarker) return;
 		newMeasure = Math.floor(eval(positionX)/measureBoxWidth)-3+markerOffset;

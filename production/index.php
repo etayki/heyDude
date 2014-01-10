@@ -106,7 +106,6 @@ if(strpos(strtolower($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']), "localhost") !
 {
 echo <<<END
     <script src="http://localhost:35729/livereload.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="./js/MIDI/AudioDetect.js" type="text/javascript"></script>
     <script src="./js/MIDI/LoadPlugin.js" type="text/javascript"></script>
     <script src="./js/MIDI/Plugin.js" type="text/javascript"></script>
@@ -134,14 +133,13 @@ echo <<<END
       ga('create', 'UA-39749841-1', 'watchandrepeat.com');
       ga('send', 'pageview');
     </script>
-    <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> 
     <script src="./app.js"></script>
 END;
 }
 ?>
 </head>
-<body>
+<body style="background-color:#900000;overflow-x:hidden;width:100%">
 <title>Learn Moonlight Sonata</title>
 <!-- Loading Animation -->
 <img id="loading" src="./images/playLoading.gif" style="position:absolute;left:47.5%;top:30%;width:5%"></img>

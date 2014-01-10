@@ -1,6 +1,5 @@
 # Create index.php
 cp index.php production/index.php
-cp styles.css production/
 
 # Create app.js
 cat inc/base64binary.js js/Window/DOMLoader.XMLHttp.js js/tune.js js/music.js js/view.js js/track.js js/controls.js js/MIDI/AudioDetect.js js/MIDI/LoadPlugin.js js/MIDI/Plugin.js js/MIDI/Player.js  js/Window/DOMLoader.script.js inc/Base64.js  > production/app.js
