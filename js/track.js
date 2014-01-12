@@ -110,8 +110,12 @@ function setMarkerEvents()
 			if (activeMarker == "endMarker" && newMeasure != endMeasure) setEndMeasure(newMeasure);
 			if (activeMarker == "startMarker" && newMeasure != startMeasure) setStartMeasure(newMeasure);
 			if (activeMarker == "currentMarker" && newMeasure != currentMeasure){
+				setCurrentMeasureStart = new Date().getTime();
 				setCurrentMeasure(newMeasure);
+				console.log("setCurrentMeasure: " + (new Date().getTime() - setCurrentMeasureStart));
+				setCurrentMarkerStart = new Date().getTime();
 				setCurrentMarker();
+				console.log("setCurrentMarkerTime: " + (new Date().getTime() - setCurrentMarkerStart));
 			}
 		}
 	});

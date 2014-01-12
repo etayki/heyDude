@@ -221,7 +221,7 @@ function setCurrentMeasure(newMeasure)
 {
 	currentMeasure = newMeasure;
 	delay = (currentMeasure - 1) * delayPerMeasure;
-	console.log("setCurrentMeasure: currentMeasure="+currentMeasure);
+	//console.log("setCurrentMeasure: currentMeasure="+currentMeasure);
 
 	if (currentMeasure < startMeasure)
 		setStartMeasure(currentMeasure);
