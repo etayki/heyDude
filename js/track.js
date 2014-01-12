@@ -40,8 +40,10 @@ function drawMeasureTrack()
 		selectedMeasure = Math.floor(Number(eval(positionX))/measureBoxWidth)-3;
 		if (selectedMeasure > 0 && selectedMeasure < tune.length)
 		{
+			console.log("canvas: currentMeasure="+currentMeasure);
 			setCurrentMeasure(selectedMeasure);
 			setCurrentMarker();
+
 		}
 	});
 }
@@ -126,9 +128,10 @@ function setCurrentMarker()
 	//$("#positionLabel").text(delay);
 	
 	/* SET POSITION MARKER */
-	nowMeasure = Number(Math.floor(position));
-	if (nowMeasure != currentMeasure)
-		currentMeasure = nowMeasure;
+	// nowMeasure = Number(Math.floor(position));
+	// if (nowMeasure != currentMeasure)
+	// 	currentMeasure = nowMeasure;
+	// console.log("setCurrentMarker: currentMeasure="+currentMeasure);
 
 	currentMarkerLeft = measureBoxWidth*(Number(position)+1.5);
 	$("#currentMarker").css("left", currentMarkerLeft);
