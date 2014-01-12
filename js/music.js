@@ -2,7 +2,7 @@
 var tempo = 10;
 
 /* TIMER */
-var timers = new Array();
+var timers = [];
 
 /* CONSTANTS */
 var DELAY = 0;
@@ -14,10 +14,11 @@ var REPEAT = 1;
 var RETAIN_VISUAL = 1;
 
 /* EVENT REPORTING */
-playIdx = 1;
-pauseIdx = 1;
-xmlHttpPlay = new Array();
-xmlHttpPause = new Array();
+var playIdx = 1;
+var pauseIdx = 1;
+var xmlHttpPlay = new Array();
+var xmlHttpPause = new Array();
+var noteOn = [];
 
 $(document).ready(function() {
 	/* Load the MIDI Player*/
@@ -120,6 +121,9 @@ function playMusic()
 				if (( finger < 0 && !leftHandEnabled) || (finger > 0 && !rightHandEnabled))
 					continue;
 
+				if($.inArray(note, noteOn) == -1)
+					noteOn.push(note);
+				console.log("noteOn="+noteOn);
 				MIDI.noteOn(0, note, tune[measure][noteIdx][VELOCITY], 0);
 
 				if (finger < 0)
@@ -186,13 +190,17 @@ function clearHand(hand)
 
 function resetNotes(retainVisual)
 {
-	for (var note = 21; note < 108; note++)
-	{
-		MIDI.noteOff(0, note, 0);
-		if (!retainVisual)
-			resetNote(note);
-	}
+	resetNotesLoopStart = new Date().getTime();
+	console.log("resetNotes noteOn="+noteOn+" noteOn.length="+noteOn.length);
 
+	for (var noteIdx = 0; noteIdx < noteOn.length; noteIdx++)
+	{
+		MIDI.noteOff(0, noteOn[noteIdx], 0);
+		if (!retainVisual)
+			resetNote(noteOn[noteIdx]);
+	}
+	noteOn = [];
+	console.log("resetNotesLoopTime: " + (new Date().getTime() - resetNotesLoopStart));
 	for (var i = 0; i < timers.length; i++)
 	{
 	    clearTimeout(timers[i]);
@@ -228,8 +236,9 @@ function setCurrentMeasure(newMeasure)
 
 	if (currentMeasure > endMeasure)
 		setEndMeasure(currentMeasure);
-
+	resetNotesStart = new Date().getTime();
 	resetNotes();
+	console.log("resetNotesTime: " + (new Date().getTime() - resetNotesStart));
 	if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
 		playMusic();
 }

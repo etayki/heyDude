@@ -112,7 +112,7 @@ function setMarkerEvents()
 			if (activeMarker == "currentMarker" && newMeasure != currentMeasure){
 				setCurrentMeasureStart = new Date().getTime();
 				setCurrentMeasure(newMeasure);
-				console.log("setCurrentMeasure: " + (new Date().getTime() - setCurrentMeasureStart));
+				console.log("setCurrentMeasureTime: " + (new Date().getTime() - setCurrentMeasureStart));
 				setCurrentMarkerStart = new Date().getTime();
 				setCurrentMarker();
 				console.log("setCurrentMarkerTime: " + (new Date().getTime() - setCurrentMarkerStart));
@@ -129,6 +129,12 @@ function setCurrentMarker()
 {
 	/* SET POSITION LABEL */
 	position = (Math.floor((delay/delayPerMeasure + 1)*100)/100).toFixed(2);
+
+	nowMeasure = Number(Math.floor(position));
+	if (nowMeasure != currentMeasure)
+	     currentMeasure = nowMeasure;
+	//console.log("setCurrentMarker: currentMeasure="+currentMeasure);
+
 	currentMarkerLeft = measureBoxWidth*(Number(position)+1.5);
 	$("#currentMarker").css("left", currentMarkerLeft);
 	//$("#currentMarker").css("width", measureBoxWidth*3);
