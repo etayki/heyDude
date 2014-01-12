@@ -125,25 +125,10 @@ function setCurrentMarker()
 {
 	/* SET POSITION LABEL */
 	position = (Math.floor((delay/delayPerMeasure + 1)*100)/100).toFixed(2);
-	//$("#positionLabel").text(delay);
-	
-	/* SET POSITION MARKER */
-	// nowMeasure = Number(Math.floor(position));
-	// if (nowMeasure != currentMeasure)
-	// 	currentMeasure = nowMeasure;
-	// console.log("setCurrentMarker: currentMeasure="+currentMeasure);
-
 	currentMarkerLeft = measureBoxWidth*(Number(position)+1.5);
 	$("#currentMarker").css("left", currentMarkerLeft);
 	//$("#currentMarker").css("width", measureBoxWidth*3);
 	$("#currentMarkerLabel").text(currentMeasure);
-
-	// if (currentMeasure == endMeasure)
-	// {
-	// 	remainingMeasureWidth = measureBoxWidth - (position-currentMeasure) * measureBoxWidth;
-	// 	if (currentMarkerWidth > remainingMeasureWidth)
-	// 		$("#currentMarker").css("width", remainingMeasureWidth);
-	// }
 }
 
 function setStartMarker(measure)
