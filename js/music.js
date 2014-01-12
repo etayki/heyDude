@@ -2,7 +2,7 @@
 var tempo = 10;
 
 /* TIMER */
-var timers = [];
+var timer;
 
 /* CONSTANTS */
 var DELAY = 0;
@@ -47,13 +47,14 @@ $(document).ready(function() {
 
 /* --- ================ CONTROLS ================== */
 function didPressPlayButton()
-{ 
+{ 	
+	//resetNotes();
 	// Fast forward to the next note upon resume;
 	oldTempo = tempo;
 	tempo = FAST_FORWARD;
 
 	/* TOGGLE FROM PLAY TO PAUSE */
-	$("#playBtn").attr("src", "http://watchandrepeat.com/images/pauseButton.png");
+	$("#playBtn").attr("src", "./images/pauseButton.png");
 	$("#playBtn").attr("on"+startEvent, "didPressPauseButton()");
 	$('#playLabel').text("Pause");
 
@@ -123,7 +124,7 @@ function playMusic()
 
 				if($.inArray(note, noteOn) == -1)
 					noteOn.push(note);
-				console.log("noteOn="+noteOn);
+				//console.log("noteOn="+noteOn);
 				MIDI.noteOn(0, note, tune[measure][noteIdx][VELOCITY], 0);
 
 				if (finger < 0)
@@ -158,18 +159,18 @@ function playMusic()
 		}
 	}
 
-	timers.push(setTimeout(function() {
+	timer = setTimeout(function() {
 		delay += 0.01;
 		if (delay >= endDelay)
 		{
-			resetNotes(0);
+			resetNotes();
 			delay = startDelay;
 		}
 		
 		setCurrentMarker();
 		playMusic();
 
-	}, tempo));	
+	}, tempo);	
 }
 
 var previousTime = 0;
@@ -191,7 +192,7 @@ function clearHand(hand)
 function resetNotes(retainVisual)
 {
 	resetNotesLoopStart = new Date().getTime();
-	console.log("resetNotes noteOn="+noteOn+" noteOn.length="+noteOn.length);
+	//console.log("resetNotes noteOn="+noteOn+" noteOn.length="+noteOn.length);
 
 	for (var noteIdx = 0; noteIdx < noteOn.length; noteIdx++)
 	{
@@ -199,12 +200,10 @@ function resetNotes(retainVisual)
 		if (!retainVisual)
 			resetNote(noteOn[noteIdx]);
 	}
-	noteOn = [];
-	console.log("resetNotesLoopTime: " + (new Date().getTime() - resetNotesLoopStart));
-	for (var i = 0; i < timers.length; i++)
-	{
-	    clearTimeout(timers[i]);
-	}
+	if (!retainVisual)
+		noteOn = [];
+	//console.log("resetNotesLoopTime: " + (new Date().getTime() - resetNotesLoopStart));
+	clearTimeout(timer);
 }
 
 function resetNote(note)
@@ -238,8 +237,8 @@ function setCurrentMeasure(newMeasure)
 		setEndMeasure(currentMeasure);
 	resetNotesStart = new Date().getTime();
 	resetNotes();
-	console.log("resetNotesTime: " + (new Date().getTime() - resetNotesStart));
-	if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
+	//console.log("resetNotesTime: " + (new Date().getTime() - resetNotesStart));
+	if ($("#playBtn").attr("src") ==  "./images/pauseButton.png")
 		playMusic();
 }
 
@@ -254,7 +253,7 @@ function setStartMeasure(newMeasure)
 		delay = startDelay;
 		setCurrentMarker();
 		resetNotes();
-		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
+		if ($("#playBtn").attr("src") ==  "./images/pauseButton.png")
 			playMusic();
 	}
 	
@@ -276,7 +275,7 @@ function setEndMeasure(newMeasure)
 		currentMeasure = endMeasure - 1;
 		setCurrentMarker();
 		resetNotes();
-		if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
+		if ($("#playBtn").attr("src") ==  "./images/pauseButton.png")
 			playMusic();
 	}
 
@@ -297,9 +296,9 @@ function setTempo(newMetronomeBox)
 
 function setTransposition(newTransposition)
 {
-	resetNotes(0);
+	resetNotes();
 	transposeValue = newTransposition
-	if ($("#playBtn").attr("src") ==  "http://watchandrepeat.com/images/pauseButton.png")
+	if ($("#playBtn").attr("src") ==  "./images/pauseButton.png")
 		playMusic();
 	$('#transpositionLabel').text("Transposition ("+transposeValue+")");
 }
