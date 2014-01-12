@@ -35,15 +35,6 @@ function drawMeasureTrack()
 	console.log("canvas end: " + (new Date().getTime() - startTime));
 	//$(".msrBoxLabel").css("font-size",measureBoxLabelFontSize[$("#msrBoxLabel-5").height()]);
 
-	/* SET CURRENT MEASURE */
-	$("#canvas").bind(startEvent, function(a){
-		selectedMeasure = Math.floor(Number(eval(positionX))/measureBoxWidth)-3;
-		if (selectedMeasure > 0 && selectedMeasure < tune.length)
-		{
-			setCurrentMeasure(selectedMeasure);
-			setCurrentMarker();
-		}
-	});
 }
 
 function drawMarkers()
