@@ -351,7 +351,7 @@ function drawFeedback()
 	feedbackFormEmailTaLeft = (feedbackFormWidth - feedbackFormEmailTaWidth)/2;
 	feedbackFormEmailTaTop = feedbackFormHeight * 0.15;
 	feedbackFormEmailTaHeight = feedbackFormHeight * 0.09;
-	$("#feedbackForm").append('<textarea name="message" id="feedbackFormEmailTa" rows="1" cols="30" wrap="SOFT">myEmail@domain.com</textarea>');
+	$("#feedbackForm").append('<textarea name="message" id="feedbackFormEmailTa" rows="1" cols="30" wrap="SOFT">Type in your email ... </textarea>');
 	adjustTag("feedbackFormEmailTa", feedbackFormEmailTaLeft, feedbackFormEmailTaTop, feedbackFormEmailTaWidth, feedbackFormEmailTaHeight, "clear");
 	$("#feedbackFormEmailTa").css("text-align","left");
 	$("#feedbackFormEmailTa").css("font-size",$("#feedbackFormLabel").css("font-size").replace(/px/g, '') - 4);
